@@ -249,10 +249,20 @@ export const AdminDashboard = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
+          <a
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white font-bold text-xs px-3.5 py-2.5 rounded-xl border border-white/15 transition-colors"
+            title="Open customer website in new tab"
+          >
+            <ExternalLink className="w-3.5 h-3.5" />
+            <span>View Public Site</span>
+          </a>
           <button
             onClick={loadAllData}
-            className="p-2.5 rounded-xl bg-[#28313e] hover:bg-[#374456] text-stone-200 transition-colors"
+            className="p-2.5 rounded-xl bg-[#28313e] hover:bg-[#374456] text-stone-200 transition-colors border border-white/10"
             title="Refresh Data"
           >
             <RefreshCw className="w-4 h-4" />
