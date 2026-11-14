@@ -111,19 +111,33 @@ export const Home = () => {
                 </a>
               </div>
 
-              {/* Trust badges row - Humanable Clarity */}
-              <div className="pt-6 border-t border-slate-200 grid grid-cols-3 gap-4 max-w-lg mx-auto lg:mx-0 text-left">
-                <div>
-                  <div className="font-heading font-black text-2xl sm:text-3xl text-slate-900">5,800+</div>
-                  <div className="text-xs text-slate-500 font-medium">Vehicles Delivered</div>
+              {/* Trust badges row - Mobile & Desktop Aligned */}
+              <div className="pt-6 border-t border-slate-200 grid grid-cols-3 gap-2 sm:gap-4 max-w-lg mx-auto lg:mx-0 text-center lg:text-left">
+                <div className="flex flex-col items-center lg:items-start">
+                  <div className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-slate-900 whitespace-nowrap tracking-tight">
+                    5,800+
+                  </div>
+                  <div className="text-[11px] sm:text-xs text-slate-500 font-medium leading-tight mt-1">
+                    Vehicles Delivered
+                  </div>
                 </div>
-                <div>
-                  <div className="font-heading font-black text-2xl sm:text-3xl text-emerald-600">100%</div>
-                  <div className="text-xs text-slate-500 font-medium">RTO Passing Guarantee</div>
+
+                <div className="flex flex-col items-center lg:items-start">
+                  <div className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-emerald-600 whitespace-nowrap tracking-tight">
+                    100%
+                  </div>
+                  <div className="text-[11px] sm:text-xs text-slate-500 font-medium leading-tight mt-1">
+                    RTO Passing Guarantee
+                  </div>
                 </div>
-                <div>
-                  <div className="font-heading font-black text-2xl sm:text-3xl text-orange-600">120-Point</div>
-                  <div className="text-xs text-slate-500 font-medium">Engine &amp; Gearbox Check</div>
+
+                <div className="flex flex-col items-center lg:items-start">
+                  <div className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-orange-600 whitespace-nowrap tracking-tight">
+                    120-Point
+                  </div>
+                  <div className="text-[11px] sm:text-xs text-slate-500 font-medium leading-tight mt-1">
+                    Engine &amp; Gearbox Check
+                  </div>
                 </div>
               </div>
             </div>
