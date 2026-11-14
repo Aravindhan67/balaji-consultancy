@@ -1,0 +1,162 @@
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Logo } from './Logo';
+import { 
+  X, 
+  Home, 
+  Layers, 
+  FileText, 
+  Info, 
+  Phone, 
+  PhoneCall, 
+  MessageSquare, 
+  UserCheck, 
+  ShieldCheck, 
+  Clock,
+  Sparkles,
+  ChevronRight
+} from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+
+export const MobileSideDrawer = ({ isOpen, onClose }) => {
+  const location = useLocation();
+  const { isAuthenticated } = useAuth();
+
+  if (!isOpen) return null;
+
+  const isCurrent = (path) => {
+    if (path === '/' && location.pathname === '/') return true;
+    if (path !== '/' && location.pathname.startsWith(path)) return true;
+    return false;
+  };
+
+  const menuItems = [
+    { label: 'Home', path: '/', icon: Home },
+    { label: 'Inventory & Spares', path: '/products', icon: Layers },
+    { label: 'Get Valuation / Sell', path: '/quotation', icon: FileText, highlight: true },
+    { label: 'About Us', path: '/about', icon: Info },
+    { label: 'Contact & Enquiry', path: '/contact', icon: Phone },
+  ];
+
+  return (
+    <div className="fixed inset-0 z-50 lg:hidden">
+      {/* Backdrop */}
+      <div 
+        onClick={onClose}
+        className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300 animate-in fade-in"
+      />
+
+      {/* Slide-in Panel from Left */}
+      <div className="fixed inset-y-0 left-0 w-[85%] max-w-xs bg-white shadow-2xl flex flex-col justify-between z-10 transition-transform duration-300 ease-out animate-in slide-in-from-left">
+        <div>
+          {/* Header */}
+          <div className="p-4 border-b border-slate-200 flex items-center justify-between">
+            <Logo size="small" showTagline={false} />
+            <button
+              onClick={onClose}
+              className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100"
+              aria-label="Close menu"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Quick Categories Bar */}
+          <div className="p-4 border-b border-slate-100 space-y-2 bg-slate-50">
+            <div className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+              Browse Categories
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <Link
+                to="/products?category=tractor"
+                onClick={onClose}
+                className="flex items-center gap-2 p-2 rounded-xl bg-amber-50 text-amber-900 text-xs font-bold border border-amber-200 hover:bg-amber-100 transition-colors"
+              >
+                <span>🚜 Tractors</span>
+              </Link>
+              <Link
+                to="/products?category=car"
+                onClick={onClose}
+                className="flex items-center gap-2 p-2 rounded-xl bg-blue-50 text-blue-900 text-xs font-bold border border-blue-200 hover:bg-blue-100 transition-colors"
+              >
+                <span>🚗 Cars</span>
+              </Link>
+            </div>
+            <Link
+              to="/products?category=spare_part"
+              onClick={onClose}
+              className="flex items-center justify-between p-2 rounded-xl bg-emerald-50 text-emerald-900 text-xs font-bold border border-emerald-200 hover:bg-emerald-100 transition-colors"
+            >
+              <span>⚙️ Genuine Spare Parts</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          {/* Navigation Links */}
+          <nav className="p-3 space-y-1">
+            {menuItems.map((item) => {
+              const IconComponent = item.icon;
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={onClose}
+                  className={`flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-bold transition-all ${
+                    item.highlight
+                      ? 'bg-orange-50 text-orange-600 border border-orange-200'
+                      : isCurrent(item.path)
+                      ? 'bg-slate-100 text-slate-900 font-extrabold'
+                      : 'text-slate-600 hover:bg-slate-50'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <IconComponent className={`w-4 h-4 ${isCurrent(item.path) ? 'text-orange-600' : 'text-slate-400'}`} />
+                    <span>{item.label}</span>
+                  </div>
+                  <ChevronRight className="w-3 h-3 text-slate-300" />
+                </Link>
+              );
+            })}
+
+            {/* Admin Portal Link */}
+            <Link
+              to={isAuthenticated ? "/admin" : "/admin/login"}
+              onClick={onClose}
+              className="flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-bold text-slate-500 hover:text-slate-900 hover:bg-slate-50"
+            >
+              <UserCheck className="w-4 h-4 text-slate-400" />
+              <span>{isAuthenticated ? 'Admin Dashboard' : 'Staff Portal'}</span>
+            </Link>
+          </nav>
+        </div>
+
+        {/* Footer Info & Quick Call inside Drawer */}
+        <div className="p-4 border-t border-slate-100 bg-slate-50 space-y-3">
+          <div className="flex items-center gap-2">
+            <a
+              href="tel:+918124336369"
+              className="flex-1 bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs py-2.5 rounded-xl flex items-center justify-center gap-1.5 shadow-sm shadow-orange-600/20 transition-colors"
+            >
+              <PhoneCall className="w-3.5 h-3.5 text-emerald-400" />
+              Call Yard
+            </a>
+            <a
+              href="https://wa.me/918124336369?text=Hello%20Balaji%20Consultancy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2.5 bg-[#25D366] text-white rounded-xl shadow-sm"
+              title="WhatsApp"
+            >
+              <MessageSquare className="w-4 h-4 fill-current" />
+            </a>
+          </div>
+
+          <div className="flex items-center gap-2 text-[10px] text-slate-500">
+            <Clock className="w-3 h-3 text-amber-500 flex-shrink-0" />
+            <span>Open All 7 Days • 9:00 AM – 8:00 PM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};

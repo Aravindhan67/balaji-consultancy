@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="16" fill="#0F172A"/>
+  <rect x="1" y="1" width="62" height="62" rx="15" fill="none" stroke="#F59E0B" stroke-width="2"/>
+  
+  <!-- Tractor Heavy Duty Rear Wheel -->
+  <circle cx="21" cy="44" r="11" stroke="#F59E0B" stroke-width="3.5" fill="#0F172A" />
+  <circle cx="21" cy="44" r="4.5" fill="#FBBF24" />
+  <line x1="21" y1="36" x2="21" y2="52" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" />
+  <line x1="13" y1="44" x2="29" y2="44" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Front Wheel -->
+  <circle cx="47" cy="46" r="7.5" stroke="#F59E0B" stroke-width="2.5" fill="#0F172A" />
+  <circle cx="47" cy="46" r="3" fill="#FBBF24" />
+
+  <!-- Tractor Body -->
+  <path d="M15 37V22H31L37 31H51V42H33" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M12 22H30" stroke="#F97316" stroke-width="2.8" stroke-linecap="round" />
+
+  <!-- Exhaust -->
+  <path d="M39 15V22M37 15H41" stroke="#34D399" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Car Roofline -->
+  <path d="M19 22C25 12 39 12 47 21" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 2" />
+
+  <!-- Tilak -->
+  <path d="M31 7V13" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round" />
+  <circle cx="31" cy="15.5" r="1.2" fill="#F59E0B" />
+</svg>

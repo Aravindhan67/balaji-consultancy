@@ -1,0 +1,579 @@
+{
+  "products": [
+    {
+      "_id": "prod_1",
+      "title": "Mahindra 575 DI Sarpanch (45 HP)",
+      "category": "tractor",
+      "subCategory": "second_hand_vehicle",
+      "brand": "Mahindra",
+      "modelYear": 2021,
+      "price": 465000,
+      "condition": "Excellent",
+      "kmOrHours": "1,480 Hours",
+      "fuelType": "Diesel",
+      "rtoPassing": "MH-12 Pune (NOC Ready for All India)",
+      "ownership": "1st Owner",
+      "hpPower": "45 HP",
+      "images": [
+        "/uploads/tractor-mahindra-575.jpg"
+      ],
+      "featured": true,
+      "status": "available",
+      "description": "Single owner Mahindra 575 DI Sarpanch in mint working condition. Engine and transmission completely inspected. Equipped with original 8-forward 2-reverse gearbox, oil-immersed brakes, 1600 kg hydraulic lift capacity. Ready for field work, cultivation and haulage.",
+      "specs": {
+        "Horsepower": "45 HP @ 1900 RPM",
+        "Cylinders": "4 Cylinder Water Cooled",
+        "Tyre Condition": "Front 80%, Rear 85% (MRF Farm Lug)",
+        "Hydraulics": "Advanced High Precision 1600 kg",
+        "Battery": "New Amaron Agricultural with 18-month warranty",
+        "Clutch": "Dual Dry Type"
+      },
+      "location": "Balaji Yard, Tamil Nadu / All India NOC",
+      "createdAt": "2026-11-14T10:23:10.164Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_2",
+      "title": "Swaraj 855 FE 4WD Heavy Duty (52 HP)",
+      "category": "tractor",
+      "subCategory": "second_hand_vehicle",
+      "brand": "Swaraj",
+      "modelYear": 2022,
+      "price": 640000,
+      "condition": "Like New",
+      "kmOrHours": "980 Hours",
+      "fuelType": "Diesel",
+      "rtoPassing": "PB-08 Jalandhar (All-India RC Transferable)",
+      "ownership": "1st Owner",
+      "hpPower": "52 HP",
+      "images": [
+        "/uploads/tractor-swaraj-855.jpg"
+      ],
+      "featured": true,
+      "status": "available",
+      "description": "Iconic powerhouse Swaraj 855 FE 4-Wheel Drive with power steering. Extremely low run (980 hours only), company painted bumper and heavy canopy included. Best suited for rotary tillers, balers, laser levelers and heavy commercial haulage.",
+      "specs": {
+        "Horsepower": "52 HP",
+        "Drive Type": "4-Wheel Drive (4WD)",
+        "Steering": "Balanced Power Steering",
+        "PTO Power": "46.1 HP Multi-Speed Forward & Reverse",
+        "Tyre Health": "92% Original BKT Tyres",
+        "Insurance": "Comprehensive Valid till Dec 2027"
+      },
+      "location": "Balaji Regional Yard - Direct Delivery",
+      "createdAt": "2026-11-14T10:23:10.165Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_3",
+      "title": "John Deere 5050 D GearPro (50 HP)",
+      "category": "tractor",
+      "subCategory": "second_hand_vehicle",
+      "brand": "John Deere",
+      "modelYear": 2020,
+      "price": 490000,
+      "condition": "Excellent",
+      "kmOrHours": "2,100 Hours",
+      "fuelType": "Diesel",
+      "rtoPassing": "TN-34 Tiruchengode",
+      "ownership": "1st Owner",
+      "hpPower": "50 HP",
+      "images": [
+        "/uploads/tractor-john-deere-5050.jpg"
+      ],
+      "featured": true,
+      "status": "available",
+      "description": "Premium quality John Deere 5050 D equipped with GearPro technology. Features piston cooling jets, dry type air filter with dual element, and top-tier hydraulic performance. 100% genuine showroom serviced history.",
+      "specs": {
+        "Horsepower": "50 HP Turbocharged",
+        "Transmission": "Collarshift 8 Forward + 4 Reverse",
+        "Brakes": "Oil Immersed Disc Brakes",
+        "Lifting Capacity": "1600 kgf with Automatic Depth Control",
+        "Fuel Efficiency": "High Mileage Eco-Tech",
+        "Engine Health": "Certified 9.5/10"
+      },
+      "location": "Balaji Yard, Coimbatore-Salem Highway",
+      "createdAt": "2026-11-14T10:23:10.165Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_4",
+      "title": "Sonalika DI 745 III Sikander (50 HP)",
+      "category": "tractor",
+      "subCategory": "second_hand_vehicle",
+      "brand": "Sonalika",
+      "modelYear": 2022,
+      "price": 515000,
+      "condition": "Like New",
+      "kmOrHours": "1,120 Hours",
+      "fuelType": "Diesel",
+      "rtoPassing": "UP-32 Lucknow",
+      "ownership": "1st Owner",
+      "hpPower": "50 HP",
+      "images": [
+        "/uploads/tractor-sonalika-745.jpg"
+      ],
+      "featured": false,
+      "status": "available",
+      "description": "Sonalika Sikander Series heavy torque tractor. Specially tuned for tough soil conditions, puddling, and heavy potato/sugarcane transport. Includes front bumper, canopy, and drawbar.",
+      "specs": {
+        "Horsepower": "50 HP",
+        "Torque": "205 Nm High Back-up Torque",
+        "Lifting Capacity": "1800 kg",
+        "Fuel Tank": "55 Liters",
+        "Tyres": "Apollo Krishak 14.9 x 28"
+      },
+      "location": "Balaji Auto & Agro Yard",
+      "createdAt": "2026-11-14T10:23:10.165Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_5",
+      "title": "Massey Ferguson 241 DI Dynatrack (42 HP)",
+      "category": "tractor",
+      "subCategory": "second_hand_vehicle",
+      "brand": "Massey Ferguson",
+      "modelYear": 2021,
+      "price": 435000,
+      "condition": "Excellent",
+      "kmOrHours": "1,600 Hours",
+      "fuelType": "Diesel",
+      "rtoPassing": "GJ-01 Ahmedabad",
+      "ownership": "1st Owner",
+      "hpPower": "42 HP",
+      "images": [
+        "/uploads/tractor-massey-241.jpg"
+      ],
+      "featured": false,
+      "status": "available",
+      "description": "World-renowned Massey Ferguson Simpson diesel engine known for unmatched diesel economy and longevity. Equipped with dynamic track wheelbase and ultra smooth hydraulic response.",
+      "specs": {
+        "Horsepower": "42 HP Simpson S325.1 Engine",
+        "Transmission": "Super Shuttle 12F + 12R",
+        "Wheelbase": "Extendable Dynamic Track",
+        "Steering": "Power Steering",
+        "Condition": "Non-Accidental Certified"
+      },
+      "location": "Balaji Central Yard",
+      "createdAt": "2026-11-14T10:23:10.165Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_6",
+      "title": "Eicher 380 Super DI (40 HP)",
+      "category": "tractor",
+      "subCategory": "second_hand_vehicle",
+      "brand": "Eicher",
+      "modelYear": 2019,
+      "price": 320000,
+      "condition": "Good",
+      "kmOrHours": "2,800 Hours",
+      "fuelType": "Diesel",
+      "rtoPassing": "RJ-14 Jaipur",
+      "ownership": "2nd Owner",
+      "hpPower": "40 HP",
+      "images": [
+        "/uploads/tractor-eicher-380.jpg"
+      ],
+      "featured": false,
+      "status": "available",
+      "description": "Budget-friendly, highly reliable Eicher 380 Super DI. Extremely low maintenance cost, air-cooled 3-cylinder engine, very popular for small to medium farmers and brick kiln transport.",
+      "specs": {
+        "Horsepower": "40 HP",
+        "Cooling": "Air Cooled",
+        "Clutch": "Single / Dual Plate",
+        "Mileage": "Best-in-class low fuel consumption"
+      },
+      "location": "Balaji Yard",
+      "createdAt": "2026-11-14T10:23:10.165Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_7",
+      "title": "Maruti Suzuki Swift VXI BS6 (Petrol)",
+      "category": "car",
+      "subCategory": "second_hand_vehicle",
+      "brand": "Maruti Suzuki",
+      "modelYear": 2021,
+      "price": 585000,
+      "condition": "Excellent",
+      "kmOrHours": "38,000 km",
+      "fuelType": "Petrol",
+      "rtoPassing": "MH-14 Pimpri Chinchwad",
+      "ownership": "1st Owner",
+      "hpPower": "89 BHP",
+      "images": [
+        "/uploads/car-maruti-swift.jpg"
+      ],
+      "featured": true,
+      "status": "available",
+      "description": "Well-maintained Maruti Swift VXI 1.2L DualJet Petrol. 1st owner, doctor driven, zero-dep insurance active. 100% non-accidental guarantee with complete dealership service history. Equipped with power windows, central locking, and pioneer touchscreen.",
+      "specs": {
+        "Engine": "1197 cc 4-Cylinder DualJet",
+        "Fuel Efficiency": "23.2 km/l ARAI certified",
+        "Transmission": "5-Speed Manual",
+        "Airbags": "Dual Front Airbags + ABS with EBD",
+        "Tyres": "Goodyear 75% tread remaining",
+        "Insurance": "Valid till Oct 2027"
+      },
+      "location": "Balaji Cars Division, Tamil Nadu",
+      "createdAt": "2026-11-14T10:23:10.165Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_8",
+      "title": "Mahindra Bolero Power+ ZLX (Diesel)",
+      "category": "car",
+      "subCategory": "second_hand_vehicle",
+      "brand": "Mahindra",
+      "modelYear": 2020,
+      "price": 675000,
+      "condition": "Excellent",
+      "kmOrHours": "64,000 km",
+      "fuelType": "Diesel",
+      "rtoPassing": "TN-37 Coimbatore",
+      "ownership": "1st Owner",
+      "hpPower": "70 BHP",
+      "images": [
+        "/uploads/car-mahindra-bolero.jpg"
+      ],
+      "featured": true,
+      "status": "available",
+      "description": "The king of Indian rural and semi-urban roads: Mahindra Bolero Power+ ZLX Top Model with mHawk70 diesel engine. Rugged ladder-frame chassis, 7-seater capacity, chilled air conditioning, power steering, power windows, and micro-hybrid tech.",
+      "specs": {
+        "Engine": "1493 cc mHawk70 Turbocharged Diesel",
+        "Seating": "7 Seater Flexible Layout",
+        "Ground Clearance": "180 mm Rugged Clearance",
+        "Suspension": "Rigid Leaf Spring Rear",
+        "RTO Status": "Clear title, immediate RC transfer",
+        "Mileage": "16.5 km/l"
+      },
+      "location": "Balaji Yard, Tamil Nadu",
+      "createdAt": "2026-11-14T10:23:10.165Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_9",
+      "title": "Hyundai i20 Sportz 1.2 Kappa (Dual Tone)",
+      "category": "car",
+      "subCategory": "second_hand_vehicle",
+      "brand": "Hyundai",
+      "modelYear": 2020,
+      "price": 620000,
+      "condition": "Like New",
+      "kmOrHours": "41,000 km",
+      "fuelType": "Petrol",
+      "rtoPassing": "KA-05 Bangalore South",
+      "ownership": "1st Owner",
+      "hpPower": "82 BHP",
+      "images": [
+        "/uploads/car-hyundai-i20.jpg"
+      ],
+      "featured": true,
+      "status": "available",
+      "description": "Sporty and modern premium hatchback Hyundai i20 Sportz. Equipped with 8-inch touchscreen audio system with Apple CarPlay & Android Auto, rear camera with dynamic guidelines, electrically folding mirrors, and rear AC vents.",
+      "specs": {
+        "Engine": "1.2L Kappa Petrol",
+        "Features": "8\" Infotainment, Rear Camera, Alloy Wheels",
+        "Ownership": "Single Owner Individual",
+        "Brakes": "ABS + EBD + Rear Parking Sensors",
+        "Condition": "Bumper-to-bumper original paint"
+      },
+      "location": "Balaji Cars Division",
+      "createdAt": "2026-11-14T10:23:10.165Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_10",
+      "title": "Tata Nexon XZ+ Diesel (5-Star Safety)",
+      "category": "car",
+      "subCategory": "second_hand_vehicle",
+      "brand": "Tata",
+      "modelYear": 2021,
+      "price": 840000,
+      "condition": "Like New",
+      "kmOrHours": "49,000 km",
+      "fuelType": "Diesel",
+      "rtoPassing": "DL-3C Delhi",
+      "ownership": "1st Owner",
+      "hpPower": "108 BHP",
+      "images": [
+        "/uploads/car-tata-nexon.jpg"
+      ],
+      "featured": false,
+      "status": "available",
+      "description": "5-Star Global NCAP certified safety SUV. 1.5L Revotorq turbocharged diesel engine offering tremendous torque (260 Nm) and great highway stability. Includes Harman 8-speaker audio, projector headlamps with LED DRLs, and cooled glovebox.",
+      "specs": {
+        "Engine": "1497 cc Turbo Revotorq Diesel",
+        "Safety": "5-Star Global NCAP, ESP, Roll-over Mitigation",
+        "Drive Modes": "Eco, City, Sport",
+        "Ground Clearance": "209 mm Class Leading",
+        "Tires": "Bridgestone 80% Life"
+      },
+      "location": "Balaji Yard",
+      "createdAt": "2026-11-14T10:23:10.165Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_11",
+      "title": "Toyota Innova Crysta 2.4 VX (7-Seater)",
+      "category": "car",
+      "subCategory": "second_hand_vehicle",
+      "brand": "Toyota",
+      "modelYear": 2018,
+      "price": 1480000,
+      "condition": "Excellent",
+      "kmOrHours": "88,000 km",
+      "fuelType": "Diesel",
+      "rtoPassing": "KL-07 Ernakulam",
+      "ownership": "2nd Owner",
+      "hpPower": "148 BHP",
+      "images": [
+        "/uploads/car-toyota-innova.jpg"
+      ],
+      "featured": true,
+      "status": "available",
+      "description": "Legendary bulletproof reliability Toyota Innova Crysta 2.4 VX. Captain seat layout for unmatched long-distance touring comfort. Complete service history maintained at authorized Toyota dealership. Non-meter-tampered guarantee.",
+      "specs": {
+        "Engine": "2393 cc 2GD-FTV Turbo Diesel",
+        "Transmission": "5-Speed Manual with Eco / Power Mode",
+        "Seating": "7 Captain Executive Seats",
+        "Comfort": "Automatic Climate Control, Push Button Start",
+        "Durability": "Engine tested up to 5,00,000 km life"
+      },
+      "location": "Balaji Premium Yard",
+      "createdAt": "2026-11-14T10:23:10.165Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_12",
+      "title": "Maruti Suzuki WagonR VXI 1.2 (Company CNG)",
+      "category": "car",
+      "subCategory": "second_hand_vehicle",
+      "brand": "Maruti Suzuki",
+      "modelYear": 2022,
+      "price": 530000,
+      "condition": "Like New",
+      "kmOrHours": "26,000 km",
+      "fuelType": "CNG",
+      "rtoPassing": "GJ-06 Vadodara",
+      "ownership": "1st Owner",
+      "hpPower": "67 BHP (CNG Mode)",
+      "images": [
+        "/uploads/car-maruti-wagonr.jpg"
+      ],
+      "featured": false,
+      "status": "available",
+      "description": "Ultra-economical tall boy WagonR with factory fitted S-CNG system. Runs at less than ₹2.20 per km! Ideal for daily city commute, family transport, or commercial taxi licensing. Excellent cabin headroom and legroom.",
+      "specs": {
+        "Mileage": "34.05 km/kg S-CNG ARAI",
+        "Cylinder Tank": "60L Water Equivalent Factory Tested",
+        "Safety": "Dual Airbags, ABS, Speed Alert",
+        "Warranty": "6-Month Balaji Engine Warranty"
+      },
+      "location": "Balaji Cars Division",
+      "createdAt": "2026-11-14T10:23:10.165Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_13",
+      "title": "Heavy Duty Dual Clutch Assembly (Mahindra & Swaraj)",
+      "category": "spare_part",
+      "subCategory": "tractor_part",
+      "brand": "Luk / Rane OEM",
+      "modelYear": 2024,
+      "price": 4200,
+      "condition": "Certified Refurbished",
+      "kmOrHours": "Zero Hours (Brand New)",
+      "fuelType": "Diesel",
+      "rtoPassing": "N/A",
+      "ownership": "OEM Genuine",
+      "hpPower": "Fits 35 HP - 60 HP Tractors",
+      "partNumber": "MHD-CL-8890-HD",
+      "fitment": "Mahindra 575 DI, 475 DI, Swaraj 744 FE, 855 FE",
+      "images": [
+        "/uploads/part-clutch-plate.jpg"
+      ],
+      "featured": true,
+      "status": "available",
+      "description": "Heavy duty cerametallic dual clutch plate assembly engineered for extreme agricultural torque. Heat resistant friction lining prevents slipping during puddling, heavy ploughing, and trolley haulage. 6 months manufacturer warranty included.",
+      "specs": {
+        "Diameter": "280 mm Dual Disc",
+        "Material": "High-Grade Cerametallic Friction Pads",
+        "Application": "Tractor PTO & Transmission Dual Engagement",
+        "Warranty": "6 Months Replacement Guarantee"
+      },
+      "location": "Balaji Spares Warehouse",
+      "createdAt": "2026-11-14T10:23:10.165Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_14",
+      "title": "Bosch Common Rail Diesel Injector (CRDI)",
+      "category": "spare_part",
+      "subCategory": "car_part",
+      "brand": "Bosch India",
+      "modelYear": 2024,
+      "price": 12500,
+      "condition": "Certified Refurbished",
+      "kmOrHours": "Calibrated & Tested",
+      "fuelType": "Diesel",
+      "rtoPassing": "N/A",
+      "ownership": "Genuine Bosch",
+      "hpPower": "Precision 2000 Bar Pressure",
+      "partNumber": "0445110-CRDI-BOSCH",
+      "fitment": "Maruti Swift / Dzire Diesel 1.3 DDiS, Mahindra Bolero / Scorpio mHawk",
+      "images": [
+        "/uploads/part-fuel-injector.jpg"
+      ],
+      "featured": true,
+      "status": "available",
+      "description": "Factory calibrated genuine Bosch high-pressure Common Rail Diesel Injector. Flow-rate tested on computerized EPS test bench with certified calibration code. Restores original engine pickup, eliminates black smoke, and maximizes fuel economy.",
+      "specs": {
+        "Calibration": "Computerized EPS 205 Bench Tested",
+        "Nozzle": "Genuine Multi-Hole Bosch Nozzle",
+        "Compatibility": "1.3 MultiJet & 2.2/2.5 mHawk engines",
+        "Packaging": "Hermetically Sealed Anti-Rust Packaging"
+      },
+      "location": "Balaji Spares Warehouse",
+      "createdAt": "2026-11-14T10:23:10.165Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_15",
+      "title": "Tractor Hydraulic Lift Pump & Control Valve Unit",
+      "category": "spare_part",
+      "subCategory": "tractor_part",
+      "brand": "Balaji OEM Grade",
+      "modelYear": 2024,
+      "price": 8900,
+      "condition": "Like New",
+      "kmOrHours": "Tested Under Load",
+      "fuelType": "Hydraulic Oil ISO 68",
+      "rtoPassing": "N/A",
+      "ownership": "OEM Standard",
+      "hpPower": "Up to 2200 kg Lift Capacity",
+      "partNumber": "HYD-TRACT-5050",
+      "fitment": "John Deere 5050D/5310, Sonalika 745, Massey Ferguson 1035/241",
+      "images": [
+        "/uploads/part-hydraulic-pump.jpg"
+      ],
+      "featured": true,
+      "status": "available",
+      "description": "High pressure gear hydraulic pump and spool distributor valve unit for agricultural tractors. Provides swift, zero-lag implement lifting, automatic depth and draft control (ADDC). Fully tested under 210 bar working pressure.",
+      "specs": {
+        "Max Pressure": "210 Bar Operating Pressure",
+        "Flow Rate": "32 Liters / Minute @ 2000 RPM",
+        "Mounting": "Standard 4-Bolt Flange Mount",
+        "Warranty": "1 Year Balaji Guarantee"
+      },
+      "location": "Balaji Spares Warehouse",
+      "createdAt": "2026-11-14T10:23:10.165Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_16",
+      "title": "Ceramic Front Brake Pads Kit (Maruti & Hyundai)",
+      "category": "spare_part",
+      "subCategory": "car_part",
+      "brand": "TVS Girling / Bosch",
+      "modelYear": 2024,
+      "price": 1850,
+      "condition": "Like New",
+      "kmOrHours": "Brand New In Box",
+      "fuelType": "N/A",
+      "rtoPassing": "N/A",
+      "ownership": "Sealed Kit",
+      "hpPower": "Zero Noise High Bite",
+      "partNumber": "BRK-CER-9912",
+      "fitment": "Maruti Swift, Baleno, Dzire, Hyundai i20, Grand i10",
+      "images": [
+        "/uploads/part-brake-pads.jpg"
+      ],
+      "featured": false,
+      "status": "available",
+      "description": "Premium low-dust ceramic brake pads kit with anti-squeal shims. Provides exceptional stopping power, short braking distances, and zero disc rotor scoring even during heavy monsoon driving.",
+      "specs": {
+        "Compound": "Copper-Free Low Dust Ceramic",
+        "Package Includes": "Set of 4 Pads (Front Left & Right)",
+        "Heat Resistance": "Up to 450°C Fade Resistance"
+      },
+      "location": "Balaji Spares Warehouse",
+      "createdAt": "2026-11-14T10:23:10.165Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_17",
+      "title": "Garrett OEM Turbocharger Unit (Bolero / Scorpio)",
+      "category": "spare_part",
+      "subCategory": "car_part",
+      "brand": "Garrett India",
+      "modelYear": 2024,
+      "price": 16800,
+      "condition": "Certified Refurbished",
+      "kmOrHours": "Dynamic Balancing Tested",
+      "fuelType": "Diesel",
+      "rtoPassing": "N/A",
+      "ownership": "Genuine Garrett",
+      "hpPower": "mHawk Turbo Boost",
+      "partNumber": "GAR-GT1549-MHD",
+      "fitment": "Mahindra Bolero Power+, Bolero Neo, Scorpio 2.2 / 2.6 mHawk",
+      "images": [
+        "/uploads/part-turbocharger.jpg"
+      ],
+      "featured": false,
+      "status": "available",
+      "description": "High-performance Garrett turbocharger unit complete with pneumatic wastegate actuator. VSR high speed balanced up to 180,000 RPM. Eliminates lag and restores authentic Mahindra diesel punch and towing power.",
+      "specs": {
+        "Balancing": "VSR Tested & Certified",
+        "Bearings": "360° Heavy Thrust Bearing",
+        "Actuator": "Calibrated Boost Pressure Actuator Included"
+      },
+      "location": "Balaji Spares Warehouse",
+      "createdAt": "2026-11-14T10:23:10.165Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_18",
+      "title": "Exide Mileage 88Ah Heavy Duty Tractor & Commercial Battery",
+      "category": "spare_part",
+      "subCategory": "tractor_part",
+      "brand": "Exide Industries",
+      "modelYear": 2024,
+      "price": 6400,
+      "condition": "Like New",
+      "kmOrHours": "Fresh Factory Stock",
+      "fuelType": "Lead Acid (Low Maintenance)",
+      "rtoPassing": "N/A",
+      "ownership": "With Official Exide Warranty Card",
+      "hpPower": "High CCA 620 Cold Cranking Amps",
+      "partNumber": "ML-88-TRACT",
+      "fitment": "All Indian Tractors (Mahindra, Swaraj, John Deere, Sonalika, Eicher, Massey)",
+      "images": [
+        "/uploads/part-tractor-battery.jpg"
+      ],
+      "featured": false,
+      "status": "available",
+      "description": "Specially engineered for rugged farm conditions with vibration resistant grid technology. Delivers instant start in severe winters and high heat. Includes 36-month manufacturer warranty with nationwide paperless claim support.",
+      "specs": {
+        "Capacity": "88 Ah @ 20 hr rate",
+        "Warranty": "36 Months (18 Months Free + 18 Months Pro-rata)",
+        "Dimensions": "Standard Agricultural Tractor Battery Tray"
+      },
+      "location": "Balaji Spares Warehouse",
+      "createdAt": "2026-11-14T10:23:10.165Z",
+      "updatedAt": "2026-11-14T10:23:10.165Z"
+    }
+  ],
+  "enquiries": [
+    {
+      "_id": "enq_1794652437648",
+      "status": "new",
+      "name": "Karthik Raja",
+      "phone": "9840123456",
+      "message": "Enquiring about Swaraj 855 FE availability",
+      "createdAt": "2026-11-14T10:33:57.648Z"
+    }
+  ],
+  "quotations": []
+}

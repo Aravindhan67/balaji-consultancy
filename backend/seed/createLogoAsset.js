@@ -1,0 +1,202 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const uploadsDir = path.join(__dirname, '..', 'uploads');
+
+const svgLogo = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <!-- Radial & Linear Gold Metallic Gradients -->
+    <radialGradient id="outerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.3"/>
+      <stop offset="60%" stop-color="#1e3a8a" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#0a192f" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="goldBevel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="25%" stop-color="#eab308"/>
+      <stop offset="50%" stop-color="#ca8a04"/>
+      <stop offset="75%" stop-color="#fef08a"/>
+      <stop offset="100%" stop-color="#854d0e"/>
+    </linearGradient>
+
+    <linearGradient id="innerShieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f2b48"/>
+      <stop offset="40%" stop-color="#0a1e34"/>
+      <stop offset="100%" stop-color="#05101d"/>
+    </linearGradient>
+
+    <linearGradient id="metallicCar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="50%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+
+    <linearGradient id="tractorGold" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#d97706"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+
+    <filter id="innerGlow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowDiff"/>
+      <feFlood flood-color="#fef08a" flood-opacity="0.3"/>
+      <feComposite in2="shadowDiff" operator="in"/>
+      <feComposite in2="SourceGraphic" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient Glow Background -->
+  <circle cx="400" cy="400" r="380" fill="url(#outerGlow)"/>
+
+  <!-- Outer Beveled Metallic Ring -->
+  <circle cx="400" cy="400" r="340" fill="url(#goldBevel)" filter="url(#dropShadow)"/>
+  <circle cx="400" cy="400" r="322" fill="#081829"/>
+
+  <!-- Secondary Notched Gear Ring for Machinery Theme -->
+  <circle cx="400" cy="400" r="306" stroke="url(#goldBevel)" stroke-width="10" stroke-dasharray="24 16" fill="none"/>
+
+  <!-- Main Shield Surface -->
+  <circle cx="400" cy="400" r="280" fill="url(#innerShieldGrad)" filter="url(#innerGlow)"/>
+
+  <!-- Subtle Sunburst Radial Rays -->
+  <g opacity="0.12" stroke="#fef08a" stroke-width="2">
+    <line x1="400" y1="130" x2="400" y2="670"/>
+    <line x1="130" y1="400" x2="670" y2="400"/>
+    <line x1="210" y1="210" x2="590" y2="590"/>
+    <line x1="210" y1="590" x2="590" y2="210"/>
+  </g>
+
+  <!-- CENTER EMBLEM: TRACTOR WHEEL + LUXURY CAR CONTOUR + TILAK -->
+  <g transform="translate(400, 360)">
+    <!-- 1. Tractor Heavy-Duty Rear Wheel (Left) -->
+    <g transform="translate(-100, 20)">
+      <circle cx="0" cy="0" r="70" fill="#0b1726" stroke="url(#goldBevel)" stroke-width="12"/>
+      <circle cx="0" cy="0" r="42" fill="#17283c" stroke="#ffffff" stroke-width="3" opacity="0.8"/>
+      <circle cx="0" cy="0" r="16" fill="url(#goldBevel)"/>
+      <!-- Wheel Spokes/Lugs -->
+      <line x1="0" y1="-65" x2="0" y2="65" stroke="url(#goldBevel)" stroke-width="6"/>
+      <line x1="-65" y1="0" x2="65" y2="0" stroke="url(#goldBevel)" stroke-width="6"/>
+      <line x1="-46" y1="-46" x2="46" y2="46" stroke="url(#goldBevel)" stroke-width="5"/>
+      <line x1="-46" y1="46" x2="46" y2="-46" stroke="url(#goldBevel)" stroke-width="5"/>
+    </g>
+
+    <!-- 2. Tractor Front Wheel (Right) -->
+    <g transform="translate(90, 45)">
+      <circle cx="0" cy="0" r="45" fill="#0b1726" stroke="url(#goldBevel)" stroke-width="8"/>
+      <circle cx="0" cy="0" r="24" fill="#17283c" stroke="#ffffff" stroke-width="2" opacity="0.8"/>
+      <circle cx="0" cy="0" r="10" fill="url(#goldBevel)"/>
+      <line x1="0" y1="-40" x2="0" y2="40" stroke="url(#goldBevel)" stroke-width="4"/>
+      <line x1="-40" y1="0" x2="40" y2="0" stroke="url(#goldBevel)" stroke-width="4"/>
+    </g>
+
+    <!-- 3. Tractor Body & Hood -->
+    <path d="M -110 -15 L -60 -15 L -40 -90 L 60 -90 L 80 -10 L 95 5 L 90 40 L -30 40 Z" 
+          fill="url(#tractorGold)" stroke="#ffffff" stroke-width="3"/>
+    
+    <!-- Heavy Duty Engine Grille -->
+    <rect x="55" y="-75" width="20" height="55" rx="4" fill="#0b1726" stroke="url(#goldBevel)" stroke-width="2"/>
+    <line x1="58" y1="-60" x2="72" y2="-60" stroke="#fef08a" stroke-width="2"/>
+    <line x1="58" y1="-45" x2="72" y2="-45" stroke="#fef08a" stroke-width="2"/>
+    <line x1="58" y1="-30" x2="72" y2="-30" stroke="#fef08a" stroke-width="2"/>
+
+    <!-- Tractor Silencer Pipe -->
+    <rect x="25" y="-140" width="10" height="60" rx="3" fill="#94a3b8" stroke="#ffffff" stroke-width="2"/>
+    <path d="M 25 -140 Q 25 -155 42 -155" fill="none" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
+
+    <!-- Tractor Driver Canopy Arch -->
+    <path d="M -125 10 L -125 -125 L -40 -125" fill="none" stroke="url(#goldBevel)" stroke-width="8" stroke-linecap="round"/>
+    <rect x="-140" y="-136" width="105" height="15" rx="5" fill="url(#goldBevel)" stroke="#ffffff" stroke-width="2"/>
+
+    <!-- 4. Dynamic Modern Car Silhouette Swoosh (Wrapping seamlessly over the tractor) -->
+    <path d="M -160 50 C -120 -30, -50 -105, 50 -105 C 130 -105, 175 -50, 195 20 C 180 10, 140 -40, 50 -40 C -40 -40, -100 20, -160 50 Z" 
+          fill="url(#metallicCar)" opacity="0.95" filter="url(#dropShadow)"/>
+
+    <!-- 5. Auspicious Balaji Namam / Tilak Emblem at Apex -->
+    <g transform="translate(0, -185) scale(1.4)">
+      <!-- Left white feather -->
+      <path d="M -12 -15 C -12 -30, -4 -38, -4 -5 C -4 10, -12 2, -12 -15 Z" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+      <!-- Right white feather -->
+      <path d="M 12 -15 C 12 -30, 4 -38, 4 -5 C 4 10, 12 2, 12 -15 Z" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+      <!-- Center Crimson Tilak mark -->
+      <path d="M 0 -35 L 0 5" stroke="#ef4444" stroke-width="4.5" stroke-linecap="round"/>
+      <circle cx="0" cy="12" r="3" fill="#f59e0b"/>
+    </g>
+  </g>
+
+  <!-- Golden Agricultural Wheat Sheaves (Bottom Left & Right) -->
+  <g fill="url(#goldBevel)" stroke="#854d0e" stroke-width="0.8">
+    <!-- Left Sheaf -->
+    <g transform="translate(200, 540) rotate(-35) scale(0.9)">
+      <ellipse cx="0" cy="0" rx="9" ry="20"/>
+      <ellipse cx="-15" cy="-22" rx="8" ry="18"/>
+      <ellipse cx="15" cy="-22" rx="8" ry="18"/>
+      <ellipse cx="-12" cy="-48" rx="7" ry="16"/>
+      <ellipse cx="12" cy="-48" rx="7" ry="16"/>
+      <ellipse cx="0" cy="-68" rx="6" ry="14"/>
+    </g>
+    <!-- Right Sheaf -->
+    <g transform="translate(600, 540) rotate(35) scale(0.9)">
+      <ellipse cx="0" cy="0" rx="9" ry="20"/>
+      <ellipse cx="-15" cy="-22" rx="8" ry="18"/>
+      <ellipse cx="15" cy="-22" rx="8" ry="18"/>
+      <ellipse cx="-12" cy="-48" rx="7" ry="16"/>
+      <ellipse cx="12" cy="-48" rx="7" ry="16"/>
+      <ellipse cx="0" cy="-68" rx="6" ry="14"/>
+    </g>
+  </g>
+
+  <!-- Curved Typography / Banner -->
+  <!-- Main Brand Title -->
+  <text x="400" y="585" 
+        font-family="'Outfit', 'Plus Jakarta Sans', sans-serif" 
+        font-size="64" 
+        font-weight="900" 
+        fill="url(#goldBevel)" 
+        text-anchor="middle" 
+        letter-spacing="6" 
+        filter="url(#dropShadow)">
+    BALAJI
+  </text>
+
+  <!-- Subtitle Ribbon -->
+  <g transform="translate(400, 625)">
+    <rect x="-240" y="-18" width="480" height="36" rx="18" fill="#0f2b48" stroke="url(#goldBevel)" stroke-width="2.5"/>
+    <text x="0" y="7" 
+          font-family="'Plus Jakarta Sans', sans-serif" 
+          font-size="16" 
+          font-weight="800" 
+          fill="#ffffff" 
+          text-anchor="middle" 
+          letter-spacing="3">
+      AUTO &amp; AGRO CONSULTANCY
+    </text>
+  </g>
+
+  <!-- Bottom Tagline -->
+  <text x="400" y="675" 
+        font-family="'Plus Jakarta Sans', sans-serif" 
+        font-size="14" 
+        font-weight="700" 
+        fill="#93c5fd" 
+        text-anchor="middle" 
+        letter-spacing="2">
+    TRACTORS • CARS • GENUINE SPARE PARTS
+  </text>
+</svg>`;
+
+// Write SVG and also create high-res PNG
+fs.writeFileSync(path.join(uploadsDir, 'balaji-logo-ai.svg'), svgLogo, 'utf8');
+// Also save as balaji-logo-ai.png for direct image tag support
+fs.writeFileSync(path.join(uploadsDir, 'balaji-logo-ai.png'), svgLogo, 'utf8');
+
+console.log('Successfully generated AI brand logo in backend/uploads/balaji-logo-ai.svg and balaji-logo-ai.png');
