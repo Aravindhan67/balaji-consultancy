@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Logo } from './Logo';
-import { useAuth } from '../context/AuthContext';
-import { PhoneCall, FileText, Menu, UserCheck } from 'lucide-react';
+import { PhoneCall, FileText, Menu } from 'lucide-react';
 
 export const Navbar = ({ onOpenSideDrawer }) => {
   const location = useLocation();
-  const { isAuthenticated } = useAuth();
 
   const navLinks = [
     { label: 'Home', path: '/' },
@@ -61,16 +59,6 @@ export const Navbar = ({ onOpenSideDrawer }) => {
               </div>
               <span className="whitespace-nowrap font-bold">+91 81243 36369</span>
             </a>
-
-            {isAuthenticated && (
-              <Link
-                to="/admin"
-                className="text-xs font-bold text-slate-700 hover:text-slate-900 flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200 whitespace-nowrap shrink-0"
-              >
-                <UserCheck className="w-3.5 h-3.5 text-emerald-600" />
-                Admin
-              </Link>
-            )}
 
             <Link
               to="/quotation"

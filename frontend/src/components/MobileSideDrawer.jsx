@@ -10,17 +10,14 @@ import {
   Phone, 
   PhoneCall, 
   MessageSquare, 
-  UserCheck, 
   ShieldCheck, 
   Clock,
   Sparkles,
   ChevronRight
 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
 
 export const MobileSideDrawer = ({ isOpen, onClose }) => {
   const location = useLocation();
-  const { isAuthenticated } = useAuth();
 
   if (!isOpen) return null;
 
@@ -117,16 +114,6 @@ export const MobileSideDrawer = ({ isOpen, onClose }) => {
                 </Link>
               );
             })}
-
-            {/* Admin Portal Link */}
-            <Link
-              to={isAuthenticated ? "/admin" : "/admin/login"}
-              onClick={onClose}
-              className="flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-bold text-slate-500 hover:text-slate-900 hover:bg-slate-50"
-            >
-              <UserCheck className="w-4 h-4 text-slate-400" />
-              <span>{isAuthenticated ? 'Admin Dashboard' : 'Staff Portal'}</span>
-            </Link>
           </nav>
         </div>
 
