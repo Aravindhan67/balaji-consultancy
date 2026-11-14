@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { api } from '../services/api';
 import { ProductCard } from '../components/ProductCard';
+import { resolveImageUrl } from '../utils/imageUrl';
 
 export const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -402,7 +403,7 @@ export const Home = () => {
                 <div>
                   <div className="aspect-[16/10] bg-slate-100 rounded-xl overflow-hidden mb-4">
                     <img
-                      src={item.images?.[0] || '/uploads/part-clutch-plate.jpg'}
+                      src={resolveImageUrl(item.images?.[0] || '/uploads/part-clutch-plate.jpg')}
                       alt={item.title}
                       className="w-full h-full object-cover"
                     />

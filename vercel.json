@@ -1,0 +1,18 @@
+{
+  "buildCommand": "npm run build --prefix frontend",
+  "outputDirectory": "frontend/dist",
+  "rewrites": [
+    {
+      "source": "/api/:match*",
+      "destination": "https://balaji-consultancy.onrender.com/api/:match*"
+    },
+    {
+      "source": "/uploads/:match*",
+      "destination": "https://balaji-consultancy.onrender.com/uploads/:match*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/frontend/dist/index.html"
+    }
+  ]
+}

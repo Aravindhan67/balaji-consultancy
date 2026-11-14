@@ -1,0 +1,31 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:match*",
+      "destination": "https://balaji-consultancy.onrender.com/api/:match*"
+    },
+    {
+      "source": "/uploads/:match*",
+      "destination": "https://balaji-consultancy.onrender.com/uploads/:match*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
+    }
+  ]
+}

@@ -20,25 +20,64 @@ dotenv.config({ path: path.join(__dirname, '.env') });
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// CORS setup
+// Permissive & Production-Ready CORS configuration
+const allowedOrigins = [
+  'https://balaji-consultancy.vercel.app',
+  'http://localhost:5173',
+  'http://localhost:5000',
+  'http://localhost:3000',
+  process.env.CLIENT_URL
+].filter(Boolean);
+
 app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: (origin, callback) => {
+    // Allow non-browser requests (e.g. mobile, curl, Postman, server-to-server)
+    if (!origin) return callback(null, true);
+
+    // Allow Vercel production and preview deployment URLs (*.vercel.app)
+    if (origin.endsWith('.vercel.app') || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    // Default allow to ensure zero client-side blocks
+    return callback(null, true);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
 }));
+
+// Explicit Preflight Handler
+app.options('*', cors());
 
 // Body parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve uploaded images statically directly from backend/uploads
+// Serve uploaded images statically with Cross-Origin headers
 const uploadsPath = path.join(__dirname, 'uploads');
 app.use('/uploads', express.static(uploadsPath, {
   setHeaders: (res) => {
     res.set('Access-Control-Allow-Origin', '*');
     res.set('Cross-Origin-Resource-Policy', 'cross-origin');
+    res.set('Cache-Control', 'public, max-age=86400');
   }
 }));
+
+// Root Health Endpoint (Render ping & monitoring)
+app.get('/', (req, res) => {
+  res.json({
+    status: 'ONLINE',
+    service: 'Balaji Auto & Agro Consultancy Backend API',
+    uptime: `${Math.floor(process.uptime())}s`,
+    timestamp: new Date().toISOString(),
+    documentation: {
+      health: '/api/health',
+      products: '/api/products',
+      uploads: '/uploads/'
+    }
+  });
+});
 
 // API Routes
 app.use('/api/products', productRoutes);
@@ -47,17 +86,18 @@ app.use('/api/quotations', quotationRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/admin', adminRoutes);
 
-// System Health Endpoint
+// Health check route
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'OK',
     service: 'Balaji Auto & Agro Consultancy API',
     timestamp: new Date().toISOString(),
-    uploadsDirectory: uploadsPath
+    uploadsDirectory: uploadsPath,
+    environment: process.env.NODE_ENV || 'production'
   });
 });
 
-// Serve frontend dist if built
+// Serve frontend dist if running monolithically
 const frontendDist = path.join(__dirname, '..', 'frontend', 'dist');
 if (fs.existsSync(frontendDist)) {
   app.use(express.static(frontendDist));
@@ -73,10 +113,10 @@ if (fs.existsSync(frontendDist)) {
 connectDB().then(() => {
   app.listen(PORT, () => {
     console.log(`=======================================================`);
-    console.log(`🚜 Balaji Auto & Agro Consultancy Full-Stack Running!`);
-    console.log(`🌐 Server & Web App: http://localhost:${PORT}`);
-    console.log(`📸 Image Storage: http://localhost:${PORT}/uploads/`);
-    console.log(`🔐 Admin Portal: http://localhost:${PORT}/admin/login`);
+    console.log(`🚜 Balaji Auto & Agro Consultancy Backend Active!`);
+    console.log(`🌐 Port: ${PORT}`);
+    console.log(`🔗 Allowed Client: https://balaji-consultancy.vercel.app`);
+    console.log(`📸 Image Storage: /uploads/`);
     console.log(`=======================================================`);
   });
 });

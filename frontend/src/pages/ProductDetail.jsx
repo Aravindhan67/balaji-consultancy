@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { api } from '../services/api';
 import { formatINR } from '../utils/formatters';
+import { resolveImageUrl } from '../utils/imageUrl';
 import { 
   ShieldCheck, 
   MapPin, 
@@ -117,7 +118,7 @@ export const ProductDetail = () => {
     inspectionReport = {}
   } = product;
 
-  const displayImages = images && images.length > 0 ? images : ['/uploads/tractor-mahindra-575.jpg'];
+  const displayImages = (images && images.length > 0 ? images : ['/uploads/tractor-mahindra-575.jpg']).map(resolveImageUrl);
 
   const waMessage = encodeURIComponent(
     `Hello Balaji Consultancy! I am interested in inspecting: ${title} priced at ${formatINR(price, false)}. Is it currently available at the yard?`

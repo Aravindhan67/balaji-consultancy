@@ -1,4 +1,15 @@
-const API_BASE = '/api';
+// Dynamic API Base URL resolution (Local Vite Proxy vs Production Render Backend)
+const getApiBaseUrl = () => {
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL.replace(/\/+$/, '');
+  }
+  if (typeof window !== 'undefined' && window.location.hostname.includes('vercel.app')) {
+    return 'https://balaji-consultancy.onrender.com/api';
+  }
+  return '/api';
+};
+
+const API_BASE = getApiBaseUrl();
 
 const getHeaders = (isFormData = false) => {
   const token = localStorage.getItem('balaji_admin_token');

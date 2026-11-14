@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ShieldCheck, Fuel, Calendar, Gauge, ArrowRight, MessageSquare, MapPin } from 'lucide-react';
 import { formatINR } from '../utils/formatters';
+import { resolveImageUrl } from '../utils/imageUrl';
 
 export const ProductCard = ({ product }) => {
   const {
@@ -20,7 +21,8 @@ export const ProductCard = ({ product }) => {
     featured
   } = product;
 
-  const imageUrl = images && images.length > 0 ? images[0] : '/uploads/tractor-mahindra-575.jpg';
+  const rawImage = images && images.length > 0 ? images[0] : '/uploads/tractor-mahindra-575.jpg';
+  const imageUrl = resolveImageUrl(rawImage);
 
   const categoryLabel = 
     category === 'tractor' ? 'Tractor' : 
