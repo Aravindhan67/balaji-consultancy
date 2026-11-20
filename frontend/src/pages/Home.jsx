@@ -41,7 +41,6 @@ export const Home = () => {
   const [activeHeroTab, setActiveHeroTab] = useState('tractor');
   
   // Real-time quick filter states
-  const [tractorHpFilter, setTractorHpFilter] = useState('all');
   const [carTypeFilter, setCarTypeFilter] = useState('all');
 
   const navigate = useNavigate();
@@ -76,20 +75,58 @@ export const Home = () => {
   const safeFeatured = Array.isArray(featuredProducts) ? featuredProducts : [];
   const allTractors = safeFeatured.filter(p => p && p.category === 'tractor');
   const allCars = safeFeatured.filter(p => p && p.category === 'car');
-  const spares = safeFeatured.filter(p => p && p.category === 'spare_part').slice(0, 3);
 
-  // Filtered Tractors
-  const tractors = allTractors.filter(t => {
-    if (!t) return false;
-    if (tractorHpFilter === 'all') return true;
-    const hpStr = String(t.hpPower || t.title || '');
-    const hpMatch = hpStr.match(/\d+/);
-    const hp = hpMatch ? parseInt(hpMatch[0], 10) : 45;
-    if (tractorHpFilter === 'under45') return hp < 45;
-    if (tractorHpFilter === '45to50') return hp >= 45 && hp <= 50;
-    if (tractorHpFilter === 'above50') return hp > 50;
-    return true;
-  }).slice(0, 3);
+  // Featured Tractors
+  const tractors = allTractors.slice(0, 3);
+
+  // Dedicated Tractor Spare Parts (Tractor Only)
+  const tractorSparesFromDb = safeFeatured.filter(p => 
+    p && p.category === 'spare_part' && 
+    (p.subCategory === 'tractor_part' || 
+     String((p.title || '') + ' ' + (p.fitment || '')).toLowerCase().includes('tractor') ||
+     String((p.title || '')).toLowerCase().includes('clutch') ||
+     String((p.title || '')).toLowerCase().includes('hydraulic'))
+  );
+
+  const defaultTractorSpares = [
+    {
+      _id: 'sp_tractor_clutch',
+      title: 'Heavy Duty Dual Clutch Assembly (Mahindra & Swaraj)',
+      category: 'spare_part',
+      subCategory: 'tractor_part',
+      brand: 'Luk / Rane OEM',
+      price: 4200,
+      description: 'Cerametallic dual clutch plate engineered for extreme agricultural torque, puddling, and heavy trolley haulage.',
+      images: ['/static-uploads/part-clutch-plate.jpg'],
+      fitment: 'Mahindra 575 DI, 475 DI, Swaraj 744 FE, 855 FE'
+    },
+    {
+      _id: 'sp_tractor_pump',
+      title: 'Tractor Hydraulic Lift Pump & Control Valve Unit',
+      category: 'spare_part',
+      subCategory: 'tractor_part',
+      brand: 'Balaji OEM Grade',
+      price: 8900,
+      description: 'Tested under agricultural draft load. 2,200 kg lifting capacity with automatic draft control.',
+      images: ['/static-uploads/part-hydraulic-pump.jpg'],
+      fitment: 'Universal 3-Point Linkage Agricultural Tractors'
+    },
+    {
+      _id: 'sp_tractor_battery',
+      title: 'Exide Mileage 88Ah Heavy Duty Tractor Battery',
+      category: 'spare_part',
+      subCategory: 'tractor_part',
+      brand: 'Exide Industries',
+      price: 6400,
+      description: 'Rugged vibration-resistant battery with high CCA 620 cold cranking amps for harsh farm conditions.',
+      images: ['/static-uploads/part-tractor-battery.jpg'],
+      fitment: 'All Indian Tractors (Mahindra, Swaraj, John Deere, Eicher)'
+    }
+  ];
+
+  const tractorSpares = tractorSparesFromDb.length >= 3 
+    ? tractorSparesFromDb.slice(0, 3) 
+    : defaultTractorSpares;
 
   // Filtered Cars
   const cars = allCars.filter(c => {
@@ -122,10 +159,10 @@ export const Home = () => {
       link: '/products?category=car'
     },
     spare: {
-      title: 'Genuine OEM Clutch Plates, Injectors & Pumps',
-      tag: 'Certified Spare Components',
+      title: 'Genuine OEM Tractor Clutch Plates, Pumps & Batteries',
+      tag: 'Tractor Spares Only',
       price: 'Starting ₹1,200',
-      specs: 'Bosch, Exide, TVS & OEM Factory Sealed',
+      specs: 'Luk, Exide, Bosch & Factory-Sealed Tractor Parts',
       rto: 'Direct Yard Stock with 6-Month Warranty',
       image: '/static-uploads/part-clutch-plate.jpg',
       link: '/products?category=spare_part'
@@ -469,7 +506,7 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* 3. FEATURED TRACTORS WITH INTERACTIVE FILTER CHIPS (SCROLL REVEAL) */}
+      {/* 3. FEATURED TRACTORS (SCROLL REVEAL) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-6 gap-4">
@@ -492,33 +529,6 @@ export const Home = () => {
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-
-          {/* Quick HP Filter Chips */}
-          <div className="flex items-center gap-2 mb-6 overflow-x-auto pb-1 scrollbar-none">
-            <span className="text-xs font-bold text-slate-500 flex items-center gap-1 mr-1">
-              <Filter className="w-3 h-3 text-slate-400" />
-              HP Filter:
-            </span>
-            {[
-              { id: 'all', label: 'All HP Classes' },
-              { id: 'under45', label: 'Under 45 HP (Light Agro)' },
-              { id: '45to50', label: '45 - 50 HP (Standard Workhorse)' },
-              { id: 'above50', label: '50+ HP (Heavy 4WD / Haulage)' }
-            ].map(chip => (
-              <button
-                key={chip.id}
-                type="button"
-                onClick={() => setTractorHpFilter(chip.id)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                  tractorHpFilter === chip.id
-                    ? 'bg-amber-500 text-slate-950 font-black shadow-sm'
-                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
-                }`}
-              >
-                {chip.label}
-              </button>
-            ))}
-          </div>
         </ScrollReveal>
 
         {loading ? (
@@ -536,6 +546,35 @@ export const Home = () => {
             ))}
           </div>
         )}
+
+        {/* Tractor Spare Parts Callout Banner */}
+        <div className="mt-8 p-5 rounded-2xl bg-gradient-to-r from-amber-50 via-white to-orange-50 border border-amber-200/90 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 rounded-xl bg-orange-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-orange-600/20">
+              <Wrench className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="font-heading font-extrabold text-sm sm:text-base text-slate-900">
+                  Genuine Spare Parts for Tractors Only
+                </span>
+                <span className="text-[10px] font-black uppercase tracking-wider bg-orange-100 text-orange-800 px-2.5 py-0.5 rounded-full border border-orange-200">
+                  Tractor Spares Only
+                </span>
+              </div>
+              <p className="text-xs text-slate-600 mt-0.5">
+                Dual clutch plates, hydraulic lift pumps, 88Ah heavy batteries &amp; filters available with 6-month yard replacement warranty.
+              </p>
+            </div>
+          </div>
+          <Link
+            to="/products?category=spare_part"
+            className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-slate-900 hover:bg-orange-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm"
+          >
+            <span>Browse Tractor Spares Only</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
       </section>
 
       {/* 5. INTERACTIVE TRACTOR & VEHICLE EMI / KISAN LOAN CALCULATOR (SCROLL REVEAL) */}
@@ -620,36 +659,36 @@ export const Home = () => {
         )}
       </section>
 
-      {/* 8. GENUINE SPARE PARTS SECTION (SCROLL REVEAL) */}
+      {/* 8. GENUINE SPARE PARTS FOR TRACTORS ONLY (SCROLL REVEAL) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
-          <div className="bg-gradient-to-br from-emerald-50/40 via-white to-amber-50/40 text-slate-800 py-12 sm:py-16 rounded-3xl px-6 sm:px-12 shadow-sm border border-slate-200">
+          <div className="bg-gradient-to-br from-amber-50/40 via-white to-orange-50/40 text-slate-800 py-12 sm:py-16 rounded-3xl px-6 sm:px-12 shadow-sm border border-slate-200">
             <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-10 gap-4">
               <div>
-                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-100/80 px-3 py-1 rounded-full mb-2 border border-emerald-200">
-                  ⚙️ OEM Replacement Assemblies &amp; Spares
+                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800 bg-amber-100/80 px-3 py-1 rounded-full mb-2 border border-amber-200">
+                  🚜 Tractor OEM Spares Only
                 </div>
                 <h2 className="font-heading font-black text-2xl sm:text-4xl text-slate-900">
-                  Genuine Spare Parts for Tractors &amp; Commercial Cars
+                  Genuine Spare Parts for Tractors Only
                 </h2>
                 <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-xl leading-relaxed">
-                  Keep your machinery running without downtime. Tested OEM clutch assemblies, turbochargers, heavy batteries, and hydraulic valves available with warranty.
+                  Keep your agricultural workhorses running at peak performance. Tested OEM dual clutch assemblies, heavy hydraulic lift pumps, and high-CCA tractor batteries with 6-month warranty.
                 </p>
               </div>
               <Link
                 to="/products?category=spare_part"
                 className="taste-btn inline-flex items-center gap-1.5 text-xs sm:text-sm font-extrabold bg-orange-600 hover:bg-orange-700 text-white px-5 py-3 rounded-xl transition-all shadow-md shadow-orange-600/20"
               >
-                Browse Spare Parts Catalog
+                Browse Tractor Spares Catalog
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {spares.map((item, idx) => (
+              {tractorSpares.map((item, idx) => (
                 <div key={item._id} className="taste-card bg-white rounded-2xl p-4 border border-slate-200 shadow-sm hover:shadow-md flex flex-col justify-between">
                   <div>
-                    <div className="taste-zoom aspect-[16/10] bg-slate-100 rounded-xl overflow-hidden mb-4">
+                    <div className="taste-zoom aspect-[16/10] bg-slate-100 rounded-xl overflow-hidden mb-4 relative">
                       <img
                         src={resolveImageUrl(item.images?.[0] || '/static-uploads/part-clutch-plate.jpg')}
                         alt={item.title}
@@ -659,10 +698,18 @@ export const Home = () => {
                           e.target.src = resolveImageUrl('/static-uploads/part-clutch-plate.jpg');
                         }}
                       />
+                      <div className="absolute top-2.5 left-2.5 bg-amber-500 text-slate-950 text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-sm">
+                        🚜 Tractor Only
+                      </div>
                     </div>
                     <div className="text-xs text-orange-600 font-bold mb-1">{item.brand}</div>
                     <h3 className="font-bold text-slate-900 text-base line-clamp-1">{item.title}</h3>
                     <p className="text-xs text-slate-500 mt-1 line-clamp-2">{item.description}</p>
+                    {item.fitment && (
+                      <div className="mt-2 text-[11px] text-emerald-700 font-medium bg-emerald-50 px-2 py-1 rounded-lg border border-emerald-100 truncate">
+                        Fitment: {item.fitment}
+                      </div>
+                    )}
                   </div>
                   <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
                     <div>
