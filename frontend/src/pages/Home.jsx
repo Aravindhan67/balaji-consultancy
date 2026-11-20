@@ -28,6 +28,7 @@ import { AnimatedCounter } from '../components/AnimatedCounter';
 import { InspectionStation } from '../components/InspectionStation';
 import { ValuationEstimator } from '../components/ValuationEstimator';
 import { resolveImageUrl } from '../utils/imageUrl';
+import tractorRotationVideo from '../assets/tractor-rotation.mp4';
 
 export const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -234,18 +235,23 @@ export const Home = () => {
                   </div>
                 </div>
 
-                {/* Visual Frame: Clean Video / Showcase Image */}
-                <div className="taste-zoom aspect-[16/10] bg-slate-900 rounded-2xl overflow-hidden relative border border-slate-200/70 shadow-inner">
+                {/* Visual Frame: Clean Rotating Tractor Video / Showcase Image */}
+                <div className="taste-zoom aspect-[16/10] bg-slate-900 rounded-2xl overflow-hidden relative border border-slate-200/70 shadow-inner group">
                   {activeHeroTab === 'tractor' ? (
                     <video
-                      key="tractor-video"
-                      src="/uploads/gemini_generated_video_53ecdb37.mp4"
+                      key="tractor-rotation-video"
+                      src={tractorRotationVideo}
                       autoPlay
                       loop
                       muted
                       playsInline
-                      poster="/uploads/tractor-mahindra-575.jpg"
-                      className="w-full h-full object-cover"
+                      poster={resolveImageUrl('/uploads/tractor-mahindra-575.jpg')}
+                      className="w-full h-full object-cover cursor-pointer"
+                      onClick={(e) => {
+                        const v = e.currentTarget;
+                        if (v.paused) v.play();
+                        else v.pause();
+                      }}
                       ref={(el) => {
                         if (el) {
                           el.muted = true;
