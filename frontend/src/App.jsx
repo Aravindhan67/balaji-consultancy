@@ -18,7 +18,6 @@ import { Quotation } from './pages/Quotation';
 import { Contact } from './pages/Contact';
 import { AdminLogin } from './pages/AdminLogin';
 import { AdminDashboard } from './pages/AdminDashboard';
-import { ScrollProgressBar } from './components/ScrollProgressBar';
 
 function AppContent() {
   const location = useLocation();
@@ -29,9 +28,6 @@ function AppContent() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-slate-800 font-sans selection:bg-orange-600 selection:text-white">
-      {/* Scroll Progress Bar */}
-      {!isAdminRoute && <ScrollProgressBar />}
-
       {/* Public Top Navbar - Hidden on Admin Portal */}
       {!isAdminRoute && (
         <Navbar onOpenSideDrawer={() => setSideDrawerOpen(true)} />
