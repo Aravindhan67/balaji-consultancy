@@ -126,8 +126,8 @@ export const Home = () => {
 
   return (
     <div className="space-y-16 sm:space-y-24 bg-[#F8FAFC]">
-      {/* 1. HERO SECTION - WITH 360 ROTATION VIDEO IN BACKGROUND ON SCROLL */}
-      <section className="relative overflow-hidden pt-10 pb-16 lg:py-24 border-b border-slate-200">
+      {/* 1. HERO SECTION - FULL SCREEN 360 ROTATION SHOWROOM */}
+      <section className="relative overflow-hidden min-h-[calc(100vh-80px)] flex items-center bg-slate-950 border-b border-slate-800">
         {/* Background 360-Degree Tractor Video with Scroll-Linked Rotation & Parallax */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
           <div 
@@ -144,7 +144,7 @@ export const Home = () => {
               muted
               playsInline
               poster={resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg')}
-              className="w-full h-full object-cover object-center lg:object-right"
+              className="w-full h-full object-cover object-center lg:object-[72%_center] opacity-90"
               onLoadedMetadata={(e) => {
                 const v = e.currentTarget;
                 v.muted = true;
@@ -153,39 +153,43 @@ export const Home = () => {
               }}
             />
           </div>
+
+          {/* Cinematic Dark Gradient for Crisp Text Readability on Left Side */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/60 to-transparent lg:w-3/5 z-[1] pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40 z-[1] pointer-events-none" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 relative z-20 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Column: Headline, Buyer Promise, Search, CTAs & Counter Row */}
             <div className="lg:col-span-8 space-y-6 text-center lg:text-left">
               {/* Badges Row: Brand Trust + Live Yard Status Strip */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
-                <div className="animate-hero-rise inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-50 text-orange-700 text-xs font-extrabold border border-orange-200/80 shadow-sm">
-                  <Sparkles className="w-3.5 h-3.5 text-orange-600 shrink-0" />
+                <div className="animate-hero-rise inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-500/15 text-orange-400 text-xs font-extrabold border border-orange-500/30 shadow-sm backdrop-blur-md">
+                  <Sparkles className="w-3.5 h-3.5 text-orange-400 shrink-0" />
                   <span>India's Trusted Automotive &amp; Agro Vehicle Consultancy</span>
                 </div>
-                <div className="animate-hero-rise hero-delay-1 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-bold shadow-sm">
+                <div className="animate-hero-rise hero-delay-1 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 text-white text-[11px] font-bold border border-slate-700/80 shadow-sm backdrop-blur-md">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                   <span>Yard Open Today: 9 AM - 7 PM • Salem-Coimbatore NH</span>
                 </div>
               </div>
 
-              {/* H1 Headline */}
-              <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-slate-900 tracking-tight leading-[1.12]">
-                Certified <span className="text-orange-600">Second-Hand Tractors</span>, Utility Cars &amp; Genuine Spares.
+              {/* H1 Headline - Cinematic High-Contrast White & Gold */}
+              <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12]">
+                Certified <span className="text-orange-500">Second-Hand Tractors</span>, Utility Cars &amp; Genuine Spares.
               </h1>
 
               {/* Lead Paragraph */}
-              <p className="animate-hero-rise hero-delay-2 text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal">
+              <p className="animate-hero-rise hero-delay-2 text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal">
                 Helping Indian farmers, transport operators, and families buy and sell pre-owned vehicles with{' '}
-                <strong className="text-slate-900 font-semibold">120-point mechanical certification</strong>, guaranteed{' '}
-                <strong className="text-slate-900 font-semibold">RTO RC transfer</strong>, and zero middleman broker fees.
+                <strong className="text-white font-semibold">120-point mechanical certification</strong>, guaranteed{' '}
+                <strong className="text-white font-semibold">RTO RC transfer</strong>, and zero middleman broker fees.
               </p>
 
               {/* Integrated Search Bar */}
               <form onSubmit={handleSearchSubmit} className="animate-hero-rise hero-delay-2 max-w-xl mx-auto lg:mx-0 pt-1">
-                <div className="flex items-center bg-white/95 backdrop-blur-md p-1.5 rounded-2xl border border-slate-200/90 shadow-lg shadow-slate-200/50 focus-within:ring-2 focus-within:ring-orange-500 focus-within:border-orange-500 transition-all">
+                <div className="flex items-center bg-slate-900/80 backdrop-blur-md p-1.5 rounded-2xl border border-white/20 shadow-2xl focus-within:ring-2 focus-within:ring-orange-500 focus-within:border-orange-500 transition-all">
                   <div className="pl-3.5 pr-2 text-slate-400">
                     <Search className="w-4 h-4" />
                   </div>
@@ -194,11 +198,11 @@ export const Home = () => {
                     placeholder="Search tractor model, HP, or vehicle (e.g. Swaraj 855, Bolero)..."
                     value={searchKeyword}
                     onChange={(e) => setSearchKeyword(e.target.value)}
-                    className="w-full text-xs sm:text-sm bg-transparent border-none text-slate-900 placeholder:text-slate-400 focus:outline-none font-medium py-2"
+                    className="w-full text-xs sm:text-sm bg-transparent border-none text-white placeholder:text-slate-400 focus:outline-none font-medium py-2"
                   />
                   <button
                     type="submit"
-                    className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-slate-900 hover:bg-orange-600 text-white text-xs font-bold px-4 sm:px-5 py-2.5 rounded-xl transition-colors shadow-sm"
+                    className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-orange-600 hover:bg-orange-500 text-white text-xs font-bold px-4 sm:px-5 py-2.5 rounded-xl transition-colors shadow-sm"
                   >
                     <span>Search Stock</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -210,7 +214,7 @@ export const Home = () => {
               <div className="animate-hero-rise hero-delay-3 flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-1">
                 <Link
                   to="/products"
-                  className="taste-btn inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-extrabold text-sm px-6 py-3.5 rounded-xl shadow-lg shadow-orange-600/25 transition-all"
+                  className="taste-btn inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-500 text-white font-extrabold text-sm px-6 py-3.5 rounded-xl shadow-lg shadow-orange-600/30 transition-all"
                 >
                   Explore Certified Stock
                   <ArrowRight className="w-4 h-4" />
@@ -218,7 +222,7 @@ export const Home = () => {
 
                 <Link
                   to="/quotation"
-                  className="taste-btn inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold text-sm px-6 py-3.5 rounded-xl shadow-md transition-all"
+                  className="taste-btn inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-sm px-6 py-3.5 rounded-xl shadow-md transition-all"
                 >
                   <FileCheck className="w-4 h-4 text-slate-950" />
                   Free Valuation / Sell
@@ -226,39 +230,39 @@ export const Home = () => {
 
                 <a
                   href="tel:+918124336369"
-                  className="taste-btn inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm hover:bg-white text-slate-800 font-bold text-sm px-5 py-3.5 rounded-xl border border-slate-200 shadow-sm transition-all"
+                  className="taste-btn inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-sm px-5 py-3.5 rounded-xl border border-white/20 shadow-sm backdrop-blur-sm transition-all"
                   title="Direct Yard Call"
                 >
-                  <PhoneCall className="w-4 h-4 text-emerald-600" />
+                  <PhoneCall className="w-4 h-4 text-emerald-400" />
                   +91 81243 36369
                 </a>
               </div>
 
               {/* Real Animated Trust Stats */}
-              <div className="animate-hero-rise hero-delay-4 pt-6 border-t border-slate-200/80 grid grid-cols-3 gap-2 sm:gap-4 max-w-lg mx-auto lg:mx-0 text-center lg:text-left">
+              <div className="animate-hero-rise hero-delay-4 pt-6 border-t border-white/15 grid grid-cols-3 gap-2 sm:gap-4 max-w-lg mx-auto lg:mx-0 text-center lg:text-left">
                 <div className="flex flex-col items-center lg:items-start">
-                  <div className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-slate-900 whitespace-nowrap tracking-tight">
+                  <div className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-white whitespace-nowrap tracking-tight">
                     <AnimatedCounter end={5800} suffix="+" />
                   </div>
-                  <div className="text-[11px] sm:text-xs text-slate-500 font-semibold leading-tight mt-1">
+                  <div className="text-[11px] sm:text-xs text-slate-400 font-semibold leading-tight mt-1">
                     Vehicles Delivered
                   </div>
                 </div>
 
                 <div className="flex flex-col items-center lg:items-start">
-                  <div className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-emerald-600 whitespace-nowrap tracking-tight">
+                  <div className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-emerald-400 whitespace-nowrap tracking-tight">
                     <AnimatedCounter end={100} suffix="%" />
                   </div>
-                  <div className="text-[11px] sm:text-xs text-slate-500 font-semibold leading-tight mt-1">
+                  <div className="text-[11px] sm:text-xs text-slate-400 font-semibold leading-tight mt-1">
                     RTO Passing Guarantee
                   </div>
                 </div>
 
                 <div className="flex flex-col items-center lg:items-start">
-                  <div className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-orange-600 whitespace-nowrap tracking-tight">
+                  <div className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-orange-400 whitespace-nowrap tracking-tight">
                     <AnimatedCounter end={120} suffix="-Point" />
                   </div>
-                  <div className="text-[11px] sm:text-xs text-slate-500 font-semibold leading-tight mt-1">
+                  <div className="text-[11px] sm:text-xs text-slate-400 font-semibold leading-tight mt-1">
                     Engine &amp; Gearbox Check
                   </div>
                 </div>
@@ -267,12 +271,12 @@ export const Home = () => {
 
             {/* Right Column: Subtle Turntable Indicator Badge */}
             <div className="lg:col-span-4 hidden lg:flex flex-col items-end justify-center self-end pb-8">
-              <div className="bg-white/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-slate-200/90 shadow-xl shadow-slate-200/60 text-slate-800 space-y-1">
-                <div className="flex items-center gap-2 text-xs font-black text-slate-900">
-                  <span className="w-2.5 h-2.5 rounded-full bg-orange-600 animate-pulse"></span>
+              <div className="bg-slate-900/80 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/15 shadow-2xl text-white space-y-1">
+                <div className="flex items-center gap-2 text-xs font-black text-white">
+                  <span className="w-2.5 h-2.5 rounded-full bg-orange-500 animate-pulse"></span>
                   <span>360° Interactive Turntable</span>
                 </div>
-                <p className="text-[11px] text-slate-500 font-medium">
+                <p className="text-[11px] text-slate-300 font-medium">
                   Scroll page down to rotate vehicle in background
                 </p>
               </div>
