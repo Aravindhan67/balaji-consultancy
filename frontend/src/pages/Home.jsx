@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
   ShieldCheck, 
@@ -29,7 +29,6 @@ import { ValuationEstimator } from '../components/ValuationEstimator';
 import { EmiCalculator } from '../components/EmiCalculator';
 import { resolveImageUrl } from '../utils/imageUrl';
 import tractorRotationVideo from '../assets/tractor-rotation.mp4';
-import carRotationVideo from '../assets/car-rotation.mp4';
 
 export const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -37,9 +36,56 @@ export const Home = () => {
   const [searchCategory, setSearchCategory] = useState('all');
   const [searchBrand, setSearchBrand] = useState('all');
   const [searchKeyword, setSearchKeyword] = useState('');
-  const [activeHeroTab, setActiveHeroTab] = useState('tractor');
+
+  const heroVideoRef = useRef(null);
+  const [parallaxY, setParallaxY] = useState(0);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    let animationFrameId;
+    let scrollEndTimer;
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = requestAnimationFrame(() => {
+        // Parallax depth translation
+        if (scrollY < 1200) {
+          setParallaxY(scrollY * 0.22);
+        }
+
+        // Scrub 360-degree tractor rotation video in background as user scrolls
+        const video = heroVideoRef.current;
+        if (video && video.duration && !isNaN(video.duration)) {
+          const scrollRange = 750; // 750px of scroll completes full 360 rotation
+          const progress = Math.min(Math.max(scrollY / scrollRange, 0), 1);
+
+          if (!video.paused) {
+            video.pause();
+          }
+          video.currentTime = progress * video.duration;
+        }
+      });
+
+      // Resume smooth ambient rotation when scrolling stops near top
+      clearTimeout(scrollEndTimer);
+      scrollEndTimer = setTimeout(() => {
+        const video = heroVideoRef.current;
+        if (video && window.scrollY < 300 && video.paused) {
+          video.play().catch(() => {});
+        }
+      }, 500);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      cancelAnimationFrame(animationFrameId);
+      clearTimeout(scrollEndTimer);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchFeatured = async () => {
@@ -78,51 +124,49 @@ export const Home = () => {
   // Featured Cars & Utility Vehicles
   const cars = allCars.slice(0, 3);
 
-  // Hero showcase preview data
-  const heroShowcase = {
-    tractor: {
-      title: 'Mahindra 575 DI & Swaraj 855 FE',
-      tag: 'Heavy Agricultural Workhorses',
-      price: 'From ₹3.85 Lakh',
-      specs: '42 - 52 HP • Dual Clutch • 1,600 kg Lift',
-      rto: 'TN / KA / AP RTO Passing Guaranteed',
-      image: '/static-uploads/tractor-mahindra-575.jpg',
-      link: '/products?category=tractor'
-    },
-    car: {
-      title: 'Mahindra Bolero Maxi Truck & Maruti Dzire',
-      tag: 'Commercial & Family Utility',
-      price: 'From ₹4.20 Lakh',
-      specs: 'Diesel mHawk / 1.2L DualJet • Tested Suspension',
-      rto: 'Single Owner • Clean NOC Released',
-      image: '/static-uploads/car-mahindra-bolero.jpg',
-      link: '/products?category=car'
-    },
-    spare: {
-      title: 'Genuine OEM Tractor Clutch Plates, Pumps & Batteries',
-      tag: 'Tractor Spares Only',
-      price: 'Starting ₹1,200',
-      specs: 'Luk, Exide, Bosch & Factory-Sealed Tractor Parts',
-      rto: 'Direct Yard Stock with 6-Month Warranty',
-      image: '/static-uploads/part-clutch-plate.jpg',
-      link: '/products?category=spare_part'
-    }
-  };
-
-  const activeShowcase = heroShowcase[activeHeroTab] || heroShowcase.tractor;
-
   return (
     <div className="space-y-16 sm:space-y-24 bg-[#F8FAFC]">
-      {/* 1. HERO SECTION - TASTE SKILL ENTRANCE & HUMANABLE ARCHITECTURE */}
-      <section className="relative overflow-hidden pt-8 pb-14 lg:py-20 bg-gradient-to-b from-white via-slate-50/70 to-[#F8FAFC] border-b border-slate-200/60">
-        {/* Soft Organic Diffuse Background Accents */}
-        <div className="absolute top-0 right-0 -mr-24 -mt-24 w-[480px] h-[480px] bg-orange-100/35 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 -ml-24 -mb-24 w-[480px] h-[480px] bg-emerald-50/50 rounded-full blur-3xl pointer-events-none"></div>
+      {/* 1. HERO SECTION - WITH 360 ROTATION VIDEO IN BACKGROUND ON SCROLL */}
+      <section className="relative overflow-hidden pt-10 pb-16 lg:py-24 bg-gradient-to-b from-white via-slate-50/70 to-[#F8FAFC] border-b border-slate-200/60">
+        {/* Background 360-Degree Tractor Video with Scroll-Linked Rotation & Parallax */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+          <div 
+            className="w-full h-full relative transition-transform duration-100 ease-out will-change-transform"
+            style={{
+              transform: `translate3d(0, ${parallaxY}px, 0)`
+            }}
+          >
+            <video
+              ref={heroVideoRef}
+              src={tractorRotationVideo}
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster={resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg')}
+              className="w-full h-full object-cover object-center lg:object-right opacity-80 lg:opacity-90"
+              onLoadedMetadata={(e) => {
+                const v = e.currentTarget;
+                v.muted = true;
+                v.defaultMuted = true;
+                v.play().catch(() => {});
+              }}
+            />
+          </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Gradient Scrims: Ensures Text Contrast & Clean Aesthetic */}
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/40 lg:from-white lg:via-white/85 lg:to-transparent z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#F8FAFC] via-transparent to-white/30 z-10" />
+        </div>
+
+        {/* Soft Organic Diffuse Background Accents */}
+        <div className="absolute top-0 right-0 -mr-24 -mt-24 w-[480px] h-[480px] bg-orange-100/35 rounded-full blur-3xl pointer-events-none z-0"></div>
+        <div className="absolute bottom-0 left-0 -ml-24 -mb-24 w-[480px] h-[480px] bg-emerald-50/50 rounded-full blur-3xl pointer-events-none z-0"></div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            {/* Left Column: Headline, Buyer Promise, CTAs & Counter Row */}
-            <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+            {/* Left Column: Headline, Buyer Promise, Search, CTAs & Counter Row */}
+            <div className="lg:col-span-8 space-y-6 text-center lg:text-left">
               {/* Badges Row: Brand Trust + Live Yard Status Strip */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
                 <div className="animate-hero-rise inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-50 text-orange-700 text-xs font-extrabold border border-orange-200/80 shadow-sm">
@@ -142,10 +186,33 @@ export const Home = () => {
 
               {/* Lead Paragraph */}
               <p className="animate-hero-rise hero-delay-2 text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal">
-                Helping Indian farmers, transport operators, and families buy and sell pre-owned vehicles with 
-                <strong className="text-slate-900 font-semibold"> 120-point mechanical certification</strong>, guaranteed 
-                <strong className="text-slate-900 font-semibold"> RTO RC transfer</strong>, and zero middleman broker fees.
+                Helping Indian farmers, transport operators, and families buy and sell pre-owned vehicles with{' '}
+                <strong className="text-slate-900 font-semibold">120-point mechanical certification</strong>, guaranteed{' '}
+                <strong className="text-slate-900 font-semibold">RTO RC transfer</strong>, and zero middleman broker fees.
               </p>
+
+              {/* Integrated Search Bar */}
+              <form onSubmit={handleSearchSubmit} className="animate-hero-rise hero-delay-2 max-w-xl mx-auto lg:mx-0 pt-1">
+                <div className="flex items-center bg-white/95 backdrop-blur-md p-1.5 rounded-2xl border border-slate-200/90 shadow-lg shadow-slate-200/50 focus-within:ring-2 focus-within:ring-orange-500 focus-within:border-orange-500 transition-all">
+                  <div className="pl-3.5 pr-2 text-slate-400">
+                    <Search className="w-4 h-4" />
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Search tractor model, HP, or vehicle (e.g. Swaraj 855, Bolero)..."
+                    value={searchKeyword}
+                    onChange={(e) => setSearchKeyword(e.target.value)}
+                    className="w-full text-xs sm:text-sm bg-transparent border-none text-slate-900 placeholder:text-slate-400 focus:outline-none font-medium py-2"
+                  />
+                  <button
+                    type="submit"
+                    className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-slate-900 hover:bg-orange-600 text-white text-xs font-bold px-4 sm:px-5 py-2.5 rounded-xl transition-colors shadow-sm"
+                  >
+                    <span>Search Stock</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </form>
 
               {/* CTAs */}
               <div className="animate-hero-rise hero-delay-3 flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-1">
@@ -167,7 +234,7 @@ export const Home = () => {
 
                 <a
                   href="tel:+918124336369"
-                  className="taste-btn inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-800 font-bold text-sm px-5 py-3.5 rounded-xl border border-slate-200 shadow-sm transition-all"
+                  className="taste-btn inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm hover:bg-white text-slate-800 font-bold text-sm px-5 py-3.5 rounded-xl border border-slate-200 shadow-sm transition-all"
                   title="Direct Yard Call"
                 >
                   <PhoneCall className="w-4 h-4 text-emerald-600" />
@@ -176,7 +243,7 @@ export const Home = () => {
               </div>
 
               {/* Real Animated Trust Stats */}
-              <div className="animate-hero-rise hero-delay-4 pt-6 border-t border-slate-200 grid grid-cols-3 gap-2 sm:gap-4 max-w-lg mx-auto lg:mx-0 text-center lg:text-left">
+              <div className="animate-hero-rise hero-delay-4 pt-6 border-t border-slate-200/80 grid grid-cols-3 gap-2 sm:gap-4 max-w-lg mx-auto lg:mx-0 text-center lg:text-left">
                 <div className="flex flex-col items-center lg:items-start">
                   <div className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-slate-900 whitespace-nowrap tracking-tight">
                     <AnimatedCounter end={5800} suffix="+" />
@@ -206,149 +273,16 @@ export const Home = () => {
               </div>
             </div>
 
-            {/* Right Column: Interactive Stock Preview & Quick Search Console */}
-            <div className="lg:col-span-5 space-y-4">
-              {/* Interactive Showcase Preview Card */}
-              <div className="bg-white rounded-3xl p-5 sm:p-6 shadow-xl shadow-slate-200/70 border border-slate-200/90 space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                  <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500">
-                    Live Yard Categories
-                  </span>
-                  <div className="flex gap-1.5 bg-slate-100 p-1 rounded-xl">
-                    <button
-                      type="button"
-                      onClick={() => setActiveHeroTab('tractor')}
-                      className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition-all ${
-                        activeHeroTab === 'tractor'
-                          ? 'bg-orange-600 text-white shadow-sm'
-                          : 'text-slate-600 hover:text-slate-900'
-                      }`}
-                    >
-                      🚜 Tractors
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setActiveHeroTab('car')}
-                      className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition-all ${
-                        activeHeroTab === 'car'
-                          ? 'bg-blue-600 text-white shadow-sm'
-                          : 'text-slate-600 hover:text-slate-900'
-                      }`}
-                    >
-                      🚗 Cars
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setActiveHeroTab('spare')}
-                      className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition-all ${
-                        activeHeroTab === 'spare'
-                          ? 'bg-emerald-600 text-white shadow-sm'
-                          : 'text-slate-600 hover:text-slate-900'
-                      }`}
-                    >
-                      ⚙️ Spares
-                    </button>
-                  </div>
+            {/* Right Column: Subtle Turntable Indicator Badge */}
+            <div className="lg:col-span-4 hidden lg:flex flex-col items-end justify-center self-end pb-8">
+              <div className="bg-white/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-slate-200/90 shadow-xl shadow-slate-200/60 text-slate-800 space-y-1">
+                <div className="flex items-center gap-2 text-xs font-black text-slate-900">
+                  <span className="w-2.5 h-2.5 rounded-full bg-orange-600 animate-pulse"></span>
+                  <span>360° Interactive Turntable</span>
                 </div>
-
-                {/* Visual Frame: Clean Rotating Tractor Video / Showcase Image */}
-                <div className="taste-zoom aspect-[16/10] bg-slate-900 rounded-2xl overflow-hidden relative border border-slate-200/70 shadow-inner group">
-                  {activeHeroTab === 'tractor' ? (
-                    <video
-                      key="tractor-rotation-video"
-                      src={tractorRotationVideo}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      poster={resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg')}
-                      className="w-full h-full object-cover cursor-pointer"
-                      onClick={(e) => {
-                        const v = e.currentTarget;
-                        if (v.paused) v.play();
-                        else v.pause();
-                      }}
-                      ref={(el) => {
-                        if (el) {
-                          el.muted = true;
-                          el.defaultMuted = true;
-                          el.play().catch(() => {});
-                        }
-                      }}
-                    />
-                  ) : activeHeroTab === 'car' ? (
-                    <video
-                      key="car-rotation-video"
-                      src={carRotationVideo}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      poster={resolveImageUrl('/static-uploads/car-mahindra-bolero.jpg')}
-                      className="w-full h-full object-cover cursor-pointer"
-                      onClick={(e) => {
-                        const v = e.currentTarget;
-                        if (v.paused) v.play();
-                        else v.pause();
-                      }}
-                      ref={(el) => {
-                        if (el) {
-                          el.muted = true;
-                          el.defaultMuted = true;
-                          el.play().catch(() => {});
-                        }
-                      }}
-                    />
-                  ) : (
-                    <img
-                      src={resolveImageUrl(activeShowcase.image)}
-                      alt={activeShowcase.title}
-                      className="w-full h-full object-cover animate-hero-settle"
-                      onError={(e) => {
-                        e.target.src = resolveImageUrl('/static-uploads/part-clutch-plate.jpg');
-                      }}
-                    />
-                  )}
-                  <div className="absolute top-2.5 left-2.5 bg-slate-900/85 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/20">
-                    {activeShowcase.tag}
-                  </div>
-                  <div className="absolute bottom-2.5 right-2.5 bg-orange-600 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-md">
-                    {activeShowcase.price}
-                  </div>
-                </div>
-
-                {/* Showcase Details */}
-                <div className="space-y-1.5 text-xs">
-                  <div className="font-heading font-extrabold text-slate-900 text-sm">
-                    {activeShowcase.title}
-                  </div>
-                  <div className="text-slate-500 font-medium">{activeShowcase.specs}</div>
-                  <div className="text-emerald-700 font-bold flex items-center gap-1 text-[11px]">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>{activeShowcase.rto}</span>
-                  </div>
-                </div>
-
-                {/* Quick Search Launcher */}
-                <form onSubmit={handleSearchSubmit} className="pt-3 border-t border-slate-100 space-y-2.5">
-                  <div className="relative">
-                    <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="text"
-                      placeholder="Search model, HP, or part (e.g. Swaraj, Bolero, Clutch)..."
-                      value={searchKeyword}
-                      onChange={(e) => setSearchKeyword(e.target.value)}
-                      className="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl pl-9.5 pr-3.5 py-2.5 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 font-medium"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="taste-btn w-full bg-slate-900 hover:bg-orange-600 text-white font-bold text-xs py-2.5 rounded-xl transition-colors flex items-center justify-center gap-1.5"
-                  >
-                    <span>Search Entire Yard Stock</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </form>
+                <p className="text-[11px] text-slate-500 font-medium">
+                  Scroll page down to rotate vehicle in background
+                </p>
               </div>
             </div>
           </div>
