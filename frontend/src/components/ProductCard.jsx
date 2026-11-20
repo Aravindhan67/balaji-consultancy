@@ -21,7 +21,28 @@ export const ProductCard = ({ product }) => {
     featured
   } = product;
 
-  const rawImage = images && images.length > 0 ? images[0] : '/uploads/tractor-mahindra-575.jpg';
+  const getDefaultFallbackImage = () => {
+    if (category === 'tractor') {
+      const lowerTitle = ((title || '') + ' ' + (brand || '')).toLowerCase();
+      if (lowerTitle.includes('john deere')) return '/uploads/tractor-john-deere-5050.jpg';
+      if (lowerTitle.includes('swaraj')) return '/uploads/tractor-swaraj-855.jpg';
+      if (lowerTitle.includes('massey')) return '/uploads/tractor-massey-241.jpg';
+      if (lowerTitle.includes('sonalika')) return '/uploads/tractor-sonalika-745.jpg';
+      if (lowerTitle.includes('eicher')) return '/uploads/tractor-eicher-380.jpg';
+      return '/uploads/tractor-mahindra-575.jpg';
+    }
+    if (category === 'car') {
+      const lowerTitle = ((title || '') + ' ' + (brand || '')).toLowerCase();
+      if (lowerTitle.includes('swift')) return '/uploads/car-maruti-swift.jpg';
+      if (lowerTitle.includes('i20')) return '/uploads/car-hyundai-i20.jpg';
+      if (lowerTitle.includes('nexon')) return '/uploads/car-tata-nexon.jpg';
+      if (lowerTitle.includes('innova')) return '/uploads/car-toyota-innova.jpg';
+      return '/uploads/car-mahindra-bolero.jpg';
+    }
+    return '/uploads/part-clutch-plate.jpg';
+  };
+
+  const rawImage = images && images.length > 0 ? images[0] : getDefaultFallbackImage();
   const imageUrl = resolveImageUrl(rawImage);
 
   const categoryLabel = 
@@ -48,7 +69,10 @@ export const ProductCard = ({ product }) => {
           className="w-full h-full object-cover"
           loading="lazy"
           onError={(e) => {
-            e.target.src = 'https://images.unsplash.com/photo-1592838064575-70ed626d3a0e?auto=format&fit=crop&w=600&q=80';
+            const fallback = resolveImageUrl(getDefaultFallbackImage());
+            if (e.target.src !== fallback) {
+              e.target.src = fallback;
+            }
           }}
         />
 
