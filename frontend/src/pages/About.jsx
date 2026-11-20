@@ -11,8 +11,11 @@ import {
   Wrench,
   ArrowRight,
   TrendingUp,
-  Sparkles
+  Sparkles,
+  Calendar,
+  Check
 } from 'lucide-react';
+import { resolveImageUrl } from '../utils/imageUrl';
 
 export const About = () => {
   return (
@@ -45,74 +48,231 @@ export const About = () => {
         </div>
       </section>
 
-      {/* Story & Philosophy */}
+      {/* Story & Philosophy with Mission Image, plus the 4 Stat Containers Moved Down */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-6 space-y-5">
+        {/* Top Story & Visual Showcase Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          {/* Left Column: Narrative Story & Commitments */}
+          <div className="lg:col-span-7 space-y-5">
             <div className="inline-block text-xs font-bold text-orange-700 bg-orange-50 px-3.5 py-1 rounded-full uppercase border border-orange-200">
               Our Journey &amp; Mission
             </div>
-            <h2 className="font-heading font-extrabold text-2xl sm:text-4xl text-slate-900">
+            <h2 className="font-heading font-extrabold text-2xl sm:text-4xl text-slate-900 tracking-tight leading-snug">
               Transforming How India Buys &amp; Sells Second-Hand Tractors &amp; Cars
             </h2>
             <p className="text-slate-600 text-sm leading-relaxed">
               In traditional Indian rural and urban markets, buying a second-hand tractor or car often comes with severe risks: tampered hour meters, hidden hydraulic lift failures, concealed accidental damage, or entangled RTO court hypothecations.
             </p>
             <p className="text-slate-600 text-sm leading-relaxed">
-              At <strong className="text-slate-900">Balaji Auto &amp; Agro Consultancy</strong>, we built an institutional, transparent bridge. Every tractor and car entering our yard undergoes an exhaustive <strong>120-Point Mechanical &amp; Electrical Inspection</strong>. We inspect the compression ratio, hydraulic pump pressure, PTO output, gearbox synchronization, tyre wear, and legal RTO verification.
+              At <strong className="text-slate-900 font-bold">Balaji Auto &amp; Agro Consultancy</strong>, we built an institutional, transparent bridge. Every tractor and car entering our yard undergoes an exhaustive <strong>120-Point Mechanical &amp; Electrical Inspection</strong>. We inspect the compression ratio, hydraulic pump pressure, PTO output, gearbox synchronization, tyre wear, and legal RTO verification.
             </p>
             <p className="text-slate-600 text-sm leading-relaxed">
-              Furthermore, to support vehicle longevity, we established our dedicated <strong className="text-slate-900">Genuine Spare Parts Division</strong>, supplying OEM clutch assemblies, fuel injectors, pumps, and brakes directly to our buyers at factory-direct pricing.
+              Furthermore, to support vehicle longevity, we established our dedicated <strong className="text-slate-900 font-bold">Genuine Spare Parts Division</strong>, supplying OEM clutch assemblies, fuel injectors, pumps, and brakes directly to our buyers at factory-direct pricing.
             </p>
 
             <div className="pt-2 flex flex-wrap gap-4">
-              <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                No Hidden Brokerage Fees
+              <div className="inline-flex items-center gap-2 text-xs font-bold text-slate-800 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-sm">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>No Hidden Brokerage Fees</span>
               </div>
-              <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
-                <CheckCircle2 className="w-4 h-4 text-blue-600" />
-                All-India RTO NOC Support
+              <div className="inline-flex items-center gap-2 text-xs font-bold text-slate-800 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-sm">
+                <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
+                <span>All-India RTO NOC Support</span>
               </div>
-              <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
-                <CheckCircle2 className="w-4 h-4 text-orange-600" />
-                Guaranteed Genuine Spare Parts
+              <div className="inline-flex items-center gap-2 text-xs font-bold text-slate-800 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-sm">
+                <CheckCircle2 className="w-4 h-4 text-orange-600 shrink-0" />
+                <span>Guaranteed Genuine Spare Parts</span>
               </div>
             </div>
           </div>
 
-          <div className="lg:col-span-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                <div className="font-heading font-black text-3xl text-orange-600 mb-1">10+ Years</div>
-                <div className="text-xs font-bold text-slate-900">Industry Experience</div>
-                <p className="text-[11px] text-slate-500 mt-2">
-                  Serving farmers, transport contractors, and families with pride since 2014.
-                </p>
+          {/* Right Column: High-Impact Authentic Yard Image Showcase */}
+          <div className="lg:col-span-5">
+            <div className="taste-card relative rounded-3xl overflow-hidden border border-slate-200 shadow-xl group">
+              <div className="taste-zoom aspect-[4/3] bg-slate-900 relative">
+                <img
+                  src={resolveImageUrl('/static-uploads/about-mission-yard.jpg')}
+                  alt="Balaji Auto and Agro Consultancy Central Inspection Yard"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  onError={(e) => {
+                    e.target.src = resolveImageUrl('/static-uploads/tractor-john-deere-5050.jpg');
+                  }}
+                />
+                
+                {/* Top Badge */}
+                <div className="absolute top-3.5 left-3.5 z-10 bg-slate-900/85 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full border border-white/20 shadow-md flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-orange-400" />
+                  <span>Balaji Central Yard • Salem-Coimbatore NH</span>
+                </div>
+
+                {/* Bottom Overlay Info Banner */}
+                <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/85 via-black/50 to-transparent text-white flex items-center justify-between z-10">
+                  <div>
+                    <div className="text-[10px] font-black uppercase tracking-wider text-amber-300">
+                      Physical Inspection Hub
+                    </div>
+                    <div className="text-xs font-bold text-white">
+                      120-Point Multi-Brand Testing Yard
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-extrabold bg-emerald-500/90 text-white px-2.5 py-1 rounded-lg border border-emerald-400/40">
+                    Open 7 Days
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 4 Containers Moved Down with Dedicated Visual Imagery & Metrics */}
+        <div className="mt-12 pt-10 border-t border-slate-200/80">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* 1. 10+ Years Industry Experience */}
+            <div className="taste-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between group">
+              <div>
+                <div className="taste-zoom relative aspect-[16/10] bg-slate-100 overflow-hidden">
+                  <img
+                    src={resolveImageUrl('/static-uploads/about-stat-heritage.jpg')}
+                    alt="10+ Years Industry Experience"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.src = resolveImageUrl('/static-uploads/tractor-john-deere-5050.jpg');
+                    }}
+                  />
+                  <div className="absolute top-2.5 left-2.5 bg-orange-600 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow-sm">
+                    Est. 2014
+                  </div>
+                </div>
+
+                <div className="p-5">
+                  <div className="font-heading font-black text-3xl text-orange-600 mb-1">
+                    10+ Years
+                  </div>
+                  <div className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
+                    Industry Experience
+                  </div>
+                  <p className="text-[12px] text-slate-600 leading-relaxed mt-2.5">
+                    Serving farmers, transport contractors, and families with pride since 2014 across South India.
+                  </p>
+                </div>
               </div>
 
-              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                <div className="font-heading font-black text-3xl text-emerald-600 mb-1">5,800+</div>
-                <div className="text-xs font-bold text-slate-900">Satisfied Customers</div>
-                <p className="text-[11px] text-slate-500 mt-2">
-                  Delivered across Tamil Nadu, Karnataka, Maharashtra, Punjab, and beyond.
-                </p>
+              <div className="px-5 pb-5 pt-2 border-t border-slate-100 text-[11px] font-bold text-orange-700 flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-orange-600" />
+                <span>Over a decade of excellence</span>
+              </div>
+            </div>
+
+            {/* 2. 5,800+ Satisfied Customers */}
+            <div className="taste-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between group">
+              <div>
+                <div className="taste-zoom relative aspect-[16/10] bg-slate-100 overflow-hidden">
+                  <img
+                    src={resolveImageUrl('/static-uploads/about-stat-customers.jpg')}
+                    alt="5,800+ Satisfied Customers"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.src = resolveImageUrl('/static-uploads/tractor-swaraj-855.jpg');
+                    }}
+                  />
+                  <div className="absolute top-2.5 left-2.5 bg-emerald-600 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow-sm">
+                    Pan-India
+                  </div>
+                </div>
+
+                <div className="p-5">
+                  <div className="font-heading font-black text-3xl text-emerald-600 mb-1">
+                    5,800+
+                  </div>
+                  <div className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
+                    Satisfied Customers
+                  </div>
+                  <p className="text-[12px] text-slate-600 leading-relaxed mt-2.5">
+                    Delivered across Tamil Nadu, Karnataka, Maharashtra, Andhra Pradesh, and Punjab.
+                  </p>
+                </div>
               </div>
 
-              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                <div className="font-heading font-black text-3xl text-blue-600 mb-1">100%</div>
-                <div className="text-xs font-bold text-slate-900">Legal Title Guarantee</div>
-                <p className="text-[11px] text-slate-500 mt-2">
-                  Complete verification with VAHAN portal and local RTO registers.
-                </p>
+              <div className="px-5 pb-5 pt-2 border-t border-slate-100 text-[11px] font-bold text-emerald-700 flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Zero middleman broker fees</span>
+              </div>
+            </div>
+
+            {/* 3. 100% Legal Title Guarantee */}
+            <div className="taste-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between group">
+              <div>
+                <div className="taste-zoom relative aspect-[16/10] bg-slate-100 overflow-hidden">
+                  <img
+                    src={resolveImageUrl('/static-uploads/about-stat-rto.jpg')}
+                    alt="100% Legal Title Guarantee"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.src = resolveImageUrl('/static-uploads/car-mahindra-bolero.jpg');
+                    }}
+                  />
+                  <div className="absolute top-2.5 left-2.5 bg-blue-600 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow-sm">
+                    VAHAN Match
+                  </div>
+                </div>
+
+                <div className="p-5">
+                  <div className="font-heading font-black text-3xl text-blue-600 mb-1">
+                    100%
+                  </div>
+                  <div className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
+                    Legal Title Guarantee
+                  </div>
+                  <p className="text-[12px] text-slate-600 leading-relaxed mt-2.5">
+                    Complete verification with national VAHAN registry, bank loan NOC release, and official RTO transfer.
+                  </p>
+                </div>
               </div>
 
-              <div className="bg-gradient-to-br from-orange-50 to-amber-50 p-6 rounded-2xl border border-orange-200 shadow-sm">
-                <div className="font-heading font-black text-3xl text-amber-600 mb-1">120-Pt</div>
-                <div className="text-xs font-bold text-slate-900">Engineering Check</div>
-                <p className="text-[11px] text-slate-600 mt-2">
-                  Certified mechanical certification report handed over with every vehicle key.
-                </p>
+              <div className="px-5 pb-5 pt-2 border-t border-slate-100 text-[11px] font-bold text-blue-700 flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-blue-600" />
+                <span>Form 29/30 &amp; NOC guaranteed</span>
+              </div>
+            </div>
+
+            {/* 4. 120-Point Engineering Check */}
+            <div className="taste-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between group">
+              <div>
+                <div className="taste-zoom relative aspect-[16/10] bg-slate-100 overflow-hidden">
+                  <img
+                    src={resolveImageUrl('/static-uploads/about-stat-inspection.jpg')}
+                    alt="120-Point Engineering Check"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.src = resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg');
+                    }}
+                  />
+                  <div className="absolute top-2.5 left-2.5 bg-amber-500 text-slate-950 text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-sm">
+                    Certified
+                  </div>
+                </div>
+
+                <div className="p-5">
+                  <div className="font-heading font-black text-3xl text-amber-600 mb-1">
+                    120-Pt
+                  </div>
+                  <div className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
+                    Engineering Check
+                  </div>
+                  <p className="text-[12px] text-slate-600 leading-relaxed mt-2.5">
+                    Certified mechanical inspection report for engine compression, hydraulics, and PTO handed over with every key.
+                  </p>
+                </div>
+              </div>
+
+              <div className="px-5 pb-5 pt-2 border-t border-slate-100 text-[11px] font-bold text-amber-700 flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-amber-600" />
+                <span>6-Month yard mechanical warranty</span>
               </div>
             </div>
           </div>
@@ -188,13 +348,13 @@ export const About = () => {
             <div className="pt-2 flex flex-wrap justify-center gap-3">
               <Link
                 to="/products"
-                className="bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs px-6 py-3 rounded-xl transition-all shadow-md shadow-orange-600/20"
+                className="taste-btn bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs px-6 py-3 rounded-xl transition-all shadow-md shadow-orange-600/20"
               >
                 Browse Our Inventory
               </Link>
               <Link
                 to="/contact"
-                className="bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs px-6 py-3 rounded-xl border border-slate-200 shadow-sm transition-all"
+                className="taste-btn bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs px-6 py-3 rounded-xl border border-slate-200 shadow-sm transition-all"
               >
                 Visit Balaji Yard
               </Link>
