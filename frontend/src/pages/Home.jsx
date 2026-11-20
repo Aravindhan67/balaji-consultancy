@@ -27,6 +27,7 @@ import { ScrollReveal } from '../components/ScrollReveal';
 import { AnimatedCounter } from '../components/AnimatedCounter';
 import { InspectionStation } from '../components/InspectionStation';
 import { ValuationEstimator } from '../components/ValuationEstimator';
+import { BrandTrustStrip } from '../components/BrandTrustStrip';
 import { resolveImageUrl } from '../utils/imageUrl';
 import tractorRotationVideo from '../assets/tractor-rotation.mp4';
 import carRotationVideo from '../assets/car-rotation.mp4';
@@ -339,6 +340,9 @@ export const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* MULTI-BRAND MANUFACTURERS TRUST STRIP */}
+      <BrandTrustStrip />
 
       {/* 2. WHY BALAJI VEHICLE CONSULTANCY - 4 CLEAN PILLARS (SCROLL REVEAL) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
