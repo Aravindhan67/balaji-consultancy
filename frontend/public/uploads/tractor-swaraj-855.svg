@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+    <linearGradient id="headlightGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fef08a" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#fef08a" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="badgeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e2e8f0" stroke-width="1" opacity="0.6"/>
+    </pattern>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="800" height="500" fill="url(#bgGrad)"/>
+  <rect width="800" height="500" fill="url(#gridPattern)"/>
+
+  <!-- Decorative Accent Glows -->
+  <circle cx="100" cy="80" r="140" fill="#2563eb" opacity="0.08"/>
+  <circle cx="700" cy="400" r="160" fill="#38bdf8" opacity="0.08"/>
+
+  <!-- Top Category Tag -->
+  <rect x="50" y="45" width="150" height="34" rx="17" fill="url(#badgeGrad)"/>
+  <text x="125" y="67" font-family="sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="1">
+    TRACTOR
+  </text>
+
+  <!-- Verified Indian Quality Seal -->
+  <g transform="translate(640, 40)">
+    <circle cx="45" cy="45" r="42" fill="#15803d" opacity="0.12"/>
+    <circle cx="45" cy="45" r="36" fill="#15803d"/>
+    <text x="45" y="38" font-family="sans-serif" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">BALAJI</text>
+    <text x="45" y="52" font-family="sans-serif" font-size="11" font-weight="900" fill="#fef08a" text-anchor="middle">VERIFIED</text>
+    <text x="45" y="64" font-family="sans-serif" font-size="8" font-weight="bold" fill="#ffffff" text-anchor="middle">100% INSPECTED</text>
+  </g>
+
+  <!-- Graphic illustration -->
+  
+      <!-- Tractor Silhouette -->
+      <g transform="translate(250, 100) scale(1.1)">
+        <!-- Rear Large Wheel -->
+        <circle cx="80" cy="170" r="55" fill="#1f2937" stroke="#38bdf8" stroke-width="8"/>
+        <circle cx="80" cy="170" r="28" fill="#374151" stroke="#fff" stroke-width="4"/>
+        <line x1="80" y1="115" x2="80" y2="225" stroke="#fff" stroke-width="3"/>
+        <line x1="25" y1="170" x2="135" y2="170" stroke="#fff" stroke-width="3"/>
+        
+        <!-- Front Small Wheel -->
+        <circle cx="230" cy="190" r="35" fill="#1f2937" stroke="#38bdf8" stroke-width="6"/>
+        <circle cx="230" cy="190" r="16" fill="#374151" stroke="#fff" stroke-width="3"/>
+        
+        <!-- Tractor Body / Hood -->
+        <path d="M 70 140 L 70 70 L 120 70 L 140 110 L 240 110 L 245 150 L 210 160 L 130 160 Z" fill="#2563eb" rx="8"/>
+        <!-- Engine grill -->
+        <rect x="235" y="115" width="10" height="30" fill="#111827" rx="2"/>
+        <line x1="225" y1="120" x2="240" y2="120" stroke="#fbbf24" stroke-width="2"/>
+        <!-- Silencer / Exhaust pipe -->
+        <rect x="180" y="30" width="8" height="80" fill="#4b5563" rx="2"/>
+        <path d="M 180 30 C 180 20, 200 20, 200 30" stroke="#4b5563" stroke-width="6" fill="none"/>
+        <!-- Driver Seat & Roll Bar / Canopy -->
+        <path d="M 50 135 L 75 135 L 70 110" stroke="#1f2937" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M 40 165 L 40 40 L 130 40 L 130 70" stroke="#374151" stroke-width="5" fill="none" stroke-linejoin="round"/>
+        <!-- Canopy top -->
+        <rect x="30" y="32" width="110" height="12" fill="#38bdf8" rx="3"/>
+        <!-- Steering -->
+        <line x1="110" y1="105" x2="125" y2="125" stroke="#111827" stroke-width="4"/>
+        <circle cx="107" cy="102" r="8" fill="none" stroke="#111827" stroke-width="3"/>
+        <!-- Headlight beam -->
+        <polygon points="248,125 310,105 310,165 248,140" fill="url(#headlightGrad)" opacity="0.45"/>
+      </g>
+    
+
+  <!-- Lower Details Container -->
+  <rect x="40" y="360" width="720" height="105" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.04))"/>
+  
+  <text x="65" y="405" font-family="sans-serif" font-size="24" font-weight="800" fill="#0f172a">
+    Swaraj 855 FE 4WD Heavy Duty
+  </text>
+  
+  <text x="65" y="438" font-family="sans-serif" font-size="14" font-weight="500" fill="#64748b">
+    52 HP | 2022 | 980 Hours | Power Steering | PB Passing
+  </text>
+
+  <!-- Guarantee stamp -->
+  <g transform="translate(610, 385)">
+    <rect width="130" height="42" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="65" y="22" font-family="sans-serif" font-size="11" font-weight="700" fill="#0f172a" text-anchor="middle">RTO &amp; RC OK</text>
+    <text x="65" y="35" font-family="sans-serif" font-size="10" font-weight="600" fill="#16a34a" text-anchor="middle">Ready for Delivery</text>
+  </g>
+</svg>
