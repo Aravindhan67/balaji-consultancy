@@ -29,6 +29,7 @@ import { InspectionStation } from '../components/InspectionStation';
 import { ValuationEstimator } from '../components/ValuationEstimator';
 import { resolveImageUrl } from '../utils/imageUrl';
 import tractorRotationVideo from '../assets/tractor-rotation.mp4';
+import carRotationVideo from '../assets/car-rotation.mp4';
 
 export const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -246,6 +247,29 @@ export const Home = () => {
                       muted
                       playsInline
                       poster={resolveImageUrl('/uploads/tractor-mahindra-575.jpg')}
+                      className="w-full h-full object-cover cursor-pointer"
+                      onClick={(e) => {
+                        const v = e.currentTarget;
+                        if (v.paused) v.play();
+                        else v.pause();
+                      }}
+                      ref={(el) => {
+                        if (el) {
+                          el.muted = true;
+                          el.defaultMuted = true;
+                          el.play().catch(() => {});
+                        }
+                      }}
+                    />
+                  ) : activeHeroTab === 'car' ? (
+                    <video
+                      key="car-rotation-video"
+                      src={carRotationVideo}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      poster={resolveImageUrl('/uploads/car-mahindra-bolero.jpg')}
                       className="w-full h-full object-cover cursor-pointer"
                       onClick={(e) => {
                         const v = e.currentTarget;
