@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   ShieldCheck, 
   Wrench, 
@@ -7,13 +7,41 @@ import {
   CheckCircle2, 
   Activity, 
   Check, 
-  Award,
-  ChevronRight,
-  Sparkles
+  Award, 
+  ChevronRight, 
+  Sparkles,
+  Volume2,
+  VolumeX,
+  FileText
 } from 'lucide-react';
+import { engineSound } from '../utils/engineSound';
+import { InspectionCertificateModal } from './InspectionCertificateModal';
 
 export function InspectionStation() {
   const [activeTab, setActiveTab] = useState('engine');
+  const [isEngineSoundPlaying, setIsEngineSoundPlaying] = useState(false);
+  const [currentRPM, setCurrentRPM] = useState(750);
+  const [isCertModalOpen, setIsCertModalOpen] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      if (engineSound.isPlaying()) {
+        engineSound.stop();
+      }
+    };
+  }, []);
+
+  const handleToggleEngineSound = () => {
+    if (isEngineSoundPlaying) {
+      engineSound.stop();
+      setIsEngineSoundPlaying(false);
+    } else {
+      engineSound.start((rpm) => {
+        setCurrentRPM(rpm);
+      });
+      setIsEngineSoundPlaying(true);
+    }
+  };
 
   const categories = [
     {
@@ -81,153 +109,229 @@ export function InspectionStation() {
   const current = categories.find(c => c.id === activeTab) || categories[0];
 
   return (
-    <div className="bg-white rounded-3xl border border-slate-200/90 shadow-xl shadow-slate-200/50 overflow-hidden">
-      {/* Top Banner with Trust Badges */}
-      <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-400/30 mb-3">
-            <ShieldCheck className="w-4 h-4 text-amber-400" />
-            <span>Balaji Certified Mechanical Station</span>
-          </div>
-          <h3 className="font-heading font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
-            The 120-Point Physical Verification Standard
-          </h3>
-          <p className="text-slate-300 text-xs sm:text-sm mt-1 max-w-xl">
-            See how our mechanics inspect every cylinder, hydraulic pump, and RTO document before approving a vehicle for sale.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-3 shrink-0 bg-white/10 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/15">
-          <Award className="w-8 h-8 text-amber-400 shrink-0" />
+    <>
+      <div className="bg-white rounded-3xl border border-slate-200/90 shadow-xl shadow-slate-200/50 overflow-hidden">
+        {/* Top Banner with Trust Badges & Certificate Trigger */}
+        <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <div className="text-[10px] text-amber-200 font-bold uppercase tracking-wider">Yard Guarantee</div>
-            <div className="text-sm font-extrabold text-white">100% Certified Passing</div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-400/30 mb-3">
+              <ShieldCheck className="w-4 h-4 text-amber-400" />
+              <span>Balaji Certified Mechanical Station</span>
+            </div>
+            <h3 className="font-heading font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
+              The 120-Point Physical Verification Standard
+            </h3>
+            <p className="text-slate-300 text-xs sm:text-sm mt-1 max-w-xl">
+              See how our mechanics inspect every cylinder, hydraulic pump, and RTO document before approving a vehicle for sale.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <button
+              type="button"
+              onClick={() => setIsCertModalOpen(true)}
+              className="taste-btn inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-extrabold text-xs px-4 py-3 rounded-2xl shadow-lg shadow-orange-600/30 border border-white/20 transition-all"
+            >
+              <FileText className="w-4 h-4 text-amber-200" />
+              <span>View Sample Certificate</span>
+            </button>
+
+            <div className="flex items-center gap-3 bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/15">
+              <Award className="w-7 h-7 text-amber-400 shrink-0" />
+              <div>
+                <div className="text-[10px] text-amber-200 font-bold uppercase tracking-wider">Yard Guarantee</div>
+                <div className="text-xs font-extrabold text-white">100% Certified Passing</div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Interactive Tabs Header */}
-      <div className="border-b border-slate-200 bg-slate-50/70 p-2 sm:p-3 overflow-x-auto scrollbar-none">
-        <div className="flex gap-2 min-w-max">
-          {categories.map((cat) => {
-            const Icon = cat.icon;
-            const isActive = activeTab === cat.id;
-            return (
-              <button
-                key={cat.id}
-                onClick={() => setActiveTab(cat.id)}
-                className={`flex items-center gap-2 px-4 py-3 rounded-xl text-xs font-bold transition-all ${
-                  isActive
-                    ? 'bg-white text-orange-600 shadow-sm border border-slate-200/90'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
-                }`}
-              >
-                <Icon className={`w-4 h-4 ${isActive ? 'text-orange-600' : 'text-slate-400'}`} />
-                <span>{cat.label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Main Inspection Chamber Content */}
-      <div className="p-6 sm:p-8 lg:p-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Details: Headline, Description & Real Test List */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <h4 className="font-heading font-extrabold text-xl sm:text-2xl text-slate-900">
-                {current.headline}
-              </h4>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                {current.badge}
-              </span>
-            </div>
-
-            <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
-              {current.description}
-            </p>
-
-            {/* Test Checklist Table */}
-            <div className="space-y-2.5 pt-2">
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">
-                Verified Mechanical Checkpoints:
-              </div>
-              {current.tests.map((test, idx) => (
-                <div 
-                  key={idx}
-                  className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200/70 hover:bg-slate-100/70 transition-colors text-xs"
+        {/* Interactive Tabs Header */}
+        <div className="border-b border-slate-200 bg-slate-50/70 p-2 sm:p-3 overflow-x-auto scrollbar-none">
+          <div className="flex gap-2 min-w-max">
+            {categories.map((cat) => {
+              const Icon = cat.icon;
+              const isActive = activeTab === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveTab(cat.id)}
+                  className={`flex items-center gap-2 px-4 py-3 rounded-xl text-xs font-bold transition-all ${
+                    isActive
+                      ? 'bg-white text-orange-600 shadow-sm border border-slate-200/90'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                  }`}
                 >
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-orange-600' : 'text-slate-400'}`} />
+                  <span>{cat.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Main Inspection Chamber Content */}
+        <div className="p-6 sm:p-8 lg:p-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Left Details: Headline, Description & Real Test List */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <h4 className="font-heading font-extrabold text-xl sm:text-2xl text-slate-900">
+                  {current.headline}
+                </h4>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  {current.badge}
+                </span>
+              </div>
+
+              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                {current.description}
+              </p>
+
+              {/* Special Interactive Cold-Start Engine Sound Bar under Engine Tab */}
+              {activeTab === 'engine' && (
+                <div className="p-4 rounded-2xl bg-gradient-to-r from-orange-50 via-amber-50/70 to-slate-50 border border-orange-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                      <Check className="w-3 h-3 stroke-[3]" />
+                    <div className="w-10 h-10 rounded-xl bg-orange-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-orange-600/20">
+                      {isEngineSoundPlaying ? (
+                        <Volume2 className="w-5 h-5 animate-pulse" />
+                      ) : (
+                        <VolumeX className="w-5 h-5" />
+                      )}
                     </div>
                     <div>
-                      <div className="font-bold text-slate-800">{test.name}</div>
-                      <div className="text-[11px] text-slate-500 font-normal">Spec: {test.benchmark}</div>
+                      <div className="text-xs font-extrabold text-slate-900 flex items-center gap-2">
+                        <span>4-Cylinder Diesel Cold-Start Synthesizer</span>
+                        {isEngineSoundPlaying && (
+                          <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
+                            Active: {currentRPM} RPM
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-[11px] text-slate-600">
+                        Synthesizes realistic 750 RPM idle tappet compression and exhaust thrum.
+                      </div>
                     </div>
                   </div>
-                  <div className="text-right shrink-0">
-                    <span className="inline-block px-2.5 py-0.5 rounded-full font-bold text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200">
-                      {test.score}
-                    </span>
-                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handleToggleEngineSound}
+                    className={`taste-btn shrink-0 inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-xs shadow-sm transition-all ${
+                      isEngineSoundPlaying
+                        ? 'bg-slate-900 text-white hover:bg-slate-800'
+                        : 'bg-orange-600 text-white hover:bg-orange-700 shadow-orange-600/25'
+                    }`}
+                  >
+                    {isEngineSoundPlaying ? (
+                      <>
+                        <VolumeX className="w-4 h-4 text-orange-400" />
+                        <span>Stop Engine</span>
+                      </>
+                    ) : (
+                      <>
+                        <Volume2 className="w-4 h-4" />
+                        <span>Listen to Engine Sound 🔊</span>
+                      </>
+                    )}
+                  </button>
                 </div>
-              ))}
-            </div>
-          </div>
+              )}
 
-          {/* Right Visual Chamber: Verification Seal Card */}
-          <div className="lg:col-span-5 bg-gradient-to-br from-slate-50 to-orange-50/40 p-6 rounded-2xl border border-slate-200/80 space-y-6">
-            <div className="flex items-center justify-between border-b border-slate-200/60 pb-4">
-              <div>
-                <div className="text-[10px] font-bold text-orange-600 uppercase tracking-wider">Quality Seal</div>
-                <div className="font-heading font-extrabold text-base text-slate-900">Certificate of Field Readiness</div>
-              </div>
-              <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-orange-600 shadow-sm">
-                <Sparkles className="w-5 h-5" />
-              </div>
-            </div>
-
-            <div className="space-y-3 text-xs">
-              <div className="flex justify-between py-1.5 border-b border-slate-100">
-                <span className="text-slate-500">Inspection Standard</span>
-                <span className="font-bold text-slate-800">120 Mechanical Points</span>
-              </div>
-              <div className="flex justify-between py-1.5 border-b border-slate-100">
-                <span className="text-slate-500">Engine Oil Pressure</span>
-                <span className="font-bold text-emerald-600">3.8 kg/cm² (Factory High)</span>
-              </div>
-              <div className="flex justify-between py-1.5 border-b border-slate-100">
-                <span className="text-slate-500">RTO Police Record</span>
-                <span className="font-bold text-emerald-600">Zero Pending Challans</span>
-              </div>
-              <div className="flex justify-between py-1.5 border-b border-slate-100">
-                <span className="text-slate-500">Original Owner Paperwork</span>
-                <span className="font-bold text-slate-800">Form 29 &amp; 30 Ready</span>
-              </div>
-              <div className="flex justify-between py-1.5">
-                <span className="text-slate-500">Consultancy Warranty</span>
-                <span className="font-bold text-orange-600">Full Buyback Protection</span>
+              {/* Test Checklist Table */}
+              <div className="space-y-2.5 pt-2">
+                <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">
+                  Verified Mechanical Checkpoints:
+                </div>
+                {current.tests.map((test, idx) => (
+                  <div 
+                    key={idx}
+                    className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200/70 hover:bg-slate-100/70 transition-colors text-xs"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                        <Check className="w-3 h-3 stroke-[3]" />
+                      </div>
+                      <div>
+                        <div className="font-bold text-slate-800">{test.name}</div>
+                        <div className="text-[11px] text-slate-500 font-normal">Spec: {test.benchmark}</div>
+                      </div>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <span className="inline-block px-2.5 py-0.5 rounded-full font-bold text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        {test.score}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div className="p-4 bg-white rounded-xl border border-slate-200/80 shadow-sm text-center">
-              <div className="text-[11px] text-slate-500">
-                Want to test-drive or inspect any tractor or car at our yard?
+            {/* Right Visual Chamber: Verification Seal Card */}
+            <div className="lg:col-span-5 bg-gradient-to-br from-slate-50 to-orange-50/40 p-6 rounded-2xl border border-slate-200/80 space-y-6">
+              <div className="flex items-center justify-between border-b border-slate-200/60 pb-4">
+                <div>
+                  <div className="text-[10px] font-bold text-orange-600 uppercase tracking-wider">Quality Seal</div>
+                  <div className="font-heading font-extrabold text-base text-slate-900">Certificate of Field Readiness</div>
+                </div>
+                <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-orange-600 shadow-sm">
+                  <Sparkles className="w-5 h-5" />
+                </div>
               </div>
-              <a
-                href="tel:+918124336369"
-                className="mt-2.5 inline-flex items-center justify-center gap-2 w-full bg-slate-900 hover:bg-orange-600 text-white font-bold text-xs py-2.5 rounded-lg transition-colors"
-              >
-                Schedule Free Yard Inspection
-                <ChevronRight className="w-3.5 h-3.5" />
-              </a>
+
+              <div className="space-y-3 text-xs">
+                <div className="flex justify-between py-1.5 border-b border-slate-100">
+                  <span className="text-slate-500">Inspection Standard</span>
+                  <span className="font-bold text-slate-800">120 Mechanical Points</span>
+                </div>
+                <div className="flex justify-between py-1.5 border-b border-slate-100">
+                  <span className="text-slate-500">Engine Oil Pressure</span>
+                  <span className="font-bold text-emerald-600">3.8 kg/cm² (Factory High)</span>
+                </div>
+                <div className="flex justify-between py-1.5 border-b border-slate-100">
+                  <span className="text-slate-500">RTO Police Record</span>
+                  <span className="font-bold text-emerald-600">Zero Pending Challans</span>
+                </div>
+                <div className="flex justify-between py-1.5 border-b border-slate-100">
+                  <span className="text-slate-500">Original Owner Paperwork</span>
+                  <span className="font-bold text-slate-800">Form 29 &amp; 30 Ready</span>
+                </div>
+                <div className="flex justify-between py-1.5">
+                  <span className="text-slate-500">Consultancy Warranty</span>
+                  <span className="font-bold text-orange-600">Full Buyback Protection</span>
+                </div>
+              </div>
+
+              <div className="p-4 bg-white rounded-xl border border-slate-200/80 shadow-sm text-center space-y-2">
+                <div className="text-[11px] text-slate-500">
+                  Want to inspect or test-drive any tractor or car at our yard?
+                </div>
+                <a
+                  href="tel:+918124336369"
+                  className="inline-flex items-center justify-center gap-2 w-full bg-slate-900 hover:bg-orange-600 text-white font-bold text-xs py-2.5 rounded-lg transition-colors"
+                >
+                  Schedule Free Yard Inspection
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setIsCertModalOpen(true)}
+                  className="w-full text-[11px] font-bold text-orange-600 hover:text-orange-700 pt-1"
+                >
+                  📄 View Sample Certified Report
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* 120-Point Certificate Modal */}
+      <InspectionCertificateModal
+        isOpen={isCertModalOpen}
+        onClose={() => setIsCertModalOpen(false)}
+      />
+    </>
   );
 }

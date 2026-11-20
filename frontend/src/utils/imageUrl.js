@@ -13,7 +13,7 @@ export const BACKEND_URL =
 
 export const resolveImageUrl = (path) => {
   if (!path) {
-    return '/uploads/tractor-mahindra-575.jpg';
+    return '/static-uploads/tractor-mahindra-575.jpg';
   }
 
   // Already a full external URL
@@ -21,10 +21,15 @@ export const resolveImageUrl = (path) => {
     return path;
   }
 
-  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  let cleanPath = path.startsWith('/') ? path : `/${path}`;
 
-  // Local development or static bundled assets in /uploads are served directly by Vite / Vercel
-  if (isLocalhost || cleanPath.startsWith('/uploads/')) {
+  // Static built-in assets located under /uploads/ are mapped to /static-uploads/
+  // to avoid Vercel proxying to sleeping Render servers.
+  if (cleanPath.startsWith('/uploads/')) {
+    return cleanPath.replace('/uploads/', '/static-uploads/');
+  }
+
+  if (cleanPath.startsWith('/static-uploads/')) {
     return cleanPath;
   }
 

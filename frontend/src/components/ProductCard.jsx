@@ -24,26 +24,31 @@ export const ProductCard = ({ product }) => {
   const getDefaultFallbackImage = () => {
     if (category === 'tractor') {
       const lowerTitle = ((title || '') + ' ' + (brand || '')).toLowerCase();
-      if (lowerTitle.includes('john deere')) return '/uploads/tractor-john-deere-5050.jpg';
-      if (lowerTitle.includes('swaraj')) return '/uploads/tractor-swaraj-855.jpg';
-      if (lowerTitle.includes('massey')) return '/uploads/tractor-massey-241.jpg';
-      if (lowerTitle.includes('sonalika')) return '/uploads/tractor-sonalika-745.jpg';
-      if (lowerTitle.includes('eicher')) return '/uploads/tractor-eicher-380.jpg';
-      return '/uploads/tractor-mahindra-575.jpg';
+      if (lowerTitle.includes('john deere')) return '/static-uploads/tractor-john-deere-5050.jpg';
+      if (lowerTitle.includes('swaraj')) return '/static-uploads/tractor-swaraj-855.jpg';
+      if (lowerTitle.includes('massey')) return '/static-uploads/tractor-massey-241.jpg';
+      if (lowerTitle.includes('sonalika')) return '/static-uploads/tractor-sonalika-745.jpg';
+      if (lowerTitle.includes('eicher')) return '/static-uploads/tractor-eicher-380.jpg';
+      return '/static-uploads/tractor-mahindra-575.jpg';
     }
     if (category === 'car') {
       const lowerTitle = ((title || '') + ' ' + (brand || '')).toLowerCase();
-      if (lowerTitle.includes('swift')) return '/uploads/car-maruti-swift.jpg';
-      if (lowerTitle.includes('i20')) return '/uploads/car-hyundai-i20.jpg';
-      if (lowerTitle.includes('nexon')) return '/uploads/car-tata-nexon.jpg';
-      if (lowerTitle.includes('innova')) return '/uploads/car-toyota-innova.jpg';
-      return '/uploads/car-mahindra-bolero.jpg';
+      if (lowerTitle.includes('swift')) return '/static-uploads/car-maruti-swift.jpg';
+      if (lowerTitle.includes('i20')) return '/static-uploads/car-hyundai-i20.jpg';
+      if (lowerTitle.includes('nexon')) return '/static-uploads/car-tata-nexon.jpg';
+      if (lowerTitle.includes('innova')) return '/static-uploads/car-toyota-innova.jpg';
+      return '/static-uploads/car-mahindra-bolero.jpg';
     }
-    return '/uploads/part-clutch-plate.jpg';
+    return '/static-uploads/part-clutch-plate.jpg';
   };
 
   const rawImage = images && images.length > 0 ? images[0] : getDefaultFallbackImage();
   const imageUrl = resolveImageUrl(rawImage);
+
+  // Approximate 3-year EMI at 9.5% with 25% down payment
+  const estimatedEmi = price && price > 50000 
+    ? Math.round(((price * 0.75) * (0.095 / 12) * Math.pow(1 + 0.095 / 12, 36)) / (Math.pow(1 + 0.095 / 12, 36) - 1))
+    : null;
 
   const categoryLabel = 
     category === 'tractor' ? 'Tractor' : 
@@ -56,7 +61,7 @@ export const ProductCard = ({ product }) => {
     'bg-emerald-50 text-emerald-800 border-emerald-200';
 
   const waMessage = encodeURIComponent(
-    `Hello Balaji Consultancy! I am interested in: ${title} (${formatINR(price, false)}). Is it currently available for inspection?`
+    `Hello Balaji Consultancy! I am interested in: ${title} (${hpPower ? hpPower + ' • ' : ''}${formatINR(price, false)}). Is it currently available for inspection at your yard?`
   );
 
   return (
@@ -160,7 +165,14 @@ export const ProductCard = ({ product }) => {
         {/* Price & Actions Footer */}
         <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
           <div>
-            <div className="text-[10px] uppercase font-semibold text-slate-400">Fixed Best Price</div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] uppercase font-semibold text-slate-400">Fixed Best Price</span>
+              {estimatedEmi && (
+                <span className="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">
+                  EMI ₹{estimatedEmi.toLocaleString('en-IN')}/mo
+                </span>
+              )}
+            </div>
             <div className="font-heading font-extrabold text-lg text-slate-900 group-hover:text-orange-600 transition-colors">
               {formatINR(price)}
             </div>

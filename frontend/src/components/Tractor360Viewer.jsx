@@ -8,10 +8,11 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { resolveImageUrl } from '../utils/imageUrl';
+import defaultTractorVideo from '../assets/tractor-rotation.mp4';
 
 export function Tractor360Viewer({ 
   className = '', 
-  videoSrc = '/uploads/gemini_generated_video_53ecdb37.mp4',
+  videoSrc = defaultTractorVideo,
   autoSpin = true,
   showControls = true
 }) {
