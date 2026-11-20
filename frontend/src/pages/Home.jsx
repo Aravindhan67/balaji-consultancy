@@ -27,7 +27,6 @@ import { ScrollReveal } from '../components/ScrollReveal';
 import { AnimatedCounter } from '../components/AnimatedCounter';
 import { InspectionStation } from '../components/InspectionStation';
 import { ValuationEstimator } from '../components/ValuationEstimator';
-import { Tractor360Viewer } from '../components/Tractor360Viewer';
 import { resolveImageUrl } from '../utils/imageUrl';
 
 export const Home = () => {
@@ -235,15 +234,27 @@ export const Home = () => {
                   </div>
                 </div>
 
-                {/* Visual Frame: Interactive 360 Degree Turntable for Tractors */}
-                {activeHeroTab === 'tractor' ? (
-                  <Tractor360Viewer 
-                    videoSrc="/uploads/gemini_generated_video_53ecdb37.mp4" 
-                    autoSpin={true} 
-                    showControls={true} 
-                  />
-                ) : (
-                  <div className="taste-zoom aspect-[16/10] bg-slate-100 rounded-2xl overflow-hidden relative border border-slate-200/70 shadow-inner">
+                {/* Visual Frame: Clean Video / Showcase Image */}
+                <div className="taste-zoom aspect-[16/10] bg-slate-900 rounded-2xl overflow-hidden relative border border-slate-200/70 shadow-inner">
+                  {activeHeroTab === 'tractor' ? (
+                    <video
+                      key="tractor-video"
+                      src="/uploads/gemini_generated_video_53ecdb37.mp4"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      poster="/uploads/tractor-mahindra-575.jpg"
+                      className="w-full h-full object-cover"
+                      ref={(el) => {
+                        if (el) {
+                          el.muted = true;
+                          el.defaultMuted = true;
+                          el.play().catch(() => {});
+                        }
+                      }}
+                    />
+                  ) : (
                     <img
                       src={resolveImageUrl(activeShowcase.image)}
                       alt={activeShowcase.title}
@@ -252,14 +263,14 @@ export const Home = () => {
                         e.target.src = 'https://images.unsplash.com/photo-1592838064575-70ed626d3a0e?auto=format&fit=crop&w=600&q=80';
                       }}
                     />
-                    <div className="absolute top-2.5 left-2.5 bg-slate-900/85 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/20">
-                      {activeShowcase.tag}
-                    </div>
-                    <div className="absolute bottom-2.5 right-2.5 bg-orange-600 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-md">
-                      {activeShowcase.price}
-                    </div>
+                  )}
+                  <div className="absolute top-2.5 left-2.5 bg-slate-900/85 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/20">
+                    {activeShowcase.tag}
                   </div>
-                )}
+                  <div className="absolute bottom-2.5 right-2.5 bg-orange-600 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-md">
+                    {activeShowcase.price}
+                  </div>
+                </div>
 
                 {/* Showcase Details */}
                 <div className="space-y-1.5 text-xs">
