@@ -26,7 +26,6 @@ import { api } from '../services/api';
 import { ProductCard } from '../components/ProductCard';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { AnimatedCounter } from '../components/AnimatedCounter';
-import { InspectionStation } from '../components/InspectionStation';
 import { ValuationEstimator } from '../components/ValuationEstimator';
 import { EmiCalculator } from '../components/EmiCalculator';
 import { resolveImageUrl } from '../utils/imageUrl';
@@ -470,14 +469,7 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* 3. DEALT MOMENT 1: INTERACTIVE 120-POINT MECHANICAL STATION (SCROLL REVEAL) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ScrollReveal>
-          <InspectionStation />
-        </ScrollReveal>
-      </section>
-
-      {/* 4. FEATURED TRACTORS WITH INTERACTIVE FILTER CHIPS (SCROLL REVEAL) */}
+      {/* 3. FEATURED TRACTORS WITH INTERACTIVE FILTER CHIPS (SCROLL REVEAL) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-6 gap-4">
