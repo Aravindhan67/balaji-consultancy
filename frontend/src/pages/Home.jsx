@@ -521,13 +521,6 @@ export const Home = () => {
                 Popular Indian models from Mahindra, Swaraj, John Deere, and Sonalika tested and ready for agricultural operations.
               </p>
             </div>
-            <Link
-              to="/products?category=tractor"
-              className="taste-btn inline-flex items-center gap-1.5 text-xs sm:text-sm font-extrabold text-orange-600 hover:text-orange-700 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm transition-colors"
-            >
-              View All Tractors ({allTractors.length > 0 ? 'Verified' : 'Catalog'})
-              <ArrowRight className="w-4 h-4" />
-            </Link>
           </div>
         </ScrollReveal>
 
