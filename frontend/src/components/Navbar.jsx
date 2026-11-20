@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Logo } from './Logo';
-import { PhoneCall, FileText, Menu } from 'lucide-react';
+import { PhoneCall, Menu } from 'lucide-react';
 
 export const Navbar = ({ onOpenSideDrawer }) => {
   const location = useLocation();
@@ -51,7 +51,7 @@ export const Navbar = ({ onOpenSideDrawer }) => {
           <div className="hidden sm:flex items-center gap-3 shrink-0">
             <a
               href="tel:+918124336369"
-              className="hidden xl:flex items-center gap-2 text-xs font-bold text-slate-700 hover:text-orange-600 transition-colors whitespace-nowrap shrink-0"
+              className="flex items-center gap-2 text-xs xl:text-sm font-bold text-slate-700 hover:text-orange-600 bg-slate-50 hover:bg-slate-100 px-3.5 py-2 rounded-xl border border-slate-200 transition-colors whitespace-nowrap shrink-0"
               title="Direct Yard Call"
             >
               <div className="w-7 h-7 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
@@ -59,14 +59,6 @@ export const Navbar = ({ onOpenSideDrawer }) => {
               </div>
               <span className="whitespace-nowrap font-bold">+91 81243 36369</span>
             </a>
-
-            <Link
-              to="/quotation"
-              className="inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-700 hover:to-amber-600 text-white font-bold text-xs px-3.5 xl:px-4 py-2.5 rounded-xl shadow-md shadow-orange-500/20 hover:shadow-lg transition-all transform hover:-translate-y-0.5"
-            >
-              <FileText className="w-3.5 h-3.5 text-amber-100 shrink-0" />
-              <span>Free Valuation / Sell</span>
-            </Link>
           </div>
 
           {/* Mobile Menu Trigger (Opens Side Drawer) */}
