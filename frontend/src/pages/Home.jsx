@@ -127,7 +127,7 @@ export const Home = () => {
   return (
     <div className="space-y-16 sm:space-y-24 bg-[#F8FAFC]">
       {/* 1. HERO SECTION - WITH 360 ROTATION VIDEO IN BACKGROUND ON SCROLL */}
-      <section className="relative overflow-hidden pt-10 pb-16 lg:py-24 bg-gradient-to-b from-white via-slate-50/70 to-[#F8FAFC] border-b border-slate-200/60">
+      <section className="relative overflow-hidden pt-10 pb-16 lg:py-24 border-b border-slate-200">
         {/* Background 360-Degree Tractor Video with Scroll-Linked Rotation & Parallax */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
           <div 
@@ -144,7 +144,7 @@ export const Home = () => {
               muted
               playsInline
               poster={resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg')}
-              className="w-full h-full object-cover object-center lg:object-right opacity-80 lg:opacity-90"
+              className="w-full h-full object-cover object-center lg:object-right"
               onLoadedMetadata={(e) => {
                 const v = e.currentTarget;
                 v.muted = true;
@@ -153,15 +153,7 @@ export const Home = () => {
               }}
             />
           </div>
-
-          {/* Gradient Scrims: Ensures Text Contrast & Clean Aesthetic */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/40 lg:from-white lg:via-white/85 lg:to-transparent z-10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#F8FAFC] via-transparent to-white/30 z-10" />
         </div>
-
-        {/* Soft Organic Diffuse Background Accents */}
-        <div className="absolute top-0 right-0 -mr-24 -mt-24 w-[480px] h-[480px] bg-orange-100/35 rounded-full blur-3xl pointer-events-none z-0"></div>
-        <div className="absolute bottom-0 left-0 -ml-24 -mb-24 w-[480px] h-[480px] bg-emerald-50/50 rounded-full blur-3xl pointer-events-none z-0"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
