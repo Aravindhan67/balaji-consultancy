@@ -5,13 +5,15 @@ import { formatINR } from '../utils/formatters';
 import { resolveImageUrl } from '../utils/imageUrl';
 
 export const ProductCard = ({ product }) => {
+  if (!product) return null;
+
   const {
     _id,
-    title,
-    category,
-    brand,
+    title = '',
+    category = 'tractor',
+    brand = '',
     modelYear,
-    price,
+    price = 0,
     condition,
     kmOrHours,
     fuelType,
@@ -46,8 +48,9 @@ export const ProductCard = ({ product }) => {
   const imageUrl = resolveImageUrl(rawImage);
 
   // Approximate 3-year EMI at 9.5% with 25% down payment
-  const estimatedEmi = price && price > 50000 
-    ? Math.round(((price * 0.75) * (0.095 / 12) * Math.pow(1 + 0.095 / 12, 36)) / (Math.pow(1 + 0.095 / 12, 36) - 1))
+  const numPrice = Number(price) || 0;
+  const estimatedEmi = numPrice > 50000 
+    ? Math.round(((numPrice * 0.75) * (0.095 / 12) * Math.pow(1 + 0.095 / 12, 36)) / (Math.pow(1 + 0.095 / 12, 36) - 1))
     : null;
 
   const categoryLabel = 

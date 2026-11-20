@@ -51,7 +51,9 @@ export const Home = () => {
     const fetchFeatured = async () => {
       try {
         const res = await api.getProducts({ featured: true });
-        if (res.success) {
+        if (res && res.success && Array.isArray(res.data)) {
+          setFeaturedProducts(res.data);
+        } else if (res && Array.isArray(res.data)) {
           setFeaturedProducts(res.data);
         }
       } catch (err) {
@@ -72,14 +74,17 @@ export const Home = () => {
     navigate(`/products?${query.toString()}`);
   };
 
-  const allTractors = featuredProducts.filter(p => p.category === 'tractor');
-  const allCars = featuredProducts.filter(p => p.category === 'car');
-  const spares = featuredProducts.filter(p => p.category === 'spare_part').slice(0, 3);
+  const safeFeatured = Array.isArray(featuredProducts) ? featuredProducts : [];
+  const allTractors = safeFeatured.filter(p => p && p.category === 'tractor');
+  const allCars = safeFeatured.filter(p => p && p.category === 'car');
+  const spares = safeFeatured.filter(p => p && p.category === 'spare_part').slice(0, 3);
 
   // Filtered Tractors
   const tractors = allTractors.filter(t => {
+    if (!t) return false;
     if (tractorHpFilter === 'all') return true;
-    const hpMatch = (t.hpPower || '').match(/\d+/);
+    const hpStr = String(t.hpPower || t.title || '');
+    const hpMatch = hpStr.match(/\d+/);
     const hp = hpMatch ? parseInt(hpMatch[0], 10) : 45;
     if (tractorHpFilter === 'under45') return hp < 45;
     if (tractorHpFilter === '45to50') return hp >= 45 && hp <= 50;
@@ -89,8 +94,9 @@ export const Home = () => {
 
   // Filtered Cars
   const cars = allCars.filter(c => {
+    if (!c) return false;
     if (carTypeFilter === 'all') return true;
-    const lower = ((c.title || '') + ' ' + (c.brand || '')).toLowerCase();
+    const lower = String((c.title || '') + ' ' + (c.brand || '')).toLowerCase();
     if (carTypeFilter === 'pickup') return lower.includes('bolero') || lower.includes('pickup') || lower.includes('maxi');
     if (carTypeFilter === 'sedan_hatch') return !lower.includes('pickup') && !lower.includes('maxi');
     return true;

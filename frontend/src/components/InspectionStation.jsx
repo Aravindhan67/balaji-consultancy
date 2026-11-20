@@ -25,8 +25,12 @@ export function InspectionStation() {
 
   useEffect(() => {
     return () => {
-      if (engineSound.isPlaying()) {
-        engineSound.stop();
+      try {
+        if (engineSound && engineSound.isPlaying) {
+          engineSound.stop();
+        }
+      } catch (e) {
+        // Safe cleanup
       }
     };
   }, []);

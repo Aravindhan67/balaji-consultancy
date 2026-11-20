@@ -48,7 +48,11 @@ export const api = {
       });
       const url = `${API_BASE}/products${query.toString() ? `?${query.toString()}` : ''}`;
       const res = await fetch(url);
-      return await safeJson(res, { success: false, data: [] });
+      const json = await safeJson(res, { success: false, data: [] });
+      if (json && !Array.isArray(json.data)) {
+        json.data = [];
+      }
+      return json;
     } catch (err) {
       console.error('getProducts failed:', err);
       return { success: false, data: [] };

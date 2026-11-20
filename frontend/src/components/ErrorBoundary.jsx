@@ -29,6 +29,11 @@ export class ErrorBoundary extends React.Component {
             <p className="text-xs text-slate-600 leading-relaxed">
               We encountered a display issue. All tractor and car inventory data is safe.
             </p>
+            {this.state.error && this.state.error.message && (
+              <div className="text-[11px] font-mono text-red-600 bg-red-50 p-2.5 rounded-xl border border-red-100 text-left overflow-x-auto max-h-24">
+                {this.state.error.message}
+              </div>
+            )}
             <div className="pt-2 flex justify-center gap-3">
               <button
                 onClick={() => {
