@@ -3,11 +3,9 @@ import {
   RotateCw, 
   Play, 
   Pause, 
-  Sparkles, 
   ShieldCheck,
   ChevronLeft,
-  ChevronRight,
-  Video
+  ChevronRight
 } from 'lucide-react';
 import { resolveImageUrl } from '../utils/imageUrl';
 
@@ -22,14 +20,13 @@ export function Tractor360Viewer({
 
   const [isPlaying, setIsPlaying] = useState(autoSpin);
   const [currentDeg, setCurrentDeg] = useState(0);
-  const [duration, setDuration] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStartX, setDragStartX] = useState(0);
   const [dragStartTime, setDragStartTime] = useState(0);
+  const [dragStartDeg, setDragStartDeg] = useState(0);
   const [videoError, setVideoError] = useState(false);
-  const [imageIndex, setImageIndex] = useState(0);
 
-  // 8 distinct 360-degree turntable angles for fallback or reference
+  // 8 distinct 360-degree turntable angles
   const frames = [
     {
       deg: 0,
@@ -81,99 +78,113 @@ export function Tractor360Viewer({
     }
   ];
 
-  // Pick specification callout based on current rotation angle
-  const getCallout = (deg) => {
+  // Map degree (0-359) to closest index (0-7)
+  const getFrameIndex = (deg) => {
     const normalized = ((deg % 360) + 360) % 360;
-    const closest = frames.reduce((prev, curr) => {
-      return Math.abs(curr.deg - normalized) < Math.abs(prev.deg - normalized) ? curr : prev;
-    }, frames[0]);
-    return closest;
+    const step = 360 / frames.length; // 45 deg
+    const index = Math.round(normalized / step) % frames.length;
+    return index;
   };
 
-  const currentCallout = getCallout(currentDeg);
+  const currentFrame = frames[getFrameIndex(currentDeg)];
 
-  // Auto-play control on mount
+  // Auto-play setup with strict muted enforcement for browser policies
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
-
-    if (autoSpin) {
-      video.play().then(() => setIsPlaying(true)).catch(() => {
-        // Autoplay policy might require user gesture, remains paused
-        setIsPlaying(false);
-      });
+    if (video) {
+      video.muted = true;
+      video.defaultMuted = true;
+      if (autoSpin) {
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => setIsPlaying(true))
+            .catch(() => setIsPlaying(false));
+        }
+      }
     }
   }, [autoSpin]);
 
-  // Video Time Update -> Calculate Rotation Degrees (0° to 360°)
+  // Image mode auto-spin interval when video fails or image mode is active
+  useEffect(() => {
+    if (!videoError || !isPlaying || isDragging) return;
+
+    const timer = setInterval(() => {
+      setCurrentDeg((prev) => (prev + 45) % 360);
+    }, 1300);
+
+    return () => clearInterval(timer);
+  }, [videoError, isPlaying, isDragging]);
+
+  // Video Time Update -> Rotation Degrees
   const handleTimeUpdate = () => {
     const video = videoRef.current;
-    if (!video || !video.duration) return;
+    if (!video || !video.duration || isDragging) return;
 
     const progress = video.currentTime / video.duration;
     const deg = Math.round(progress * 360) % 360;
     setCurrentDeg(deg);
   };
 
-  const handleLoadedMetadata = () => {
-    const video = videoRef.current;
-    if (video) {
-      setDuration(video.duration);
-    }
-  };
-
   // Toggle Play / Pause
   const togglePlay = (e) => {
     if (e) e.stopPropagation();
     const video = videoRef.current;
-    if (!video) return;
 
-    if (video.paused) {
-      video.play();
-      setIsPlaying(true);
+    if (!videoError && video) {
+      if (video.paused) {
+        video.play();
+        setIsPlaying(true);
+      } else {
+        video.pause();
+        setIsPlaying(false);
+      }
     } else {
-      video.pause();
-      setIsPlaying(false);
+      setIsPlaying(!isPlaying);
     }
   };
 
-  // Interactive Drag-to-Rotate Video Scrubbing
+  // Pointer drag scrubbing (Works for both Video and Image frames)
   const handlePointerDown = (e) => {
-    const video = videoRef.current;
-    if (!video) return;
-
     setIsDragging(true);
     const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
     setDragStartX(clientX);
-    setDragStartTime(video.currentTime);
+    setDragStartDeg(currentDeg);
 
-    // Pause video during scrubbing
-    if (!video.paused) {
-      video.pause();
-      setIsPlaying(false);
+    const video = videoRef.current;
+    if (!videoError && video) {
+      setDragStartTime(video.currentTime);
+      if (!video.paused) {
+        video.pause();
+        setIsPlaying(false);
+      }
     }
   };
 
   const handlePointerMove = useCallback((e) => {
     if (!isDragging) return;
-    const video = videoRef.current;
-    if (!video || !video.duration) return;
-
     const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
     const deltaX = clientX - dragStartX;
 
-    // Full width of card (approx 320px) scrubs full 360 rotation
-    const scrubRatio = deltaX / 320;
-    let newTime = dragStartTime - (scrubRatio * video.duration);
-    
-    // Wrap around 0 to duration
-    while (newTime < 0) newTime += video.duration;
-    while (newTime >= video.duration) newTime -= video.duration;
+    const video = videoRef.current;
+    if (!videoError && video && video.duration) {
+      // 320px drag = 360 degrees
+      const scrubRatio = deltaX / 320;
+      let newTime = dragStartTime - (scrubRatio * video.duration);
+      while (newTime < 0) newTime += video.duration;
+      while (newTime >= video.duration) newTime -= video.duration;
 
-    video.currentTime = newTime;
-    const deg = Math.round((newTime / video.duration) * 360) % 360;
-    setCurrentDeg(deg);
-  }, [isDragging, dragStartX, dragStartTime]);
+      video.currentTime = newTime;
+      const deg = Math.round((newTime / video.duration) * 360) % 360;
+      setCurrentDeg(deg);
+    } else {
+      // Image mode drag: 35px per 45-degree angle
+      const angleShift = Math.floor(deltaX / 35) * 45;
+      let newDeg = (dragStartDeg - angleShift) % 360;
+      if (newDeg < 0) newDeg += 360;
+      setCurrentDeg(newDeg);
+    }
+  }, [isDragging, dragStartX, dragStartTime, dragStartDeg, videoError]);
 
   const handlePointerUp = () => {
     setIsDragging(false);
@@ -196,27 +207,29 @@ export function Tractor360Viewer({
 
   // Jump to specific angle (0°, 90°, 180°, 270°)
   const jumpToAngle = (targetDeg) => {
-    const video = videoRef.current;
-    if (!video || !video.duration) return;
-
-    const targetTime = (targetDeg / 360) * video.duration;
-    video.currentTime = Math.min(targetTime, video.duration - 0.05);
     setCurrentDeg(targetDeg);
+    const video = videoRef.current;
+    if (!videoError && video && video.duration) {
+      const targetTime = (targetDeg / 360) * video.duration;
+      video.currentTime = Math.min(targetTime, video.duration - 0.05);
+    }
+    if (isPlaying) setIsPlaying(false);
   };
 
   // Step 45 degrees
   const stepAngle = (direction) => {
+    const newDeg = (currentDeg + (direction * 45) + 360) % 360;
+    setCurrentDeg(newDeg);
+
     const video = videoRef.current;
-    if (!video || !video.duration) return;
-
-    const stepTime = (45 / 360) * video.duration;
-    let newTime = video.currentTime + (direction * stepTime);
-    if (newTime < 0) newTime += video.duration;
-    if (newTime >= video.duration) newTime -= video.duration;
-
-    video.currentTime = newTime;
-    const deg = Math.round((newTime / video.duration) * 360) % 360;
-    setCurrentDeg(deg);
+    if (!videoError && video && video.duration) {
+      const stepTime = (45 / 360) * video.duration;
+      let newTime = video.currentTime + (direction * stepTime);
+      if (newTime < 0) newTime += video.duration;
+      if (newTime >= video.duration) newTime -= video.duration;
+      video.currentTime = newTime;
+    }
+    if (isPlaying) setIsPlaying(false);
   };
 
   return (
@@ -224,14 +237,14 @@ export function Tractor360Viewer({
       className={`relative select-none rounded-2xl overflow-hidden bg-slate-950 border border-slate-200/70 shadow-lg ${className}`}
       ref={containerRef}
     >
-      {/* 360 Degree Video / Canvas Viewer */}
+      {/* 360 Degree Canvas / Viewer Area */}
       <div 
         className="relative aspect-[16/10] overflow-hidden cursor-grab active:cursor-grabbing flex items-center justify-center bg-slate-950"
         onMouseDown={handlePointerDown}
         onTouchStart={handlePointerDown}
         onClick={togglePlay}
       >
-        {/* Video Player */}
+        {/* Primary Video Element */}
         {!videoError ? (
           <video
             ref={videoRef}
@@ -241,16 +254,22 @@ export function Tractor360Viewer({
             loop
             playsInline
             autoPlay
+            preload="auto"
             onTimeUpdate={handleTimeUpdate}
-            onLoadedMetadata={handleLoadedMetadata}
-            onError={() => setVideoError(true)}
+            onError={() => {
+              console.warn('Video failed to play, switching to photorealistic 360 turntable frames');
+              setVideoError(true);
+            }}
           />
         ) : (
-          /* Fallback image sequence */
+          /* High-Resolution Turntable Fallback Image Frame */
           <img
-            src={resolveImageUrl(frames[imageIndex].img)}
-            alt={`Tractor 360 view at ${frames[imageIndex].deg} degrees`}
-            className="w-full h-full object-cover pointer-events-none"
+            src={resolveImageUrl(currentFrame.img)}
+            alt={`Tractor 360 view at ${currentFrame.deg} degrees`}
+            className="w-full h-full object-cover pointer-events-none transition-opacity duration-150"
+            onError={(e) => {
+              e.target.src = resolveImageUrl('/uploads/tractor-mahindra-575.jpg');
+            }}
           />
         )}
 
@@ -287,10 +306,10 @@ export function Tractor360Viewer({
         <div className="absolute bottom-2.5 left-3 right-3 z-10 bg-slate-900/90 backdrop-blur-md text-white px-3 py-2 rounded-xl border border-white/15 flex items-center justify-between text-xs shadow-md pointer-events-none">
           <div>
             <div className="text-[10px] text-orange-400 font-bold uppercase tracking-wider">
-              {currentCallout.label}
+              {currentFrame.label}
             </div>
             <div className="text-[11px] text-slate-200 font-medium line-clamp-1">
-              {currentCallout.spec}
+              {currentFrame.spec}
             </div>
           </div>
           <div className="flex items-center gap-1 text-[10px] text-emerald-400 font-bold shrink-0">

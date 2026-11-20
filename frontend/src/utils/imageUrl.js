@@ -1,16 +1,19 @@
-// Utility to resolve image URLs reliably across local, Vercel, and Render deployments
+// Utility to resolve image & video URLs reliably across local, Vercel, and Render deployments
+
+export const isLocalhost = 
+  typeof window !== 'undefined' && 
+  (window.location.hostname === 'localhost' || 
+   window.location.hostname === '127.0.0.1' || 
+   window.location.hostname === '');
 
 export const BACKEND_URL = 
-  import.meta.env.VITE_BACKEND_URL || 
-  (typeof window !== 'undefined' && window.location.hostname.includes('vercel.app')
-    ? 'https://balaji-consultancy.onrender.com'
-    : '');
+  isLocalhost
+    ? ''
+    : (import.meta.env.VITE_BACKEND_URL || '');
 
 export const resolveImageUrl = (path) => {
   if (!path) {
-    return BACKEND_URL 
-      ? `${BACKEND_URL}/uploads/tractor-mahindra-575.jpg` 
-      : '/uploads/tractor-mahindra-575.jpg';
+    return '/uploads/tractor-mahindra-575.jpg';
   }
 
   // Already a full external URL
@@ -20,11 +23,15 @@ export const resolveImageUrl = (path) => {
 
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
 
-  // If deployed on Vercel or external domain, prefix with Render backend URL
+  // Local development or static bundled assets in /uploads are served directly by Vite / Vercel
+  if (isLocalhost || cleanPath.startsWith('/uploads/')) {
+    return cleanPath;
+  }
+
+  // Fallback prefix for remote dynamic server paths
   if (BACKEND_URL) {
     return `${BACKEND_URL}${cleanPath}`;
   }
 
-  // Local development fallback
   return cleanPath;
 };
