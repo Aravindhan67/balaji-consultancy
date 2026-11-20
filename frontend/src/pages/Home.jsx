@@ -237,7 +237,11 @@ export const Home = () => {
 
                 {/* Visual Frame: Interactive 360 Degree Turntable for Tractors */}
                 {activeHeroTab === 'tractor' ? (
-                  <Tractor360Viewer autoSpin={true} showControls={true} />
+                  <Tractor360Viewer 
+                    videoSrc="/uploads/gemini_generated_video_53ecdb37.mp4" 
+                    autoSpin={true} 
+                    showControls={true} 
+                  />
                 ) : (
                   <div className="taste-zoom aspect-[16/10] bg-slate-100 rounded-2xl overflow-hidden relative border border-slate-200/70 shadow-inner">
                     <img

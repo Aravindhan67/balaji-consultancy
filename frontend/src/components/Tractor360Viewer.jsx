@@ -13,6 +13,7 @@ import { resolveImageUrl } from '../utils/imageUrl';
 
 export function Tractor360Viewer({ 
   className = '', 
+  videoSrc = '/uploads/gemini_generated_video_53ecdb37.mp4',
   autoSpin = true,
   showControls = true
 }) {
@@ -234,7 +235,7 @@ export function Tractor360Viewer({
         {!videoError ? (
           <video
             ref={videoRef}
-            src={resolveImageUrl('/uploads/tractor-360-video.mp4')}
+            src={resolveImageUrl(videoSrc)}
             className="w-full h-full object-cover pointer-events-none"
             muted
             loop
