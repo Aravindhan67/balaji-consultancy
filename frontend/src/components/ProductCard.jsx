@@ -39,13 +39,13 @@ export const ProductCard = ({ product }) => {
   );
 
   return (
-    <div className="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:border-slate-300 transition-all duration-300 flex flex-col justify-between">
+    <div className="taste-card group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:border-slate-300 flex flex-col justify-between">
       {/* Top Image & Floating Tags */}
-      <div className="relative aspect-[16/10] bg-slate-100 overflow-hidden">
+      <div className="taste-zoom relative aspect-[16/10] bg-slate-100">
         <img
           src={imageUrl}
           alt={title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover"
           loading="lazy"
           onError={(e) => {
             e.target.src = 'https://images.unsplash.com/photo-1592838064575-70ed626d3a0e?auto=format&fit=crop&w=600&q=80';
@@ -147,7 +147,7 @@ export const ProductCard = ({ product }) => {
               href={`https://wa.me/918124336369?text=${waMessage}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-colors border border-emerald-100"
+              className="taste-btn p-2 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white border border-emerald-100"
               title="Quick WhatsApp Enquiry"
             >
               <MessageSquare className="w-4 h-4" />
@@ -155,7 +155,7 @@ export const ProductCard = ({ product }) => {
             
             <Link
               to={`/products/${_id}`}
-              className="inline-flex items-center gap-1 text-xs font-bold bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-2 rounded-xl transition-colors shadow-sm shadow-orange-600/20"
+              className="taste-btn inline-flex items-center gap-1 text-xs font-bold bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-2 rounded-xl shadow-sm shadow-orange-600/20"
             >
               Details
               <ArrowRight className="w-3 h-3" />
