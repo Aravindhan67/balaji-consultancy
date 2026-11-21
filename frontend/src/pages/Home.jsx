@@ -28,7 +28,6 @@ import { AnimatedCounter } from '../components/AnimatedCounter';
 import { ValuationEstimator } from '../components/ValuationEstimator';
 import { EmiCalculator } from '../components/EmiCalculator';
 import { resolveImageUrl } from '../utils/imageUrl';
-import tractorRotationVideo from '../assets/tractor-rotation.mp4';
 
 export const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -37,8 +36,6 @@ export const Home = () => {
   const [searchBrand, setSearchBrand] = useState('all');
   const [searchKeyword, setSearchKeyword] = useState('');
 
-  const heroVideoRef = useRef(null);
-  const [parallaxY, setParallaxY] = useState(0);
   const [flightProgress, setFlightProgress] = useState(0);
   const [flightDelta, setFlightDelta] = useState({ dx: 760, dy: 540 });
   const [isDesktop, setIsDesktop] = useState(typeof window !== 'undefined' ? window.innerWidth >= 1024 : true);
@@ -51,7 +48,6 @@ export const Home = () => {
 
   useEffect(() => {
     let animationFrameId;
-    let scrollEndTimer;
 
     const updateGeometry = () => {
       if (typeof window === 'undefined') return;
@@ -83,11 +79,6 @@ export const Home = () => {
 
       cancelAnimationFrame(animationFrameId);
       animationFrameId = requestAnimationFrame(() => {
-        // Parallax depth translation
-        if (scrollY < 1200) {
-          setParallaxY(scrollY * 0.22);
-        }
-
         // Tractor card flight: moves down and across diagonally directly into Card 3 on the right
         if (window.innerWidth >= 1024 && sourceWrapperRef.current && targetCardRef.current) {
           const sRect = sourceWrapperRef.current.getBoundingClientRect();
@@ -108,28 +99,7 @@ export const Home = () => {
         } else {
           setFlightProgress(0);
         }
-
-        // Scrub 360-degree tractor rotation video in background as user scrolls
-        const video = heroVideoRef.current;
-        if (video && video.duration && !isNaN(video.duration)) {
-          const scrollRange = 750; // 750px of scroll completes full 360 rotation
-          const progress = Math.min(Math.max(scrollY / scrollRange, 0), 1);
-
-          if (!video.paused) {
-            video.pause();
-          }
-          video.currentTime = progress * video.duration;
-        }
       });
-
-      // Resume smooth ambient rotation when scrolling stops near top
-      clearTimeout(scrollEndTimer);
-      scrollEndTimer = setTimeout(() => {
-        const video = heroVideoRef.current;
-        if (video && window.scrollY < 300 && video.paused) {
-          video.play().catch(() => {});
-        }
-      }, 500);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -137,7 +107,6 @@ export const Home = () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', updateGeometry);
       cancelAnimationFrame(animationFrameId);
-      clearTimeout(scrollEndTimer);
     };
   }, []);
 
@@ -198,46 +167,18 @@ export const Home = () => {
 
   return (
     <div className="space-y-16 sm:space-y-24 bg-[#F8FAFC]">
-      {/* 1. HERO SECTION - FULL SCREEN 360 ROTATION SHOWROOM */}
-      <section className="relative overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-between bg-slate-950 border-b border-slate-800">
-        {/* Background 360-Degree Tractor Video with Scroll-Linked Rotation & Parallax */}
+      {/* 1. HERO SECTION */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 text-white py-16 sm:py-24">
+        {/* Atmosphere Ambient Glows */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-          <div 
-            className="w-full h-full relative transition-transform duration-100 ease-out will-change-transform overflow-hidden"
-            style={{
-              transform: `translate3d(0, ${parallaxY}px, 0)`
-            }}
-          >
-            <video
-              ref={heroVideoRef}
-              src={tractorRotationVideo}
-              autoPlay
-              loop
-              muted
-              playsInline
-              poster={resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg')}
-              className="w-full h-full object-cover object-center opacity-95 scale-[1.14] origin-center"
-              onLoadedMetadata={(e) => {
-                const v = e.currentTarget;
-                v.muted = true;
-                v.defaultMuted = true;
-                v.play().catch(() => {});
-              }}
-            />
-          </div>
-
-          {/* Studio Atmosphere Vignettes: Top & Bottom Framing for Pure Legibility */}
-          <div className="absolute top-0 inset-x-0 h-48 bg-gradient-to-b from-slate-950/90 via-slate-950/40 to-transparent pointer-events-none z-[1]" />
-          <div className="absolute bottom-0 inset-x-0 h-52 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent pointer-events-none z-[1]" />
-
-          {/* Bottom-Right Corner Scrim: Guarantees Watermark is 100% Invisible */}
-          <div className="absolute bottom-0 right-0 w-64 h-36 bg-gradient-to-tl from-slate-950 via-slate-950/60 to-transparent pointer-events-none z-[1]" />
+          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-orange-600/15 blur-[120px] rounded-full" />
+          <div className="absolute -bottom-20 right-10 w-[420px] h-[280px] bg-amber-500/10 blur-[110px] rounded-full" />
+          <div className="absolute top-1/3 left-10 w-[300px] h-[300px] bg-emerald-500/5 blur-[90px] rounded-full" />
         </div>
 
-        {/* TOP SECTION: Headline & Value Proposition (Positioned on Dark Studio Upper Wall) */}
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 relative z-20 w-full text-center">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full text-center space-y-6 sm:space-y-8">
           {/* Trust Badges */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-3.5">
+          <div className="flex flex-wrap items-center justify-center gap-2">
             <span className="animate-hero-rise inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 text-amber-300 text-xs font-extrabold border border-amber-500/30 backdrop-blur-md shadow-sm">
               <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
               India's Trusted Automotive &amp; Agro Vehicle Consultancy
@@ -249,56 +190,44 @@ export const Home = () => {
           </div>
 
           {/* H1 Headline - Crisp High-Contrast Pure White & Luminous Amber-Gold */}
-          <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12] drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)]">
-            Certified <span className="text-amber-400 drop-shadow-[0_2px_14px_rgba(251,191,36,0.35)]">Second-Hand Tractors</span>, Utility Cars &amp; Genuine Spares.
+          <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12] drop-shadow-sm">
+            Certified <span className="text-amber-400">Second-Hand Tractors</span>, Utility Cars &amp; Genuine Spares.
           </h1>
 
           {/* Subtitle */}
-          <p className="animate-hero-rise hero-delay-2 text-slate-200 text-sm sm:text-base lg:text-lg leading-relaxed max-w-3xl mx-auto font-normal mt-2.5 drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
+          <p className="animate-hero-rise hero-delay-2 text-slate-300 text-sm sm:text-base lg:text-lg leading-relaxed max-w-3xl mx-auto font-normal">
             Helping Indian farmers, transport operators, and families buy and sell pre-owned vehicles with{' '}
             <strong className="text-amber-300 font-semibold">120-point mechanical certification</strong>, guaranteed{' '}
             <strong className="text-emerald-400 font-semibold">RTO RC transfer</strong>, and zero middleman broker fees.
           </p>
-        </div>
 
-        {/* MIDDLE SECTION: Interactive 360 Turntable Center Viewport */}
-        <div className="relative z-20 w-full flex justify-end px-6 lg:px-12 pointer-events-none my-auto">
-          <div className="pointer-events-auto bg-slate-900/80 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/15 shadow-2xl text-white inline-flex items-center gap-2.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
-            <span className="text-xs font-bold">360° Interactive Turntable</span>
-            <span className="text-[11px] text-slate-400 font-medium border-l border-white/15 pl-2.5">
-              Scroll down to rotate
-            </span>
-          </div>
-        </div>
-
-        {/* BOTTOM SECTION: Quick Search, Action CTAs & Trust Metrics (Positioned on Dark Studio Floor) */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 relative z-20 w-full text-center space-y-4">
           {/* Integrated Search Console */}
-          <form onSubmit={handleSearchSubmit} className="max-w-xl mx-auto">
-            <div className="flex items-center bg-slate-900/90 backdrop-blur-md p-1.5 rounded-2xl border border-white/20 shadow-2xl focus-within:ring-2 focus-within:ring-amber-400 focus-within:border-amber-400 transition-all">
-              <div className="pl-3.5 pr-2 text-slate-400">
-                <Search className="w-4 h-4" />
+          <div className="max-w-xl mx-auto pt-2">
+            <form onSubmit={handleSearchSubmit}>
+              <div className="flex items-center bg-slate-900/90 backdrop-blur-md p-1.5 rounded-2xl border border-white/20 shadow-2xl focus-within:ring-2 focus-within:ring-amber-400 focus-within:border-amber-400 transition-all">
+                <div className="pl-3.5 pr-2 text-slate-400">
+                  <Search className="w-4 h-4" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search tractor model, HP, or vehicle (e.g. Swaraj 855, Bolero)..."
+                  value={searchKeyword}
+                  onChange={(e) => setSearchKeyword(e.target.value)}
+                  className="w-full text-xs sm:text-sm bg-transparent border-none text-white placeholder:text-slate-400 focus:outline-none font-medium py-2"
+                />
+                <button
+                  type="submit"
+                  className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold px-4 sm:px-5 py-2.5 rounded-xl transition-colors shadow-sm"
+                >
+                  <span>Search Stock</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
+                </button>
               </div>
-              <input
-                type="text"
-                placeholder="Search tractor model, HP, or vehicle (e.g. Swaraj 855, Bolero)..."
-                value={searchKeyword}
-                onChange={(e) => setSearchKeyword(e.target.value)}
-                className="w-full text-xs sm:text-sm bg-transparent border-none text-white placeholder:text-slate-400 focus:outline-none font-medium py-2"
-              />
-              <button
-                type="submit"
-                className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold px-4 sm:px-5 py-2.5 rounded-xl transition-colors shadow-sm"
-              >
-                <span>Search Stock</span>
-                <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
-              </button>
-            </div>
-          </form>
+            </form>
+          </div>
 
           {/* Action CTAs */}
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
             <Link
               to="/products"
               className="taste-btn inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-extrabold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-lg shadow-orange-600/30 transition-all"
@@ -318,7 +247,7 @@ export const Home = () => {
           </div>
 
           {/* Live Trust Counters Row */}
-          <div className="pt-3 border-t border-white/15 flex items-center justify-center gap-6 sm:gap-14 text-center">
+          <div className="pt-6 border-t border-white/15 flex items-center justify-center gap-6 sm:gap-14 text-center">
             <div>
               <div className="font-heading font-black text-xl sm:text-2xl text-white tracking-tight drop-shadow-sm">
                 <AnimatedCounter end={5800} suffix="+" />
