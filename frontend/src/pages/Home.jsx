@@ -39,11 +39,7 @@ export const Home = () => {
 
   const heroVideoRef = useRef(null);
   const [parallaxY, setParallaxY] = useState(0);
-  const [tractorAnim, setTractorAnim] = useState({
-    xPercent: 0,
-    yPx: 0,
-    scale: 1.14
-  });
+  const [tractorMoveY, setTractorMoveY] = useState(0);
 
   const navigate = useNavigate();
 
@@ -56,30 +52,30 @@ export const Home = () => {
 
       cancelAnimationFrame(animationFrameId);
       animationFrameId = requestAnimationFrame(() => {
-        // Continuous scroll-driven animation: tractor glides down to the left side
-        const progress = Math.min(Math.max(scrollY / 600, 0), 1);
-        const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 1024;
+        // Parallax depth translation
+        if (scrollY < 1200) {
+          setParallaxY(scrollY * 0.22);
+        }
 
-        const targetX = isDesktop ? progress * -26 : 0;
-        const targetY = scrollY * 0.42;
-        const targetScale = Math.max(1.14 - (progress * 0.36), 0.78);
+        // Tractor image glide animation: moves smoothly down toward product cards as user scrolls
+        const heroThreshold = 450;
+        if (scrollY > heroThreshold) {
+          const progress = Math.min(Math.max((scrollY - heroThreshold) / 600, 0), 1);
+          setTractorMoveY(progress * 260);
+        } else {
+          setTractorMoveY(0);
+        }
 
-        setTractorAnim({
-          xPercent: targetX,
-          yPx: targetY,
-          scale: targetScale
-        });
-
-        // Scrub 360-degree tractor rotation video as user scrolls
+        // Scrub 360-degree tractor rotation video in background as user scrolls
         const video = heroVideoRef.current;
         if (video && video.duration && !isNaN(video.duration)) {
-          const scrollRange = 750;
-          const rotProgress = Math.min(Math.max(scrollY / scrollRange, 0), 1);
+          const scrollRange = 750; // 750px of scroll completes full 360 rotation
+          const progress = Math.min(Math.max(scrollY / scrollRange, 0), 1);
 
           if (!video.paused) {
             video.pause();
           }
-          video.currentTime = rotProgress * video.duration;
+          video.currentTime = progress * video.duration;
         }
       });
 
@@ -140,15 +136,14 @@ export const Home = () => {
 
   return (
     <div className="space-y-16 sm:space-y-24 bg-[#F8FAFC]">
-      {/* 1 & 2. UNIFIED 360 SHOWROOM & INSPECTION RIGOR STORYBOARD */}
-      <div className="relative bg-slate-950 border-b border-slate-800">
-        {/* Sticky 360-Degree Tractor Turntable: Continuously Animates Down to the Left Side on Scroll */}
-        <div className="sticky top-20 h-[calc(100vh-80px)] w-full pointer-events-none overflow-hidden z-0">
+      {/* 1. HERO SECTION - FULL SCREEN 360 ROTATION SHOWROOM */}
+      <section className="relative overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-between bg-slate-950 border-b border-slate-800">
+        {/* Background 360-Degree Tractor Video with Scroll-Linked Rotation & Parallax */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
           <div 
-            className="w-full h-full relative will-change-transform overflow-hidden"
+            className="w-full h-full relative transition-transform duration-100 ease-out will-change-transform overflow-hidden"
             style={{
-              transform: `translate3d(${tractorAnim.xPercent}%, ${tractorAnim.yPx}px, 0) scale(${tractorAnim.scale})`,
-              transition: 'transform 0.08s ease-out'
+              transform: `translate3d(0, ${parallaxY}px, 0)`
             }}
           >
             <video
@@ -159,7 +154,7 @@ export const Home = () => {
               muted
               playsInline
               poster={resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg')}
-              className="w-full h-full object-cover object-center opacity-95 origin-center"
+              className="w-full h-full object-cover object-center opacity-95 scale-[1.14] origin-center"
               onLoadedMetadata={(e) => {
                 const v = e.currentTarget;
                 v.muted = true;
@@ -177,239 +172,272 @@ export const Home = () => {
           <div className="absolute bottom-0 right-0 w-64 h-36 bg-gradient-to-tl from-slate-950 via-slate-950/60 to-transparent pointer-events-none z-[1]" />
         </div>
 
-        {/* 1. HERO SECTION CONTENT (Overlaid on Sticky 360 Viewport) */}
-        <section className="relative z-10 min-h-[calc(100vh-80px)] flex flex-col justify-between -mt-[calc(100vh-80px)] pointer-events-auto">
-          {/* TOP SECTION: Headline & Value Proposition (Positioned on Dark Studio Upper Wall) */}
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 relative z-20 w-full text-center">
-            {/* Trust Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-2 mb-3.5">
-              <span className="animate-hero-rise inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 text-amber-300 text-xs font-extrabold border border-amber-500/30 backdrop-blur-md shadow-sm">
-                <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                India's Trusted Automotive &amp; Agro Vehicle Consultancy
-              </span>
-              <span className="animate-hero-rise hero-delay-1 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 text-white text-[11px] font-bold border border-slate-700/80 backdrop-blur-md shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                Yard Open Today: 9 AM - 7 PM • Salem-Coimbatore NH
-              </span>
+        {/* TOP SECTION: Headline & Value Proposition (Positioned on Dark Studio Upper Wall) */}
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 relative z-20 w-full text-center">
+          {/* Trust Badges */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-3.5">
+            <span className="animate-hero-rise inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 text-amber-300 text-xs font-extrabold border border-amber-500/30 backdrop-blur-md shadow-sm">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              India's Trusted Automotive &amp; Agro Vehicle Consultancy
+            </span>
+            <span className="animate-hero-rise hero-delay-1 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 text-white text-[11px] font-bold border border-slate-700/80 backdrop-blur-md shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Yard Open Today: 9 AM - 7 PM • Salem-Coimbatore NH
+            </span>
+          </div>
+
+          {/* H1 Headline - Crisp High-Contrast Pure White & Luminous Amber-Gold */}
+          <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12] drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)]">
+            Certified <span className="text-amber-400 drop-shadow-[0_2px_14px_rgba(251,191,36,0.35)]">Second-Hand Tractors</span>, Utility Cars &amp; Genuine Spares.
+          </h1>
+
+          {/* Subtitle */}
+          <p className="animate-hero-rise hero-delay-2 text-slate-200 text-sm sm:text-base lg:text-lg leading-relaxed max-w-3xl mx-auto font-normal mt-2.5 drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
+            Helping Indian farmers, transport operators, and families buy and sell pre-owned vehicles with{' '}
+            <strong className="text-amber-300 font-semibold">120-point mechanical certification</strong>, guaranteed{' '}
+            <strong className="text-emerald-400 font-semibold">RTO RC transfer</strong>, and zero middleman broker fees.
+          </p>
+        </div>
+
+        {/* MIDDLE SECTION: Interactive 360 Turntable Center Viewport */}
+        <div className="relative z-20 w-full flex justify-end px-6 lg:px-12 pointer-events-none my-auto">
+          <div className="pointer-events-auto bg-slate-900/80 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/15 shadow-2xl text-white inline-flex items-center gap-2.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
+            <span className="text-xs font-bold">360° Interactive Turntable</span>
+            <span className="text-[11px] text-slate-400 font-medium border-l border-white/15 pl-2.5">
+              Scroll down to rotate
+            </span>
+          </div>
+        </div>
+
+        {/* BOTTOM SECTION: Quick Search, Action CTAs & Trust Metrics (Positioned on Dark Studio Floor) */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 relative z-20 w-full text-center space-y-4">
+          {/* Integrated Search Console */}
+          <form onSubmit={handleSearchSubmit} className="max-w-xl mx-auto">
+            <div className="flex items-center bg-slate-900/90 backdrop-blur-md p-1.5 rounded-2xl border border-white/20 shadow-2xl focus-within:ring-2 focus-within:ring-amber-400 focus-within:border-amber-400 transition-all">
+              <div className="pl-3.5 pr-2 text-slate-400">
+                <Search className="w-4 h-4" />
+              </div>
+              <input
+                type="text"
+                placeholder="Search tractor model, HP, or vehicle (e.g. Swaraj 855, Bolero)..."
+                value={searchKeyword}
+                onChange={(e) => setSearchKeyword(e.target.value)}
+                className="w-full text-xs sm:text-sm bg-transparent border-none text-white placeholder:text-slate-400 focus:outline-none font-medium py-2"
+              />
+              <button
+                type="submit"
+                className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold px-4 sm:px-5 py-2.5 rounded-xl transition-colors shadow-sm"
+              >
+                <span>Search Stock</span>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
+              </button>
+            </div>
+          </form>
+
+          {/* Action CTAs */}
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link
+              to="/products"
+              className="taste-btn inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-extrabold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-lg shadow-orange-600/30 transition-all"
+            >
+              Explore Certified Stock
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+
+            <a
+              href="tel:+918124336369"
+              className="taste-btn inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm px-5 py-3 rounded-xl border border-white/20 shadow-sm backdrop-blur-sm transition-all"
+              title="Direct Yard Call"
+            >
+              <PhoneCall className="w-4 h-4 text-emerald-400" />
+              +91 81243 36369
+            </a>
+          </div>
+
+          {/* Live Trust Counters Row */}
+          <div className="pt-3 border-t border-white/15 flex items-center justify-center gap-6 sm:gap-14 text-center">
+            <div>
+              <div className="font-heading font-black text-xl sm:text-2xl text-white tracking-tight drop-shadow-sm">
+                <AnimatedCounter end={5800} suffix="+" />
+              </div>
+              <div className="text-[10px] sm:text-xs text-slate-300 font-semibold mt-0.5">
+                Vehicles Delivered
+              </div>
             </div>
 
-            {/* H1 Headline - Crisp High-Contrast Pure White & Luminous Amber-Gold */}
-            <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12] drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)]">
-              Certified <span className="text-amber-400 drop-shadow-[0_2px_14px_rgba(251,191,36,0.35)]">Second-Hand Tractors</span>, Utility Cars &amp; Genuine Spares.
-            </h1>
+            <div className="h-7 w-px bg-white/20"></div>
 
-            {/* Subtitle */}
-            <p className="animate-hero-rise hero-delay-2 text-slate-200 text-sm sm:text-base lg:text-lg leading-relaxed max-w-3xl mx-auto font-normal mt-2.5 drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
-              Helping Indian farmers, transport operators, and families buy and sell pre-owned vehicles with{' '}
-              <strong className="text-amber-300 font-semibold">120-point mechanical certification</strong>, guaranteed{' '}
-              <strong className="text-emerald-400 font-semibold">RTO RC transfer</strong>, and zero middleman broker fees.
+            <div>
+              <div className="font-heading font-black text-xl sm:text-2xl text-emerald-400 tracking-tight drop-shadow-sm">
+                <AnimatedCounter end={100} suffix="%" />
+              </div>
+              <div className="text-[10px] sm:text-xs text-slate-300 font-semibold mt-0.5">
+                RTO Passing Guarantee
+              </div>
+            </div>
+
+            <div className="h-7 w-px bg-white/20"></div>
+
+            <div>
+              <div className="font-heading font-black text-xl sm:text-2xl text-amber-400 tracking-tight drop-shadow-sm">
+                <AnimatedCounter end={120} suffix="-Point" />
+              </div>
+              <div className="text-[10px] sm:text-xs text-slate-300 font-semibold mt-0.5">
+                Engine &amp; Gearbox Check
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. WHY BALAJI VEHICLE CONSULTANCY - 4 CLEAN PILLARS + DYNAMIC SCROLL TRACTOR */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ScrollReveal>
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <div className="inline-block text-xs font-extrabold tracking-wider uppercase text-emerald-800 bg-emerald-50 px-3.5 py-1 rounded-full mb-2 border border-emerald-200">
+              Zero Fraud • 100% Verified Consulting
+            </div>
+            <h2 className="font-heading font-black text-2xl sm:text-4xl text-slate-900 tracking-tight">
+              Why Indian Farmers &amp; Drivers Trust Balaji
+            </h2>
+            <p className="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed max-w-2xl mx-auto">
+              Buying or selling a pre-owned tractor or vehicle shouldn't feel like a gamble. We protect your hard-earned money with technical rigour and official legal documentation.
             </p>
           </div>
+        </ScrollReveal>
 
-          {/* MIDDLE SECTION: Interactive 360 Turntable Hint */}
-          <div className="relative z-20 w-full flex justify-end px-6 lg:px-12 pointer-events-none my-auto">
-            <div className="pointer-events-auto bg-slate-900/80 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/15 shadow-2xl text-white inline-flex items-center gap-2.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
-              <span className="text-xs font-bold">360° Interactive Turntable</span>
-              <span className="text-[11px] text-slate-400 font-medium border-l border-white/15 pl-2.5">
-                Scroll down to animate
-              </span>
-            </div>
-          </div>
-
-          {/* BOTTOM SECTION: Quick Search, Action CTAs & Trust Metrics */}
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 relative z-20 w-full text-center space-y-4">
-            {/* Integrated Search Console */}
-            <form onSubmit={handleSearchSubmit} className="max-w-xl mx-auto">
-              <div className="flex items-center bg-slate-900/90 backdrop-blur-md p-1.5 rounded-2xl border border-white/20 shadow-2xl focus-within:ring-2 focus-within:ring-amber-400 focus-within:border-amber-400 transition-all">
-                <div className="pl-3.5 pr-2 text-slate-400">
-                  <Search className="w-4 h-4" />
-                </div>
-                <input
-                  type="text"
-                  placeholder="Search tractor model, HP, or vehicle (e.g. Swaraj 855, Bolero)..."
-                  value={searchKeyword}
-                  onChange={(e) => setSearchKeyword(e.target.value)}
-                  className="w-full text-xs sm:text-sm bg-transparent border-none text-white placeholder:text-slate-400 focus:outline-none font-medium py-2"
-                />
-                <button
-                  type="submit"
-                  className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold px-4 sm:px-5 py-2.5 rounded-xl transition-colors shadow-sm"
-                >
-                  <span>Search Stock</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
-                </button>
-              </div>
-            </form>
-
-            {/* Action CTAs */}
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              <Link
-                to="/products"
-                className="taste-btn inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-extrabold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-lg shadow-orange-600/30 transition-all"
-              >
-                Explore Certified Stock
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-
-              <a
-                href="tel:+918124336369"
-                className="taste-btn inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm px-5 py-3 rounded-xl border border-white/20 shadow-sm backdrop-blur-sm transition-all"
-                title="Direct Yard Call"
-              >
-                <PhoneCall className="w-4 h-4 text-emerald-400" />
-                +91 81243 36369
-              </a>
-            </div>
-
-            {/* Live Trust Counters Row */}
-            <div className="pt-3 border-t border-white/15 flex items-center justify-center gap-6 sm:gap-14 text-center">
-              <div>
-                <div className="font-heading font-black text-xl sm:text-2xl text-white tracking-tight drop-shadow-sm">
-                  <AnimatedCounter end={5800} suffix="+" />
-                </div>
-                <div className="text-[10px] sm:text-xs text-slate-300 font-semibold mt-0.5">
-                  Vehicles Delivered
-                </div>
-              </div>
-
-              <div className="h-7 w-px bg-white/20"></div>
-
-              <div>
-                <div className="font-heading font-black text-xl sm:text-2xl text-emerald-400 tracking-tight drop-shadow-sm">
-                  <AnimatedCounter end={100} suffix="%" />
-                </div>
-                <div className="text-[10px] sm:text-xs text-slate-300 font-semibold mt-0.5">
-                  RTO Passing Guarantee
-                </div>
-              </div>
-
-              <div className="h-7 w-px bg-white/20"></div>
-
-              <div>
-                <div className="font-heading font-black text-xl sm:text-2xl text-amber-400 tracking-tight drop-shadow-sm">
-                  <AnimatedCounter end={120} suffix="-Point" />
-                </div>
-                <div className="text-[10px] sm:text-xs text-slate-300 font-semibold mt-0.5">
-                  Engine &amp; Gearbox Check
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 2. WHY BALAJI VEHICLE CONSULTANCY - INTEGRATED SHOWROOM STORYBOARD */}
-        <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 pointer-events-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Left Column: Dedicated Space for Tractor That Has Scrolled Down on Left Side */}
-            <div className="hidden lg:flex lg:col-span-5 flex-col justify-end space-y-4 pt-48">
-              <div className="bg-slate-900/85 backdrop-blur-md p-5 rounded-2xl border border-white/15 shadow-2xl text-white space-y-2 max-w-sm">
-                <div className="inline-flex items-center gap-2 text-xs font-black text-emerald-400">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                  120-Point Mechanical Rigor
-                </div>
-                <p className="text-xs text-slate-300 leading-relaxed font-medium">
-                  Every cylinder compression, clutch plate, and draft pump is physically tested on our yard turntable before delivery.
-                </p>
-              </div>
-            </div>
-
-            {/* Right Column: 4 Clean Pillars in 2x2 High-End Grid */}
-            <div className="lg:col-span-7 space-y-6">
-              <ScrollReveal>
-                <div className="text-left mb-6">
-                  <div className="inline-block text-xs font-extrabold tracking-wider uppercase text-emerald-400 bg-emerald-500/15 px-3.5 py-1 rounded-full mb-2 border border-emerald-500/30">
-                    Zero Fraud • 100% Verified Consulting
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative">
+          {/* Left Column: Dynamic Tractor Image that moves with scroll down toward product cards */}
+          <div className="lg:col-span-5 relative">
+            <div 
+              className="will-change-transform"
+              style={{
+                transform: `translate3d(0, ${tractorMoveY}px, 0)`,
+                transition: 'transform 0.15s ease-out'
+              }}
+            >
+              <div className="taste-card bg-white p-4 rounded-3xl border border-slate-200/90 shadow-lg hover:shadow-xl transition-all relative overflow-hidden group">
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 relative">
+                  <img
+                    src={resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg')}
+                    alt="Verified Pre-Owned Tractor"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-md flex items-center gap-1.5">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    <span>120-Point Inspected</span>
                   </div>
-                  <h2 className="font-heading font-black text-2xl sm:text-4xl text-white tracking-tight">
-                    Why Indian Farmers &amp; Drivers Trust Balaji
-                  </h2>
-                  <p className="text-slate-300 text-xs sm:text-sm mt-2 leading-relaxed max-w-xl">
-                    Buying or selling a pre-owned tractor or vehicle shouldn't feel like a gamble. We protect your hard-earned money with technical rigour and official legal documentation.
+                  <div className="absolute bottom-3 left-3 bg-slate-900/85 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1.5 rounded-xl border border-white/15 shadow-md">
+                    <span>Mahindra 575 DI (45 HP)</span>
+                  </div>
+                  <div className="absolute bottom-3 right-3 bg-orange-600 text-white text-[10px] font-black px-2.5 py-1 rounded-lg shadow-md flex items-center gap-1">
+                    <span>Moving to Stock</span>
+                    <ArrowRight className="w-3 h-3 animate-pulse" />
+                  </div>
+                </div>
+
+                <div className="mt-3.5 px-1 flex items-center justify-between text-xs">
+                  <div>
+                    <span className="font-heading font-extrabold text-slate-900 block text-sm">
+                      Field-Tested Workhorse
+                    </span>
+                    <span className="text-slate-500 text-[11px]">
+                      Zero blow-by • 1,600 kg hydraulic lift certified
+                    </span>
+                  </div>
+                  <a
+                    href="#featured-tractors"
+                    className="taste-btn shrink-0 inline-flex items-center gap-1 bg-slate-100 hover:bg-orange-600 hover:text-white text-slate-800 text-[11px] font-bold px-3 py-1.5 rounded-xl transition-colors"
+                  >
+                    <span>View in Stock</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: 4 Clean Pillars in a balanced 2x2 grid */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            <ScrollReveal delay={50}>
+              <div className="taste-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md h-full flex flex-col justify-between">
+                <div>
+                  <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 border border-emerald-100">
+                    <ShieldCheck className="w-6 h-6" />
+                  </div>
+                  <h3 className="font-heading font-extrabold text-slate-900 text-base mb-2">120-Point Inspection</h3>
+                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                    Every engine compression, hydraulic draft lift, PTO spline, car chassis, and meter reading is rigorously tested by our certified mechanics.
                   </p>
                 </div>
-              </ScrollReveal>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <ScrollReveal delay={50}>
-                  <div className="taste-card bg-slate-900/80 backdrop-blur-md p-5 rounded-2xl border border-white/10 hover:border-amber-400/40 shadow-xl transition-all h-full flex flex-col justify-between">
-                    <div>
-                      <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-3 border border-emerald-500/30">
-                        <ShieldCheck className="w-5 h-5" />
-                      </div>
-                      <h3 className="font-heading font-extrabold text-white text-base mb-1.5">120-Point Inspection</h3>
-                      <p className="text-xs text-slate-300 leading-relaxed font-normal">
-                        Every engine compression, hydraulic draft lift, PTO spline, car chassis, and meter reading is rigorously tested by certified mechanics.
-                      </p>
-                    </div>
-                    <div className="mt-3.5 pt-3 border-t border-white/10 text-[11px] font-bold text-emerald-400 flex items-center gap-1">
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      Field-tested guarantee
-                    </div>
-                  </div>
-                </ScrollReveal>
-
-                <ScrollReveal delay={120}>
-                  <div className="taste-card bg-slate-900/80 backdrop-blur-md p-5 rounded-2xl border border-white/10 hover:border-amber-400/40 shadow-xl transition-all h-full flex flex-col justify-between">
-                    <div>
-                      <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center mb-3 border border-blue-500/30">
-                        <FileCheck className="w-5 h-5" />
-                      </div>
-                      <h3 className="font-heading font-extrabold text-white text-base mb-1.5">Guaranteed RC &amp; NOC</h3>
-                      <p className="text-xs text-slate-300 leading-relaxed font-normal">
-                        We check national Vahan records, clear bank hypothecation, and handle all Form 29/30 and interstate NOC transfer paperwork.
-                      </p>
-                    </div>
-                    <div className="mt-3.5 pt-3 border-t border-white/10 text-[11px] font-bold text-blue-400 flex items-center gap-1">
-                      <Check className="w-3.5 h-3.5 text-blue-400" />
-                      100% legal ownership
-                    </div>
-                  </div>
-                </ScrollReveal>
-
-                <ScrollReveal delay={190}>
-                  <div className="taste-card bg-slate-900/80 backdrop-blur-md p-5 rounded-2xl border border-white/10 hover:border-amber-400/40 shadow-xl transition-all h-full flex flex-col justify-between">
-                    <div>
-                      <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center mb-3 border border-amber-500/30">
-                        <Wrench className="w-5 h-5" />
-                      </div>
-                      <h3 className="font-heading font-extrabold text-white text-base mb-1.5">Genuine OEM Spares</h3>
-                      <p className="text-xs text-slate-300 leading-relaxed font-normal">
-                        Direct yard inventory of factory-sealed clutch plates, CRDI injectors, hydraulic pumps, brake discs, and filters for Swaraj, Mahindra &amp; Tata.
-                      </p>
-                    </div>
-                    <div className="mt-3.5 pt-3 border-t border-white/10 text-[11px] font-bold text-amber-400 flex items-center gap-1">
-                      <Check className="w-3.5 h-3.5 text-amber-400" />
-                      Direct OEM replacement
-                    </div>
-                  </div>
-                </ScrollReveal>
-
-                <ScrollReveal delay={260}>
-                  <div className="taste-card bg-slate-900/80 backdrop-blur-md p-5 rounded-2xl border border-white/10 hover:border-amber-400/40 shadow-xl transition-all h-full flex flex-col justify-between">
-                    <div>
-                      <div className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center mb-3 border border-purple-500/30">
-                        <BadgePercent className="w-5 h-5" />
-                      </div>
-                      <h3 className="font-heading font-extrabold text-white text-base mb-1.5">Agro Finance &amp; Spot Cash</h3>
-                      <p className="text-xs text-slate-300 leading-relaxed font-normal">
-                        Support with agricultural equipment finance and Kisan credit. Selling your tractor? Receive immediate spot cash bank transfer on verification.
-                      </p>
-                    </div>
-                    <div className="mt-3.5 pt-3 border-t border-white/10 text-[11px] font-bold text-purple-400 flex items-center gap-1">
-                      <Check className="w-3.5 h-3.5 text-purple-400" />
-                      Same-day settlement
-                    </div>
-                  </div>
-                </ScrollReveal>
+                <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-emerald-700 flex items-center gap-1">
+                  <Check className="w-3.5 h-3.5 text-emerald-600" />
+                  Field-tested guarantee
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={120}>
+              <div className="taste-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md h-full flex flex-col justify-between">
+                <div>
+                  <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 border border-blue-100">
+                    <FileCheck className="w-6 h-6" />
+                  </div>
+                  <h3 className="font-heading font-extrabold text-slate-900 text-base mb-2">Guaranteed RC &amp; NOC</h3>
+                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                    We check national Vahan records, clear bank hypothecation, and handle all Form 29/30 and interstate NOC transfer paperwork.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-blue-700 flex items-center gap-1">
+                  <Check className="w-3.5 h-3.5 text-blue-600" />
+                  100% legal ownership
+                </div>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={190}>
+              <div className="taste-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md h-full flex flex-col justify-between">
+                <div>
+                  <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4 border border-amber-100">
+                    <Wrench className="w-6 h-6" />
+                  </div>
+                  <h3 className="font-heading font-extrabold text-slate-900 text-base mb-2">Genuine OEM Spares</h3>
+                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                    Direct yard inventory of factory-sealed clutch plates, CRDI injectors, hydraulic pumps, brake discs, and filters for Swaraj, Mahindra &amp; Tata.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-amber-700 flex items-center gap-1">
+                  <Check className="w-3.5 h-3.5 text-amber-600" />
+                  Direct OEM replacement
+                </div>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={260}>
+              <div className="taste-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md h-full flex flex-col justify-between">
+                <div>
+                  <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4 border border-purple-100">
+                    <BadgePercent className="w-6 h-6" />
+                  </div>
+                  <h3 className="font-heading font-extrabold text-slate-900 text-base mb-2">Agro Finance &amp; Spot Cash</h3>
+                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                    Support with agricultural equipment finance and Kisan credit. Selling your tractor? Receive immediate spot cash bank transfer on verification.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-purple-700 flex items-center gap-1">
+                  <Check className="w-3.5 h-3.5 text-purple-600" />
+                  Same-day settlement
+                </div>
+              </div>
+            </ScrollReveal>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
 
       {/* 3. FEATURED TRACTORS (SCROLL REVEAL) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="featured-tractors" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-6 gap-4">
             <div>
