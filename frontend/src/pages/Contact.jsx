@@ -75,8 +75,8 @@ export const Contact = () => {
       a: 'Yes, absolutely! We handle complete RTO interstate paperwork including Form 28 (NOC), Form 29, and Form 30. Whether you are purchasing a vehicle registered in Punjab (PB), Maharashtra (MH), Gujarat (GJ), or Tamil Nadu (TN), we ensure 100% clean title and delivery to your district RTO.'
     },
     {
-      q: 'Do you offer finance or loans for second-hand tractors and cars?',
-      a: 'Yes. We are tied up with leading nationalized and rural development banks as well as NBFCs to provide agricultural equipment finance, tractor loans, and pre-owned car loans with low down-payment options and flexible EMI schedules aligned with your harvest season.'
+      q: 'How does payment and settlement work when buying or selling?',
+      a: 'We operate with 100% transparent direct yard settlements. For buyers, we provide transparent fixed pricing with verified RTO transfer and genuine documentation. For sellers, once your tractor or car clears our 120-point mechanical check, you receive immediate spot cash bank transfer on the very same day with zero broker deductions.'
     },
     {
       q: 'Are the spare parts genuine and under warranty?',

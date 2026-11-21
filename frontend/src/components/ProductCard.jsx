@@ -47,12 +47,6 @@ export const ProductCard = ({ product }) => {
   const rawImage = images && images.length > 0 ? images[0] : getDefaultFallbackImage();
   const imageUrl = resolveImageUrl(rawImage);
 
-  // Approximate 3-year EMI at 9.5% with 25% down payment
-  const numPrice = Number(price) || 0;
-  const estimatedEmi = numPrice > 50000 
-    ? Math.round(((numPrice * 0.75) * (0.095 / 12) * Math.pow(1 + 0.095 / 12, 36)) / (Math.pow(1 + 0.095 / 12, 36) - 1))
-    : null;
-
   const categoryLabel = 
     category === 'tractor' ? 'Tractor' : 
     category === 'car' ? 'Car' : 'Spare Part';
@@ -168,14 +162,7 @@ export const ProductCard = ({ product }) => {
         {/* Price & Actions Footer */}
         <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
           <div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] uppercase font-semibold text-slate-400">Fixed Best Price</span>
-              {estimatedEmi && (
-                <span className="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">
-                  EMI ₹{estimatedEmi.toLocaleString('en-IN')}/mo
-                </span>
-              )}
-            </div>
+            <span className="text-[10px] uppercase font-semibold text-slate-400 block">Fixed Best Price</span>
             <div className="font-heading font-extrabold text-lg text-slate-900 group-hover:text-orange-600 transition-colors">
               {formatINR(price)}
             </div>

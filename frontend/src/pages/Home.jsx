@@ -26,7 +26,6 @@ import { ProductCard } from '../components/ProductCard';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { AnimatedCounter } from '../components/AnimatedCounter';
 import { ValuationEstimator } from '../components/ValuationEstimator';
-import { EmiCalculator } from '../components/EmiCalculator';
 import { resolveImageUrl } from '../utils/imageUrl';
 
 export const Home = () => {
@@ -448,9 +447,9 @@ export const Home = () => {
                   <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4 border border-purple-100">
                     <BadgePercent className="w-6 h-6" />
                   </div>
-                  <h3 className="font-heading font-extrabold text-slate-900 text-base mb-2">Agro Finance &amp; Spot Cash</h3>
+                  <h3 className="font-heading font-extrabold text-slate-900 text-base mb-2">Instant Spot Cash</h3>
                   <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                    Support with agricultural equipment finance and Kisan credit. Selling your tractor? Receive immediate spot cash bank transfer on verification.
+                    Selling your tractor or utility vehicle? Receive immediate spot cash bank transfer on verification with zero middleman broker fees.
                   </p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-purple-700 flex items-center gap-1">
@@ -548,14 +547,7 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* 5. INTERACTIVE TRACTOR & VEHICLE EMI / KISAN LOAN CALCULATOR (SCROLL REVEAL) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ScrollReveal>
-          <EmiCalculator />
-        </ScrollReveal>
-      </section>
-
-      {/* 6. DEALT MOMENT 2: INSTANT FAIR MARKET VALUE CALCULATOR (SCROLL REVEAL) */}
+      {/* 5. DEALT MOMENT 2: INSTANT FAIR MARKET VALUE CALCULATOR (SCROLL REVEAL) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <ValuationEstimator />

@@ -34,8 +34,8 @@ export const Footer = () => {
               <HeartHandshake className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="font-heading font-bold text-slate-900 text-sm">Agro &amp; Car Finance</h4>
-              <p className="text-xs text-slate-500">Low interest tractor loan &amp; quick paperless approval</p>
+              <h4 className="font-heading font-bold text-slate-900 text-sm">Instant Spot Cash</h4>
+              <p className="text-xs text-slate-500">Same-day bank transfer upon verified inspection</p>
             </div>
           </div>
 
@@ -130,7 +130,7 @@ export const Footer = () => {
               <li>
                 <Link to="/contact" className="hover:text-orange-600 flex items-center gap-1 transition-colors text-slate-600">
                   <ChevronRight className="w-3 h-3 text-orange-500" />
-                  Agricultural Equipment Loans
+                  Yard Inspection &amp; Certification
                 </Link>
               </li>
               <li>
