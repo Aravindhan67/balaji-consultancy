@@ -159,8 +159,15 @@ export const Home = () => {
   const allTractors = safeFeatured.filter(p => p && p.category === 'tractor');
   const allCars = safeFeatured.filter(p => p && p.category === 'car');
 
-  // Featured Tractors
-  const tractors = allTractors.slice(0, 3);
+  // Featured Tractors: Sort so Mahindra 575 DI is at index 0 (the left-most card)
+  const sortedTractors = [...allTractors].sort((a, b) => {
+    const aM = ((a.title || '') + ' ' + (a.brand || '')).toLowerCase().includes('mahindra');
+    const bM = ((b.title || '') + ' ' + (b.brand || '')).toLowerCase().includes('mahindra');
+    if (aM && !bM) return -1;
+    if (!aM && bM) return 1;
+    return 0;
+  });
+  const tractors = sortedTractors.slice(0, 3);
 
   // Featured Cars & Utility Vehicles
   const cars = allCars.slice(0, 3);
@@ -175,20 +182,98 @@ export const Home = () => {
           <div className="absolute -bottom-20 right-10 w-[480px] h-[320px] bg-amber-500/10 blur-[120px] rounded-full" />
           <div className="absolute top-1/3 left-10 w-[300px] h-[300px] bg-emerald-500/5 blur-[90px] rounded-full" />
 
-          {/* Cinematic Background Tractor Silhouette/Atmosphere on the Right */}
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-full lg:w-1/2 h-full opacity-15 lg:opacity-20 pointer-events-none mix-blend-luminosity filter blur-[1px]">
+          {/* Cinematic Background Tractor Silhouette/Atmosphere on the Left */}
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full lg:w-1/2 h-full opacity-15 lg:opacity-20 pointer-events-none mix-blend-luminosity filter blur-[1px]">
             <img
               src={resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg')}
               alt=""
               className="w-full h-full object-cover object-center scale-110"
             />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-slate-950/80 to-slate-950 pointer-events-none" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full space-y-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left Column: Headlines, Trust Badges, Search & Actions */}
+            {/* Left Column: Hero Tractor Card (Starts from here, glides down on left side) */}
+            <div className="lg:col-span-5 relative" ref={sourceWrapperRef}>
+              {/* Background slot placeholder left in Hero when tractor starts flying on scroll */}
+              <div className="hidden lg:flex flex-col items-center justify-center p-6 rounded-3xl border-2 border-dashed border-white/20 bg-slate-900/60 backdrop-blur-md min-h-[350px] text-center pointer-events-none">
+                <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center mb-3">
+                  <Sparkles className="w-6 h-6" />
+                </div>
+                <span className="text-sm font-heading font-black text-white">
+                  Mahindra 575 DI Sarpanch
+                </span>
+                <span className="text-xs text-slate-300 mt-1 max-w-[220px]">
+                  Gliding down left side to live inventory card below ↓
+                </span>
+                <div className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-bold text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">
+                  <span>Docking into Left Card Below</span>
+                  <ArrowRight className="w-3 h-3" />
+                </div>
+              </div>
+
+              {/* Flying / Moving Card: Starts in Hero on left, glides down on left side to Card 1 */}
+              <div 
+                ref={movingTractorRef}
+                className={`will-change-transform ${
+                  isDesktop ? 'lg:absolute lg:inset-0 z-30' : 'relative z-10'
+                }`}
+                style={{
+                  transform: isDesktop && flightProgress > 0
+                    ? `translate3d(${flightProgress * flightDelta.dx}px, ${flightProgress * flightDelta.dy}px, 0) scale(${1 - flightProgress * 0.05})`
+                    : 'none',
+                  opacity: isDesktop && flightProgress >= 0.95 
+                    ? Math.max(1 - (flightProgress - 0.95) * 20, 0) 
+                    : 1,
+                  pointerEvents: isDesktop && flightProgress > 0.05 ? 'none' : 'auto',
+                  transition: 'transform 0.08s ease-out, opacity 0.15s ease-out'
+                }}
+              >
+                <div className="taste-card bg-white p-4 rounded-3xl border border-slate-200/90 shadow-2xl relative overflow-hidden group">
+                  <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 relative">
+                    <img
+                      src={resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg')}
+                      alt="Verified Pre-Owned Tractor"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    <div className="absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-md flex items-center gap-1.5">
+                      <ShieldCheck className="w-3.5 h-3.5" />
+                      <span>120-Point Inspected</span>
+                    </div>
+                    <div className="absolute bottom-3 left-3 bg-slate-900/85 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1.5 rounded-xl border border-white/15 shadow-md">
+                      <span>Mahindra 575 DI (45 HP)</span>
+                    </div>
+                    <div className="absolute bottom-3 right-3 bg-orange-600 text-white text-[10px] font-black px-2.5 py-1 rounded-lg shadow-md flex items-center gap-1">
+                      <span>{flightProgress > 0.05 ? 'Gliding on Left...' : 'Scroll to Dock ↓'}</span>
+                      <ArrowRight className="w-3 h-3 animate-pulse" />
+                    </div>
+                  </div>
+
+                  <div className="mt-3.5 px-1 flex items-center justify-between text-xs">
+                    <div>
+                      <span className="font-heading font-extrabold text-slate-900 block text-sm">
+                        Field-Tested Workhorse
+                      </span>
+                      <span className="text-slate-500 text-[11px]">
+                        Zero blow-by • 1,600 kg hydraulic lift certified
+                      </span>
+                    </div>
+                    <a
+                      href="#featured-tractors"
+                      className="taste-btn shrink-0 inline-flex items-center gap-1 bg-slate-100 hover:bg-orange-600 hover:text-white text-slate-800 text-[11px] font-bold px-3 py-1.5 rounded-xl transition-colors"
+                    >
+                      <span>View in Stock</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Headlines, Trust Badges, Search & Actions */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
               {/* Trust Badges */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
@@ -257,84 +342,6 @@ export const Home = () => {
                   <PhoneCall className="w-4 h-4 text-emerald-400" />
                   +91 81243 36369
                 </a>
-              </div>
-            </div>
-
-            {/* Right Column: Hero Tractor Card (Starts from here, glides down to right card on scroll) */}
-            <div className="lg:col-span-5 relative" ref={sourceWrapperRef}>
-              {/* Background slot placeholder left in Hero when tractor starts flying on scroll */}
-              <div className="hidden lg:flex flex-col items-center justify-center p-6 rounded-3xl border-2 border-dashed border-white/20 bg-slate-900/60 backdrop-blur-md min-h-[350px] text-center pointer-events-none">
-                <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center mb-3">
-                  <Sparkles className="w-6 h-6" />
-                </div>
-                <span className="text-sm font-heading font-black text-white">
-                  Mahindra 575 DI Sarpanch
-                </span>
-                <span className="text-xs text-slate-300 mt-1 max-w-[220px]">
-                  Descended to live inventory card below ↓
-                </span>
-                <div className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-bold text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">
-                  <span>Docked in Live Stock Below</span>
-                  <ArrowRight className="w-3 h-3" />
-                </div>
-              </div>
-
-              {/* Flying / Moving Card: Starts in Hero background, glides down to Card 3 in Section 3 */}
-              <div 
-                ref={movingTractorRef}
-                className={`will-change-transform ${
-                  isDesktop ? 'lg:absolute lg:inset-0 z-30' : 'relative z-10'
-                }`}
-                style={{
-                  transform: isDesktop && flightProgress > 0
-                    ? `translate3d(${flightProgress * flightDelta.dx}px, ${flightProgress * flightDelta.dy}px, 0) scale(${1 - flightProgress * 0.05})`
-                    : 'none',
-                  opacity: isDesktop && flightProgress >= 0.95 
-                    ? Math.max(1 - (flightProgress - 0.95) * 20, 0) 
-                    : 1,
-                  pointerEvents: isDesktop && flightProgress > 0.05 ? 'none' : 'auto',
-                  transition: 'transform 0.08s ease-out, opacity 0.15s ease-out'
-                }}
-              >
-                <div className="taste-card bg-white p-4 rounded-3xl border border-slate-200/90 shadow-2xl relative overflow-hidden group">
-                  <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 relative">
-                    <img
-                      src={resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg')}
-                      alt="Verified Pre-Owned Tractor"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-md flex items-center gap-1.5">
-                      <ShieldCheck className="w-3.5 h-3.5" />
-                      <span>120-Point Inspected</span>
-                    </div>
-                    <div className="absolute bottom-3 left-3 bg-slate-900/85 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1.5 rounded-xl border border-white/15 shadow-md">
-                      <span>Mahindra 575 DI (45 HP)</span>
-                    </div>
-                    <div className="absolute bottom-3 right-3 bg-orange-600 text-white text-[10px] font-black px-2.5 py-1 rounded-lg shadow-md flex items-center gap-1">
-                      <span>{flightProgress > 0.05 ? 'Gliding to Card...' : 'Scroll to Dock →'}</span>
-                      <ArrowRight className="w-3 h-3 animate-pulse" />
-                    </div>
-                  </div>
-
-                  <div className="mt-3.5 px-1 flex items-center justify-between text-xs">
-                    <div>
-                      <span className="font-heading font-extrabold text-slate-900 block text-sm">
-                        Field-Tested Workhorse
-                      </span>
-                      <span className="text-slate-500 text-[11px]">
-                        Zero blow-by • 1,600 kg hydraulic lift certified
-                      </span>
-                    </div>
-                    <a
-                      href="#featured-tractors"
-                      className="taste-btn shrink-0 inline-flex items-center gap-1 bg-slate-100 hover:bg-orange-600 hover:text-white text-slate-800 text-[11px] font-bold px-3 py-1.5 rounded-xl transition-colors"
-                    >
-                      <span>View in Stock</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </a>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -494,7 +501,7 @@ export const Home = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {tractors.map((item, idx) => {
-              const isTargetCard = idx === 2 || (idx === tractors.length - 1 && idx > 0);
+              const isTargetCard = idx === 0;
               const isDocked = isTargetCard && isDesktop && flightProgress >= 0.88;
 
               return (
@@ -508,9 +515,9 @@ export const Home = () => {
                   }`}
                 >
                   {isDocked && (
-                    <div className="absolute -top-3.5 right-4 z-20 animate-bounce bg-orange-600 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5 border border-white/30">
+                    <div className="absolute -top-3.5 left-4 z-20 animate-bounce bg-orange-600 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5 border border-white/30">
                       <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                      <span>Added to Stock • Right Card</span>
+                      <span>Added to Stock • Left Card</span>
                     </div>
                   )}
                   <ScrollReveal delay={idx * 100}>
