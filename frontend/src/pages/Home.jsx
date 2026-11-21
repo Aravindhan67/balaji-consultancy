@@ -79,7 +79,7 @@ export const Home = () => {
 
       cancelAnimationFrame(animationFrameId);
       animationFrameId = requestAnimationFrame(() => {
-        // Tractor card flight: moves down and across diagonally directly into Card 3 on the right
+        // Tractor card flight: starts in Hero, moves down and across directly into Card 3 on the right
         if (window.innerWidth >= 1024 && sourceWrapperRef.current && targetCardRef.current) {
           const sRect = sourceWrapperRef.current.getBoundingClientRect();
           const tRect = targetCardRef.current.getBoundingClientRect();
@@ -87,10 +87,10 @@ export const Home = () => {
           const sourceTopDoc = sRect.top + scrollY;
           const targetTopDoc = tRect.top + scrollY;
 
-          // Animation starts immediately from the Hero background as user scrolls down
+          // Start flight right as user scrolls from the top of the page (Hero)
           const flightStart = 30;
-          // Flight lands right as Card 3 reaches viewing position
-          const flightEnd = targetTopDoc - (window.innerHeight * 0.40);
+          // End flight when Card 3 reaches viewing position in Section 3
+          const flightEnd = targetTopDoc - (window.innerHeight * 0.42);
 
           if (flightEnd > flightStart) {
             const p = Math.min(Math.max((scrollY - flightStart) / (flightEnd - flightStart), 0), 1);
@@ -167,158 +167,173 @@ export const Home = () => {
 
   return (
     <div className="space-y-16 sm:space-y-24 bg-[#F8FAFC]">
-      {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 text-white py-16 sm:py-24">
-        {/* Atmosphere Ambient Glows */}
+      {/* 1. HERO SECTION - WITH BACKGROUND TRACTOR SHOWCASE & FLIGHT START */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 text-white py-14 sm:py-20">
+        {/* Atmosphere Ambient Glows & Background Tractor Accent */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-orange-600/15 blur-[120px] rounded-full" />
-          <div className="absolute -bottom-20 right-10 w-[420px] h-[280px] bg-amber-500/10 blur-[110px] rounded-full" />
+          <div className="absolute -top-32 left-1/3 w-[720px] h-[360px] bg-orange-600/15 blur-[120px] rounded-full" />
+          <div className="absolute -bottom-20 right-10 w-[480px] h-[320px] bg-amber-500/10 blur-[120px] rounded-full" />
           <div className="absolute top-1/3 left-10 w-[300px] h-[300px] bg-emerald-500/5 blur-[90px] rounded-full" />
+
+          {/* Cinematic Background Tractor Silhouette/Atmosphere on the Right */}
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-full lg:w-1/2 h-full opacity-15 lg:opacity-20 pointer-events-none mix-blend-luminosity filter blur-[1px]">
+            <img
+              src={resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg')}
+              alt=""
+              className="w-full h-full object-cover object-center scale-110"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-transparent pointer-events-none" />
         </div>
 
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full text-center space-y-6 sm:space-y-8">
-          {/* Trust Badges */}
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <span className="animate-hero-rise inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 text-amber-300 text-xs font-extrabold border border-amber-500/30 backdrop-blur-md shadow-sm">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              India's Trusted Automotive &amp; Agro Vehicle Consultancy
-            </span>
-            <span className="animate-hero-rise hero-delay-1 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 text-white text-[11px] font-bold border border-slate-700/80 backdrop-blur-md shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              Yard Open Today: 9 AM - 7 PM • Salem-Coimbatore NH
-            </span>
-          </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full space-y-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left Column: Headlines, Trust Badges, Search & Actions */}
+            <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+              {/* Trust Badges */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
+                <span className="animate-hero-rise inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 text-amber-300 text-xs font-extrabold border border-amber-500/30 backdrop-blur-md shadow-sm">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  India's Trusted Automotive &amp; Agro Vehicle Consultancy
+                </span>
+                <span className="animate-hero-rise hero-delay-1 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 text-white text-[11px] font-bold border border-slate-700/80 backdrop-blur-md shadow-sm">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  Yard Open Today: 9 AM - 7 PM • Salem-Coimbatore NH
+                </span>
+              </div>
 
-          {/* H1 Headline - Crisp High-Contrast Pure White & Luminous Amber-Gold */}
-          <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12] drop-shadow-sm">
-            Certified <span className="text-amber-400">Second-Hand Tractors</span>, Utility Cars &amp; Genuine Spares.
-          </h1>
+              {/* H1 Headline */}
+              <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-5xl xl:text-6xl text-white tracking-tight leading-[1.12] drop-shadow-sm">
+                Certified <span className="text-amber-400">Second-Hand Tractors</span>, Utility Cars &amp; Genuine Spares.
+              </h1>
 
-          {/* Subtitle */}
-          <p className="animate-hero-rise hero-delay-2 text-slate-300 text-sm sm:text-base lg:text-lg leading-relaxed max-w-3xl mx-auto font-normal">
-            Helping Indian farmers, transport operators, and families buy and sell pre-owned vehicles with{' '}
-            <strong className="text-amber-300 font-semibold">120-point mechanical certification</strong>, guaranteed{' '}
-            <strong className="text-emerald-400 font-semibold">RTO RC transfer</strong>, and zero middleman broker fees.
-          </p>
+              {/* Subtitle */}
+              <p className="animate-hero-rise hero-delay-2 text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl font-normal">
+                Helping Indian farmers, transport operators, and families buy and sell pre-owned vehicles with{' '}
+                <strong className="text-amber-300 font-semibold">120-point mechanical certification</strong>, guaranteed{' '}
+                <strong className="text-emerald-400 font-semibold">RTO RC transfer</strong>, and zero middleman broker fees.
+              </p>
 
-          {/* Integrated Search Console */}
-          <div className="max-w-xl mx-auto pt-2">
-            <form onSubmit={handleSearchSubmit}>
-              <div className="flex items-center bg-slate-900/90 backdrop-blur-md p-1.5 rounded-2xl border border-white/20 shadow-2xl focus-within:ring-2 focus-within:ring-amber-400 focus-within:border-amber-400 transition-all">
-                <div className="pl-3.5 pr-2 text-slate-400">
-                  <Search className="w-4 h-4" />
-                </div>
-                <input
-                  type="text"
-                  placeholder="Search tractor model, HP, or vehicle (e.g. Swaraj 855, Bolero)..."
-                  value={searchKeyword}
-                  onChange={(e) => setSearchKeyword(e.target.value)}
-                  className="w-full text-xs sm:text-sm bg-transparent border-none text-white placeholder:text-slate-400 focus:outline-none font-medium py-2"
-                />
-                <button
-                  type="submit"
-                  className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold px-4 sm:px-5 py-2.5 rounded-xl transition-colors shadow-sm"
+              {/* Integrated Search Console */}
+              <div className="pt-1 max-w-xl mx-auto lg:mx-0">
+                <form onSubmit={handleSearchSubmit}>
+                  <div className="flex items-center bg-slate-900/90 backdrop-blur-md p-1.5 rounded-2xl border border-white/20 shadow-2xl focus-within:ring-2 focus-within:ring-amber-400 focus-within:border-amber-400 transition-all">
+                    <div className="pl-3.5 pr-2 text-slate-400">
+                      <Search className="w-4 h-4" />
+                    </div>
+                    <input
+                      type="text"
+                      placeholder="Search tractor model, HP, or vehicle (e.g. Swaraj 855, Bolero)..."
+                      value={searchKeyword}
+                      onChange={(e) => setSearchKeyword(e.target.value)}
+                      className="w-full text-xs sm:text-sm bg-transparent border-none text-white placeholder:text-slate-400 focus:outline-none font-medium py-2"
+                    />
+                    <button
+                      type="submit"
+                      className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold px-4 sm:px-5 py-2.5 rounded-xl transition-colors shadow-sm"
+                    >
+                      <span>Search Stock</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              {/* Action CTAs */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-1">
+                <Link
+                  to="/products"
+                  className="taste-btn inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-extrabold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-lg shadow-orange-600/30 transition-all"
                 >
-                  <span>Search Stock</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
-                </button>
-              </div>
-            </form>
-          </div>
+                  Explore Certified Stock
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
 
-          {/* Action CTAs */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
-            <Link
-              to="/products"
-              className="taste-btn inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-extrabold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-lg shadow-orange-600/30 transition-all"
-            >
-              Explore Certified Stock
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-
-            <a
-              href="tel:+918124336369"
-              className="taste-btn inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm px-5 py-3 rounded-xl border border-white/20 shadow-sm backdrop-blur-sm transition-all"
-              title="Direct Yard Call"
-            >
-              <PhoneCall className="w-4 h-4 text-emerald-400" />
-              +91 81243 36369
-            </a>
-          </div>
-
-          {/* Tractor Showcase on Hero Dark Background - Scroll animation starts from here! */}
-          <div className="relative mx-auto max-w-xl px-2 pt-2" ref={sourceWrapperRef}>
-            {/* Background ghost / slot left in Hero when tractor card flies down */}
-            <div className="hidden lg:flex flex-col items-center justify-center p-6 rounded-3xl border-2 border-dashed border-white/15 bg-slate-900/40 min-h-[300px] text-center pointer-events-none">
-              <div className="w-12 h-12 rounded-2xl bg-amber-500/15 text-amber-400 flex items-center justify-center mb-3 shadow-inner border border-amber-500/20">
-                <CheckCircle className="w-6 h-6" />
-              </div>
-              <span className="text-sm font-heading font-black text-white">
-                Mahindra 575 DI Sarpanch
-              </span>
-              <span className="text-xs text-slate-400 mt-1 max-w-[240px]">
-                Pre-owned vehicle certified by our mechanics • Glided to live stock below
-              </span>
-              <div className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-bold text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
-                <span>View in Featured Stock Cards Below</span>
-                <ArrowRight className="w-3 h-3" />
+                <a
+                  href="tel:+918124336369"
+                  className="taste-btn inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm px-5 py-3 rounded-xl border border-white/20 shadow-sm backdrop-blur-sm transition-all"
+                  title="Direct Yard Call"
+                >
+                  <PhoneCall className="w-4 h-4 text-emerald-400" />
+                  +91 81243 36369
+                </a>
               </div>
             </div>
 
-            {/* Flying / Moving Card: Starts here on the hero background and glides down to right card on scroll */}
-            <div 
-              ref={movingTractorRef}
-              className={`will-change-transform ${
-                isDesktop ? 'lg:absolute lg:inset-0 z-30' : 'relative z-10'
-              }`}
-              style={{
-                transform: isDesktop && flightProgress > 0
-                  ? `translate3d(${flightProgress * flightDelta.dx}px, ${flightProgress * flightDelta.dy}px, 0) scale(${1 - flightProgress * 0.08})`
-                  : 'none',
-                opacity: isDesktop && flightProgress >= 0.95 
-                  ? Math.max(1 - (flightProgress - 0.95) * 20, 0) 
-                  : 1,
-                pointerEvents: isDesktop && flightProgress > 0.05 ? 'none' : 'auto',
-                transition: 'transform 0.08s ease-out, opacity 0.15s ease-out'
-              }}
-            >
-              <div className="taste-card bg-slate-900/90 backdrop-blur-md p-4 rounded-3xl border border-white/20 shadow-2xl text-left relative overflow-hidden group">
-                <div className="aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden bg-slate-950 relative">
-                  <img
-                    src={resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg')}
-                    alt="Verified Pre-Owned Tractor"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-md flex items-center gap-1.5">
-                    <ShieldCheck className="w-3.5 h-3.5" />
-                    <span>120-Point Inspected</span>
-                  </div>
-                  <div className="absolute bottom-3 left-3 bg-slate-900/85 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1.5 rounded-xl border border-white/15 shadow-md">
-                    <span>Mahindra 575 DI (45 HP)</span>
-                  </div>
-                  <div className="absolute bottom-3 right-3 bg-orange-600 text-white text-[10px] font-black px-2.5 py-1 rounded-lg shadow-md flex items-center gap-1">
-                    <span>{flightProgress > 0.05 ? 'Gliding to Right Card...' : 'Scroll Down to Move'}</span>
-                    <ArrowRight className="w-3 h-3 animate-pulse" />
-                  </div>
+            {/* Right Column: Hero Tractor Card (Starts from here, glides down to right card on scroll) */}
+            <div className="lg:col-span-5 relative" ref={sourceWrapperRef}>
+              {/* Background slot placeholder left in Hero when tractor starts flying on scroll */}
+              <div className="hidden lg:flex flex-col items-center justify-center p-6 rounded-3xl border-2 border-dashed border-white/20 bg-slate-900/60 backdrop-blur-md min-h-[350px] text-center pointer-events-none">
+                <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center mb-3">
+                  <Sparkles className="w-6 h-6" />
                 </div>
+                <span className="text-sm font-heading font-black text-white">
+                  Mahindra 575 DI Sarpanch
+                </span>
+                <span className="text-xs text-slate-300 mt-1 max-w-[220px]">
+                  Descended to live inventory card below ↓
+                </span>
+                <div className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-bold text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">
+                  <span>Docked in Live Stock Below</span>
+                  <ArrowRight className="w-3 h-3" />
+                </div>
+              </div>
 
-                <div className="mt-3.5 px-1 flex items-center justify-between text-xs">
-                  <div>
-                    <span className="font-heading font-extrabold text-white block text-sm">
-                      Field-Tested Workhorse
-                    </span>
-                    <span className="text-slate-400 text-[11px]">
-                      Zero blow-by • 1,600 kg hydraulic lift certified
-                    </span>
+              {/* Flying / Moving Card: Starts in Hero background, glides down to Card 3 in Section 3 */}
+              <div 
+                ref={movingTractorRef}
+                className={`will-change-transform ${
+                  isDesktop ? 'lg:absolute lg:inset-0 z-30' : 'relative z-10'
+                }`}
+                style={{
+                  transform: isDesktop && flightProgress > 0
+                    ? `translate3d(${flightProgress * flightDelta.dx}px, ${flightProgress * flightDelta.dy}px, 0) scale(${1 - flightProgress * 0.05})`
+                    : 'none',
+                  opacity: isDesktop && flightProgress >= 0.95 
+                    ? Math.max(1 - (flightProgress - 0.95) * 20, 0) 
+                    : 1,
+                  pointerEvents: isDesktop && flightProgress > 0.05 ? 'none' : 'auto',
+                  transition: 'transform 0.08s ease-out, opacity 0.15s ease-out'
+                }}
+              >
+                <div className="taste-card bg-white p-4 rounded-3xl border border-slate-200/90 shadow-2xl relative overflow-hidden group">
+                  <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 relative">
+                    <img
+                      src={resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg')}
+                      alt="Verified Pre-Owned Tractor"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    <div className="absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-md flex items-center gap-1.5">
+                      <ShieldCheck className="w-3.5 h-3.5" />
+                      <span>120-Point Inspected</span>
+                    </div>
+                    <div className="absolute bottom-3 left-3 bg-slate-900/85 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1.5 rounded-xl border border-white/15 shadow-md">
+                      <span>Mahindra 575 DI (45 HP)</span>
+                    </div>
+                    <div className="absolute bottom-3 right-3 bg-orange-600 text-white text-[10px] font-black px-2.5 py-1 rounded-lg shadow-md flex items-center gap-1">
+                      <span>{flightProgress > 0.05 ? 'Gliding to Card...' : 'Scroll to Dock →'}</span>
+                      <ArrowRight className="w-3 h-3 animate-pulse" />
+                    </div>
                   </div>
-                  <a
-                    href="#featured-tractors"
-                    className="taste-btn shrink-0 inline-flex items-center gap-1 bg-white/10 hover:bg-orange-600 text-white text-[11px] font-bold px-3 py-1.5 rounded-xl border border-white/15 transition-colors"
-                  >
-                    <span>View in Stock</span>
-                    <ArrowRight className="w-3 h-3" />
-                  </a>
+
+                  <div className="mt-3.5 px-1 flex items-center justify-between text-xs">
+                    <div>
+                      <span className="font-heading font-extrabold text-slate-900 block text-sm">
+                        Field-Tested Workhorse
+                      </span>
+                      <span className="text-slate-500 text-[11px]">
+                        Zero blow-by • 1,600 kg hydraulic lift certified
+                      </span>
+                    </div>
+                    <a
+                      href="#featured-tractors"
+                      className="taste-btn shrink-0 inline-flex items-center gap-1 bg-slate-100 hover:bg-orange-600 hover:text-white text-slate-800 text-[11px] font-bold px-3 py-1.5 rounded-xl transition-colors"
+                    >
+                      <span>View in Stock</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -360,7 +375,7 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* 2. WHY BALAJI VEHICLE CONSULTANCY - 4 CLEAN PILLARS + DYNAMIC SCROLL TRACTOR */}
+      {/* 2. WHY BALAJI VEHICLE CONSULTANCY - 4 CLEAN BALANCED PILLARS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <div className="text-center max-w-3xl mx-auto mb-10">
@@ -376,8 +391,8 @@ export const Home = () => {
           </div>
         </ScrollReveal>
 
-        {/* 4 Clean Pillars in a balanced 4-column responsive grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* 4 Clean Balanced Pillars across full width */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <ScrollReveal delay={50}>
             <div className="taste-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md h-full flex flex-col justify-between">
               <div>
