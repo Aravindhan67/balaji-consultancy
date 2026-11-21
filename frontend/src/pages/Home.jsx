@@ -131,7 +131,7 @@ export const Home = () => {
         {/* Background 360-Degree Tractor Video with Scroll-Linked Rotation & Parallax */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
           <div 
-            className="w-full h-full relative transition-transform duration-100 ease-out will-change-transform"
+            className="w-full h-full relative transition-transform duration-100 ease-out will-change-transform overflow-hidden"
             style={{
               transform: `translate3d(0, ${parallaxY}px, 0)`
             }}
@@ -144,7 +144,7 @@ export const Home = () => {
               muted
               playsInline
               poster={resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg')}
-              className="w-full h-full object-cover object-center lg:object-[72%_center] opacity-90"
+              className="w-full h-full object-cover object-center lg:object-[72%_center] opacity-90 scale-[1.14] origin-[25%_25%]"
               onLoadedMetadata={(e) => {
                 const v = e.currentTarget;
                 v.muted = true;
@@ -157,6 +157,9 @@ export const Home = () => {
           {/* Cinematic Dark Gradient for Crisp Text Readability on Left Side */}
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/60 to-transparent lg:w-3/5 z-[1] pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40 z-[1] pointer-events-none" />
+
+          {/* Bottom-Right Corner Scrim: Seamlessly Blends Floor & Permanently Hides Watermark */}
+          <div className="absolute bottom-0 right-0 w-64 h-36 bg-gradient-to-tl from-slate-950 via-slate-950/50 to-transparent pointer-events-none z-[1]" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 relative z-20 w-full">
