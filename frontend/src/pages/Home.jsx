@@ -127,7 +127,7 @@ export const Home = () => {
   return (
     <div className="space-y-16 sm:space-y-24 bg-[#F8FAFC]">
       {/* 1. HERO SECTION - FULL SCREEN 360 ROTATION SHOWROOM */}
-      <section className="relative overflow-hidden min-h-[calc(100vh-80px)] flex items-center bg-slate-950 border-b border-slate-800">
+      <section className="relative overflow-hidden min-h-[calc(100vh-80px)] flex flex-col justify-between bg-slate-950 border-b border-slate-800">
         {/* Background 360-Degree Tractor Video with Scroll-Linked Rotation & Parallax */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
           <div 
@@ -144,7 +144,7 @@ export const Home = () => {
               muted
               playsInline
               poster={resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg')}
-              className="w-full h-full object-cover object-center lg:object-[72%_center] opacity-90 scale-[1.14] origin-[25%_25%]"
+              className="w-full h-full object-cover object-center opacity-95 scale-[1.14] origin-center"
               onLoadedMetadata={(e) => {
                 const v = e.currentTarget;
                 v.muted = true;
@@ -154,134 +154,127 @@ export const Home = () => {
             />
           </div>
 
-          {/* Cinematic Dark Gradient for Crisp Text Readability on Left Side */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/60 to-transparent lg:w-3/5 z-[1] pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40 z-[1] pointer-events-none" />
+          {/* Studio Atmosphere Vignettes: Top & Bottom Framing for Pure Legibility */}
+          <div className="absolute top-0 inset-x-0 h-48 bg-gradient-to-b from-slate-950/90 via-slate-950/40 to-transparent pointer-events-none z-[1]" />
+          <div className="absolute bottom-0 inset-x-0 h-52 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent pointer-events-none z-[1]" />
 
-          {/* Bottom-Right Corner Scrim: Seamlessly Blends Floor & Permanently Hides Watermark */}
-          <div className="absolute bottom-0 right-0 w-64 h-36 bg-gradient-to-tl from-slate-950 via-slate-950/50 to-transparent pointer-events-none z-[1]" />
+          {/* Bottom-Right Corner Scrim: Guarantees Watermark is 100% Invisible */}
+          <div className="absolute bottom-0 right-0 w-64 h-36 bg-gradient-to-tl from-slate-950 via-slate-950/60 to-transparent pointer-events-none z-[1]" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 relative z-20 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Left Column: Headline, Buyer Promise, Search, CTAs & Counter Row */}
-            <div className="lg:col-span-8 space-y-6 text-center lg:text-left">
-              {/* Badges Row: Brand Trust + Live Yard Status Strip */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
-                <div className="animate-hero-rise inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-500/15 text-orange-400 text-xs font-extrabold border border-orange-500/30 shadow-sm backdrop-blur-md">
-                  <Sparkles className="w-3.5 h-3.5 text-orange-400 shrink-0" />
-                  <span>India's Trusted Automotive &amp; Agro Vehicle Consultancy</span>
-                </div>
-                <div className="animate-hero-rise hero-delay-1 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 text-white text-[11px] font-bold border border-slate-700/80 shadow-sm backdrop-blur-md">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span>Yard Open Today: 9 AM - 7 PM • Salem-Coimbatore NH</span>
-                </div>
+        {/* TOP SECTION: Headline & Value Proposition (Positioned on Dark Studio Upper Wall) */}
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 relative z-20 w-full text-center">
+          {/* Trust Badges */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-3.5">
+            <span className="animate-hero-rise inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 text-amber-300 text-xs font-extrabold border border-amber-500/30 backdrop-blur-md shadow-sm">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              India's Trusted Automotive &amp; Agro Vehicle Consultancy
+            </span>
+            <span className="animate-hero-rise hero-delay-1 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 text-white text-[11px] font-bold border border-slate-700/80 backdrop-blur-md shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Yard Open Today: 9 AM - 7 PM • Salem-Coimbatore NH
+            </span>
+          </div>
+
+          {/* H1 Headline - Crisp High-Contrast Pure White & Luminous Amber-Gold */}
+          <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12] drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)]">
+            Certified <span className="text-amber-400 drop-shadow-[0_2px_14px_rgba(251,191,36,0.35)]">Second-Hand Tractors</span>, Utility Cars &amp; Genuine Spares.
+          </h1>
+
+          {/* Subtitle */}
+          <p className="animate-hero-rise hero-delay-2 text-slate-200 text-sm sm:text-base lg:text-lg leading-relaxed max-w-3xl mx-auto font-normal mt-2.5 drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
+            Helping Indian farmers, transport operators, and families buy and sell pre-owned vehicles with{' '}
+            <strong className="text-amber-300 font-semibold">120-point mechanical certification</strong>, guaranteed{' '}
+            <strong className="text-emerald-400 font-semibold">RTO RC transfer</strong>, and zero middleman broker fees.
+          </p>
+        </div>
+
+        {/* MIDDLE SECTION: Interactive 360 Turntable Center Viewport */}
+        <div className="relative z-20 w-full flex justify-end px-6 lg:px-12 pointer-events-none my-auto">
+          <div className="pointer-events-auto bg-slate-900/80 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/15 shadow-2xl text-white inline-flex items-center gap-2.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
+            <span className="text-xs font-bold">360° Interactive Turntable</span>
+            <span className="text-[11px] text-slate-400 font-medium border-l border-white/15 pl-2.5">
+              Scroll down to rotate
+            </span>
+          </div>
+        </div>
+
+        {/* BOTTOM SECTION: Quick Search, Action CTAs & Trust Metrics (Positioned on Dark Studio Floor) */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 relative z-20 w-full text-center space-y-4">
+          {/* Integrated Search Console */}
+          <form onSubmit={handleSearchSubmit} className="max-w-xl mx-auto">
+            <div className="flex items-center bg-slate-900/90 backdrop-blur-md p-1.5 rounded-2xl border border-white/20 shadow-2xl focus-within:ring-2 focus-within:ring-amber-400 focus-within:border-amber-400 transition-all">
+              <div className="pl-3.5 pr-2 text-slate-400">
+                <Search className="w-4 h-4" />
               </div>
+              <input
+                type="text"
+                placeholder="Search tractor model, HP, or vehicle (e.g. Swaraj 855, Bolero)..."
+                value={searchKeyword}
+                onChange={(e) => setSearchKeyword(e.target.value)}
+                className="w-full text-xs sm:text-sm bg-transparent border-none text-white placeholder:text-slate-400 focus:outline-none font-medium py-2"
+              />
+              <button
+                type="submit"
+                className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold px-4 sm:px-5 py-2.5 rounded-xl transition-colors shadow-sm"
+              >
+                <span>Search Stock</span>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
+              </button>
+            </div>
+          </form>
 
-              {/* H1 Headline - Cinematic High-Contrast White & Gold */}
-              <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12]">
-                Certified <span className="text-orange-500">Second-Hand Tractors</span>, Utility Cars &amp; Genuine Spares.
-              </h1>
+          {/* Action CTAs */}
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link
+              to="/products"
+              className="taste-btn inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-extrabold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-lg shadow-orange-600/30 transition-all"
+            >
+              Explore Certified Stock
+              <ArrowRight className="w-4 h-4" />
+            </Link>
 
-              {/* Lead Paragraph */}
-              <p className="animate-hero-rise hero-delay-2 text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal">
-                Helping Indian farmers, transport operators, and families buy and sell pre-owned vehicles with{' '}
-                <strong className="text-white font-semibold">120-point mechanical certification</strong>, guaranteed{' '}
-                <strong className="text-white font-semibold">RTO RC transfer</strong>, and zero middleman broker fees.
-              </p>
+            <a
+              href="tel:+918124336369"
+              className="taste-btn inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm px-5 py-3 rounded-xl border border-white/20 shadow-sm backdrop-blur-sm transition-all"
+              title="Direct Yard Call"
+            >
+              <PhoneCall className="w-4 h-4 text-emerald-400" />
+              +91 81243 36369
+            </a>
+          </div>
 
-              {/* Integrated Search Bar */}
-              <form onSubmit={handleSearchSubmit} className="animate-hero-rise hero-delay-2 max-w-xl mx-auto lg:mx-0 pt-1">
-                <div className="flex items-center bg-slate-900/80 backdrop-blur-md p-1.5 rounded-2xl border border-white/20 shadow-2xl focus-within:ring-2 focus-within:ring-orange-500 focus-within:border-orange-500 transition-all">
-                  <div className="pl-3.5 pr-2 text-slate-400">
-                    <Search className="w-4 h-4" />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search tractor model, HP, or vehicle (e.g. Swaraj 855, Bolero)..."
-                    value={searchKeyword}
-                    onChange={(e) => setSearchKeyword(e.target.value)}
-                    className="w-full text-xs sm:text-sm bg-transparent border-none text-white placeholder:text-slate-400 focus:outline-none font-medium py-2"
-                  />
-                  <button
-                    type="submit"
-                    className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-orange-600 hover:bg-orange-500 text-white text-xs font-bold px-4 sm:px-5 py-2.5 rounded-xl transition-colors shadow-sm"
-                  >
-                    <span>Search Stock</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </form>
-
-              {/* CTAs */}
-              <div className="animate-hero-rise hero-delay-3 flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-1">
-                <Link
-                  to="/products"
-                  className="taste-btn inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-500 text-white font-extrabold text-sm px-6 py-3.5 rounded-xl shadow-lg shadow-orange-600/30 transition-all"
-                >
-                  Explore Certified Stock
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-
-                <Link
-                  to="/quotation"
-                  className="taste-btn inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-sm px-6 py-3.5 rounded-xl shadow-md transition-all"
-                >
-                  <FileCheck className="w-4 h-4 text-slate-950" />
-                  Free Valuation / Sell
-                </Link>
-
-                <a
-                  href="tel:+918124336369"
-                  className="taste-btn inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-sm px-5 py-3.5 rounded-xl border border-white/20 shadow-sm backdrop-blur-sm transition-all"
-                  title="Direct Yard Call"
-                >
-                  <PhoneCall className="w-4 h-4 text-emerald-400" />
-                  +91 81243 36369
-                </a>
+          {/* Live Trust Counters Row */}
+          <div className="pt-3 border-t border-white/15 flex items-center justify-center gap-6 sm:gap-14 text-center">
+            <div>
+              <div className="font-heading font-black text-xl sm:text-2xl text-white tracking-tight drop-shadow-sm">
+                <AnimatedCounter end={5800} suffix="+" />
               </div>
-
-              {/* Real Animated Trust Stats */}
-              <div className="animate-hero-rise hero-delay-4 pt-6 border-t border-white/15 grid grid-cols-3 gap-2 sm:gap-4 max-w-lg mx-auto lg:mx-0 text-center lg:text-left">
-                <div className="flex flex-col items-center lg:items-start">
-                  <div className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-white whitespace-nowrap tracking-tight">
-                    <AnimatedCounter end={5800} suffix="+" />
-                  </div>
-                  <div className="text-[11px] sm:text-xs text-slate-400 font-semibold leading-tight mt-1">
-                    Vehicles Delivered
-                  </div>
-                </div>
-
-                <div className="flex flex-col items-center lg:items-start">
-                  <div className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-emerald-400 whitespace-nowrap tracking-tight">
-                    <AnimatedCounter end={100} suffix="%" />
-                  </div>
-                  <div className="text-[11px] sm:text-xs text-slate-400 font-semibold leading-tight mt-1">
-                    RTO Passing Guarantee
-                  </div>
-                </div>
-
-                <div className="flex flex-col items-center lg:items-start">
-                  <div className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-orange-400 whitespace-nowrap tracking-tight">
-                    <AnimatedCounter end={120} suffix="-Point" />
-                  </div>
-                  <div className="text-[11px] sm:text-xs text-slate-400 font-semibold leading-tight mt-1">
-                    Engine &amp; Gearbox Check
-                  </div>
-                </div>
+              <div className="text-[10px] sm:text-xs text-slate-300 font-semibold mt-0.5">
+                Vehicles Delivered
               </div>
             </div>
 
-            {/* Right Column: Subtle Turntable Indicator Badge */}
-            <div className="lg:col-span-4 hidden lg:flex flex-col items-end justify-center self-end pb-8">
-              <div className="bg-slate-900/80 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/15 shadow-2xl text-white space-y-1">
-                <div className="flex items-center gap-2 text-xs font-black text-white">
-                  <span className="w-2.5 h-2.5 rounded-full bg-orange-500 animate-pulse"></span>
-                  <span>360° Interactive Turntable</span>
-                </div>
-                <p className="text-[11px] text-slate-300 font-medium">
-                  Scroll page down to rotate vehicle in background
-                </p>
+            <div className="h-7 w-px bg-white/20"></div>
+
+            <div>
+              <div className="font-heading font-black text-xl sm:text-2xl text-emerald-400 tracking-tight drop-shadow-sm">
+                <AnimatedCounter end={100} suffix="%" />
+              </div>
+              <div className="text-[10px] sm:text-xs text-slate-300 font-semibold mt-0.5">
+                RTO Passing Guarantee
+              </div>
+            </div>
+
+            <div className="h-7 w-px bg-white/20"></div>
+
+            <div>
+              <div className="font-heading font-black text-xl sm:text-2xl text-amber-400 tracking-tight drop-shadow-sm">
+                <AnimatedCounter end={120} suffix="-Point" />
+              </div>
+              <div className="text-[10px] sm:text-xs text-slate-300 font-semibold mt-0.5">
+                Engine &amp; Gearbox Check
               </div>
             </div>
           </div>
