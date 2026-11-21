@@ -39,13 +39,44 @@ export const Home = () => {
 
   const heroVideoRef = useRef(null);
   const [parallaxY, setParallaxY] = useState(0);
-  const [tractorMoveY, setTractorMoveY] = useState(0);
+  const [flightProgress, setFlightProgress] = useState(0);
+  const [flightDelta, setFlightDelta] = useState({ dx: 760, dy: 540 });
+  const [isDesktop, setIsDesktop] = useState(typeof window !== 'undefined' ? window.innerWidth >= 1024 : true);
+
+  const sourceWrapperRef = useRef(null);
+  const movingTractorRef = useRef(null);
+  const targetCardRef = useRef(null);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     let animationFrameId;
     let scrollEndTimer;
+
+    const updateGeometry = () => {
+      if (typeof window === 'undefined') return;
+      const desktop = window.innerWidth >= 1024;
+      setIsDesktop(desktop);
+
+      if (!desktop) {
+        setFlightProgress(0);
+        return;
+      }
+
+      if (sourceWrapperRef.current && targetCardRef.current) {
+        const sRect = sourceWrapperRef.current.getBoundingClientRect();
+        const tRect = targetCardRef.current.getBoundingClientRect();
+        const dx = tRect.left - sRect.left;
+        const dy = (tRect.top + window.scrollY) - (sRect.top + window.scrollY);
+
+        if (dx > 50 && dy > 50) {
+          setFlightDelta({ dx, dy });
+        }
+      }
+    };
+
+    updateGeometry();
+    window.addEventListener('resize', updateGeometry);
 
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -57,13 +88,25 @@ export const Home = () => {
           setParallaxY(scrollY * 0.22);
         }
 
-        // Tractor image glide animation: moves smoothly down toward product cards as user scrolls
-        const heroThreshold = 450;
-        if (scrollY > heroThreshold) {
-          const progress = Math.min(Math.max((scrollY - heroThreshold) / 600, 0), 1);
-          setTractorMoveY(progress * 260);
+        // Tractor card flight: moves down and across diagonally directly into Card 3 on the right
+        if (window.innerWidth >= 1024 && sourceWrapperRef.current && targetCardRef.current) {
+          const sRect = sourceWrapperRef.current.getBoundingClientRect();
+          const tRect = targetCardRef.current.getBoundingClientRect();
+
+          const sourceTopDoc = sRect.top + scrollY;
+          const targetTopDoc = tRect.top + scrollY;
+
+          // Start flight as Section 2 passes into viewing range
+          const flightStart = sourceTopDoc - (window.innerHeight * 0.45);
+          // End flight when Card 3 reaches viewing position
+          const flightEnd = targetTopDoc - (window.innerHeight * 0.42);
+
+          if (flightEnd > flightStart) {
+            const p = Math.min(Math.max((scrollY - flightStart) / (flightEnd - flightStart), 0), 1);
+            setFlightProgress(p);
+          }
         } else {
-          setTractorMoveY(0);
+          setFlightProgress(0);
         }
 
         // Scrub 360-degree tractor rotation video in background as user scrolls
@@ -92,6 +135,7 @@ export const Home = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', updateGeometry);
       cancelAnimationFrame(animationFrameId);
       clearTimeout(scrollEndTimer);
     };
@@ -114,6 +158,24 @@ export const Home = () => {
     };
     fetchFeatured();
   }, []);
+
+  // Update geometry measurements whenever featured products load or screen changes
+  useEffect(() => {
+    if (!loading && typeof window !== 'undefined') {
+      const timer = setTimeout(() => {
+        if (sourceWrapperRef.current && targetCardRef.current && window.innerWidth >= 1024) {
+          const sRect = sourceWrapperRef.current.getBoundingClientRect();
+          const tRect = targetCardRef.current.getBoundingClientRect();
+          const dx = tRect.left - sRect.left;
+          const dy = (tRect.top + window.scrollY) - (sRect.top + window.scrollY);
+          if (dx > 50 && dy > 50) {
+            setFlightDelta({ dx, dy });
+          }
+        }
+      }, 250);
+      return () => clearTimeout(timer);
+    }
+  }, [loading]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -309,12 +371,39 @@ export const Home = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative">
           {/* Left Column: Dynamic Tractor Image that moves with scroll down toward product cards */}
-          <div className="lg:col-span-5 relative">
+          <div className="lg:col-span-5 relative" ref={sourceWrapperRef}>
+            {/* Background ghost / slot left in Section 2 when tractor flies to right card */}
+            <div className="hidden lg:flex flex-col items-center justify-center p-6 rounded-3xl border-2 border-dashed border-slate-200 bg-slate-50/70 min-h-[350px] text-center pointer-events-none">
+              <div className="w-12 h-12 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center mb-3 shadow-inner">
+                <CheckCircle className="w-6 h-6" />
+              </div>
+              <span className="text-sm font-heading font-black text-slate-800">
+                Mahindra 575 DI Sarpanch
+              </span>
+              <span className="text-xs text-slate-500 mt-1 max-w-[220px]">
+                Pre-owned vehicle certified by our mechanics and moved to live yard stock below
+              </span>
+              <div className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-bold text-orange-600 bg-orange-50 px-3 py-1 rounded-full border border-orange-200">
+                <span>Moved to Right Card Below</span>
+                <ArrowRight className="w-3 h-3" />
+              </div>
+            </div>
+
+            {/* Flying / Moving Card: Travels diagonally down and across directly to the right product card */}
             <div 
-              className="will-change-transform"
+              ref={movingTractorRef}
+              className={`will-change-transform ${
+                isDesktop ? 'lg:absolute lg:inset-0 z-30' : 'relative z-10'
+              }`}
               style={{
-                transform: `translate3d(0, ${tractorMoveY}px, 0)`,
-                transition: 'transform 0.15s ease-out'
+                transform: isDesktop && flightProgress > 0
+                  ? `translate3d(${flightProgress * flightDelta.dx}px, ${flightProgress * flightDelta.dy}px, 0) scale(${1 - flightProgress * 0.06})`
+                  : 'none',
+                opacity: isDesktop && flightProgress >= 0.95 
+                  ? Math.max(1 - (flightProgress - 0.95) * 20, 0) 
+                  : 1,
+                pointerEvents: isDesktop && flightProgress > 0.05 ? 'none' : 'auto',
+                transition: 'transform 0.08s ease-out, opacity 0.15s ease-out'
               }}
             >
               <div className="taste-card bg-white p-4 rounded-3xl border border-slate-200/90 shadow-lg hover:shadow-xl transition-all relative overflow-hidden group">
@@ -333,7 +422,7 @@ export const Home = () => {
                     <span>Mahindra 575 DI (45 HP)</span>
                   </div>
                   <div className="absolute bottom-3 right-3 bg-orange-600 text-white text-[10px] font-black px-2.5 py-1 rounded-lg shadow-md flex items-center gap-1">
-                    <span>Moving to Stock</span>
+                    <span>{flightProgress > 0.05 ? 'Moving to Right Card...' : 'Moving to Stock'}</span>
                     <ArrowRight className="w-3 h-3 animate-pulse" />
                   </div>
                 </div>
@@ -462,11 +551,32 @@ export const Home = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tractors.map((item, idx) => (
-              <ScrollReveal key={item._id} delay={idx * 100}>
-                <ProductCard product={item} />
-              </ScrollReveal>
-            ))}
+            {tractors.map((item, idx) => {
+              const isTargetCard = idx === 2 || (idx === tractors.length - 1 && idx > 0);
+              const isDocked = isTargetCard && isDesktop && flightProgress >= 0.88;
+
+              return (
+                <div
+                  key={item._id}
+                  ref={isTargetCard ? targetCardRef : null}
+                  className={`relative transition-all duration-300 rounded-2xl ${
+                    isDocked
+                      ? 'ring-4 ring-orange-500 shadow-2xl scale-[1.02] bg-orange-50/20'
+                      : ''
+                  }`}
+                >
+                  {isDocked && (
+                    <div className="absolute -top-3.5 right-4 z-20 animate-bounce bg-orange-600 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5 border border-white/30">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                      <span>Added to Stock • Right Card</span>
+                    </div>
+                  )}
+                  <ScrollReveal delay={idx * 100}>
+                    <ProductCard product={item} />
+                  </ScrollReveal>
+                </div>
+              );
+            })}
           </div>
         )}
 
