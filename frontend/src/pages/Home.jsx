@@ -25,7 +25,6 @@ import { api } from '../services/api';
 import { ProductCard } from '../components/ProductCard';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { AnimatedCounter } from '../components/AnimatedCounter';
-import { ValuationEstimator } from '../components/ValuationEstimator';
 import { resolveImageUrl } from '../utils/imageUrl';
 
 export const Home = () => {
@@ -547,14 +546,7 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* 5. DEALT MOMENT 2: INSTANT FAIR MARKET VALUE CALCULATOR (SCROLL REVEAL) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ScrollReveal>
-          <ValuationEstimator />
-        </ScrollReveal>
-      </section>
-
-      {/* 7. FEATURED CARS & UTILITY VEHICLES (SCROLL REVEAL) */}
+      {/* 5. FEATURED CARS & UTILITY VEHICLES (SCROLL REVEAL) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-6 gap-4">
