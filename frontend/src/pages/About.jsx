@@ -24,9 +24,9 @@ export const About = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white text-[#111111] rounded-3xl p-8 sm:p-14 border border-[#E3DBD0]">
           <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#111111] uppercase tracking-wider bg-[#EAE3D7] px-3.5 py-1.5 rounded-full border border-[#DCD4C7]">
-              <Sparkles className="w-3.5 h-3.5 text-[#111111]" />
-              About Balaji Auto &amp; Agro Consultancy
+            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#1E6B37] uppercase tracking-wider bg-[#EAF3EB] px-3.5 py-1.5 rounded-full border border-[#C8E0CD]">
+              <Sparkles className="w-3.5 h-3.5 text-[#1E6B37]" />
+              Balaji Auto &amp; Agro Consultancy
             </div>
             
             <h1 className="font-heading font-black text-3xl sm:text-5xl text-[#111111] tracking-tight leading-tight">

@@ -48,7 +48,13 @@ export const MobileSideDrawer = ({ isOpen, onClose }) => {
         <div>
           {/* Header */}
           <div className="p-4 border-b border-[#E3DBD0] flex items-center justify-between">
-            <Logo size="small" showTagline={false} />
+            <div>
+              <Logo size="small" showTagline={false} />
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 mt-1.5 rounded-full bg-[#EAF3EB] text-[#1E6B37] text-[10px] font-bold uppercase tracking-wider border border-[#C8E0CD]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#1E6B37]"></span>
+                Auto &amp; Agro Consultancy
+              </div>
+            </div>
             <button
               onClick={onClose}
               className="p-2 rounded-full text-[#111111] hover:bg-[#EAE3D7]"

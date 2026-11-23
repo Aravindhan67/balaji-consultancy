@@ -222,8 +222,12 @@ export const ProductDetail = () => {
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-white p-6 sm:p-8 rounded-2xl border border-[#E3DBD0] shadow-sm space-y-6">
               <div>
-                <div className="text-[10px] font-bold text-[#6B665F] tracking-wider uppercase mb-1">
-                  {brand} • {modelYear ? `${modelYear} Model` : 'Certified Genuine'}
+                <div className="text-[10px] font-bold text-[#1E6B37] uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#1E6B37]"></span>
+                  <span>Auto &amp; Agro Consultancy Certified</span>
+                  <span className="text-[#E3DBD0]">•</span>
+                  <span>{brand}</span>
+                  {modelYear && <span>• {modelYear} Model</span>}
                 </div>
                 <h1 className="font-heading font-extrabold text-2xl sm:text-3xl text-[#111111] tracking-tight">
                   {title}

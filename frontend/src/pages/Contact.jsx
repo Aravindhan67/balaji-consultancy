@@ -93,9 +93,9 @@ export const Contact = () => {
       {/* Header Banner - Supro Minimalist Editorial Card */}
       <div className="bg-white text-[#111111] rounded-3xl p-8 sm:p-12 border border-[#E3DBD0]">
         <div className="max-w-3xl space-y-3">
-          <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#111111] uppercase tracking-wider bg-[#EAE3D7] px-3.5 py-1.5 rounded-full border border-[#DCD4C7]">
-            <Sparkles className="w-3.5 h-3.5 text-[#111111]" />
-            Connect With Balaji Consultancy
+          <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#1E6B37] uppercase tracking-wider bg-[#EAF3EB] px-3.5 py-1.5 rounded-full border border-[#C8E0CD]">
+            <Sparkles className="w-3.5 h-3.5 text-[#1E6B37]" />
+            Auto &amp; Agro Consultancy Yard Desk
           </div>
           <h1 className="font-heading font-black text-3xl sm:text-5xl text-[#111111] tracking-tight">
             Visit Our Yard or Enquire Online

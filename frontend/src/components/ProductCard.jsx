@@ -105,9 +105,9 @@ export const ProductCard = ({ product }) => {
           <div className="flex items-center justify-between text-xs text-[#6B665F] mb-2 font-medium">
             <span className="font-bold text-[#111111] uppercase tracking-wider text-[11px]">{brand}</span>
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1 text-[10px] font-semibold bg-[#FAF8F5] text-[#111111] px-2.5 py-0.5 rounded-full border border-[#E3DBD0]">
-                <ShieldCheck className="w-3 h-3 text-[#111111]" />
-                120-Pt Verified
+              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#1E6B37] bg-[#EAF3EB] px-2.5 py-0.5 rounded-full border border-[#C8E0CD]">
+                <ShieldCheck className="w-3 h-3 text-[#1E6B37]" />
+                Auto &amp; Agro Verified
               </span>
               {modelYear && (
                 <span className="flex items-center gap-1 text-[#6B665F] text-xs">

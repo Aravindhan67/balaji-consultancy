@@ -54,7 +54,13 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12">
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
-            <Logo size="normal" showTagline={false} lightMode={false} />
+            <div className="flex items-center gap-2">
+              <Logo size="normal" showTagline={false} lightMode={false} />
+            </div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EAF3EB] text-[#1E6B37] text-[11px] font-bold uppercase tracking-wider border border-[#C8E0CD]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#1E6B37]"></span>
+              Auto &amp; Agro Consultancy
+            </div>
             <p className="text-xs text-[#6B665F] leading-relaxed max-w-sm">
               Balaji Auto &amp; Agro Consultancy is India's trusted pre-owned vehicle consultancy. We assist farmers, transport operators, and families with transparent buying, selling, fair valuation, and genuine spare parts.
             </p>

@@ -330,12 +330,12 @@ export const Home = () => {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full text-center space-y-6 sm:space-y-8">
           {/* Trust Badges */}
           <div className="flex flex-wrap items-center justify-center gap-2">
-            <span className="animate-hero-rise inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EAE3D7] text-[#111111] text-[11px] font-bold uppercase tracking-wider border border-[#DCD4C7] shadow-none">
-              <Sparkles className="w-3.5 h-3.5 text-[#111111] shrink-0" />
-              Automotive &amp; Agro Vehicle Consultancy
+            <span className="animate-hero-rise inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EAF3EB] text-[#1E6B37] text-[11px] font-bold uppercase tracking-wider border border-[#C8E0CD] shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-[#1E6B37] animate-pulse"></span>
+              Auto &amp; Agro Consultancy
             </span>
             <span className="animate-hero-rise hero-delay-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-[#111111] text-[11px] font-semibold border border-[#E3DBD0]">
-              <span className="w-2 h-2 rounded-full bg-[#111111]"></span>
+              <span className="w-2 h-2 rounded-full bg-[#1E6B37]"></span>
               Salem-Coimbatore NH Yard • Open 9 AM - 7 PM
             </span>
           </div>
@@ -494,9 +494,9 @@ export const Home = () => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="absolute top-3 left-3 bg-[#111111] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1.5">
-                    <ShieldCheck className="w-3 h-3" />
-                    <span>120-Point Inspected</span>
+                  <div className="absolute top-3 left-3 bg-[#1E6B37] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
+                    <ShieldCheck className="w-3 h-3 text-white" />
+                    <span>Auto &amp; Agro Inspected</span>
                   </div>
                   <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md text-[#111111] text-[11px] font-bold px-3 py-1.5 rounded-full border border-[#E3DBD0]">
                     <span>Mahindra 575 DI (45 HP)</span>
@@ -610,8 +610,8 @@ export const Home = () => {
         <ScrollReveal>
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-6 gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#111111] bg-[#EAE3D7] px-3.5 py-1 rounded-full mb-2 border border-[#DCD4C7]">
-                🚜 Agricultural &amp; Heavy Field Tractors
+              <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#1E6B37] bg-[#EAF3EB] px-3.5 py-1 rounded-full mb-2 border border-[#C8E0CD]">
+                🚜 Auto &amp; Agro Consultancy • Agricultural Tractors
               </div>
               <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#111111]">
                 Featured Verified Pre-Owned Tractors
