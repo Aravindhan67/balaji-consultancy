@@ -28,7 +28,6 @@ import {
 import { api } from '../services/api';
 import { ProductCard } from '../components/ProductCard';
 import { ScrollReveal } from '../components/ScrollReveal';
-import { AnimatedCounter } from '../components/AnimatedCounter';
 import { resolveImageUrl } from '../utils/imageUrl';
 
 const defaultReviews = [
@@ -388,40 +387,6 @@ export const Home = () => {
               <PhoneCall className="w-4 h-4" />
               +91 81243 36369
             </a>
-          </div>
-
-          {/* Live Trust Counters Row */}
-          <div className="pt-8 border-t border-[#E3DBD0] flex items-center justify-center gap-6 sm:gap-14 text-center">
-            <div>
-              <div className="font-heading font-black text-2xl sm:text-3xl text-[#111111] tracking-tight">
-                <AnimatedCounter end={5800} suffix="+" />
-              </div>
-              <div className="text-[10px] sm:text-xs text-[#8C857B] font-bold uppercase tracking-widest mt-1">
-                Vehicles Delivered
-              </div>
-            </div>
-
-            <div className="h-8 w-px bg-[#E3DBD0]"></div>
-
-            <div>
-              <div className="font-heading font-black text-2xl sm:text-3xl text-[#111111] tracking-tight">
-                <AnimatedCounter end={100} suffix="%" />
-              </div>
-              <div className="text-[10px] sm:text-xs text-[#8C857B] font-bold uppercase tracking-widest mt-1">
-                RTO Passing Guarantee
-              </div>
-            </div>
-
-            <div className="h-8 w-px bg-[#E3DBD0]"></div>
-
-            <div>
-              <div className="font-heading font-black text-2xl sm:text-3xl text-[#111111] tracking-tight">
-                <AnimatedCounter end={120} suffix="-Point" />
-              </div>
-              <div className="text-[10px] sm:text-xs text-[#8C857B] font-bold uppercase tracking-widest mt-1">
-                Engine &amp; Gearbox Check
-              </div>
-            </div>
           </div>
         </div>
       </section>
