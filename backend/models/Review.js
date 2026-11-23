@@ -18,6 +18,10 @@ const reviewSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
+  productId: {
+    type: String,
+    default: null
+  },
   rating: {
     type: Number,
     required: true,

@@ -267,9 +267,10 @@ export const api = {
   },
 
   // Customer Reviews
-  async getReviews() {
+  async getReviews(productId = null) {
     try {
-      const res = await fetch(`${API_BASE}/reviews`);
+      const url = productId ? `${API_BASE}/reviews?productId=${encodeURIComponent(productId)}` : `${API_BASE}/reviews`;
+      const res = await fetch(url);
       const json = await safeJson(res, { success: false, data: [] });
       if (json && Array.isArray(json.data) && json.data.length > 0) {
         return json;
@@ -278,7 +279,11 @@ export const api = {
       const local = localStorage.getItem('balaji_customer_reviews');
       if (local) {
         try {
-          return { success: true, data: JSON.parse(local) };
+          const parsed = JSON.parse(local);
+          if (Array.isArray(parsed)) {
+            const filtered = productId ? parsed.filter(r => r.productId === productId || !r.productId) : parsed;
+            return { success: true, data: filtered };
+          }
         } catch (_) {}
       }
       return json;
@@ -287,7 +292,11 @@ export const api = {
       const local = localStorage.getItem('balaji_customer_reviews');
       if (local) {
         try {
-          return { success: true, data: JSON.parse(local) };
+          const parsed = JSON.parse(local);
+          if (Array.isArray(parsed)) {
+            const filtered = productId ? parsed.filter(r => r.productId === productId || !r.productId) : parsed;
+            return { success: true, data: filtered };
+          }
         } catch (_) {}
       }
       return { success: false, data: [] };

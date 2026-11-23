@@ -3,10 +3,14 @@ import { DataStore } from '../data/store.js';
 
 const router = express.Router();
 
-// GET all customer reviews (Public)
+// GET all customer reviews (Public, optional filter by productId)
 router.get('/', async (req, res) => {
   try {
-    const reviews = await DataStore.getReviews();
+    const { productId } = req.query;
+    let reviews = await DataStore.getReviews();
+    if (productId) {
+      reviews = reviews.filter(r => r.productId === productId || !r.productId);
+    }
     res.json({ success: true, count: reviews.length, data: reviews });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -16,7 +20,7 @@ router.get('/', async (req, res) => {
 // POST new customer review (Public)
 router.post('/', async (req, res) => {
   try {
-    const { name, comment, rating, role, location, vehicleOrService } = req.body;
+    const { name, comment, rating, role, location, vehicleOrService, productId } = req.body;
     if (!name || !name.trim()) {
       return res.status(400).json({ success: false, message: 'Your name is required' });
     }
@@ -33,6 +37,7 @@ router.post('/', async (req, res) => {
       role: (role && role.trim()) || 'Verified Customer',
       location: (location && location.trim()) || '',
       vehicleOrService: (vehicleOrService && vehicleOrService.trim()) || '',
+      productId: (productId && productId.trim()) || null,
       rating: numRating,
       comment: comment.trim(),
       verified: true

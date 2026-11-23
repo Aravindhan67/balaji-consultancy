@@ -13,12 +13,17 @@ import {
   PhoneCall, 
   ArrowLeft, 
   CheckCircle2, 
+  CheckCircle,
   FileCheck, 
   HeartHandshake, 
   Share2,
   Clock,
   Send,
-  Sparkles
+  Sparkles,
+  Star,
+  Plus,
+  X,
+  ArrowRight
 } from 'lucide-react';
 
 export const ProductDetail = () => {
@@ -34,6 +39,106 @@ export const ProductDetail = () => {
   const [enquiryMessage, setEnquiryMessage] = useState('I want to inspect this vehicle / check availability at Balaji Yard.');
   const [submittingEnquiry, setSubmittingEnquiry] = useState(false);
   const [enquirySuccess, setEnquirySuccess] = useState(false);
+
+  // Customer Reviews state
+  const [reviews, setReviews] = useState([]);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [reviewSubmitting, setReviewSubmitting] = useState(false);
+  const [reviewSuccessMsg, setReviewSuccessMsg] = useState('');
+  const [newReviewId, setNewReviewId] = useState(null);
+  const [reviewForm, setReviewForm] = useState({
+    name: '',
+    role: '',
+    location: '',
+    rating: 5,
+    comment: ''
+  });
+
+  const getInitials = (fullName = '') => {
+    return fullName
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .substring(0, 2) || 'BC';
+  };
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const res = await api.getReviews();
+        if (res && res.success && Array.isArray(res.data) && res.data.length > 0) {
+          setReviews(res.data);
+        } else {
+          const local = localStorage.getItem('balaji_customer_reviews');
+          if (local) {
+            const parsed = JSON.parse(local);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              setReviews(parsed);
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('Failed to load reviews:', err);
+      }
+    };
+    fetchReviews();
+  }, [id]);
+
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+    if (!reviewForm.name.trim() || !reviewForm.comment.trim()) {
+      alert('Please enter your name and review experience.');
+      return;
+    }
+
+    setReviewSubmitting(true);
+    try {
+      const reviewPayload = {
+        name: reviewForm.name.trim(),
+        role: reviewForm.role.trim() || 'Verified Customer',
+        location: reviewForm.location.trim(),
+        vehicleOrService: product?.title || 'Balaji Certified Vehicle',
+        productId: product?._id || id,
+        rating: Number(reviewForm.rating) || 5,
+        comment: reviewForm.comment.trim(),
+        verified: true,
+        createdAt: new Date().toISOString()
+      };
+
+      const res = await api.createReview(reviewPayload);
+      const addedReview = (res && res.success && res.data) ? res.data : {
+        _id: `rev_${Date.now()}`,
+        ...reviewPayload
+      };
+
+      const updated = [addedReview, ...reviews];
+      setReviews(updated);
+      try {
+        localStorage.setItem('balaji_customer_reviews', JSON.stringify(updated));
+      } catch (_) {}
+
+      setNewReviewId(addedReview._id);
+      setIsReviewModalOpen(false);
+      setReviewSuccessMsg(`Thank you, ${reviewPayload.name}! Your review has been added to our verified customer wall.`);
+      setReviewForm({
+        name: '',
+        role: '',
+        location: '',
+        rating: 5,
+        comment: ''
+      });
+
+      setTimeout(() => {
+        setReviewSuccessMsg('');
+      }, 7000);
+    } catch (err) {
+      console.error('Error submitting review:', err);
+      alert('Failed to submit review. Please try again.');
+    } finally {
+      setReviewSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -92,9 +197,9 @@ export const ProductDetail = () => {
   if (!product) {
     return (
       <div className="max-w-md mx-auto px-4 py-20 text-center space-y-4">
-        <h2 className="font-heading font-bold text-xl text-slate-900">Vehicle / Product Not Found</h2>
-        <p className="text-xs text-slate-500">The vehicle you are looking for may have been sold or removed from inventory.</p>
-        <Link to="/products" className="inline-flex items-center gap-2 bg-orange-600 text-white font-bold text-xs px-5 py-2.5 rounded-xl shadow-md">
+        <h2 className="font-heading font-bold text-xl text-[#111111]">Vehicle / Product Not Found</h2>
+        <p className="text-xs text-[#6B665F]">The vehicle you are looking for may have been sold or removed from inventory.</p>
+        <Link to="/products" className="inline-flex items-center gap-2 bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs px-5 py-2.5 rounded-full transition-colors">
           <ArrowLeft className="w-4 h-4" />
           Back to Inventory
         </Link>
@@ -123,6 +228,21 @@ export const ProductDetail = () => {
   const waMessage = encodeURIComponent(
     `Hello Balaji Consultancy! I am interested in inspecting: ${title} priced at ${formatINR(price, false)}. Is it currently available at the yard?`
   );
+
+  const relevantReviews = React.useMemo(() => {
+    if (!reviews || reviews.length === 0) return [];
+    return [...reviews].sort((a, b) => {
+      if (a._id === newReviewId) return -1;
+      if (b._id === newReviewId) return 1;
+      const aMatches = (a.productId && (a.productId === product?._id || a.productId === id)) || 
+        (a.vehicleOrService && title && a.vehicleOrService.toLowerCase().includes(title.toLowerCase()));
+      const bMatches = (b.productId && (b.productId === product?._id || b.productId === id)) || 
+        (b.vehicleOrService && title && b.vehicleOrService.toLowerCase().includes(title.toLowerCase()));
+      if (aMatches && !bMatches) return -1;
+      if (!aMatches && bMatches) return 1;
+      return 0;
+    });
+  }, [reviews, product, id, title, newReviewId]);
 
   return (
     <div className="min-h-screen bg-[#F5F1EB] py-8">
@@ -365,6 +485,265 @@ export const ProductDetail = () => {
             </div>
           </div>
         </div>
+
+        {/* =========================================================================
+            CUSTOMER REVIEWS SECTION (SUBMITTED & DISPLAYED ON PRODUCT PAGE)
+           ========================================================================= */}
+        <section id="product-reviews" className="bg-white rounded-3xl p-6 sm:p-10 border border-[#E3DBD0] space-y-8">
+          {/* Section Header */}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-[#E3DBD0]">
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#111111] bg-[#EAE3D7] px-3 py-1 rounded-full border border-[#DCD4C7] inline-block mb-2">
+                Verified Customer Feedback
+              </span>
+              <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#111111]">
+                Customer Reviews &amp; Experiences
+              </h2>
+              <p className="text-xs sm:text-sm text-[#6B665F] mt-1">
+                Real feedback from farmers and vehicle owners who bought, inspected, or reviewed machines with Balaji Consultancy.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setIsReviewModalOpen(true)}
+              className="taste-btn inline-flex items-center justify-center gap-2 bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-full transition-all shadow-none shrink-0 cursor-pointer self-start sm:self-auto"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Write a Customer Review</span>
+            </button>
+          </div>
+
+          {/* Success Banner */}
+          {reviewSuccessMsg && (
+            <div className="p-4 bg-[#FAF8F5] rounded-2xl border border-[#2E7D32] text-xs text-[#111111] font-semibold flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 text-[#2E7D32] shrink-0" />
+              <span>{reviewSuccessMsg}</span>
+            </div>
+          )}
+
+          {/* Reviews Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {relevantReviews.map((rev, idx) => {
+              const initials = getInitials(rev.name);
+              const isJustAdded = rev._id === newReviewId;
+              const isSpecific = (rev.productId && (rev.productId === product?._id || rev.productId === id)) ||
+                (rev.vehicleOrService && title && rev.vehicleOrService.toLowerCase().includes(title.toLowerCase()));
+
+              return (
+                <div
+                  key={rev._id || idx}
+                  className={`bg-[#FAF8F5] p-6 rounded-2xl border transition-all flex flex-col justify-between h-full relative ${
+                    isJustAdded ? 'border-[#111111] ring-2 ring-[#111111]/20' : 'border-[#E3DBD0] hover:border-[#111111]'
+                  }`}
+                >
+                  {isJustAdded && (
+                    <span className="absolute -top-3 right-4 bg-[#111111] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+                      <Sparkles className="w-3 h-3 text-white" />
+                      Just Added
+                    </span>
+                  )}
+
+                  <div>
+                    {/* Star Rating & Vehicle Badge */}
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex text-[#D97706]">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-3.5 h-3.5 ${i < (rev.rating || 5) ? 'fill-current text-[#D97706]' : 'text-neutral-200'}`}
+                          />
+                        ))}
+                      </div>
+                      <span className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full border ${
+                        isSpecific 
+                          ? 'bg-white text-[#2E7D32] border-[#2E7D32]/30 font-bold'
+                          : 'bg-white text-[#111111] border-[#E3DBD0]'
+                      }`}>
+                        {rev.vehicleOrService || title}
+                      </span>
+                    </div>
+
+                    {/* Comment */}
+                    <p className="text-xs text-[#555048] leading-relaxed italic font-normal">
+                      "{rev.comment}"
+                    </p>
+                  </div>
+
+                  {/* Customer Info */}
+                  <div className="mt-4 pt-4 border-t border-[#E3DBD0] flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-full font-bold flex items-center justify-center text-xs bg-white text-[#111111] border border-[#E3DBD0] shrink-0">
+                      {initials}
+                    </div>
+                    <div className="overflow-hidden">
+                      <div className="font-bold text-[#111111] text-xs truncate">{rev.name}</div>
+                      <div className="text-[11px] text-[#8C857B] truncate">
+                        {rev.role || 'Verified Customer'}{rev.location ? `, ${rev.location}` : ''}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* =========================================================================
+            CUSTOMER REVIEW SUBMISSION MODAL
+           ========================================================================= */}
+        {isReviewModalOpen && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+            onClick={() => setIsReviewModalOpen(false)}
+          >
+            <div
+              className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-[#E3DBD0] relative max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="flex items-start justify-between pb-4 border-b border-[#E3DBD0]">
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#111111] bg-[#EAE3D7] px-3 py-0.5 rounded-full border border-[#DCD4C7]">
+                    Customer Feedback
+                  </span>
+                  <h3 className="font-heading font-black text-xl text-[#111111] mt-2">
+                    Review {title}
+                  </h3>
+                  <p className="text-xs text-[#6B665F] mt-0.5">
+                    Your feedback will appear on this vehicle page and our verified customer wall.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsReviewModalOpen(false)}
+                  className="w-8 h-8 rounded-full bg-[#FAF8F5] hover:bg-[#EAE3D7] text-[#111111] flex items-center justify-center transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Form */}
+              <form onSubmit={handleReviewSubmit} className="space-y-4 pt-4">
+                {/* Star Rating Selector */}
+                <div>
+                  <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1.5">
+                    Your Rating
+                  </label>
+                  <div className="flex items-center gap-1.5">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setReviewForm({ ...reviewForm, rating: star })}
+                        className="p-1 hover:scale-125 transition-transform cursor-pointer focus:outline-none"
+                      >
+                        <Star
+                          className={`w-6 h-6 ${star <= reviewForm.rating ? 'text-[#D97706] fill-[#D97706]' : 'text-neutral-200'}`}
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Name */}
+                <div>
+                  <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">
+                    Your Full Name <span className="text-neutral-900">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Balasubramaniam"
+                    value={reviewForm.name}
+                    onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })}
+                    className="w-full text-xs sm:text-sm bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
+                  />
+                </div>
+
+                {/* Role & Location */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">
+                      Occupation / Role
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Sugarcane Farmer"
+                      value={reviewForm.role}
+                      onChange={(e) => setReviewForm({ ...reviewForm, role: e.target.value })}
+                      className="w-full text-xs sm:text-sm bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">
+                      City / District
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Salem (Tamil Nadu)"
+                      value={reviewForm.location}
+                      onChange={(e) => setReviewForm({ ...reviewForm, location: e.target.value })}
+                      className="w-full text-xs sm:text-sm bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
+                    />
+                  </div>
+                </div>
+
+                {/* Vehicle or Machine (pre-filled with current title) */}
+                <div>
+                  <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">
+                    Vehicle / Machine
+                  </label>
+                  <input
+                    type="text"
+                    readOnly
+                    value={title || 'Balaji Certified Vehicle'}
+                    className="w-full text-xs sm:text-sm bg-[#EAE3D7] border border-[#DCD4C7] rounded-xl px-3.5 py-2.5 text-[#111111] font-semibold cursor-not-allowed"
+                  />
+                </div>
+
+                {/* Review Comment */}
+                <div>
+                  <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">
+                    Your Review / Experience <span className="text-neutral-900">*</span>
+                  </label>
+                  <textarea
+                    required
+                    rows="4"
+                    placeholder="Share details about vehicle condition, engine sound, yard inspection, or consultant service..."
+                    value={reviewForm.comment}
+                    onChange={(e) => setReviewForm({ ...reviewForm, comment: e.target.value })}
+                    className="w-full text-xs sm:text-sm bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111] resize-none"
+                  ></textarea>
+                </div>
+
+                {/* Submit Buttons */}
+                <div className="flex items-center justify-end gap-3 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsReviewModalOpen(false)}
+                    className="taste-btn px-5 py-2.5 rounded-full border border-[#E3DBD0] text-[#111111] font-bold text-xs uppercase tracking-wider hover:bg-[#FAF8F5] transition-colors cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={reviewSubmitting}
+                    className="taste-btn inline-flex items-center gap-2 bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs uppercase tracking-wider px-7 py-2.5 rounded-full transition-all cursor-pointer disabled:opacity-50"
+                  >
+                    {reviewSubmitting ? (
+                      <span>Submitting...</span>
+                    ) : (
+                      <>
+                        <span>Submit Review</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
