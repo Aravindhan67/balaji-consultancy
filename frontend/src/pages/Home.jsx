@@ -341,7 +341,7 @@ export const Home = () => {
           </div>
 
           {/* H1 Headline - Supro Bold Editorial */}
-          <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-[#111111] tracking-tight leading-[1.1] drop-shadow-sm">
+          <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.1] drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
             Certified Second-Hand Tractors, Utility Cars &amp; Genuine Spares.
           </h1>
 
