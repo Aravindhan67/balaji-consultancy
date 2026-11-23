@@ -316,15 +316,15 @@ export const Home = () => {
     <div className="space-y-16 sm:space-y-24 bg-[#F5F1EB] text-[#111111]">
       {/* 1. HERO SECTION - SUPRO MINIMALIST EDITORIAL */}
       <section className="relative overflow-hidden bg-[#F5F1EB] border-b border-[#E3DBD0] py-20 sm:py-28">
-        {/* Subtle Warm Agro Background Layer */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-35 mix-blend-multiply">
+        {/* Rich Agro Background Layer - Reduced White Shade & Higher Clarity */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           <img
             src={resolveImageUrl('/static-uploads/hero-tractor-bg.jpg')}
             alt="Balaji Auto and Agro Vehicle Consultancy Yard"
-            className="w-full h-full object-cover object-center scale-105"
+            className="w-full h-full object-cover object-center scale-105 opacity-80 contrast-105 saturate-110"
           />
-          {/* Subtle Warm Linen Scrim */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#F5F1EB]/80 via-[#F5F1EB]/50 to-[#F5F1EB]" />
+          {/* Subtle Warm Vignette - Reduced White Fog/Scrim */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#F5F1EB]/25 via-transparent to-[#F5F1EB]/75" />
         </div>
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full text-center space-y-6 sm:space-y-8">
@@ -334,28 +334,28 @@ export const Home = () => {
               <span className="w-2 h-2 rounded-full bg-[#2E7D32] animate-pulse"></span>
               Auto &amp; Agro Consultancy
             </span>
-            <span className="animate-hero-rise hero-delay-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-[#111111] text-[11px] font-semibold border border-[#E3DBD0]">
+            <span className="animate-hero-rise hero-delay-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAF8F5] text-[#111111] text-[11px] font-semibold border border-[#E3DBD0]">
               <span className="w-2 h-2 rounded-full bg-[#2E7D32]"></span>
               Salem-Coimbatore NH Yard • Open 9 AM - 7 PM
             </span>
           </div>
 
           {/* H1 Headline - Supro Bold Editorial */}
-          <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-[#111111] tracking-tight leading-[1.1]">
+          <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-[#111111] tracking-tight leading-[1.1] drop-shadow-sm">
             Certified Second-Hand Tractors, Utility Cars &amp; Genuine Spares.
           </h1>
 
           {/* Subtitle */}
-          <p className="animate-hero-rise hero-delay-2 text-[#6B665F] text-sm sm:text-base lg:text-lg leading-relaxed max-w-2xl mx-auto font-normal">
+          <p className="animate-hero-rise hero-delay-2 text-[#4A453F] text-sm sm:text-base lg:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
             Helping Indian farmers, transport operators, and families buy and sell pre-owned vehicles with{' '}
-            <strong className="text-[#111111] font-semibold">120-point mechanical certification</strong>, guaranteed{' '}
-            <strong className="text-[#111111] font-semibold">RTO RC transfer</strong>, and zero middleman broker fees.
+            <strong className="text-[#111111] font-bold">120-point mechanical certification</strong>, guaranteed{' '}
+            <strong className="text-[#111111] font-bold">RTO RC transfer</strong>, and zero middleman broker fees.
           </p>
 
-          {/* Integrated Search Console - Minimalist White Pill */}
+          {/* Integrated Search Console - Minimalist Warm Pill (Reduced White Glare) */}
           <div className="max-w-xl mx-auto pt-2">
             <form onSubmit={handleSearchSubmit}>
-              <div className="flex items-center bg-white p-1.5 rounded-full border border-[#E3DBD0] focus-within:border-[#111111] transition-all">
+              <div className="flex items-center bg-[#FAF8F5]/95 backdrop-blur-md p-1.5 rounded-full border border-[#DCD4C7] focus-within:border-[#111111] transition-all shadow-sm">
                 <div className="pl-4 pr-2 text-[#8C857B]">
                   <Search className="w-4 h-4" />
                 </div>
