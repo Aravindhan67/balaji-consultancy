@@ -604,18 +604,8 @@ export const Home = () => {
                 <div
                   key={item._id}
                   ref={isTargetCard ? targetCardRef : null}
-                  className={`relative transition-all duration-300 rounded-2xl ${
-                    isDocked
-                      ? 'ring-2 ring-[#111111] scale-[1.01]'
-                      : ''
-                  }`}
+                  className="relative transition-all duration-300 rounded-2xl"
                 >
-                  {isDocked && (
-                    <div className="absolute -top-3.5 right-4 z-20 bg-[#111111] text-white text-[10px] font-bold uppercase tracking-wider px-3.5 py-1 rounded-full shadow-md flex items-center gap-1.5">
-                      <Sparkles className="w-3 h-3 text-white" />
-                      <span>Added to Stock</span>
-                    </div>
-                  )}
                   <ScrollReveal delay={idx * 100}>
                     <ProductCard product={item} />
                   </ScrollReveal>

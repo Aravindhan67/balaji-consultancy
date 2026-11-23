@@ -148,14 +148,6 @@ export const ProductDetail = () => {
                 alt={title}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute top-4 left-4 flex gap-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#2E7D32] text-white">
-                  {category === 'tractor' ? 'Tractor' : category === 'car' ? 'Car' : 'Spare Part'}
-                </span>
-                <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white text-[#111111] border border-[#E3DBD0] shadow-sm">
-                  {condition}
-                </span>
-              </div>
             </div>
 
             {/* Thumbnail Strip */}

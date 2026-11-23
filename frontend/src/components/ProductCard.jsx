@@ -63,7 +63,7 @@ export const ProductCard = ({ product }) => {
 
   return (
     <div className="taste-card group bg-white rounded-2xl overflow-hidden border border-[#E3DBD0] flex flex-col justify-between transition-all duration-200 hover:border-[#111111]">
-      {/* Top Image & Floating Tags */}
+      {/* Top Image */}
       <div className="taste-zoom relative aspect-[16/10] bg-[#FAF8F5]">
         <img
           src={imageUrl}
@@ -77,25 +77,6 @@ export const ProductCard = ({ product }) => {
             }
           }}
         />
-
-        {/* Status / Featured Tags */}
-        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
-          <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#2E7D32] text-white shadow-none">
-            {categoryLabel}
-          </span>
-          {featured && (
-            <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#EAE3D7] text-[#111111] border border-[#D5CDC1]">
-              Featured
-            </span>
-          )}
-        </div>
-
-        {/* Condition Tag */}
-        <div className="absolute top-3 right-3 z-10">
-          <span className="text-[10px] font-semibold tracking-wider uppercase bg-white/95 backdrop-blur text-[#111111] px-3 py-1 rounded-full border border-[#E3DBD0]">
-            {condition || 'Certified'}
-          </span>
-        </div>
       </div>
 
       {/* Content Body */}
