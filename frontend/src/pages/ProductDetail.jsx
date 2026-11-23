@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { api } from '../services/api';
 import { formatINR } from '../utils/formatters';
@@ -157,6 +157,23 @@ export const ProductDetail = () => {
     fetchProduct();
   }, [id]);
 
+  const relevantReviews = useMemo(() => {
+    if (!reviews || reviews.length === 0) return [];
+    const prodTitle = product?.title || '';
+    const prodId = product?._id || id;
+    return [...reviews].sort((a, b) => {
+      if (a._id === newReviewId) return -1;
+      if (b._id === newReviewId) return 1;
+      const aMatches = (a.productId && (a.productId === prodId)) || 
+        (a.vehicleOrService && prodTitle && a.vehicleOrService.toLowerCase().includes(prodTitle.toLowerCase()));
+      const bMatches = (b.productId && (b.productId === prodId)) || 
+        (b.vehicleOrService && prodTitle && b.vehicleOrService.toLowerCase().includes(prodTitle.toLowerCase()));
+      if (aMatches && !bMatches) return -1;
+      if (!aMatches && bMatches) return 1;
+      return 0;
+    });
+  }, [reviews, product, id, newReviewId]);
+
   const handleEnquirySubmit = async (e) => {
     e.preventDefault();
     if (!enquiryName || !enquiryPhone) return;
@@ -188,8 +205,8 @@ export const ProductDetail = () => {
   if (loading) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-        <div className="w-12 h-12 border-4 border-orange-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-        <p className="text-sm font-semibold text-slate-600">Loading vehicle specifications &amp; inspection report...</p>
+        <div className="w-12 h-12 border-4 border-[#2E7D32] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-sm font-semibold text-[#6B665F]">Loading vehicle specifications &amp; inspection report...</p>
       </div>
     );
   }
@@ -228,21 +245,6 @@ export const ProductDetail = () => {
   const waMessage = encodeURIComponent(
     `Hello Balaji Consultancy! I am interested in inspecting: ${title} priced at ${formatINR(price, false)}. Is it currently available at the yard?`
   );
-
-  const relevantReviews = React.useMemo(() => {
-    if (!reviews || reviews.length === 0) return [];
-    return [...reviews].sort((a, b) => {
-      if (a._id === newReviewId) return -1;
-      if (b._id === newReviewId) return 1;
-      const aMatches = (a.productId && (a.productId === product?._id || a.productId === id)) || 
-        (a.vehicleOrService && title && a.vehicleOrService.toLowerCase().includes(title.toLowerCase()));
-      const bMatches = (b.productId && (b.productId === product?._id || b.productId === id)) || 
-        (b.vehicleOrService && title && b.vehicleOrService.toLowerCase().includes(title.toLowerCase()));
-      if (aMatches && !bMatches) return -1;
-      if (!aMatches && bMatches) return 1;
-      return 0;
-    });
-  }, [reviews, product, id, title, newReviewId]);
 
   return (
     <div className="min-h-screen bg-[#F5F1EB] py-8">
