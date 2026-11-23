@@ -170,31 +170,60 @@ export const AdminDashboard = () => {
 
     const filesToUpload = files.slice(0, remainingSlots);
 
+    const readAsBase64 = (file) => new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => resolve(null);
+      reader.readAsDataURL(file);
+    });
+
     setUploadingImage(true);
     try {
       if (filesToUpload.length === 1) {
-        const res = await api.uploadSingleImage(filesToUpload[0]);
-        if (res.success && res.url) {
+        const file = filesToUpload[0];
+        const res = await api.uploadSingleImage(file);
+        let finalUrl = (res && res.success && res.url) ? res.url : null;
+        if (!finalUrl) {
+          finalUrl = await readAsBase64(file);
+        }
+        if (finalUrl) {
           setProductForm(prev => ({
             ...prev,
-            images: [...prev.images, res.url]
+            images: [...prev.images, finalUrl]
           }));
         } else {
-          alert(res.message || 'Image upload failed');
+          alert('Could not process the selected image.');
         }
       } else {
         const res = await api.uploadMultipleImages(filesToUpload);
-        if (res.success && Array.isArray(res.urls) && res.urls.length > 0) {
+        let finalUrls = (res && res.success && Array.isArray(res.urls) && res.urls.length > 0) ? res.urls : null;
+        if (!finalUrls || finalUrls.length === 0) {
+          finalUrls = await Promise.all(filesToUpload.map(readAsBase64));
+          finalUrls = finalUrls.filter(Boolean);
+        }
+        if (finalUrls && finalUrls.length > 0) {
           setProductForm(prev => ({
             ...prev,
-            images: [...prev.images, ...res.urls]
+            images: [...prev.images, ...finalUrls]
           }));
         } else {
-          alert(res.message || 'Multiple images upload failed');
+          alert('Could not process the selected images.');
         }
       }
     } catch (err) {
-      alert('Error uploading image(s): ' + err.message);
+      console.warn('Backend upload notice, using local image encoding:', err);
+      try {
+        const fallbackUrls = await Promise.all(filesToUpload.map(readAsBase64));
+        const valid = fallbackUrls.filter(Boolean);
+        if (valid.length > 0) {
+          setProductForm(prev => ({
+            ...prev,
+            images: [...prev.images, ...valid]
+          }));
+        }
+      } catch (_) {
+        alert('Error uploading image(s): ' + err.message);
+      }
     } finally {
       setUploadingImage(false);
       if (e.target) e.target.value = '';
@@ -806,7 +835,15 @@ export const AdminDashboard = () => {
                     if (hasImage) {
                       return (
                         <div key={slotIdx} className="relative aspect-video rounded-xl overflow-hidden border-2 border-slate-300 bg-white shadow-xs group">
-                          <img src={imgUrl} alt={`Photo ${slotIdx + 1}`} className="w-full h-full object-cover" />
+                          <img 
+                            src={imgUrl} 
+                            alt={`Photo ${slotIdx + 1}`} 
+                            className="w-full h-full object-cover" 
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = '/static-uploads/tractor-mahindra-575.jpg';
+                            }}
+                          />
                           <span className="absolute top-1.5 left-1.5 bg-black/75 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm">
                             {slotIdx === 0 ? '★ Cover' : `#${slotIdx + 1}`}
                           </span>

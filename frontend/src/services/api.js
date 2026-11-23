@@ -1,5 +1,10 @@
 // Dynamic API Base URL resolution (Local Vite Proxy vs Production Render Backend)
 const getApiBaseUrl = () => {
+  // When running locally in browser (localhost / 127.0.0.1), use the local Vite proxy '/api'
+  // which forwards directly to the local Node.js backend on port 5000 and local uploads
+  if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+    return '/api';
+  }
   if (import.meta.env.VITE_API_URL) {
     return import.meta.env.VITE_API_URL.replace(/\/+$/, '');
   }

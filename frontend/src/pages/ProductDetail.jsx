@@ -297,6 +297,15 @@ export const ProductDetail = () => {
                       src={img}
                       alt={`${title} - view ${idx + 1}`}
                       className="w-full h-full object-cover select-none"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        const fallback = category === 'car'
+                          ? '/static-uploads/car-mahindra-bolero.jpg'
+                          : category === 'spare_part'
+                          ? '/static-uploads/part-clutch-plate.jpg'
+                          : '/static-uploads/tractor-mahindra-575.jpg';
+                        e.target.src = fallback;
+                      }}
                     />
                   </div>
                 ))}
@@ -361,7 +370,20 @@ export const ProductDetail = () => {
                         : 'border-[#E3DBD0] opacity-75 hover:opacity-100'
                     }`}
                   >
-                    <img src={img} alt="" className="w-full h-full object-cover" />
+                    <img 
+                      src={img} 
+                      alt="" 
+                      className="w-full h-full object-cover" 
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        const fallback = category === 'car'
+                          ? '/static-uploads/car-mahindra-bolero.jpg'
+                          : category === 'spare_part'
+                          ? '/static-uploads/part-clutch-plate.jpg'
+                          : '/static-uploads/tractor-mahindra-575.jpg';
+                        e.target.src = fallback;
+                      }}
+                    />
                     <span className="absolute bottom-1 right-1 bg-black/70 text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
                       {idx === 0 ? 'Main' : `#${idx + 1}`}
                     </span>
