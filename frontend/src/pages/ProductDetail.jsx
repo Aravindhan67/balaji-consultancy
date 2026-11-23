@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useMemo } from 'react';
+﻿import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { api } from '../services/api';
 import { formatINR } from '../utils/formatters';
@@ -24,7 +24,10 @@ import {
   Plus,
   X,
   ArrowRight,
-  ExternalLink
+  ExternalLink,
+  ChevronLeft,
+  ChevronRight,
+  Camera
 } from 'lucide-react';
 
 const GoogleIcon = () => (
@@ -41,6 +44,29 @@ export const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(0);
+  const carouselRef = useRef(null);
+
+  const scrollToImage = (index) => {
+    setSelectedImage(index);
+    if (carouselRef.current) {
+      const targetChild = carouselRef.current.children[index];
+      if (targetChild) {
+        targetChild.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  };
+
+  const handleCarouselScroll = () => {
+    if (carouselRef.current) {
+      const { scrollLeft, clientWidth } = carouselRef.current;
+      if (clientWidth > 0) {
+        const newIdx = Math.round(scrollLeft / clientWidth);
+        if (newIdx !== selectedImage && newIdx >= 0) {
+          setSelectedImage(newIdx);
+        }
+      }
+    }
+  };
 
   // Enquiry form state
   const [enquiryName, setEnquiryName] = useState('');
@@ -257,26 +283,88 @@ export const ProductDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column: Image Showcase (7 Cols) */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="relative aspect-[16/10] bg-[#FAF8F5] rounded-2xl overflow-hidden border border-[#E3DBD0] shadow-sm">
-              <img
-                src={displayImages[selectedImage] || displayImages[0]}
-                alt={title}
-                className="w-full h-full object-cover"
-              />
+            {/* Interactive Scrollable Image Carousel */}
+            <div className="relative aspect-[16/10] bg-[#FAF8F5] rounded-2xl overflow-hidden border border-[#E3DBD0] shadow-sm group">
+              <div
+                ref={carouselRef}
+                onScroll={handleCarouselScroll}
+                className="w-full h-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
+                {displayImages.map((img, idx) => (
+                  <div key={idx} className="w-full h-full flex-shrink-0 snap-center relative">
+                    <img
+                      src={img}
+                      alt={`${title} - view ${idx + 1}`}
+                      className="w-full h-full object-cover select-none"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Photos Counter Badge */}
+              <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-xs text-white text-[11px] font-bold px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm pointer-events-none">
+                <Camera className="w-3.5 h-3.5" />
+                <span>{Math.min(selectedImage + 1, displayImages.length)} / {displayImages.length} Photos</span>
+              </div>
+
+              {/* Prev / Next Scroll Arrows (when > 1 photo) */}
+              {displayImages.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => scrollToImage((selectedImage - 1 + displayImages.length) % displayImages.length)}
+                    aria-label="Previous photo"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-[#111111] shadow-md flex items-center justify-center transition-all opacity-85 hover:opacity-100 hover:scale-110 cursor-pointer"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => scrollToImage((selectedImage + 1) % displayImages.length)}
+                    aria-label="Next photo"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-[#111111] shadow-md flex items-center justify-center transition-all opacity-85 hover:opacity-100 hover:scale-110 cursor-pointer"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+
+                  {/* Dot Indicators */}
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 bg-black/40 backdrop-blur-xs px-2.5 py-1 rounded-full">
+                    {displayImages.map((_, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => scrollToImage(idx)}
+                        aria-label={`View photo ${idx + 1}`}
+                        className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                          selectedImage === idx ? 'w-5 bg-white' : 'w-1.5 bg-white/50 hover:bg-white/80'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
 
-            {/* Thumbnail Strip */}
+            {/* Thumbnail Scroll Track */}
             {displayImages.length > 1 && (
-              <div className="flex gap-3 overflow-x-auto pb-2">
+              <div className="flex gap-2.5 overflow-x-auto pb-1 pt-1">
                 {displayImages.map((img, idx) => (
                   <button
                     key={idx}
-                    onClick={() => setSelectedImage(idx)}
-                    className={`w-20 h-16 rounded-xl overflow-hidden border-2 flex-shrink-0 transition-all ${
-                      selectedImage === idx ? 'border-[#111111] scale-105 shadow-sm' : 'border-[#E3DBD0] opacity-70 hover:opacity-100'
+                    type="button"
+                    onClick={() => scrollToImage(idx)}
+                    className={`relative w-20 sm:w-24 h-16 rounded-xl overflow-hidden border-2 flex-shrink-0 transition-all cursor-pointer ${
+                      selectedImage === idx 
+                        ? 'border-[#2E7D32] ring-2 ring-[#2E7D32]/25 scale-102 shadow-sm' 
+                        : 'border-[#E3DBD0] opacity-75 hover:opacity-100'
                     }`}
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />
+                    <span className="absolute bottom-1 right-1 bg-black/70 text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
+                      {idx === 0 ? 'Main' : `#${idx + 1}`}
+                    </span>
                   </button>
                 ))}
               </div>

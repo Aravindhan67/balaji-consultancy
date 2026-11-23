@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../services/api';
 import { formatINR, formatDate } from '../utils/formatters';
+import { resolveImageUrl } from '../utils/imageUrl';
 import { 
   Package, 
   MessageSquare, 
@@ -19,7 +20,9 @@ import {
   IndianRupee,
   Layers,
   Search,
-  ExternalLink
+  ExternalLink,
+  Camera,
+  Image as ImageIcon
 } from 'lucide-react';
 
 export const AdminDashboard = () => {
@@ -146,25 +149,55 @@ export const AdminDashboard = () => {
     }
   };
 
+  const fileInputRef = useRef(null);
+
   const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+
+    const currentImages = productForm.images || [];
+    const remainingSlots = 4 - currentImages.length;
+
+    if (remainingSlots <= 0) {
+      alert('You have already added 4 photos (maximum 4 photos allowed per product). Please remove an existing photo to upload a new one.');
+      if (e.target) e.target.value = '';
+      return;
+    }
+
+    if (files.length > remainingSlots) {
+      alert(`Only ${remainingSlots} more photo(s) can be added (maximum 4 photos per product). Uploading the first ${remainingSlots} selected.`);
+    }
+
+    const filesToUpload = files.slice(0, remainingSlots);
 
     setUploadingImage(true);
     try {
-      const res = await api.uploadSingleImage(file);
-      if (res.success && res.url) {
-        setProductForm(prev => ({
-          ...prev,
-          images: [...prev.images, res.url]
-        }));
+      if (filesToUpload.length === 1) {
+        const res = await api.uploadSingleImage(filesToUpload[0]);
+        if (res.success && res.url) {
+          setProductForm(prev => ({
+            ...prev,
+            images: [...prev.images, res.url]
+          }));
+        } else {
+          alert(res.message || 'Image upload failed');
+        }
       } else {
-        alert(res.message || 'Image upload failed');
+        const res = await api.uploadMultipleImages(filesToUpload);
+        if (res.success && Array.isArray(res.urls) && res.urls.length > 0) {
+          setProductForm(prev => ({
+            ...prev,
+            images: [...prev.images, ...res.urls]
+          }));
+        } else {
+          alert(res.message || 'Multiple images upload failed');
+        }
       }
     } catch (err) {
-      alert('Error uploading image to backend');
+      alert('Error uploading image(s): ' + err.message);
     } finally {
       setUploadingImage(false);
+      if (e.target) e.target.value = '';
     }
   };
 
@@ -177,6 +210,15 @@ export const AdminDashboard = () => {
 
   const handleSaveProduct = async (e) => {
     e.preventDefault();
+    if (!productForm.images || productForm.images.length === 0) {
+      alert('Please upload at least 1 photo for this product (minimum 1, maximum 4 photos required).');
+      return;
+    }
+    if (productForm.images.length > 4) {
+      alert('Maximum 4 photos allowed per product. Please remove extra photos.');
+      return;
+    }
+
     try {
       const payload = {
         ...productForm,
@@ -723,36 +765,106 @@ export const AdminDashboard = () => {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Upload Image to Backend Storage
-                </label>
-                <div className="flex items-center gap-3">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="text-xs text-[#6b7280] file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#faf7f2] file:text-[#c85a17] hover:file:bg-[#f3ece2]"
-                  />
-                  {uploadingImage && <span className="text-xs text-[#c85a17] font-bold">Uploading...</span>}
+              {/* Product Photos Upload (Min 1, Max 4 Photos) */}
+              <div className="space-y-2.5 p-4 bg-slate-50/80 rounded-2xl border border-slate-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-800">
+                      Product Photos <span className="text-red-500">*</span>
+                      <span className="text-[11px] font-normal text-slate-500 ml-1.5">(Min 1, Max 4 Photos)</span>
+                    </label>
+                    <p className="text-[11px] text-slate-500 mt-0.5">
+                      Upload 1 to 4 photos. These will be displayed in the product details page with interactive scroll.
+                    </p>
+                  </div>
+                  <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider ${
+                    productForm.images.length >= 1 && productForm.images.length <= 4
+                      ? 'bg-[#2E7D32]/10 text-[#2E7D32] border border-[#2E7D32]/30'
+                      : 'bg-amber-100 text-amber-800 border border-amber-300'
+                  }`}>
+                    {productForm.images.length} / 4 Selected
+                  </span>
                 </div>
 
-                {productForm.images.length > 0 && (
-                  <div className="flex gap-2 mt-2">
-                    {productForm.images.map((img, i) => (
-                      <div key={i} className="relative w-14 h-14 rounded-lg overflow-hidden border border-[#e7ded2]">
-                        <img src={img} alt="item" className="w-full h-full object-cover" />
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveImage(i)}
-                          className="absolute top-0 right-0 bg-red-600 text-white rounded-bl p-0.5"
-                        >
-                          <X className="w-3 h-3" />
-                        </button>
-                      </div>
-                    ))}
+                {/* Hidden File Input (Supports Multiple) */}
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                />
+
+                {/* 4 Interactive Photo Slots */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+                  {[0, 1, 2, 3].map((slotIdx) => {
+                    const hasImage = slotIdx < productForm.images.length;
+                    const rawUrl = hasImage ? productForm.images[slotIdx] : null;
+                    const imgUrl = rawUrl ? resolveImageUrl(rawUrl) : null;
+
+                    if (hasImage) {
+                      return (
+                        <div key={slotIdx} className="relative aspect-video rounded-xl overflow-hidden border-2 border-slate-300 bg-white shadow-xs group">
+                          <img src={imgUrl} alt={`Photo ${slotIdx + 1}`} className="w-full h-full object-cover" />
+                          <span className="absolute top-1.5 left-1.5 bg-black/75 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm">
+                            {slotIdx === 0 ? '★ Cover' : `#${slotIdx + 1}`}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveImage(slotIdx)}
+                            className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center transition-colors shadow-sm cursor-pointer"
+                            title="Remove photo"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      );
+                    }
+
+                    // Empty slot
+                    return (
+                      <button
+                        key={slotIdx}
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={uploadingImage}
+                        className="relative aspect-video rounded-xl border-2 border-dashed border-slate-300 hover:border-[#2E7D32] hover:bg-white text-slate-400 hover:text-[#2E7D32] flex flex-col items-center justify-center gap-1 transition-all p-2 cursor-pointer disabled:opacity-50"
+                      >
+                        <Camera className="w-5 h-5" />
+                        <span className="text-[10px] font-bold">
+                          {slotIdx === 0 ? '+ Cover Photo' : `+ Photo #${slotIdx + 1}`}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Upload Actions & Status */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pt-1 border-t border-slate-200">
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={uploadingImage || productForm.images.length >= 4}
+                      className="inline-flex items-center gap-1.5 text-xs font-bold bg-[#2E7D32] hover:bg-[#236628] disabled:bg-slate-300 text-white px-3.5 py-1.5 rounded-lg transition-colors cursor-pointer"
+                    >
+                      <Upload className="w-3.5 h-3.5" />
+                      {uploadingImage ? 'Uploading Photos...' : 'Choose Photos (1 to 4)'}
+                    </button>
+                    {uploadingImage && (
+                      <span className="text-xs text-[#2E7D32] font-semibold animate-pulse">
+                        Uploading to storage...
+                      </span>
+                    )}
                   </div>
-                )}
+
+                  {productForm.images.length === 0 && (
+                    <span className="text-[11px] text-amber-700 font-medium">
+                      ⚠️ Minimum 1 photo required
+                    </span>
+                  )}
+                </div>
               </div>
 
               <div>
