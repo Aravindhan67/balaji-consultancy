@@ -23,8 +23,18 @@ import {
   Star,
   Plus,
   X,
-  ArrowRight
+  ArrowRight,
+  ExternalLink
 } from 'lucide-react';
+
+const GoogleIcon = () => (
+  <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+  </svg>
+);
 
 export const ProductDetail = () => {
   const { id } = useParams();
@@ -156,23 +166,6 @@ export const ProductDetail = () => {
     };
     fetchProduct();
   }, [id]);
-
-  const relevantReviews = useMemo(() => {
-    if (!reviews || reviews.length === 0) return [];
-    const prodTitle = product?.title || '';
-    const prodId = product?._id || id;
-    return [...reviews].sort((a, b) => {
-      if (a._id === newReviewId) return -1;
-      if (b._id === newReviewId) return 1;
-      const aMatches = (a.productId && (a.productId === prodId)) || 
-        (a.vehicleOrService && prodTitle && a.vehicleOrService.toLowerCase().includes(prodTitle.toLowerCase()));
-      const bMatches = (b.productId && (b.productId === prodId)) || 
-        (b.vehicleOrService && prodTitle && b.vehicleOrService.toLowerCase().includes(prodTitle.toLowerCase()));
-      if (aMatches && !bMatches) return -1;
-      if (!aMatches && bMatches) return 1;
-      return 0;
-    });
-  }, [reviews, product, id, newReviewId]);
 
   const handleEnquirySubmit = async (e) => {
     e.preventDefault();
@@ -489,149 +482,69 @@ export const ProductDetail = () => {
         </div>
 
         {/* =========================================================================
-            CUSTOMER REVIEWS SECTION (SUBMITTED & DISPLAYED ON PRODUCT PAGE)
+            GOOGLE REVIEW COLLECTION (GET REVIEW LIKE GOOGLE REVIEW)
            ========================================================================= */}
-        <section id="product-reviews" className="bg-white rounded-3xl p-6 sm:p-10 border border-[#E3DBD0] space-y-8">
-          {/* Section Header */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-[#E3DBD0]">
+        <section id="google-review-section" className="bg-white rounded-3xl p-6 sm:p-10 border border-[#E3DBD0] space-y-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#E3DBD0]">
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#111111] bg-[#EAE3D7] px-3 py-1 rounded-full border border-[#DCD4C7] inline-block mb-2">
-                Verified Customer Feedback
-              </span>
+              <div className="inline-flex items-center gap-2 bg-[#FAF8F5] border border-[#E3DBD0] px-3.5 py-1.5 rounded-full mb-3 shadow-xs">
+                <GoogleIcon />
+                <span className="text-[11px] font-bold text-[#111111] uppercase tracking-wider">
+                  Google Verified Reviews
+                </span>
+                <span className="text-[#6B665F] text-[11px]">•</span>
+                <div className="flex text-[#D97706] items-center gap-1">
+                  <Star className="w-3.5 h-3.5 fill-current text-[#D97706]" />
+                  <span className="text-xs font-bold text-[#111111]">4.9 / 5.0</span>
+                </div>
+              </div>
               <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#111111]">
-                Customer Reviews &amp; Experiences
+                Rate &amp; Review this Vehicle
               </h2>
-              <p className="text-xs sm:text-sm text-[#6B665F] mt-1">
-                Real feedback from farmers and vehicle owners who bought, inspected, or reviewed machines with Balaji Consultancy.
+              <p className="text-xs sm:text-sm text-[#6B665F] mt-1 max-w-xl">
+                Have you inspected or purchased this machine? Share your experience with other farmers and buyers. Your verified review will be featured on our Home page testimonials wall.
               </p>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setIsReviewModalOpen(true)}
-              className="taste-btn inline-flex items-center justify-center gap-2 bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-full transition-all shadow-none shrink-0 cursor-pointer self-start sm:self-auto"
+            <a
+              href="https://www.google.com/search?q=Balaji+Auto+Consultancy+Salem+reviews"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="taste-btn inline-flex items-center gap-2 bg-[#FAF8F5] hover:bg-[#EAE3D7] text-[#111111] font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-full border border-[#E3DBD0] transition-all shrink-0 self-start md:self-auto cursor-pointer"
             >
-              <Plus className="w-4 h-4" />
-              <span>Write a Customer Review</span>
-            </button>
+              <GoogleIcon />
+              <span>Review on Google</span>
+              <ExternalLink className="w-3.5 h-3.5 text-[#6B665F]" />
+            </a>
           </div>
 
-          {/* Success Banner */}
-          {reviewSuccessMsg && (
-            <div className="p-4 bg-[#FAF8F5] rounded-2xl border border-[#2E7D32] text-xs text-[#111111] font-semibold flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-[#2E7D32] shrink-0" />
-              <span>{reviewSuccessMsg}</span>
-            </div>
-          )}
-
-          {/* Reviews Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {relevantReviews.map((rev, idx) => {
-              const initials = getInitials(rev.name);
-              const isJustAdded = rev._id === newReviewId;
-              const isSpecific = (rev.productId && (rev.productId === product?._id || rev.productId === id)) ||
-                (rev.vehicleOrService && title && rev.vehicleOrService.toLowerCase().includes(title.toLowerCase()));
-
-              return (
-                <div
-                  key={rev._id || idx}
-                  className={`bg-[#FAF8F5] p-6 rounded-2xl border transition-all flex flex-col justify-between h-full relative ${
-                    isJustAdded ? 'border-[#111111] ring-2 ring-[#111111]/20' : 'border-[#E3DBD0] hover:border-[#111111]'
-                  }`}
-                >
-                  {isJustAdded && (
-                    <span className="absolute -top-3 right-4 bg-[#111111] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
-                      <Sparkles className="w-3 h-3 text-white" />
-                      Just Added
-                    </span>
-                  )}
-
-                  <div>
-                    {/* Star Rating & Vehicle Badge */}
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex text-[#D97706]">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`w-3.5 h-3.5 ${i < (rev.rating || 5) ? 'fill-current text-[#D97706]' : 'text-neutral-200'}`}
-                          />
-                        ))}
-                      </div>
-                      <span className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full border ${
-                        isSpecific 
-                          ? 'bg-white text-[#2E7D32] border-[#2E7D32]/30 font-bold'
-                          : 'bg-white text-[#111111] border-[#E3DBD0]'
-                      }`}>
-                        {rev.vehicleOrService || title}
-                      </span>
-                    </div>
-
-                    {/* Comment */}
-                    <p className="text-xs text-[#555048] leading-relaxed italic font-normal">
-                      "{rev.comment}"
-                    </p>
-                  </div>
-
-                  {/* Customer Info */}
-                  <div className="mt-4 pt-4 border-t border-[#E3DBD0] flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full font-bold flex items-center justify-center text-xs bg-white text-[#111111] border border-[#E3DBD0] shrink-0">
-                      {initials}
-                    </div>
-                    <div className="overflow-hidden">
-                      <div className="font-bold text-[#111111] text-xs truncate">{rev.name}</div>
-                      <div className="text-[11px] text-[#8C857B] truncate">
-                        {rev.role || 'Verified Customer'}{rev.location ? `, ${rev.location}` : ''}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* =========================================================================
-            CUSTOMER REVIEW SUBMISSION MODAL
-           ========================================================================= */}
-        {isReviewModalOpen && (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
-            onClick={() => setIsReviewModalOpen(false)}
-          >
-            <div
-              className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-[#E3DBD0] relative max-h-[90vh] overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Modal Header */}
-              <div className="flex items-start justify-between pb-4 border-b border-[#E3DBD0]">
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#111111] bg-[#EAE3D7] px-3 py-0.5 rounded-full border border-[#DCD4C7]">
-                    Customer Feedback
-                  </span>
-                  <h3 className="font-heading font-black text-xl text-[#111111] mt-2">
-                    Review {title}
-                  </h3>
-                  <p className="text-xs text-[#6B665F] mt-0.5">
-                    Your feedback will appear on this vehicle page and our verified customer wall.
-                  </p>
-                </div>
+          {/* Form / Success Feedback */}
+          {reviewSuccessMsg ? (
+            <div className="p-8 bg-[#FAF8F5] rounded-2xl border border-[#2E7D32] text-center space-y-3">
+              <div className="w-12 h-12 rounded-full bg-[#2E7D32]/10 text-[#2E7D32] flex items-center justify-center mx-auto">
+                <CheckCircle className="w-7 h-7" />
+              </div>
+              <h4 className="font-heading font-black text-lg text-[#111111]">Thank You for Your Review!</h4>
+              <p className="text-xs sm:text-sm text-[#6B665F] max-w-lg mx-auto">{reviewSuccessMsg}</p>
+              <div className="pt-2">
                 <button
                   type="button"
-                  onClick={() => setIsReviewModalOpen(false)}
-                  className="w-8 h-8 rounded-full bg-[#FAF8F5] hover:bg-[#EAE3D7] text-[#111111] flex items-center justify-center transition-colors cursor-pointer"
+                  onClick={() => setReviewSuccessMsg('')}
+                  className="taste-btn text-xs font-bold text-[#2E7D32] hover:text-[#236628] uppercase tracking-wider underline cursor-pointer"
                 >
-                  <X className="w-4 h-4" />
+                  Write another review
                 </button>
               </div>
-
-              {/* Form */}
-              <form onSubmit={handleReviewSubmit} className="space-y-4 pt-4">
-                {/* Star Rating Selector */}
-                <div>
-                  <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1.5">
-                    Your Rating
-                  </label>
-                  <div className="flex items-center gap-1.5">
+            </div>
+          ) : (
+            <form onSubmit={handleReviewSubmit} className="space-y-5 bg-[#FAF8F5] p-5 sm:p-7 rounded-2xl border border-[#E3DBD0]">
+              {/* Star Rating Picker (Google Reviews style) */}
+              <div>
+                <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-2">
+                  Your Rating for {title} <span className="text-[#2E7D32]">*</span>
+                </label>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <div className="flex items-center gap-1 bg-white px-3.5 py-2 rounded-xl border border-[#E3DBD0]">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
                         key={star}
@@ -645,9 +558,18 @@ export const ProductDetail = () => {
                       </button>
                     ))}
                   </div>
+                  <span className="text-xs font-bold text-[#111111] ml-2">
+                    {reviewForm.rating === 5 && '★★★★★ Excellent (5.0)'}
+                    {reviewForm.rating === 4 && '★★★★☆ Very Good (4.0)'}
+                    {reviewForm.rating === 3 && '★★★☆☆ Good (3.0)'}
+                    {reviewForm.rating === 2 && '★★☆☆☆ Fair (2.0)'}
+                    {reviewForm.rating === 1 && '★☆☆☆☆ Needs Improvement (1.0)'}
+                  </span>
                 </div>
+              </div>
 
-                {/* Name */}
+              {/* Reviewer Details */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">
                     Your Full Name <span className="text-neutral-900">*</span>
@@ -655,97 +577,76 @@ export const ProductDetail = () => {
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Balasubramaniam"
+                    placeholder="e.g. Senthil Kumar"
                     value={reviewForm.name}
                     onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })}
-                    className="w-full text-xs sm:text-sm bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
+                    className="w-full text-xs sm:text-sm bg-white border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:outline-none focus:ring-1 focus:ring-[#111111]"
                   />
                 </div>
-
-                {/* Role & Location */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">
-                      Occupation / Role
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Sugarcane Farmer"
-                      value={reviewForm.role}
-                      onChange={(e) => setReviewForm({ ...reviewForm, role: e.target.value })}
-                      className="w-full text-xs sm:text-sm bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">
-                      City / District
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Salem (Tamil Nadu)"
-                      value={reviewForm.location}
-                      onChange={(e) => setReviewForm({ ...reviewForm, location: e.target.value })}
-                      className="w-full text-xs sm:text-sm bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
-                    />
-                  </div>
-                </div>
-
-                {/* Vehicle or Machine (pre-filled with current title) */}
                 <div>
                   <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">
-                    Vehicle / Machine
+                    Occupation / Role
                   </label>
                   <input
                     type="text"
-                    readOnly
-                    value={title || 'Balaji Certified Vehicle'}
-                    className="w-full text-xs sm:text-sm bg-[#EAE3D7] border border-[#DCD4C7] rounded-xl px-3.5 py-2.5 text-[#111111] font-semibold cursor-not-allowed"
+                    placeholder="e.g. Sugarcane Farmer, Contractor"
+                    value={reviewForm.role}
+                    onChange={(e) => setReviewForm({ ...reviewForm, role: e.target.value })}
+                    className="w-full text-xs sm:text-sm bg-white border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:outline-none focus:ring-1 focus:ring-[#111111]"
                   />
                 </div>
-
-                {/* Review Comment */}
                 <div>
                   <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">
-                    Your Review / Experience <span className="text-neutral-900">*</span>
+                    City / District
                   </label>
-                  <textarea
-                    required
-                    rows="4"
-                    placeholder="Share details about vehicle condition, engine sound, yard inspection, or consultant service..."
-                    value={reviewForm.comment}
-                    onChange={(e) => setReviewForm({ ...reviewForm, comment: e.target.value })}
-                    className="w-full text-xs sm:text-sm bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111] resize-none"
-                  ></textarea>
+                  <input
+                    type="text"
+                    placeholder="e.g. Salem, Tamil Nadu"
+                    value={reviewForm.location}
+                    onChange={(e) => setReviewForm({ ...reviewForm, location: e.target.value })}
+                    className="w-full text-xs sm:text-sm bg-white border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:outline-none focus:ring-1 focus:ring-[#111111]"
+                  />
                 </div>
+              </div>
 
-                {/* Submit Buttons */}
-                <div className="flex items-center justify-end gap-3 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsReviewModalOpen(false)}
-                    className="taste-btn px-5 py-2.5 rounded-full border border-[#E3DBD0] text-[#111111] font-bold text-xs uppercase tracking-wider hover:bg-[#FAF8F5] transition-colors cursor-pointer"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={reviewSubmitting}
-                    className="taste-btn inline-flex items-center gap-2 bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs uppercase tracking-wider px-7 py-2.5 rounded-full transition-all cursor-pointer disabled:opacity-50"
-                  >
-                    {reviewSubmitting ? (
-                      <span>Submitting...</span>
-                    ) : (
-                      <>
-                        <span>Submit Review</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </>
-                    )}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
+              {/* Review Comment */}
+              <div>
+                <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">
+                  Share Details of Your Experience with this Vehicle <span className="text-neutral-900">*</span>
+                </label>
+                <textarea
+                  required
+                  rows="3"
+                  placeholder="Share details of vehicle condition, engine sound, yard inspection, documentation, or consultant assistance..."
+                  value={reviewForm.comment}
+                  onChange={(e) => setReviewForm({ ...reviewForm, comment: e.target.value })}
+                  className="w-full text-xs sm:text-sm bg-white border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:outline-none focus:ring-1 focus:ring-[#111111] resize-none"
+                ></textarea>
+              </div>
+
+              {/* Submission Footer */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-1">
+                <span className="text-[11px] text-[#6B665F]">
+                  ✓ Verified reviews automatically appear on our Home page customer testimonials wall.
+                </span>
+                <button
+                  type="submit"
+                  disabled={reviewSubmitting}
+                  className="w-full sm:w-auto taste-btn inline-flex items-center justify-center gap-2 bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs uppercase tracking-wider px-8 py-3 rounded-full transition-all cursor-pointer disabled:opacity-50"
+                >
+                  {reviewSubmitting ? (
+                    <span>Posting Review...</span>
+                  ) : (
+                    <>
+                      <span>Post Customer Review</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
+          )}
+        </section>
       </div>
     </div>
   );
