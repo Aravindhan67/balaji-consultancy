@@ -368,7 +368,7 @@ export const Home = () => {
                 />
                 <button
                   type="submit"
-                  className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-[#111111] hover:bg-neutral-800 text-white text-[11px] font-bold uppercase tracking-wider px-5 py-2.5 rounded-full transition-colors shadow-none"
+                  className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-[#1E6B37] hover:bg-[#155A2D] text-white text-[11px] font-bold uppercase tracking-wider px-5 py-2.5 rounded-full transition-colors shadow-none"
                 >
                   <span>Search</span>
                   <ArrowRight className="w-3.5 h-3.5 text-white" />
@@ -377,11 +377,11 @@ export const Home = () => {
             </form>
           </div>
 
-          {/* Action CTAs - Matte Black & Warm Sand Pills */}
+          {/* Action CTAs - Farmer Green & Outline Pills */}
           <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
             <Link
               to="/products"
-              className="taste-btn inline-flex items-center gap-2 bg-[#111111] hover:bg-neutral-800 text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-7 py-3.5 rounded-full transition-all shadow-none"
+              className="taste-btn inline-flex items-center gap-2 bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-7 py-3.5 rounded-full transition-all shadow-none"
             >
               Explore Certified Stock
               <ArrowRight className="w-4 h-4" />
@@ -389,10 +389,10 @@ export const Home = () => {
 
             <a
               href="tel:+918124336369"
-              className="taste-btn inline-flex items-center gap-2 bg-[#EAE3D7] hover:bg-[#DFD7CA] text-[#111111] font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-3.5 rounded-full border border-[#DCD4C7] transition-all"
+              className="taste-btn inline-flex items-center gap-2 bg-[#FAF8F5] hover:bg-[#1E6B37] hover:text-white text-[#111111] font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-3.5 rounded-full border border-[#E3DBD0] hover:border-[#1E6B37] transition-all"
               title="Direct Yard Call"
             >
-              <PhoneCall className="w-4 h-4 text-[#111111]" />
+              <PhoneCall className="w-4 h-4" />
               +91 81243 36369
             </a>
           </div>
@@ -501,7 +501,7 @@ export const Home = () => {
                   <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md text-[#111111] text-[11px] font-bold px-3 py-1.5 rounded-full border border-[#E3DBD0]">
                     <span>Mahindra 575 DI (45 HP)</span>
                   </div>
-                  <div className="absolute bottom-3 right-3 bg-[#111111] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1">
+                  <div className="absolute bottom-3 right-3 bg-[#1E6B37] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
                     <span>{flightProgress > 0.05 ? 'Moving to Card...' : 'Yard Stock'}</span>
                     <ArrowRight className="w-3 h-3" />
                   </div>
@@ -518,7 +518,7 @@ export const Home = () => {
                   </div>
                   <a
                     href="#featured-tractors"
-                    className="taste-btn shrink-0 inline-flex items-center gap-1 bg-[#FAF8F5] hover:bg-[#111111] hover:text-white text-[#111111] text-[11px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full border border-[#E3DBD0] transition-colors"
+                    className="taste-btn shrink-0 inline-flex items-center gap-1 bg-[#FAF8F5] hover:bg-[#1E6B37] hover:text-white text-[#111111] text-[11px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full border border-[#E3DBD0] hover:border-[#1E6B37] transition-colors"
                   >
                     <span>View in Stock</span>
                     <ArrowRight className="w-3 h-3" />
@@ -622,7 +622,7 @@ export const Home = () => {
             </div>
             <Link
               to="/products?category=tractor"
-              className="taste-btn inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#111111] hover:bg-[#EAE3D7] bg-white px-5 py-2 rounded-full border border-[#E3DBD0] transition-colors"
+              className="taste-btn inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#111111] hover:bg-[#1E6B37] hover:text-white bg-white px-5 py-2 rounded-full border border-[#E3DBD0] hover:border-[#1E6B37] transition-colors"
             >
               View All Tractors
               <ArrowRight className="w-3.5 h-3.5" />
@@ -689,7 +689,7 @@ export const Home = () => {
           </div>
           <Link
             to="/products?category=spare_part"
-            className="taste-btn shrink-0 inline-flex items-center gap-2 bg-[#111111] hover:bg-neutral-800 text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-full transition-all"
+            className="taste-btn shrink-0 inline-flex items-center gap-2 bg-[#1E6B37] hover:bg-[#155A2D] text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-full transition-all shadow-none"
           >
             <span>Browse Spares</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -714,7 +714,7 @@ export const Home = () => {
             </div>
             <Link
               to="/products?category=car"
-              className="taste-btn inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#111111] hover:bg-[#EAE3D7] bg-white px-5 py-2 rounded-full border border-[#E3DBD0] transition-colors"
+              className="taste-btn inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#111111] hover:bg-[#1E6B37] hover:text-white bg-white px-5 py-2 rounded-full border border-[#E3DBD0] hover:border-[#1E6B37] transition-colors"
             >
               View All Utility Cars
               <ArrowRight className="w-3.5 h-3.5" />
@@ -760,7 +760,7 @@ export const Home = () => {
           </div>
           <Link
             to="/products?category=spare_part"
-            className="taste-btn shrink-0 inline-flex items-center gap-2 bg-[#111111] hover:bg-neutral-800 text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-full transition-all"
+            className="taste-btn shrink-0 inline-flex items-center gap-2 bg-[#1E6B37] hover:bg-[#155A2D] text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-full transition-all shadow-none"
           >
             <span>Browse Spares</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -810,7 +810,7 @@ export const Home = () => {
             <ScrollReveal key={step.num} delay={idx * 80}>
               <div className="taste-card bg-white p-6 rounded-2xl border border-[#E3DBD0] text-center relative h-full flex flex-col justify-between">
                 <div>
-                  <div className="w-10 h-10 rounded-full bg-[#111111] text-white font-heading font-black text-sm flex items-center justify-center mx-auto mb-4">
+                  <div className="w-10 h-10 rounded-full bg-[#1E6B37] text-white font-heading font-black text-sm flex items-center justify-center mx-auto mb-4 shadow-sm">
                     {step.num}
                   </div>
                   <h4 className="font-heading font-bold text-[#111111] text-base mb-1.5">{step.title}</h4>
@@ -846,7 +846,7 @@ export const Home = () => {
                 <button
                   type="button"
                   onClick={() => setIsReviewModalOpen(true)}
-                  className="taste-btn inline-flex items-center gap-2 bg-[#111111] hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-full transition-all cursor-pointer shadow-none"
+                  className="taste-btn inline-flex items-center gap-2 bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-full transition-all cursor-pointer shadow-none"
                 >
                   <Plus className="w-4 h-4 stroke-[3]" />
                   <span>Write a Customer Review</span>
@@ -951,15 +951,15 @@ export const Home = () => {
               <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
                 <Link
                   to="/quotation"
-                  className="taste-btn bg-[#111111] hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider px-8 py-3.5 rounded-full transition-all shadow-none"
+                  className="taste-btn bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider px-8 py-3.5 rounded-full transition-all shadow-none"
                 >
                   Request Free Quotation
                 </Link>
                 <a
                   href="tel:+918124336369"
-                  className="taste-btn bg-[#FAF8F5] hover:bg-[#EAE3D7] text-[#111111] font-bold text-xs uppercase tracking-wider px-7 py-3.5 rounded-full border border-[#E3DBD0] transition-all flex items-center gap-2"
+                  className="taste-btn bg-[#FAF8F5] hover:bg-[#1E6B37] hover:text-white text-[#111111] font-bold text-xs uppercase tracking-wider px-7 py-3.5 rounded-full border border-[#E3DBD0] hover:border-[#1E6B37] transition-all flex items-center gap-2"
                 >
-                  <PhoneCall className="w-4 h-4 text-[#111111]" />
+                  <PhoneCall className="w-4 h-4" />
                   Call Yard (+91 81243 36369)
                 </a>
               </div>
@@ -1111,7 +1111,7 @@ export const Home = () => {
                 <button
                   type="submit"
                   disabled={reviewSubmitting}
-                  className="taste-btn inline-flex items-center gap-2 bg-[#111111] hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider px-7 py-2.5 rounded-full transition-all cursor-pointer disabled:opacity-50"
+                  className="taste-btn inline-flex items-center gap-2 bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider px-7 py-2.5 rounded-full transition-all cursor-pointer disabled:opacity-50"
                 >
                   {reviewSubmitting ? (
                     <span>Submitting...</span>

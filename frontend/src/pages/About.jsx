@@ -340,13 +340,13 @@ export const About = () => {
             <div className="pt-2 flex flex-wrap justify-center gap-3">
               <Link
                 to="/products"
-                className="taste-btn bg-[#111111] hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider px-7 py-3.5 rounded-full transition-all"
+                className="taste-btn bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider px-7 py-3.5 rounded-full transition-all"
               >
                 Browse Our Inventory
               </Link>
               <Link
                 to="/contact"
-                className="taste-btn bg-[#FAF8F5] hover:bg-[#EAE3D7] text-[#111111] font-bold text-xs uppercase tracking-wider px-7 py-3.5 rounded-full border border-[#E3DBD0] transition-all"
+                className="taste-btn bg-[#FAF8F5] hover:bg-[#1E6B37] text-[#111111] hover:text-white font-bold text-xs uppercase tracking-wider px-7 py-3.5 rounded-full border border-[#E3DBD0] hover:border-[#1E6B37] transition-all"
               >
                 Visit Balaji Yard
               </Link>

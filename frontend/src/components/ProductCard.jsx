@@ -80,7 +80,7 @@ export const ProductCard = ({ product }) => {
 
         {/* Status / Featured Tags */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
-          <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#111111] text-white shadow-none">
+          <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#1E6B37] text-white shadow-none">
             {categoryLabel}
           </span>
           {featured && (
@@ -170,7 +170,7 @@ export const ProductCard = ({ product }) => {
               href={`https://wa.me/918124336369?text=${waMessage}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="taste-btn p-2 rounded-full bg-[#FAF8F5] text-[#111111] hover:bg-[#111111] hover:text-white border border-[#E3DBD0] transition-colors"
+              className="taste-btn p-2 rounded-full bg-[#FAF8F5] text-[#111111] hover:bg-[#1E6B37] hover:text-white border border-[#E3DBD0] hover:border-[#1E6B37] transition-colors"
               title="Quick WhatsApp Enquiry"
             >
               <MessageSquare className="w-3.5 h-3.5" />
@@ -178,7 +178,7 @@ export const ProductCard = ({ product }) => {
             
             <Link
               to={`/products/${_id}`}
-              className="taste-btn inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider bg-[#111111] hover:bg-neutral-800 text-white px-4 py-2 rounded-full shadow-none"
+              className="taste-btn inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider bg-[#1E6B37] hover:bg-[#155A2D] text-white px-4 py-2 rounded-full shadow-none"
             >
               Details
               <ArrowRight className="w-3 h-3" />

@@ -149,7 +149,7 @@ export const ProductDetail = () => {
                 className="w-full h-full object-cover"
               />
               <div className="absolute top-4 left-4 flex gap-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#111111] text-white">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#1E6B37] text-white">
                   {category === 'tractor' ? 'Tractor' : category === 'car' ? 'Car' : 'Spare Part'}
                 </span>
                 <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white text-[#111111] border border-[#E3DBD0] shadow-sm">
@@ -314,7 +314,7 @@ export const ProductDetail = () => {
 
                 <a
                   href="tel:+918124336369"
-                  className="w-full bg-[#FAF8F5] hover:bg-[#EAE3D7] text-[#111111] font-bold text-xs uppercase tracking-wider py-3.5 rounded-full border border-[#E3DBD0] flex items-center justify-center gap-2 transition-colors"
+                  className="w-full bg-[#FAF8F5] hover:bg-[#1E6B37] text-[#111111] hover:text-white font-bold text-xs uppercase tracking-wider py-3.5 rounded-full border border-[#E3DBD0] hover:border-[#1E6B37] flex items-center justify-center gap-2 transition-colors"
                 >
                   <PhoneCall className="w-4 h-4 text-[#111111]" />
                   Call Balaji Desk (+91 81243 36369)
@@ -362,7 +362,7 @@ export const ProductDetail = () => {
                     <button
                       type="submit"
                       disabled={submittingEnquiry}
-                      className="w-full bg-[#111111] hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider py-3 rounded-full shadow-sm transition-colors flex items-center justify-center gap-1.5"
+                      className="w-full bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider py-3 rounded-full shadow-sm transition-colors flex items-center justify-center gap-1.5"
                     >
                       <Send className="w-3.5 h-3.5" />
                       {submittingEnquiry ? 'Submitting...' : 'Request Inspection Callback'}

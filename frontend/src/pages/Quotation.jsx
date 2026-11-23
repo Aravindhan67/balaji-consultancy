@@ -130,7 +130,7 @@ export const Quotation = () => {
                       setSubmitted(false);
                       setUploadedPhotos([]);
                     }}
-                    className="bg-[#111111] hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-full transition-colors"
+                    className="bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-full transition-colors"
                   >
                     Submit Another Vehicle
                   </button>
@@ -165,8 +165,8 @@ export const Quotation = () => {
                         onClick={() => setFormData(prev => ({ ...prev, type: item.id }))}
                         className={`p-3 rounded-full text-xs font-bold border transition-all text-center ${
                           formData.type === item.id
-                            ? 'bg-[#111111] text-white border-[#111111]'
-                            : 'bg-[#FAF8F5] text-[#111111] border-[#E3DBD0] hover:bg-[#EAE3D7]'
+                            ? 'bg-[#1E6B37] text-white border-[#1E6B37]'
+                            : 'bg-[#FAF8F5] text-[#111111] border-[#E3DBD0] hover:border-[#1E6B37] hover:text-[#1E6B37]'
                         }`}
                       >
                         {item.label}
@@ -401,7 +401,7 @@ export const Quotation = () => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full bg-[#111111] hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider py-4 rounded-full shadow-sm transition-all flex items-center justify-center gap-2"
+                  className="w-full bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider py-4 rounded-full shadow-sm transition-all flex items-center justify-center gap-2"
                 >
                   <FileCheck className="w-4 h-4 text-white" />
                   {submitting ? 'Submitting Valuation Request...' : 'Get Instant Market Price Valuation'}
@@ -419,7 +419,7 @@ export const Quotation = () => {
 
               <div className="space-y-4 text-xs text-[#6B665F]">
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#FAF8F5] text-[#111111] flex items-center justify-center flex-shrink-0 font-bold border border-[#E3DBD0]">
+                  <div className="w-8 h-8 rounded-full bg-[#EAF3EB] text-[#1E6B37] flex items-center justify-center flex-shrink-0 font-bold border border-[#C8E0CD]">
                     ₹
                   </div>
                   <div>
@@ -431,7 +431,7 @@ export const Quotation = () => {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#FAF8F5] text-[#111111] flex items-center justify-center flex-shrink-0 font-bold border border-[#E3DBD0]">
+                  <div className="w-8 h-8 rounded-full bg-[#EAF3EB] text-[#1E6B37] flex items-center justify-center flex-shrink-0 font-bold border border-[#C8E0CD]">
                     ✓
                   </div>
                   <div>
@@ -443,7 +443,7 @@ export const Quotation = () => {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#FAF8F5] text-[#111111] flex items-center justify-center flex-shrink-0 font-bold border border-[#E3DBD0]">
+                  <div className="w-8 h-8 rounded-full bg-[#EAF3EB] text-[#1E6B37] flex items-center justify-center flex-shrink-0 font-bold border border-[#C8E0CD]">
                     ★
                   </div>
                   <div>
@@ -459,7 +459,7 @@ export const Quotation = () => {
                 <div className="text-[11px] text-[#6B665F] mb-2 font-medium">Need urgent assistance?</div>
                 <a
                   href="tel:+918124336369"
-                  className="w-full bg-[#FAF8F5] hover:bg-[#EAE3D7] text-[#111111] font-bold text-xs uppercase tracking-wider py-3 rounded-full border border-[#E3DBD0] flex items-center justify-center gap-2 transition-colors"
+                  className="w-full bg-[#FAF8F5] hover:bg-[#1E6B37] text-[#111111] hover:text-white font-bold text-xs uppercase tracking-wider py-3 rounded-full border border-[#E3DBD0] hover:border-[#1E6B37] flex items-center justify-center gap-2 transition-colors"
                 >
                   <PhoneCall className="w-3.5 h-3.5 text-[#111111]" />
                   Call Valuation Desk: +91 81243 36369

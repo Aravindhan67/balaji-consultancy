@@ -106,14 +106,14 @@ export const MobileSideDrawer = ({ isOpen, onClose }) => {
                   onClick={onClose}
                   className={`flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
                     item.highlight
-                      ? 'bg-[#111111] text-white'
+                      ? 'bg-[#1E6B37] text-white hover:bg-[#155A2D]'
                       : isCurrent(item.path)
-                      ? 'bg-[#EAE3D7] text-[#111111]'
-                      : 'text-[#6B665F] hover:bg-[#EAE3D7] hover:text-[#111111]'
+                      ? 'bg-[#EAF3EB] text-[#1E6B37]'
+                      : 'text-[#6B665F] hover:bg-[#EAF3EB] hover:text-[#1E6B37]'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <IconComponent className={`w-4 h-4 ${item.highlight ? 'text-white' : isCurrent(item.path) ? 'text-[#111111]' : 'text-[#8C857B]'}`} />
+                    <IconComponent className={`w-4 h-4 ${item.highlight ? 'text-white' : isCurrent(item.path) ? 'text-[#1E6B37]' : 'text-[#8C857B]'}`} />
                     <span>{item.label}</span>
                   </div>
                   <ChevronRight className={`w-3 h-3 ${item.highlight ? 'text-white' : 'text-[#8C857B]'}`} />
@@ -124,28 +124,28 @@ export const MobileSideDrawer = ({ isOpen, onClose }) => {
         </div>
 
         {/* Footer Info & Quick Call inside Drawer */}
-        <div className="p-4 border-t border-slate-100 bg-slate-50 space-y-3">
+        <div className="p-4 border-t border-[#E3DBD0] bg-[#FAF8F5] space-y-3">
           <div className="flex items-center gap-2">
             <a
               href="tel:+918124336369"
-              className="flex-1 bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs py-2.5 rounded-xl flex items-center justify-center gap-1.5 shadow-sm shadow-orange-600/20 transition-colors"
+              className="flex-1 bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider py-3 rounded-full flex items-center justify-center gap-1.5 transition-colors"
             >
-              <PhoneCall className="w-3.5 h-3.5 text-emerald-400" />
+              <PhoneCall className="w-3.5 h-3.5 text-white" />
               Call Yard
             </a>
             <a
               href="https://wa.me/918124336369?text=Hello%20Balaji%20Consultancy"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 bg-[#25D366] text-white rounded-xl shadow-sm"
+              className="p-3 bg-[#25D366] text-white rounded-full shadow-sm hover:bg-[#20ba59] transition-colors"
               title="WhatsApp"
             >
               <MessageSquare className="w-4 h-4 fill-current" />
             </a>
           </div>
 
-          <div className="flex items-center gap-2 text-[10px] text-slate-500">
-            <Clock className="w-3 h-3 text-amber-500 flex-shrink-0" />
+          <div className="flex items-center gap-2 text-[10px] text-[#6B665F]">
+            <Clock className="w-3 h-3 text-[#1E6B37] flex-shrink-0" />
             <span>Open All 7 Days • 9:00 AM – 8:00 PM</span>
           </div>
         </div>

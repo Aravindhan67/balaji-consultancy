@@ -229,7 +229,7 @@ export const Contact = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-[#111111] hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider py-3.5 rounded-full transition-all flex items-center justify-center gap-2 shadow-none"
+                className="w-full bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider py-3.5 rounded-full transition-all flex items-center justify-center gap-2 shadow-none"
               >
                 <Send className="w-4 h-4" />
                 {submitting ? 'Submitting Enquiry...' : 'Submit Enquiry'}

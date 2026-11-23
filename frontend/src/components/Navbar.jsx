@@ -48,8 +48,8 @@ export const Navbar = ({ onOpenSideDrawer }) => {
                 to={item.path}
                 className={`whitespace-nowrap px-4 py-2 rounded-full text-xs xl:text-sm transition-all duration-200 shrink-0 ${
                   isActive(item.path)
-                    ? 'bg-[#111111] text-white font-semibold shadow-none'
-                    : 'text-[#6B665F] hover:text-[#111111] hover:bg-[#EAE3D7]/70 font-medium'
+                    ? 'bg-[#1E6B37] text-white font-semibold shadow-none'
+                    : 'text-[#6B665F] hover:text-[#1E6B37] hover:bg-[#EAF3EB] font-medium'
                 }`}
               >
                 {item.label}
@@ -61,7 +61,7 @@ export const Navbar = ({ onOpenSideDrawer }) => {
           <div className="hidden sm:flex items-center gap-3 shrink-0">
             <a
               href="tel:+918124336369"
-              className="taste-btn flex items-center gap-2 text-xs xl:text-sm font-semibold text-white bg-[#111111] hover:bg-neutral-800 px-4 py-2 rounded-full border border-neutral-900 transition-all whitespace-nowrap shrink-0 shadow-none tracking-wide"
+              className="taste-btn flex items-center gap-2 text-xs xl:text-sm font-semibold text-white bg-[#1E6B37] hover:bg-[#155A2D] px-4 py-2 rounded-full border border-[#166534] transition-all whitespace-nowrap shrink-0 shadow-none tracking-wide"
               title="Direct Yard Call"
             >
               <div className="w-5 h-5 rounded-full bg-white/15 text-white flex items-center justify-center shrink-0">

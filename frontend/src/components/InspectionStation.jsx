@@ -134,7 +134,7 @@ export function InspectionStation() {
             <button
               type="button"
               onClick={() => setIsCertModalOpen(true)}
-              className="taste-btn inline-flex items-center gap-2 bg-[#111111] hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-full border border-neutral-900 transition-all shadow-none"
+              className="taste-btn inline-flex items-center gap-2 bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-full border border-[#166534] transition-all shadow-none"
             >
               <FileText className="w-3.5 h-3.5 text-white" />
               <span>View Sample Certificate</span>
@@ -162,8 +162,8 @@ export function InspectionStation() {
                   onClick={() => setActiveTab(cat.id)}
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
                     isActive
-                      ? 'bg-[#111111] text-white shadow-none'
-                      : 'text-[#6B665F] hover:text-[#111111] hover:bg-[#EAE3D7]'
+                      ? 'bg-[#1E6B37] text-white shadow-none'
+                      : 'text-[#6B665F] hover:text-[#1E6B37] hover:bg-[#EAF3EB]'
                   }`}
                 >
                   <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-[#8C857B]'}`} />
@@ -224,8 +224,8 @@ export function InspectionStation() {
                     onClick={handleToggleEngineSound}
                     className={`taste-btn shrink-0 inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider transition-all ${
                       isEngineSoundPlaying
-                        ? 'bg-[#111111] text-white hover:bg-neutral-800'
-                        : 'bg-[#111111] text-white hover:bg-neutral-800'
+                        ? 'bg-[#1E6B37] text-white hover:bg-[#155A2D]'
+                        : 'bg-[#1E6B37] text-white hover:bg-[#155A2D]'
                     }`}
                   >
                     {isEngineSoundPlaying ? (
@@ -313,7 +313,7 @@ export function InspectionStation() {
                 </div>
                 <a
                   href="tel:+918124336369"
-                  className="inline-flex items-center justify-center gap-2 w-full bg-[#111111] hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider py-3 rounded-full transition-colors"
+                  className="inline-flex items-center justify-center gap-2 w-full bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider py-3 rounded-full transition-colors"
                 >
                   Schedule Free Yard Inspection
                   <ChevronRight className="w-3.5 h-3.5" />
