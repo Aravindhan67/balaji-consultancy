@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
   ShieldCheck, 
@@ -330,12 +330,12 @@ export const Home = () => {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full text-center space-y-6 sm:space-y-8">
           {/* Trust Badges */}
           <div className="flex flex-wrap items-center justify-center gap-2">
-            <span className="animate-hero-rise inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EAF3EB] text-[#1E6B37] text-[11px] font-bold uppercase tracking-wider border border-[#C8E0CD] shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-[#1E6B37] animate-pulse"></span>
+            <span className="animate-hero-rise inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EAF3EB] text-[#2E7D32] text-[11px] font-bold uppercase tracking-wider border border-[#C8E0CD] shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-[#2E7D32] animate-pulse"></span>
               Auto &amp; Agro Consultancy
             </span>
             <span className="animate-hero-rise hero-delay-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-[#111111] text-[11px] font-semibold border border-[#E3DBD0]">
-              <span className="w-2 h-2 rounded-full bg-[#1E6B37]"></span>
+              <span className="w-2 h-2 rounded-full bg-[#2E7D32]"></span>
               Salem-Coimbatore NH Yard • Open 9 AM - 7 PM
             </span>
           </div>
@@ -368,7 +368,7 @@ export const Home = () => {
                 />
                 <button
                   type="submit"
-                  className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-[#1E6B37] hover:bg-[#155A2D] text-white text-[11px] font-bold uppercase tracking-wider px-5 py-2.5 rounded-full transition-colors shadow-none"
+                  className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-[#2E7D32] hover:bg-[#236628] text-white text-[11px] font-bold uppercase tracking-wider px-5 py-2.5 rounded-full transition-colors shadow-none"
                 >
                   <span>Search</span>
                   <ArrowRight className="w-3.5 h-3.5 text-white" />
@@ -381,7 +381,7 @@ export const Home = () => {
           <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
             <Link
               to="/products"
-              className="taste-btn inline-flex items-center gap-2 bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-7 py-3.5 rounded-full transition-all shadow-none"
+              className="taste-btn inline-flex items-center gap-2 bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-7 py-3.5 rounded-full transition-all shadow-none"
             >
               Explore Certified Stock
               <ArrowRight className="w-4 h-4" />
@@ -389,7 +389,7 @@ export const Home = () => {
 
             <a
               href="tel:+918124336369"
-              className="taste-btn inline-flex items-center gap-2 bg-[#FAF8F5] hover:bg-[#1E6B37] hover:text-white text-[#111111] font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-3.5 rounded-full border border-[#E3DBD0] hover:border-[#1E6B37] transition-all"
+              className="taste-btn inline-flex items-center gap-2 bg-[#FAF8F5] hover:bg-[#2E7D32] hover:text-white text-[#111111] font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-3.5 rounded-full border border-[#E3DBD0] hover:border-[#2E7D32] transition-all"
               title="Direct Yard Call"
             >
               <PhoneCall className="w-4 h-4" />
@@ -494,14 +494,14 @@ export const Home = () => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="absolute top-3 left-3 bg-[#1E6B37] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
+                  <div className="absolute top-3 left-3 bg-[#2E7D32] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
                     <ShieldCheck className="w-3 h-3 text-white" />
                     <span>Auto &amp; Agro Inspected</span>
                   </div>
                   <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md text-[#111111] text-[11px] font-bold px-3 py-1.5 rounded-full border border-[#E3DBD0]">
                     <span>Mahindra 575 DI (45 HP)</span>
                   </div>
-                  <div className="absolute bottom-3 right-3 bg-[#1E6B37] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                  <div className="absolute bottom-3 right-3 bg-[#2E7D32] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
                     <span>{flightProgress > 0.05 ? 'Moving to Card...' : 'Yard Stock'}</span>
                     <ArrowRight className="w-3 h-3" />
                   </div>
@@ -518,7 +518,7 @@ export const Home = () => {
                   </div>
                   <a
                     href="#featured-tractors"
-                    className="taste-btn shrink-0 inline-flex items-center gap-1 bg-[#FAF8F5] hover:bg-[#1E6B37] hover:text-white text-[#111111] text-[11px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full border border-[#E3DBD0] hover:border-[#1E6B37] transition-colors"
+                    className="taste-btn shrink-0 inline-flex items-center gap-1 bg-[#FAF8F5] hover:bg-[#2E7D32] hover:text-white text-[#111111] text-[11px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full border border-[#E3DBD0] hover:border-[#2E7D32] transition-colors"
                   >
                     <span>View in Stock</span>
                     <ArrowRight className="w-3 h-3" />
@@ -610,7 +610,7 @@ export const Home = () => {
         <ScrollReveal>
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-6 gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#1E6B37] bg-[#EAF3EB] px-3.5 py-1 rounded-full mb-2 border border-[#C8E0CD]">
+              <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#2E7D32] bg-[#EAF3EB] px-3.5 py-1 rounded-full mb-2 border border-[#C8E0CD]">
                 🚜 Auto &amp; Agro Consultancy • Agricultural Tractors
               </div>
               <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#111111]">
@@ -622,7 +622,7 @@ export const Home = () => {
             </div>
             <Link
               to="/products?category=tractor"
-              className="taste-btn inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#111111] hover:bg-[#1E6B37] hover:text-white bg-white px-5 py-2 rounded-full border border-[#E3DBD0] hover:border-[#1E6B37] transition-colors"
+              className="taste-btn inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#111111] hover:bg-[#2E7D32] hover:text-white bg-white px-5 py-2 rounded-full border border-[#E3DBD0] hover:border-[#2E7D32] transition-colors"
             >
               View All Tractors
               <ArrowRight className="w-3.5 h-3.5" />
@@ -689,7 +689,7 @@ export const Home = () => {
           </div>
           <Link
             to="/products?category=spare_part"
-            className="taste-btn shrink-0 inline-flex items-center gap-2 bg-[#1E6B37] hover:bg-[#155A2D] text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-full transition-all shadow-none"
+            className="taste-btn shrink-0 inline-flex items-center gap-2 bg-[#2E7D32] hover:bg-[#236628] text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-full transition-all shadow-none"
           >
             <span>Browse Spares</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -714,7 +714,7 @@ export const Home = () => {
             </div>
             <Link
               to="/products?category=car"
-              className="taste-btn inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#111111] hover:bg-[#1E6B37] hover:text-white bg-white px-5 py-2 rounded-full border border-[#E3DBD0] hover:border-[#1E6B37] transition-colors"
+              className="taste-btn inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#111111] hover:bg-[#2E7D32] hover:text-white bg-white px-5 py-2 rounded-full border border-[#E3DBD0] hover:border-[#2E7D32] transition-colors"
             >
               View All Utility Cars
               <ArrowRight className="w-3.5 h-3.5" />
@@ -760,7 +760,7 @@ export const Home = () => {
           </div>
           <Link
             to="/products?category=spare_part"
-            className="taste-btn shrink-0 inline-flex items-center gap-2 bg-[#1E6B37] hover:bg-[#155A2D] text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-full transition-all shadow-none"
+            className="taste-btn shrink-0 inline-flex items-center gap-2 bg-[#2E7D32] hover:bg-[#236628] text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-full transition-all shadow-none"
           >
             <span>Browse Spares</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -810,7 +810,7 @@ export const Home = () => {
             <ScrollReveal key={step.num} delay={idx * 80}>
               <div className="taste-card bg-white p-6 rounded-2xl border border-[#E3DBD0] text-center relative h-full flex flex-col justify-between">
                 <div>
-                  <div className="w-10 h-10 rounded-full bg-[#1E6B37] text-white font-heading font-black text-sm flex items-center justify-center mx-auto mb-4 shadow-sm">
+                  <div className="w-10 h-10 rounded-full bg-[#2E7D32] text-white font-heading font-black text-sm flex items-center justify-center mx-auto mb-4 shadow-sm">
                     {step.num}
                   </div>
                   <h4 className="font-heading font-bold text-[#111111] text-base mb-1.5">{step.title}</h4>
@@ -846,7 +846,7 @@ export const Home = () => {
                 <button
                   type="button"
                   onClick={() => setIsReviewModalOpen(true)}
-                  className="taste-btn inline-flex items-center gap-2 bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-full transition-all cursor-pointer shadow-none"
+                  className="taste-btn inline-flex items-center gap-2 bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-full transition-all cursor-pointer shadow-none"
                 >
                   <Plus className="w-4 h-4 stroke-[3]" />
                   <span>Write a Customer Review</span>
@@ -951,13 +951,13 @@ export const Home = () => {
               <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
                 <Link
                   to="/quotation"
-                  className="taste-btn bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider px-8 py-3.5 rounded-full transition-all shadow-none"
+                  className="taste-btn bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs uppercase tracking-wider px-8 py-3.5 rounded-full transition-all shadow-none"
                 >
                   Request Free Quotation
                 </Link>
                 <a
                   href="tel:+918124336369"
-                  className="taste-btn bg-[#FAF8F5] hover:bg-[#1E6B37] hover:text-white text-[#111111] font-bold text-xs uppercase tracking-wider px-7 py-3.5 rounded-full border border-[#E3DBD0] hover:border-[#1E6B37] transition-all flex items-center gap-2"
+                  className="taste-btn bg-[#FAF8F5] hover:bg-[#2E7D32] hover:text-white text-[#111111] font-bold text-xs uppercase tracking-wider px-7 py-3.5 rounded-full border border-[#E3DBD0] hover:border-[#2E7D32] transition-all flex items-center gap-2"
                 >
                   <PhoneCall className="w-4 h-4" />
                   Call Yard (+91 81243 36369)
@@ -1111,7 +1111,7 @@ export const Home = () => {
                 <button
                   type="submit"
                   disabled={reviewSubmitting}
-                  className="taste-btn inline-flex items-center gap-2 bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider px-7 py-2.5 rounded-full transition-all cursor-pointer disabled:opacity-50"
+                  className="taste-btn inline-flex items-center gap-2 bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs uppercase tracking-wider px-7 py-2.5 rounded-full transition-all cursor-pointer disabled:opacity-50"
                 >
                   {reviewSubmitting ? (
                     <span>Submitting...</span>

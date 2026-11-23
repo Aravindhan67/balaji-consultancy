@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
   ShieldCheck, 
@@ -24,8 +24,8 @@ export const About = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white text-[#111111] rounded-3xl p-8 sm:p-14 border border-[#E3DBD0]">
           <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#1E6B37] uppercase tracking-wider bg-[#EAF3EB] px-3.5 py-1.5 rounded-full border border-[#C8E0CD]">
-              <Sparkles className="w-3.5 h-3.5 text-[#1E6B37]" />
+            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#2E7D32] uppercase tracking-wider bg-[#EAF3EB] px-3.5 py-1.5 rounded-full border border-[#C8E0CD]">
+              <Sparkles className="w-3.5 h-3.5 text-[#2E7D32]" />
               Balaji Auto &amp; Agro Consultancy
             </div>
             
@@ -340,13 +340,13 @@ export const About = () => {
             <div className="pt-2 flex flex-wrap justify-center gap-3">
               <Link
                 to="/products"
-                className="taste-btn bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider px-7 py-3.5 rounded-full transition-all"
+                className="taste-btn bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs uppercase tracking-wider px-7 py-3.5 rounded-full transition-all"
               >
                 Browse Our Inventory
               </Link>
               <Link
                 to="/contact"
-                className="taste-btn bg-[#FAF8F5] hover:bg-[#1E6B37] text-[#111111] hover:text-white font-bold text-xs uppercase tracking-wider px-7 py-3.5 rounded-full border border-[#E3DBD0] hover:border-[#1E6B37] transition-all"
+                className="taste-btn bg-[#FAF8F5] hover:bg-[#2E7D32] text-[#111111] hover:text-white font-bold text-xs uppercase tracking-wider px-7 py-3.5 rounded-full border border-[#E3DBD0] hover:border-[#2E7D32] transition-all"
               >
                 Visit Balaji Yard
               </Link>

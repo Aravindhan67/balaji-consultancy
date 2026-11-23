@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import { Logo } from './Logo';
 import { MapPin, Phone, Mail, Clock, ShieldCheck, HeartHandshake, CheckCircle2, ChevronRight } from 'lucide-react';
@@ -57,8 +57,8 @@ export const Footer = () => {
             <div className="flex items-center gap-2">
               <Logo size="normal" showTagline={false} lightMode={false} />
             </div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EAF3EB] text-[#1E6B37] text-[11px] font-bold uppercase tracking-wider border border-[#C8E0CD]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#1E6B37]"></span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EAF3EB] text-[#2E7D32] text-[11px] font-bold uppercase tracking-wider border border-[#C8E0CD]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2E7D32]"></span>
               Auto &amp; Agro Consultancy
             </div>
             <p className="text-xs text-[#6B665F] leading-relaxed max-w-sm">

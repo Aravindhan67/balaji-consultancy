@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { api } from '../services/api';
 import { ProductCard } from '../components/ProductCard';
@@ -179,8 +179,8 @@ export const Products = () => {
                   onClick={() => handleCategorySelect(cat.id)}
                   className={`w-full text-left px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-between border ${
                     category === cat.id
-                      ? 'bg-[#1E6B37] text-white border-[#1E6B37] shadow-none'
-                      : 'bg-[#FAF8F5] text-[#111111] border-[#E3DBD0] hover:border-[#1E6B37] hover:text-[#1E6B37]'
+                      ? 'bg-[#2E7D32] text-white border-[#2E7D32] shadow-none'
+                      : 'bg-[#FAF8F5] text-[#111111] border-[#E3DBD0] hover:border-[#2E7D32] hover:text-[#2E7D32]'
                   }`}
                 >
                   <span>{cat.label}</span>
@@ -226,7 +226,7 @@ export const Products = () => {
               step="10000"
               value={priceMax}
               onChange={(e) => setPriceMax(Number(e.target.value))}
-              className="w-full accent-[#1E6B37] cursor-pointer"
+              className="w-full accent-[#2E7D32] cursor-pointer"
             />
             <div className="flex justify-between text-[10px] text-[#8C857B] mt-1">
               <span>₹2,000 (Spares)</span>
@@ -289,7 +289,7 @@ export const Products = () => {
               </p>
               <button
                 onClick={handleClearFilters}
-                className="bg-[#1E6B37] text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-full hover:bg-[#155A2D] transition-colors"
+                className="bg-[#2E7D32] text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-full hover:bg-[#236628] transition-colors"
               >
                 Clear All Filters
               </button>

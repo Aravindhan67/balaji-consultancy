@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   Home, 
@@ -24,7 +24,7 @@ export const MobileBottomNav = ({ onOpenSideDrawer }) => {
         <Link
           to="/"
           className={`flex flex-col items-center justify-center py-1 rounded-xl transition-all ${
-            isCurrent('/') ? 'text-[#1E6B37] font-bold' : 'text-[#6B665F] hover:text-[#1E6B37] font-medium'
+            isCurrent('/') ? 'text-[#2E7D32] font-bold' : 'text-[#6B665F] hover:text-[#2E7D32] font-medium'
           }`}
         >
           <Home className={`w-5 h-5 ${isCurrent('/') ? 'stroke-[2.5]' : 'stroke-2'}`} />
@@ -35,7 +35,7 @@ export const MobileBottomNav = ({ onOpenSideDrawer }) => {
         <Link
           to="/quotation"
           className={`flex flex-col items-center justify-center py-1 rounded-xl transition-all ${
-            isCurrent('/quotation') ? 'text-[#1E6B37] font-bold' : 'text-[#6B665F] hover:text-[#1E6B37] font-medium'
+            isCurrent('/quotation') ? 'text-[#2E7D32] font-bold' : 'text-[#6B665F] hover:text-[#2E7D32] font-medium'
           }`}
         >
           <FileText className={`w-5 h-5 ${isCurrent('/quotation') ? 'stroke-[2.5]' : 'stroke-2'}`} />
@@ -46,12 +46,12 @@ export const MobileBottomNav = ({ onOpenSideDrawer }) => {
         <div className="flex flex-col items-center -mt-5">
           <Link
             to="/products"
-            className="w-12 h-12 rounded-full flex items-center justify-center border-2 border-[#F5F1EB] bg-[#1E6B37] hover:bg-[#155A2D] text-white transform active:scale-95 transition-all shadow-md shadow-[#1E6B37]/20"
+            className="w-12 h-12 rounded-full flex items-center justify-center border-2 border-[#F5F1EB] bg-[#2E7D32] hover:bg-[#236628] text-white transform active:scale-95 transition-all shadow-md shadow-[#2E7D32]/20"
             title="Browse Certified Vehicle & Spares Stock"
           >
             <Layers className="w-5 h-5 text-white stroke-[2.5]" />
           </Link>
-          <span className="text-[10px] font-bold uppercase tracking-wider text-[#1E6B37] mt-1">Stock</span>
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#2E7D32] mt-1">Stock</span>
         </div>
 
         {/* 4. Contact */}

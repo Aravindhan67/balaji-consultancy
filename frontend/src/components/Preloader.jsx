@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 
 export const Preloader = ({ onFinish }) => {
   const [fade, setFade] = useState(false);
@@ -81,17 +81,17 @@ export const Preloader = ({ onFinish }) => {
           <h1 className="font-heading font-black text-2xl text-slate-900 tracking-tight">
             BALAJI
           </h1>
-          <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-[#EAF3EB] text-[#1E6B37] border border-[#C8E0CD]">
+          <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-[#EAF3EB] text-[#2E7D32] border border-[#C8E0CD]">
             INDIA
           </span>
         </div>
-        <p className="text-[11px] font-bold uppercase tracking-wider text-[#1E6B37] mt-0.5">
+        <p className="text-[11px] font-bold uppercase tracking-wider text-[#2E7D32] mt-0.5">
           Auto &amp; Agro Consultancy
         </p>
 
         {/* Clean Slim Loading Bar */}
         <div className="w-36 h-1 bg-slate-200 rounded-full overflow-hidden mt-6">
-          <div className="h-full bg-gradient-to-r from-[#1E6B37] via-emerald-500 to-[#1E6B37] rounded-full animate-pulse w-full"></div>
+          <div className="h-full bg-gradient-to-r from-[#2E7D32] via-emerald-500 to-[#2E7D32] rounded-full animate-pulse w-full"></div>
         </div>
       </div>
     </div>

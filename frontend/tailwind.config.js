@@ -20,6 +20,8 @@ export default {
           tan: '#C27B48',        // Warm cognac tan accent
           sandPill: '#EAE3D7',   // Minimalist sand pill tag
           pillHover: '#DFD7CA',
+          green: '#2E7D32',      // Softer Farmer Green
+          greenHover: '#236628',
         },
         mixed: {
           bg: '#F5F1EB',        // Warm Cashmere Alabaster

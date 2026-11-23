@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Calculator, ArrowRight, Sparkles, CheckCircle2, ShieldCheck, PhoneCall } from 'lucide-react';
 import { formatINR } from '../utils/formatters';
@@ -85,8 +85,8 @@ export function ValuationEstimator() {
                 }}
                 className={`py-3 px-4 rounded-full text-xs font-bold uppercase tracking-wider border transition-all ${
                   vehicleType === 'tractor'
-                    ? 'bg-[#1E6B37] text-white border-[#1E6B37] shadow-none'
-                    : 'bg-[#FAF8F5] text-[#111111] border-[#E3DBD0] hover:border-[#1E6B37] hover:text-[#1E6B37]'
+                    ? 'bg-[#2E7D32] text-white border-[#2E7D32] shadow-none'
+                    : 'bg-[#FAF8F5] text-[#111111] border-[#E3DBD0] hover:border-[#2E7D32] hover:text-[#2E7D32]'
                 }`}
               >
                 🚜 Agricultural Tractor
@@ -99,8 +99,8 @@ export function ValuationEstimator() {
                 }}
                 className={`py-3 px-4 rounded-full text-xs font-bold uppercase tracking-wider border transition-all ${
                   vehicleType === 'car'
-                    ? 'bg-[#1E6B37] text-white border-[#1E6B37] shadow-none'
-                    : 'bg-[#FAF8F5] text-[#111111] border-[#E3DBD0] hover:border-[#1E6B37] hover:text-[#1E6B37]'
+                    ? 'bg-[#2E7D32] text-white border-[#2E7D32] shadow-none'
+                    : 'bg-[#FAF8F5] text-[#111111] border-[#E3DBD0] hover:border-[#2E7D32] hover:text-[#2E7D32]'
                 }`}
               >
                 🚗 Car / Bolero Utility
@@ -170,8 +170,8 @@ export function ValuationEstimator() {
                   onClick={() => setCondition(c.id)}
                   className={`py-2 px-2.5 text-[11px] font-bold rounded-full border text-center transition-all ${
                     condition === c.id
-                      ? 'bg-[#1E6B37] text-white border-[#1E6B37] shadow-none'
-                      : 'bg-[#FAF8F5] text-[#111111] border-[#E3DBD0] hover:border-[#1E6B37] hover:text-[#1E6B37]'
+                      ? 'bg-[#2E7D32] text-white border-[#2E7D32] shadow-none'
+                      : 'bg-[#FAF8F5] text-[#111111] border-[#E3DBD0] hover:border-[#2E7D32] hover:text-[#2E7D32]'
                   }`}
                 >
                   {c.label}
@@ -217,7 +217,7 @@ export function ValuationEstimator() {
           <div className="space-y-2.5">
             <Link
               to={`/quotation?type=${vehicleType}&brand=${brand}&year=${year}`}
-              className="w-full bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider py-3.5 rounded-full transition-all flex items-center justify-center gap-2 shadow-none"
+              className="w-full bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs uppercase tracking-wider py-3.5 rounded-full transition-all flex items-center justify-center gap-2 shadow-none"
             >
               Lock in Official Free Valuation
               <ArrowRight className="w-3.5 h-3.5" />
@@ -226,7 +226,7 @@ export function ValuationEstimator() {
               href="https://wa.me/918124336369?text=Hello%20Balaji%20Consultancy!%20I%20checked%20the%20online%20valuation%20for%20my%20vehicle%20and%20want%20to%20sell%20or%20get%20inspected."
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full bg-white hover:bg-[#1E6B37] text-[#111111] hover:text-white font-bold text-xs uppercase tracking-wider py-3 rounded-full border border-[#E3DBD0] hover:border-[#1E6B37] flex items-center justify-center gap-2 transition-colors"
+              className="w-full bg-white hover:bg-[#2E7D32] text-[#111111] hover:text-white font-bold text-xs uppercase tracking-wider py-3 rounded-full border border-[#E3DBD0] hover:border-[#2E7D32] flex items-center justify-center gap-2 transition-colors"
             >
               <PhoneCall className="w-3.5 h-3.5 text-[#111111]" />
               Discuss Directly on WhatsApp

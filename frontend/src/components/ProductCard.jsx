@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import { ShieldCheck, Fuel, Calendar, Gauge, ArrowRight, MessageSquare, MapPin } from 'lucide-react';
 import { formatINR } from '../utils/formatters';
@@ -80,7 +80,7 @@ export const ProductCard = ({ product }) => {
 
         {/* Status / Featured Tags */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
-          <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#1E6B37] text-white shadow-none">
+          <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#2E7D32] text-white shadow-none">
             {categoryLabel}
           </span>
           {featured && (
@@ -105,8 +105,8 @@ export const ProductCard = ({ product }) => {
           <div className="flex items-center justify-between text-xs text-[#6B665F] mb-2 font-medium">
             <span className="font-bold text-[#111111] uppercase tracking-wider text-[11px]">{brand}</span>
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#1E6B37] bg-[#EAF3EB] px-2.5 py-0.5 rounded-full border border-[#C8E0CD]">
-                <ShieldCheck className="w-3 h-3 text-[#1E6B37]" />
+              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#2E7D32] bg-[#EAF3EB] px-2.5 py-0.5 rounded-full border border-[#C8E0CD]">
+                <ShieldCheck className="w-3 h-3 text-[#2E7D32]" />
                 Auto &amp; Agro Verified
               </span>
               {modelYear && (
@@ -170,7 +170,7 @@ export const ProductCard = ({ product }) => {
               href={`https://wa.me/918124336369?text=${waMessage}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="taste-btn p-2 rounded-full bg-[#FAF8F5] text-[#111111] hover:bg-[#1E6B37] hover:text-white border border-[#E3DBD0] hover:border-[#1E6B37] transition-colors"
+              className="taste-btn p-2 rounded-full bg-[#FAF8F5] text-[#111111] hover:bg-[#2E7D32] hover:text-white border border-[#E3DBD0] hover:border-[#2E7D32] transition-colors"
               title="Quick WhatsApp Enquiry"
             >
               <MessageSquare className="w-3.5 h-3.5" />
@@ -178,7 +178,7 @@ export const ProductCard = ({ product }) => {
             
             <Link
               to={`/products/${_id}`}
-              className="taste-btn inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider bg-[#1E6B37] hover:bg-[#155A2D] text-white px-4 py-2 rounded-full shadow-none"
+              className="taste-btn inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider bg-[#2E7D32] hover:bg-[#236628] text-white px-4 py-2 rounded-full shadow-none"
             >
               Details
               <ArrowRight className="w-3 h-3" />

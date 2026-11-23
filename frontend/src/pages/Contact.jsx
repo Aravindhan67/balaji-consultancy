@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { api } from '../services/api';
 import { 
   MapPin, 
@@ -93,8 +93,8 @@ export const Contact = () => {
       {/* Header Banner - Supro Minimalist Editorial Card */}
       <div className="bg-white text-[#111111] rounded-3xl p-8 sm:p-12 border border-[#E3DBD0]">
         <div className="max-w-3xl space-y-3">
-          <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#1E6B37] uppercase tracking-wider bg-[#EAF3EB] px-3.5 py-1.5 rounded-full border border-[#C8E0CD]">
-            <Sparkles className="w-3.5 h-3.5 text-[#1E6B37]" />
+          <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#2E7D32] uppercase tracking-wider bg-[#EAF3EB] px-3.5 py-1.5 rounded-full border border-[#C8E0CD]">
+            <Sparkles className="w-3.5 h-3.5 text-[#2E7D32]" />
             Auto &amp; Agro Consultancy Yard Desk
           </div>
           <h1 className="font-heading font-black text-3xl sm:text-5xl text-[#111111] tracking-tight">
@@ -229,7 +229,7 @@ export const Contact = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider py-3.5 rounded-full transition-all flex items-center justify-center gap-2 shadow-none"
+                className="w-full bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs uppercase tracking-wider py-3.5 rounded-full transition-all flex items-center justify-center gap-2 shadow-none"
               >
                 <Send className="w-4 h-4" />
                 {submitting ? 'Submitting Enquiry...' : 'Submit Enquiry'}

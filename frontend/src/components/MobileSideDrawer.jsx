@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Logo } from './Logo';
 import { 
@@ -50,8 +50,8 @@ export const MobileSideDrawer = ({ isOpen, onClose }) => {
           <div className="p-4 border-b border-[#E3DBD0] flex items-center justify-between">
             <div>
               <Logo size="small" showTagline={false} />
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 mt-1.5 rounded-full bg-[#EAF3EB] text-[#1E6B37] text-[10px] font-bold uppercase tracking-wider border border-[#C8E0CD]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#1E6B37]"></span>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 mt-1.5 rounded-full bg-[#EAF3EB] text-[#2E7D32] text-[10px] font-bold uppercase tracking-wider border border-[#C8E0CD]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#2E7D32]"></span>
                 Auto &amp; Agro Consultancy
               </div>
             </div>
@@ -106,14 +106,14 @@ export const MobileSideDrawer = ({ isOpen, onClose }) => {
                   onClick={onClose}
                   className={`flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
                     item.highlight
-                      ? 'bg-[#1E6B37] text-white hover:bg-[#155A2D]'
+                      ? 'bg-[#2E7D32] text-white hover:bg-[#236628]'
                       : isCurrent(item.path)
-                      ? 'bg-[#EAF3EB] text-[#1E6B37]'
-                      : 'text-[#6B665F] hover:bg-[#EAF3EB] hover:text-[#1E6B37]'
+                      ? 'bg-[#EAF3EB] text-[#2E7D32]'
+                      : 'text-[#6B665F] hover:bg-[#EAF3EB] hover:text-[#2E7D32]'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <IconComponent className={`w-4 h-4 ${item.highlight ? 'text-white' : isCurrent(item.path) ? 'text-[#1E6B37]' : 'text-[#8C857B]'}`} />
+                    <IconComponent className={`w-4 h-4 ${item.highlight ? 'text-white' : isCurrent(item.path) ? 'text-[#2E7D32]' : 'text-[#8C857B]'}`} />
                     <span>{item.label}</span>
                   </div>
                   <ChevronRight className={`w-3 h-3 ${item.highlight ? 'text-white' : 'text-[#8C857B]'}`} />
@@ -128,7 +128,7 @@ export const MobileSideDrawer = ({ isOpen, onClose }) => {
           <div className="flex items-center gap-2">
             <a
               href="tel:+918124336369"
-              className="flex-1 bg-[#1E6B37] hover:bg-[#155A2D] text-white font-bold text-xs uppercase tracking-wider py-3 rounded-full flex items-center justify-center gap-1.5 transition-colors"
+              className="flex-1 bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs uppercase tracking-wider py-3 rounded-full flex items-center justify-center gap-1.5 transition-colors"
             >
               <PhoneCall className="w-3.5 h-3.5 text-white" />
               Call Yard
@@ -145,7 +145,7 @@ export const MobileSideDrawer = ({ isOpen, onClose }) => {
           </div>
 
           <div className="flex items-center gap-2 text-[10px] text-[#6B665F]">
-            <Clock className="w-3 h-3 text-[#1E6B37] flex-shrink-0" />
+            <Clock className="w-3 h-3 text-[#2E7D32] flex-shrink-0" />
             <span>Open All 7 Days • 9:00 AM – 8:00 PM</span>
           </div>
         </div>

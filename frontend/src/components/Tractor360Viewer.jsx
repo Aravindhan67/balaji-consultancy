@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+﻿import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { 
   RotateCw, 
   Play, 
@@ -339,8 +339,8 @@ export function Tractor360Viewer({
                   onClick={() => jumpToAngle(item.deg)}
                   className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all ${
                     isSelected
-                      ? 'bg-[#1E6B37] text-white'
-                      : 'bg-white text-[#6B665F] hover:text-[#1E6B37] hover:border-[#1E6B37] border border-[#E3DBD0]'
+                      ? 'bg-[#2E7D32] text-white'
+                      : 'bg-white text-[#6B665F] hover:text-[#2E7D32] hover:border-[#2E7D32] border border-[#E3DBD0]'
                   }`}
                 >
                   {item.label}
@@ -354,7 +354,7 @@ export function Tractor360Viewer({
             <button
               type="button"
               onClick={() => stepAngle(-1)}
-              className="p-1.5 rounded-full bg-white hover:bg-[#1E6B37] hover:text-white text-[#111111] border border-[#E3DBD0] hover:border-[#1E6B37] transition-colors"
+              className="p-1.5 rounded-full bg-white hover:bg-[#2E7D32] hover:text-white text-[#111111] border border-[#E3DBD0] hover:border-[#2E7D32] transition-colors"
               title="Previous Angle"
             >
               <ChevronLeft className="w-3.5 h-3.5" />
@@ -362,7 +362,7 @@ export function Tractor360Viewer({
             <button
               type="button"
               onClick={() => stepAngle(1)}
-              className="p-1.5 rounded-full bg-white hover:bg-[#1E6B37] hover:text-white text-[#111111] border border-[#E3DBD0] hover:border-[#1E6B37] transition-colors"
+              className="p-1.5 rounded-full bg-white hover:bg-[#2E7D32] hover:text-white text-[#111111] border border-[#E3DBD0] hover:border-[#2E7D32] transition-colors"
               title="Next Angle"
             >
               <ChevronRight className="w-3.5 h-3.5" />

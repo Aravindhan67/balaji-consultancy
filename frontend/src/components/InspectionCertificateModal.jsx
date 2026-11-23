@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { 
   X, 
   ShieldCheck, 
@@ -152,9 +152,9 @@ export function InspectionCertificateModal({ isOpen, onClose, vehicle = null }) 
           {/* Mechanic Stamp & Guarantee Seal */}
           <div className="pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50/80 -mx-6 -mb-6 p-6 sm:p-8">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-white border-2 border-dashed border-[#1E6B37]/50 flex flex-col items-center justify-center p-2 text-center shadow-sm">
-                <Award className="w-6 h-6 text-[#1E6B37]" />
-                <span className="text-[8px] font-black uppercase text-[#1E6B37]">SEAL</span>
+              <div className="w-14 h-14 rounded-2xl bg-white border-2 border-dashed border-[#2E7D32]/50 flex flex-col items-center justify-center p-2 text-center shadow-sm">
+                <Award className="w-6 h-6 text-[#2E7D32]" />
+                <span className="text-[8px] font-black uppercase text-[#2E7D32]">SEAL</span>
               </div>
               <div className="text-xs space-y-0.5">
                 <div className="font-heading font-extrabold text-slate-900">
@@ -163,8 +163,8 @@ export function InspectionCertificateModal({ isOpen, onClose, vehicle = null }) 
                 <div className="text-slate-500 text-[11px]">
                   B.E. Automobile • National Vehicle Inspection Registry #BAC-TN-98
                 </div>
-                <div className="text-[#1E6B37] font-bold text-[11px] flex items-center gap-1">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#1E6B37]" />
+                <div className="text-[#2E7D32] font-bold text-[11px] flex items-center gap-1">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#2E7D32]" />
                   <span>Backed by Balaji 6-Month Yard Mechanical Warranty</span>
                 </div>
               </div>
@@ -174,7 +174,7 @@ export function InspectionCertificateModal({ isOpen, onClose, vehicle = null }) 
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="taste-btn flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full border border-slate-200 bg-white hover:bg-[#1E6B37] hover:text-white text-slate-700 text-xs font-bold transition-all shadow-sm"
+                className="taste-btn flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full border border-slate-200 bg-white hover:bg-[#2E7D32] hover:text-white text-slate-700 text-xs font-bold transition-all shadow-sm"
               >
                 <Printer className="w-3.5 h-3.5 text-slate-500" />
                 <span>Print Certificate</span>
@@ -182,7 +182,7 @@ export function InspectionCertificateModal({ isOpen, onClose, vehicle = null }) 
               <button
                 type="button"
                 onClick={onClose}
-                className="taste-btn flex-1 sm:flex-none inline-flex items-center justify-center gap-1 px-5 py-2.5 rounded-full bg-[#1E6B37] hover:bg-[#155A2D] text-white text-xs font-bold transition-all"
+                className="taste-btn flex-1 sm:flex-none inline-flex items-center justify-center gap-1 px-5 py-2.5 rounded-full bg-[#2E7D32] hover:bg-[#236628] text-white text-xs font-bold transition-all"
               >
                 <span>Close</span>
               </button>

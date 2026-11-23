@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 
 export const Logo = ({ size = 'normal', showTagline = true, lightMode = false, asLink = true }) => {
@@ -75,12 +75,12 @@ export const Logo = ({ size = 'normal', showTagline = true, lightMode = false, a
           >
             BALAJI
           </span>
-          <span className="text-[9px] font-extrabold tracking-wider uppercase px-1.5 py-0.5 rounded bg-[#EAF3EB] text-[#1E6B37] border border-[#C8E0CD]">
+          <span className="text-[9px] font-extrabold tracking-wider uppercase px-1.5 py-0.5 rounded bg-[#EAF3EB] text-[#2E7D32] border border-[#C8E0CD]">
             INDIA
           </span>
         </div>
         <span
-          className={`font-heading font-bold tracking-wider uppercase text-[#1E6B37] ${subTextSize} mt-0.5 leading-snug`}
+          className={`font-heading font-bold tracking-wider uppercase text-[#2E7D32] ${subTextSize} mt-0.5 leading-snug`}
         >
           Auto &amp; Agro Consultancy
         </span>
@@ -102,7 +102,7 @@ export const Logo = ({ size = 'normal', showTagline = true, lightMode = false, a
   }
 
   return (
-    <Link to="/" className="inline-block focus:outline-none focus:ring-2 focus:ring-[#1E6B37] rounded-xl">
+    <Link to="/" className="inline-block focus:outline-none focus:ring-2 focus:ring-[#2E7D32] rounded-xl">
       {logoGraphic}
     </Link>
   );
