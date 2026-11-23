@@ -439,12 +439,23 @@ export const ProductDetail = () => {
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-white p-6 sm:p-8 rounded-2xl border border-[#E3DBD0] shadow-sm space-y-6">
               <div>
-                <div className="text-[10px] font-bold text-[#2E7D32] uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                <div className="text-[10px] font-bold text-[#2E7D32] uppercase tracking-wider mb-1 flex items-center gap-1.5 flex-wrap">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#2E7D32]"></span>
                   <span>Auto &amp; Agro Consultancy Certified</span>
                   <span className="text-[#E3DBD0]">•</span>
                   <span>{brand}</span>
                   {modelYear && <span>• {modelYear} Model</span>}
+                  {product.status && product.status !== 'available' && (
+                    <span className={`ml-2 text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full ${
+                      product.status === 'sold'
+                        ? 'bg-rose-100 text-rose-800 border border-rose-300'
+                        : product.status === 'reserved'
+                        ? 'bg-amber-100 text-amber-800 border border-amber-300'
+                        : 'bg-blue-100 text-blue-800 border border-blue-300'
+                    }`}>
+                      {product.status === 'sold' ? '🔴 Sold Out' : product.status === 'reserved' ? '🟡 Reserved' : '🔵 Under Inspection'}
+                    </span>
+                  )}
                 </div>
                 <h1 className="font-heading font-extrabold text-2xl sm:text-3xl text-[#111111] tracking-tight">
                   {title}

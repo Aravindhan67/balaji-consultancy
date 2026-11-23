@@ -277,6 +277,20 @@ export const AdminDashboard = () => {
     }
   };
 
+  const handleProductStatus = async (id, status) => {
+    try {
+      setProducts(prev => prev.map(p => p._id === id ? { ...p, status } : p));
+      const res = await api.updateProduct(id, { status });
+      if (!res.success) {
+        alert('Failed to update product status: ' + (res.message || 'Please try again'));
+        loadAllData();
+      }
+    } catch (err) {
+      alert('Failed to update product status');
+      loadAllData();
+    }
+  };
+
   const handleEnquiryStatus = async (id, status) => {
     try {
       const res = await api.updateEnquiryStatus(id, status);
@@ -496,11 +510,24 @@ export const AdminDashboard = () => {
                         {prod.rtoPassing || 'Verified'}
                       </td>
                       <td className="py-3 px-4">
-                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                          (prod.status || 'available') === 'available' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-700'
-                        }`}>
-                          {prod.status || 'available'}
-                        </span>
+                        <select
+                          value={prod.status || 'available'}
+                          onChange={(e) => handleProductStatus(prod._id, e.target.value)}
+                          className={`text-[11px] font-bold uppercase tracking-wider rounded-lg px-2 py-1 border transition-all cursor-pointer outline-none ${
+                            (prod.status || 'available') === 'available'
+                              ? 'bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100 focus:ring-1 focus:ring-emerald-500'
+                              : prod.status === 'sold'
+                              ? 'bg-rose-50 text-rose-800 border-rose-300 hover:bg-rose-100 focus:ring-1 focus:ring-rose-500'
+                              : prod.status === 'reserved'
+                              ? 'bg-amber-50 text-amber-800 border-amber-300 hover:bg-amber-100 focus:ring-1 focus:ring-amber-500'
+                              : 'bg-blue-50 text-blue-800 border-blue-300 hover:bg-blue-100 focus:ring-1 focus:ring-blue-500'
+                          }`}
+                        >
+                          <option value="available" className="bg-white text-emerald-800 font-bold">🟢 Available</option>
+                          <option value="reserved" className="bg-white text-amber-800 font-bold">🟡 Reserved</option>
+                          <option value="sold" className="bg-white text-rose-800 font-bold">🔴 Sold Out</option>
+                          <option value="under_inspection" className="bg-white text-blue-800 font-bold">🔵 Inspection</option>
+                        </select>
                       </td>
                       <td className="py-3 px-4 text-right space-x-2">
                         <button
@@ -712,7 +739,7 @@ export const AdminDashboard = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">Category *</label>
                   <select
@@ -723,6 +750,20 @@ export const AdminDashboard = () => {
                     <option value="tractor">🚜 Tractor</option>
                     <option value="car">🚗 Car</option>
                     <option value="spare_part">⚙️ Spare Part</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Stock Status *</label>
+                  <select
+                    value={productForm.status || 'available'}
+                    onChange={(e) => setProductForm(p => ({ ...p, status: e.target.value }))}
+                    className="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-bold"
+                  >
+                    <option value="available">🟢 Available (In Stock)</option>
+                    <option value="reserved">🟡 Reserved / Booked</option>
+                    <option value="sold">🔴 Sold Out</option>
+                    <option value="under_inspection">🔵 Under Inspection</option>
                   </select>
                 </div>
 

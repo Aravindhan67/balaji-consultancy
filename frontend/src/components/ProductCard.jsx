@@ -77,6 +77,19 @@ export const ProductCard = ({ product }) => {
             }
           }}
         />
+        {product.status && product.status !== 'available' && (
+          <div className="absolute top-2.5 right-2.5 z-10">
+            <span className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow-md ${
+              product.status === 'sold'
+                ? 'bg-rose-600 text-white'
+                : product.status === 'reserved'
+                ? 'bg-amber-500 text-white'
+                : 'bg-blue-600 text-white'
+            }`}>
+              {product.status === 'sold' ? 'Sold Out' : product.status === 'reserved' ? 'Reserved' : 'Under Inspection'}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Content Body */}
