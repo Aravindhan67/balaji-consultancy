@@ -264,5 +264,47 @@ export const api = {
       console.error('getAdminStats failed:', err);
       return { success: false };
     }
+  },
+
+  // Customer Reviews
+  async getReviews() {
+    try {
+      const res = await fetch(`${API_BASE}/reviews`);
+      const json = await safeJson(res, { success: false, data: [] });
+      if (json && Array.isArray(json.data) && json.data.length > 0) {
+        return json;
+      }
+      // Check local storage fallback
+      const local = localStorage.getItem('balaji_customer_reviews');
+      if (local) {
+        try {
+          return { success: true, data: JSON.parse(local) };
+        } catch (_) {}
+      }
+      return json;
+    } catch (err) {
+      console.warn('getReviews failed, checking local storage:', err);
+      const local = localStorage.getItem('balaji_customer_reviews');
+      if (local) {
+        try {
+          return { success: true, data: JSON.parse(local) };
+        } catch (_) {}
+      }
+      return { success: false, data: [] };
+    }
+  },
+
+  async createReview(reviewData) {
+    try {
+      const res = await fetch(`${API_BASE}/reviews`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(reviewData)
+      });
+      return await safeJson(res);
+    } catch (err) {
+      console.error('createReview failed:', err);
+      return { success: false, message: err.message };
+    }
   }
 };

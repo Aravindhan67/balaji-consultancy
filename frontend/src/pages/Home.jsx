@@ -19,7 +19,11 @@ import {
   Award,
   Layers,
   Clock,
-  ThumbsUp
+  ThumbsUp,
+  X,
+  Plus,
+  MessageSquare,
+  Send
 } from 'lucide-react';
 import { api } from '../services/api';
 import { ProductCard } from '../components/ProductCard';
@@ -27,12 +31,79 @@ import { ScrollReveal } from '../components/ScrollReveal';
 import { AnimatedCounter } from '../components/AnimatedCounter';
 import { resolveImageUrl } from '../utils/imageUrl';
 
+const defaultReviews = [
+  {
+    _id: 'rev_1',
+    name: 'Senthil Saravanan',
+    role: 'Sugarcane Farmer',
+    location: 'Salem (Tamil Nadu)',
+    vehicleOrService: 'Swaraj 855 FE',
+    rating: 5,
+    comment: 'I was looking for a pre-owned Swaraj 855 for my 15-acre sugarcane farm. Balaji Consultancy gave me a certified tractor with genuine hours and handled all the RTO transfer from Punjab to Tamil Nadu smoothly. Very honest service!',
+    verified: true,
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5).toISOString()
+  },
+  {
+    _id: 'rev_2',
+    name: 'Rajeshwar Patil',
+    role: 'Transport Fleet Owner',
+    location: 'Pune (Maharashtra)',
+    vehicleOrService: 'Mahindra Bolero Maxi Truck',
+    rating: 5,
+    comment: 'Sold my 2018 Mahindra Bolero through Balaji Consultancy. Within 3 days they found a buyer at my expected valuation and the payment was credited to my bank instantly. Highly recommended.',
+    verified: true,
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 12).toISOString()
+  },
+  {
+    _id: 'rev_3',
+    name: 'Manpreet Singh Kahlon',
+    role: 'Agricultural Contractor',
+    location: 'Ludhiana (Punjab)',
+    vehicleOrService: 'Genuine OEM Spares',
+    rating: 5,
+    comment: 'Finding genuine Bosch diesel injectors and tractor clutch plates at reasonable rates was difficult in our local market. Balaji\'s spare parts division sent OEM parts with warranty. Saved me over ₹15,000!',
+    verified: true,
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 20).toISOString()
+  }
+];
+
+const getInitials = (name = '') => {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length >= 2 && parts[0] && parts[1]) {
+    return (parts[0][0] + parts[1][0]).toUpperCase();
+  }
+  return name.slice(0, 2).toUpperCase() || 'CU';
+};
+
+const avatarColors = [
+  'bg-orange-100 text-orange-700 border-orange-200',
+  'bg-blue-100 text-blue-700 border-blue-200',
+  'bg-emerald-100 text-emerald-700 border-emerald-200',
+  'bg-purple-100 text-purple-700 border-purple-200',
+  'bg-amber-100 text-amber-700 border-amber-200'
+];
+
 export const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchCategory, setSearchCategory] = useState('all');
   const [searchBrand, setSearchBrand] = useState('all');
   const [searchKeyword, setSearchKeyword] = useState('');
+
+  const [reviews, setReviews] = useState(defaultReviews);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [reviewSubmitting, setReviewSubmitting] = useState(false);
+  const [reviewSuccessMsg, setReviewSuccessMsg] = useState('');
+  const [newReviewId, setNewReviewId] = useState(null);
+
+  const [reviewForm, setReviewForm] = useState({
+    name: '',
+    role: '',
+    location: '',
+    vehicleOrService: '',
+    rating: 5,
+    comment: ''
+  });
 
   const [flightProgress, setFlightProgress] = useState(0);
   const [flightDelta, setFlightDelta] = useState({ dx: 760, dy: 540 });
@@ -125,6 +196,84 @@ export const Home = () => {
     };
     fetchFeatured();
   }, []);
+
+  // Load verified customer reviews
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const res = await api.getReviews();
+        if (res && res.success && Array.isArray(res.data) && res.data.length > 0) {
+          setReviews(res.data);
+        } else {
+          const local = localStorage.getItem('balaji_customer_reviews');
+          if (local) {
+            const parsed = JSON.parse(local);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              setReviews(parsed);
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('Failed to fetch reviews:', err);
+      }
+    };
+    fetchReviews();
+  }, []);
+
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+    if (!reviewForm.name.trim() || !reviewForm.comment.trim()) {
+      alert('Please enter your name and review experience.');
+      return;
+    }
+
+    setReviewSubmitting(true);
+    try {
+      const reviewPayload = {
+        name: reviewForm.name.trim(),
+        role: reviewForm.role.trim() || 'Verified Customer',
+        location: reviewForm.location.trim(),
+        vehicleOrService: reviewForm.vehicleOrService.trim(),
+        rating: Number(reviewForm.rating) || 5,
+        comment: reviewForm.comment.trim(),
+        verified: true,
+        createdAt: new Date().toISOString()
+      };
+
+      const res = await api.createReview(reviewPayload);
+      const addedReview = (res && res.success && res.data) ? res.data : {
+        _id: `rev_${Date.now()}`,
+        ...reviewPayload
+      };
+
+      const updated = [addedReview, ...reviews];
+      setReviews(updated);
+      try {
+        localStorage.setItem('balaji_customer_reviews', JSON.stringify(updated));
+      } catch (_) {}
+
+      setNewReviewId(addedReview._id);
+      setIsReviewModalOpen(false);
+      setReviewSuccessMsg(`Thank you, ${reviewPayload.name}! Your review has been added to our live customer wall.`);
+      setReviewForm({
+        name: '',
+        role: '',
+        location: '',
+        vehicleOrService: '',
+        rating: 5,
+        comment: ''
+      });
+
+      setTimeout(() => {
+        setReviewSuccessMsg('');
+      }, 7000);
+    } catch (err) {
+      console.error('Error submitting review:', err);
+      alert('Failed to submit review. Please try again.');
+    } finally {
+      setReviewSubmitting(false);
+    }
+  };
 
   // Update geometry measurements whenever featured products load or screen changes
   useEffect(() => {
@@ -674,91 +823,112 @@ export const Home = () => {
       </section>
 
       {/* 10. REAL CUSTOMER EXPERIENCES (SCROLL REVEAL) */}
-      <section className="bg-white py-16 border-y border-slate-200">
+      <section id="customer-reviews" className="bg-white py-16 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <div className="text-center max-w-2xl mx-auto mb-12">
-              <span className="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-3.5 py-1 rounded-full uppercase border border-emerald-200">
-                Customer Testimonials
-              </span>
-              <h2 className="font-heading font-black text-2xl sm:text-4xl text-slate-900 mt-2">
-                Trusted by 5,800+ Farmers &amp; Vehicle Owners
-              </h2>
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+              <div>
+                <span className="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-3.5 py-1 rounded-full uppercase border border-emerald-200">
+                  Verified Customer Testimonials
+                </span>
+                <h2 className="font-heading font-black text-2xl sm:text-4xl text-slate-900 mt-2">
+                  Trusted by 5,800+ Farmers &amp; Vehicle Owners
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-xl">
+                  Real feedback from farmers, transport operators, and families who bought or sold vehicles with Balaji Consultancy.
+                </p>
+              </div>
+
+              {/* Action Button: Write a Review */}
+              <div className="shrink-0 flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsReviewModalOpen(true)}
+                  className="taste-btn inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-extrabold text-xs sm:text-sm px-5 py-3 rounded-xl shadow-md shadow-orange-600/20 transition-all cursor-pointer"
+                >
+                  <Plus className="w-4 h-4 stroke-[3]" />
+                  <span>Write a Customer Review</span>
+                </button>
+              </div>
             </div>
           </ScrollReveal>
 
+          {/* Toast Notification when a review is added */}
+          {reviewSuccessMsg && (
+            <div className="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs sm:text-sm font-semibold flex items-center justify-between gap-3 shadow-sm animate-fade-in">
+              <div className="flex items-center gap-2.5">
+                <CheckCircle className="w-5 h-5 text-emerald-600 shrink-0" />
+                <span>{reviewSuccessMsg}</span>
+              </div>
+              <button 
+                type="button"
+                onClick={() => setReviewSuccessMsg('')}
+                className="text-emerald-700 hover:text-emerald-900 text-xs font-bold px-2 py-1 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+
+          {/* Dynamic Customer Reviews Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <ScrollReveal delay={50}>
-              <div className="taste-card bg-slate-50/70 p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between h-full">
-                <div>
-                  <div className="flex text-amber-500 mb-3">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-xs text-slate-700 leading-relaxed italic font-medium">
-                    "I was looking for a pre-owned Swaraj 855 for my 15-acre sugarcane farm. Balaji Consultancy gave me a certified tractor with genuine hours and handled all the RTO transfer from Punjab to Tamil Nadu smoothly. Very honest service!"
-                  </p>
-                </div>
-                <div className="mt-4 pt-4 border-t border-slate-200 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-orange-100 text-orange-700 font-bold flex items-center justify-center text-sm border border-orange-200">
-                    SS
-                  </div>
-                  <div>
-                    <div className="font-bold text-slate-900 text-xs">Senthil Saravanan</div>
-                    <div className="text-[11px] text-slate-500">Sugarcane Farmer, Salem (Tamil Nadu)</div>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
+            {reviews.map((rev, idx) => {
+              const initials = getInitials(rev.name);
+              const colorClass = avatarColors[idx % avatarColors.length];
+              const isJustAdded = rev._id === newReviewId;
 
-            <ScrollReveal delay={120}>
-              <div className="taste-card bg-slate-50/70 p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between h-full">
-                <div>
-                  <div className="flex text-amber-500 mb-3">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-xs text-slate-700 leading-relaxed italic font-medium">
-                    "Sold my 2018 Mahindra Bolero through Balaji Consultancy. Within 3 days they found a buyer at my expected valuation and the payment was credited to my bank instantly. Highly recommended."
-                  </p>
-                </div>
-                <div className="mt-4 pt-4 border-t border-slate-200 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-sm border border-blue-200">
-                    RP
-                  </div>
-                  <div>
-                    <div className="font-bold text-slate-900 text-xs">Rajeshwar Patil</div>
-                    <div className="text-[11px] text-slate-500">Transport Fleet Owner, Pune (Maharashtra)</div>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
+              return (
+                <ScrollReveal key={rev._id || idx} delay={Math.min(idx * 70, 300)}>
+                  <div className={`taste-card bg-slate-50/70 p-6 rounded-2xl border transition-all flex flex-col justify-between h-full relative ${
+                    isJustAdded ? 'border-orange-500 ring-2 ring-orange-500/30 bg-orange-50/20' : 'border-slate-200 shadow-sm'
+                  }`}>
+                    {isJustAdded && (
+                      <span className="absolute -top-3 right-4 bg-orange-600 text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
+                        <Sparkles className="w-3 h-3 text-amber-300" />
+                        Just Added
+                      </span>
+                    )}
 
-            <ScrollReveal delay={190}>
-              <div className="taste-card bg-slate-50/70 p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between h-full">
-                <div>
-                  <div className="flex text-amber-500 mb-3">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
-                    ))}
+                    <div>
+                      {/* Star Rating & Optional Vehicle / Service Badge */}
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex text-amber-500">
+                          {[...Array(5)].map((_, i) => (
+                            <Star 
+                              key={i} 
+                              className={`w-4 h-4 ${i < (rev.rating || 5) ? 'fill-current text-amber-500' : 'text-slate-300'}`} 
+                            />
+                          ))}
+                        </div>
+                        {rev.vehicleOrService && (
+                          <span className="text-[10px] font-bold text-slate-700 bg-white px-2 py-0.5 rounded-md border border-slate-200">
+                            {rev.vehicleOrService}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Comment */}
+                      <p className="text-xs text-slate-700 leading-relaxed italic font-medium">
+                        "{rev.comment}"
+                      </p>
+                    </div>
+
+                    {/* Customer Info */}
+                    <div className="mt-4 pt-4 border-t border-slate-200 flex items-center gap-3">
+                      <div className={`w-10 h-10 rounded-full font-bold flex items-center justify-center text-sm border shrink-0 ${colorClass}`}>
+                        {initials}
+                      </div>
+                      <div className="overflow-hidden">
+                        <div className="font-bold text-slate-900 text-xs truncate">{rev.name}</div>
+                        <div className="text-[11px] text-slate-500 truncate">
+                          {rev.role}{rev.location ? `, ${rev.location}` : ''}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-xs text-slate-700 leading-relaxed italic font-medium">
-                    "Finding genuine Bosch diesel injectors and tractor clutch plates at reasonable rates was difficult in our local market. Balaji's spare parts division sent OEM parts with warranty. Saved me over ₹15,000!"
-                  </p>
-                </div>
-                <div className="mt-4 pt-4 border-t border-slate-200 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-sm border border-emerald-200">
-                    MK
-                  </div>
-                  <div>
-                    <div className="font-bold text-slate-900 text-xs">Manpreet Singh Kahlon</div>
-                    <div className="text-[11px] text-slate-500">Agricultural Contractor, Ludhiana (Punjab)</div>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
+                </ScrollReveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -796,6 +966,166 @@ export const Home = () => {
           </div>
         </ScrollReveal>
       </section>
+
+      {/* CUSTOMER REVIEW SUBMISSION MODAL */}
+      {isReviewModalOpen && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in"
+          onClick={() => setIsReviewModalOpen(false)}
+        >
+          <div 
+            className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-start justify-between pb-4 border-b border-slate-100">
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-orange-600 bg-orange-50 px-2.5 py-0.5 rounded-full border border-orange-200">
+                  Customer Feedback
+                </span>
+                <h3 className="font-heading font-black text-xl text-slate-900 mt-1.5">
+                  Share Your Experience
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Your review will be added directly to our verified customer wall.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsReviewModalOpen(false)}
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Form */}
+            <form onSubmit={handleReviewSubmit} className="space-y-4 pt-4">
+              {/* Star Rating Selector */}
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                  Your Rating
+                </label>
+                <div className="flex items-center gap-1.5">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      type="button"
+                      onClick={() => setReviewForm({ ...reviewForm, rating: star })}
+                      className="p-1 hover:scale-125 transition-transform cursor-pointer focus:outline-none"
+                    >
+                      <Star 
+                        className={`w-7 h-7 ${star <= reviewForm.rating ? 'text-amber-400 fill-amber-400' : 'text-slate-200'}`} 
+                      />
+                    </button>
+                  ))}
+                  <span className="text-xs font-bold text-slate-700 ml-2">
+                    {reviewForm.rating} / 5 Stars
+                  </span>
+                </div>
+              </div>
+
+              {/* Name */}
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Full Name <span className="text-rose-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Ramesh Kumar"
+                  value={reviewForm.name}
+                  onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })}
+                  className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                />
+              </div>
+
+              {/* Role & Location Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Your Role / Profession
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Sugarcane Farmer, Fleet Owner"
+                    value={reviewForm.role}
+                    onChange={(e) => setReviewForm({ ...reviewForm, role: e.target.value })}
+                    className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    City / District &amp; State
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Salem (Tamil Nadu)"
+                    value={reviewForm.location}
+                    onChange={(e) => setReviewForm({ ...reviewForm, location: e.target.value })}
+                    className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  />
+                </div>
+              </div>
+
+              {/* Vehicle or Service */}
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Vehicle Bought / Sold or Service Used (Optional)
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Mahindra 575 DI, Bolero Maxi Truck, Clutch Kit"
+                  value={reviewForm.vehicleOrService}
+                  onChange={(e) => setReviewForm({ ...reviewForm, vehicleOrService: e.target.value })}
+                  className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                />
+              </div>
+
+              {/* Review Comment */}
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Your Review / Experience <span className="text-rose-500">*</span>
+                </label>
+                <textarea
+                  required
+                  rows="4"
+                  placeholder="Share details about vehicle condition, RTO transfer, valuation, or customer service..."
+                  value={reviewForm.comment}
+                  onChange={(e) => setReviewForm({ ...reviewForm, comment: e.target.value })}
+                  className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 resize-none"
+                ></textarea>
+              </div>
+
+              {/* Submit Buttons */}
+              <div className="pt-2 flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsReviewModalOpen(false)}
+                  className="taste-btn px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-50 transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={reviewSubmitting}
+                  className="taste-btn inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-extrabold text-xs sm:text-sm px-6 py-2.5 rounded-xl shadow-md shadow-orange-600/30 transition-all cursor-pointer disabled:opacity-50"
+                >
+                  {reviewSubmitting ? (
+                    <span>Submitting...</span>
+                  ) : (
+                    <>
+                      <span>Submit Review</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

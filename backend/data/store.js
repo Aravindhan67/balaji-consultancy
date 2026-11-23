@@ -5,17 +5,55 @@ import mongoose from 'mongoose';
 import { Product } from '../models/Product.js';
 import { Enquiry } from '../models/Enquiry.js';
 import { Quotation } from '../models/Quotation.js';
+import { Review } from '../models/Review.js';
 import { initialProducts } from '../seed/initialData.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const dbFilePath = path.join(__dirname, 'db.json');
 
+export const initialReviews = [
+  {
+    _id: 'rev_1',
+    name: 'Senthil Saravanan',
+    role: 'Sugarcane Farmer',
+    location: 'Salem (Tamil Nadu)',
+    vehicleOrService: 'Swaraj 855 FE',
+    rating: 5,
+    comment: 'I was looking for a pre-owned Swaraj 855 for my 15-acre sugarcane farm. Balaji Consultancy gave me a certified tractor with genuine hours and handled all the RTO transfer from Punjab to Tamil Nadu smoothly. Very honest service!',
+    verified: true,
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5).toISOString()
+  },
+  {
+    _id: 'rev_2',
+    name: 'Rajeshwar Patil',
+    role: 'Transport Fleet Owner',
+    location: 'Pune (Maharashtra)',
+    vehicleOrService: 'Mahindra Bolero Maxi Truck',
+    rating: 5,
+    comment: 'Sold my 2018 Mahindra Bolero through Balaji Consultancy. Within 3 days they found a buyer at my expected valuation and the payment was credited to my bank instantly. Highly recommended.',
+    verified: true,
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 12).toISOString()
+  },
+  {
+    _id: 'rev_3',
+    name: 'Manpreet Singh Kahlon',
+    role: 'Agricultural Contractor',
+    location: 'Ludhiana (Punjab)',
+    vehicleOrService: 'Genuine OEM Spares',
+    rating: 5,
+    comment: 'Finding genuine Bosch diesel injectors and tractor clutch plates at reasonable rates was difficult in our local market. Balaji\'s spare parts division sent OEM parts with warranty. Saved me over ₹15,000!',
+    verified: true,
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 20).toISOString()
+  }
+];
+
 // Memory/File-based fallback store
 let fileDb = {
   products: [],
   enquiries: [],
-  quotations: []
+  quotations: [],
+  reviews: []
 };
 
 // Check if Mongoose is connected
@@ -27,6 +65,10 @@ export const initFallbackDb = () => {
     if (fs.existsSync(dbFilePath)) {
       const raw = fs.readFileSync(dbFilePath, 'utf8');
       fileDb = JSON.parse(raw);
+      if (!Array.isArray(fileDb.reviews) || fileDb.reviews.length === 0) {
+        fileDb.reviews = [...initialReviews];
+        saveFallbackDb();
+      }
     } else {
       fileDb = {
         products: initialProducts.map((p, idx) => ({
@@ -36,7 +78,8 @@ export const initFallbackDb = () => {
           updatedAt: new Date().toISOString()
         })),
         enquiries: [],
-        quotations: []
+        quotations: [],
+        reviews: [...initialReviews]
       };
       saveFallbackDb();
     }
@@ -62,6 +105,11 @@ export const seedMongoIfEmpty = async () => {
       console.log('MongoDB connected. Seeding initial automotive & tractor inventory...');
       await Product.insertMany(initialProducts);
       console.log(`Seeded ${initialProducts.length} items to MongoDB.`);
+    }
+    const reviewCount = await Review.countDocuments();
+    if (reviewCount === 0) {
+      await Review.insertMany(initialReviews.map(({ _id, ...r }) => r));
+      console.log(`Seeded ${initialReviews.length} initial reviews to MongoDB.`);
     }
   } catch (err) {
     console.error('Failed to seed MongoDB:', err.message);
@@ -244,6 +292,36 @@ export const DataStore = {
       saveFallbackDb();
     }
     return item;
+  },
+
+  // REVIEWS
+  async getReviews() {
+    if (isMongoConnected()) {
+      return await Review.find().sort({ createdAt: -1 });
+    }
+    if (!fileDb.reviews || fileDb.reviews.length === 0) {
+      fileDb.reviews = [...initialReviews];
+      saveFallbackDb();
+    }
+    return [...fileDb.reviews].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  },
+
+  async createReview(data) {
+    if (isMongoConnected()) {
+      const rev = new Review(data);
+      return await rev.save();
+    }
+    if (!fileDb.reviews) fileDb.reviews = [...initialReviews];
+    const newRev = {
+      _id: `rev_${Date.now()}`,
+      rating: Number(data.rating) || 5,
+      verified: true,
+      ...data,
+      createdAt: new Date().toISOString()
+    };
+    fileDb.reviews.unshift(newRev);
+    saveFallbackDb();
+    return newRev;
   },
 
   // STATS

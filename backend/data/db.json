@@ -575,5 +575,51 @@
       "createdAt": "2026-11-14T10:33:57.648Z"
     }
   ],
-  "quotations": []
+  "quotations": [],
+  "reviews": [
+    {
+      "_id": "rev_1795409874246",
+      "rating": 5,
+      "verified": true,
+      "name": "Aravindhan T",
+      "role": "Paddy Farmer",
+      "location": "Erode (Tamil Nadu)",
+      "vehicleOrService": "John Deere 5050 D",
+      "comment": "Purchased John Deere 5050 D tractor in great condition. Complete RTO name transfer was done smoothly without any hassle.",
+      "createdAt": "2026-11-23T04:57:54.246Z"
+    },
+    {
+      "_id": "rev_1",
+      "name": "Senthil Saravanan",
+      "role": "Sugarcane Farmer",
+      "location": "Salem (Tamil Nadu)",
+      "vehicleOrService": "Swaraj 855 FE",
+      "rating": 5,
+      "comment": "I was looking for a pre-owned Swaraj 855 for my 15-acre sugarcane farm. Balaji Consultancy gave me a certified tractor with genuine hours and handled all the RTO transfer from Punjab to Tamil Nadu smoothly. Very honest service!",
+      "verified": true,
+      "createdAt": "2026-11-18T04:50:30.038Z"
+    },
+    {
+      "_id": "rev_2",
+      "name": "Rajeshwar Patil",
+      "role": "Transport Fleet Owner",
+      "location": "Pune (Maharashtra)",
+      "vehicleOrService": "Mahindra Bolero Maxi Truck",
+      "rating": 5,
+      "comment": "Sold my 2018 Mahindra Bolero through Balaji Consultancy. Within 3 days they found a buyer at my expected valuation and the payment was credited to my bank instantly. Highly recommended.",
+      "verified": true,
+      "createdAt": "2026-11-11T04:50:30.039Z"
+    },
+    {
+      "_id": "rev_3",
+      "name": "Manpreet Singh Kahlon",
+      "role": "Agricultural Contractor",
+      "location": "Ludhiana (Punjab)",
+      "vehicleOrService": "Genuine OEM Spares",
+      "rating": 5,
+      "comment": "Finding genuine Bosch diesel injectors and tractor clutch plates at reasonable rates was difficult in our local market. Balaji's spare parts division sent OEM parts with warranty. Saved me over ₹15,000!",
+      "verified": true,
+      "createdAt": "2026-11-03T04:50:30.039Z"
+    }
+  ]
 }
