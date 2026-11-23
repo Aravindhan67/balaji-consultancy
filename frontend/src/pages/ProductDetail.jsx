@@ -462,6 +462,27 @@ export const ProductDetail = () => {
                 </h1>
               </div>
 
+              {product.status && product.status !== 'available' && (
+                <div className={`p-4 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-bold ${
+                  product.status === 'sold'
+                    ? 'bg-rose-50 text-rose-800 border-rose-200'
+                    : product.status === 'reserved'
+                    ? 'bg-amber-50 text-amber-800 border-amber-200'
+                    : 'bg-blue-50 text-blue-800 border-blue-200'
+                }`}>
+                  <span>
+                    {product.status === 'sold'
+                      ? '⚠️ Notice: This vehicle has been SOLD OUT and is not available in current stock.'
+                      : product.status === 'reserved'
+                      ? '⚠️ Notice: This vehicle is currently RESERVED / BOOKED by a customer.'
+                      : 'ℹ️ Notice: This vehicle is currently undergoing mechanical inspection.'}
+                  </span>
+                  <Link to="/products" className="underline hover:text-black shrink-0">
+                    Browse Available Stock &rarr;
+                  </Link>
+                </div>
+              )}
+
               {/* Price Box */}
               <div className="p-4 bg-[#FAF8F5] rounded-xl border border-[#E3DBD0] flex items-center justify-between">
                 <div>

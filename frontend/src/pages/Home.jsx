@@ -181,7 +181,7 @@ export const Home = () => {
   useEffect(() => {
     const fetchFeatured = async () => {
       try {
-        const res = await api.getProducts({ featured: true });
+        const res = await api.getProducts({ featured: true, status: 'available' });
         if (res && res.success && Array.isArray(res.data)) {
           setFeaturedProducts(res.data);
         } else if (res && Array.isArray(res.data)) {
@@ -302,8 +302,9 @@ export const Home = () => {
   };
 
   const safeFeatured = Array.isArray(featuredProducts) ? featuredProducts : [];
-  const allTractors = safeFeatured.filter(p => p && p.category === 'tractor');
-  const allCars = safeFeatured.filter(p => p && p.category === 'car');
+  const availableFeatured = safeFeatured.filter(p => p && (p.status === 'available' || !p.status));
+  const allTractors = availableFeatured.filter(p => p && p.category === 'tractor');
+  const allCars = availableFeatured.filter(p => p && p.category === 'car');
 
   // Featured Tractors
   const tractors = allTractors.slice(0, 3);

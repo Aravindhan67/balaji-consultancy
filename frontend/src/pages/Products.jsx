@@ -38,7 +38,7 @@ export const Products = () => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const params = {};
+        const params = { status: 'available' };
         if (category && category !== 'all') params.category = category;
         if (brand && brand !== 'all') params.brand = brand;
         if (searchQuery && searchQuery.trim()) params.search = searchQuery.trim();
@@ -102,16 +102,21 @@ export const Products = () => {
   // Safe array operations
   const safeProducts = Array.isArray(products) ? products : [];
 
-  // Calculate dynamic maximum price from catalog (default minimum 16 Lakh)
+  // Exclude sold out or reserved vehicles from public customer product page
+  const availableProducts = safeProducts.filter(
+    (p) => p && (p.status === 'available' || !p.status)
+  );
+
+  // Calculate dynamic maximum price from available catalog (default minimum 16 Lakh)
   const maxCatalogPrice = Math.max(
     1600000,
-    ...safeProducts.map((p) => {
+    ...availableProducts.map((p) => {
       const val = Number(p?.price);
       return !isNaN(val) && val > 0 ? val : 0;
     })
   );
 
-  const filteredProducts = safeProducts
+  const filteredProducts = availableProducts
     .filter((p) => {
       if (!p) return false;
       if (priceMax !== null && priceMax < maxCatalogPrice) {
@@ -141,15 +146,15 @@ export const Products = () => {
       'Toyota',
       'Bosch India',
       'Exide Industries',
-      ...safeProducts.map((p) => p?.brand).filter(Boolean)
+      ...availableProducts.map((p) => p?.brand).filter(Boolean)
     ])
   );
 
   const categories = [
-    { id: 'all', label: 'All Inventory', count: safeProducts.length },
-    { id: 'tractor', label: '🚜 Tractors', count: safeProducts.filter((p) => p && p.category === 'tractor').length },
-    { id: 'car', label: '🚗 Cars', count: safeProducts.filter((p) => p && p.category === 'car').length },
-    { id: 'spare_part', label: '⚙️ Spare Parts', count: safeProducts.filter((p) => p && p.category === 'spare_part').length }
+    { id: 'all', label: 'All Inventory', count: availableProducts.length },
+    { id: 'tractor', label: '🚜 Tractors', count: availableProducts.filter((p) => p && p.category === 'tractor').length },
+    { id: 'car', label: '🚗 Cars', count: availableProducts.filter((p) => p && p.category === 'car').length },
+    { id: 'spare_part', label: '⚙️ Spare Parts', count: availableProducts.filter((p) => p && p.category === 'spare_part').length }
   ];
 
   return (

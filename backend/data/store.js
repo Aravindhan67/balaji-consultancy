@@ -139,12 +139,18 @@ export const DataStore = {
       if (filter.minPrice) query.price = { ...(query.price || {}), $gte: Number(filter.minPrice) };
       if (filter.maxPrice) query.price = { ...(query.price || {}), $lte: Number(filter.maxPrice) };
       if (filter.featured !== undefined) query.featured = filter.featured === 'true' || filter.featured === true;
+      if (filter.status && filter.status !== 'all') {
+        query.status = filter.status;
+      }
 
       return await Product.find(query).sort({ createdAt: -1 });
     }
 
     // Fallback store
     let items = [...fileDb.products];
+    if (filter.status && filter.status !== 'all') {
+      items = items.filter(p => (p.status || 'available') === filter.status);
+    }
     if (filter.category && filter.category !== 'all') {
       items = items.filter(p => p.category === filter.category);
     }
