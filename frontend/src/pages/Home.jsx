@@ -313,55 +313,50 @@ export const Home = () => {
   const cars = allCars.slice(0, 3);
 
   return (
-    <div className="space-y-16 sm:space-y-24 bg-[#F8FAFC]">
-      {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden bg-slate-950 border-b border-slate-800 text-white py-16 sm:py-24">
-        {/* Cinematic Agro & Commercial Vehicle Yard Background Image */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+    <div className="space-y-16 sm:space-y-24 bg-[#F5F1EB] text-[#111111]">
+      {/* 1. HERO SECTION - SUPRO MINIMALIST EDITORIAL */}
+      <section className="relative overflow-hidden bg-[#F5F1EB] border-b border-[#E3DBD0] py-20 sm:py-28">
+        {/* Subtle Warm Agro Background Layer */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-35 mix-blend-multiply">
           <img
             src={resolveImageUrl('/static-uploads/hero-tractor-bg.jpg')}
             alt="Balaji Auto and Agro Vehicle Consultancy Yard"
             className="w-full h-full object-cover object-center scale-105"
           />
-          {/* Multi-Stop Cinematic Scrim for Text Contrast & Atmosphere */}
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/70 to-slate-950/92" />
-          <div className="absolute inset-0 bg-slate-950/25 backdrop-blur-[0.5px]" />
-          
-          {/* Subtle Ambient Radial Glows */}
-          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-orange-600/15 blur-[120px] rounded-full" />
-          <div className="absolute -bottom-20 right-10 w-[420px] h-[280px] bg-amber-500/10 blur-[110px] rounded-full" />
+          {/* Subtle Warm Linen Scrim */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#F5F1EB]/80 via-[#F5F1EB]/50 to-[#F5F1EB]" />
         </div>
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full text-center space-y-6 sm:space-y-8">
           {/* Trust Badges */}
           <div className="flex flex-wrap items-center justify-center gap-2">
-            <span className="animate-hero-rise inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 text-amber-300 text-xs font-extrabold border border-amber-500/30 backdrop-blur-md shadow-sm">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              India's Trusted Automotive &amp; Agro Vehicle Consultancy
+            <span className="animate-hero-rise inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EAE3D7] text-[#111111] text-[11px] font-bold uppercase tracking-wider border border-[#DCD4C7] shadow-none">
+              <Sparkles className="w-3.5 h-3.5 text-[#111111] shrink-0" />
+              Automotive &amp; Agro Vehicle Consultancy
             </span>
-            <span className="animate-hero-rise hero-delay-1 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 text-white text-[11px] font-bold border border-slate-700/80 backdrop-blur-md shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              Yard Open Today: 9 AM - 7 PM • Salem-Coimbatore NH
+            <span className="animate-hero-rise hero-delay-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-[#111111] text-[11px] font-semibold border border-[#E3DBD0]">
+              <span className="w-2 h-2 rounded-full bg-[#111111]"></span>
+              Salem-Coimbatore NH Yard • Open 9 AM - 7 PM
             </span>
           </div>
 
-          {/* H1 Headline - Crisp High-Contrast Pure White & Luminous Amber-Gold */}
-          <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12] drop-shadow-sm">
-            Certified <span className="text-amber-400">Second-Hand Tractors</span>, Utility Cars &amp; Genuine Spares.
+          {/* H1 Headline - Supro Bold Editorial */}
+          <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-[#111111] tracking-tight leading-[1.1]">
+            Certified Second-Hand Tractors, Utility Cars &amp; Genuine Spares.
           </h1>
 
           {/* Subtitle */}
-          <p className="animate-hero-rise hero-delay-2 text-slate-300 text-sm sm:text-base lg:text-lg leading-relaxed max-w-3xl mx-auto font-normal">
+          <p className="animate-hero-rise hero-delay-2 text-[#6B665F] text-sm sm:text-base lg:text-lg leading-relaxed max-w-2xl mx-auto font-normal">
             Helping Indian farmers, transport operators, and families buy and sell pre-owned vehicles with{' '}
-            <strong className="text-amber-300 font-semibold">120-point mechanical certification</strong>, guaranteed{' '}
-            <strong className="text-emerald-400 font-semibold">RTO RC transfer</strong>, and zero middleman broker fees.
+            <strong className="text-[#111111] font-semibold">120-point mechanical certification</strong>, guaranteed{' '}
+            <strong className="text-[#111111] font-semibold">RTO RC transfer</strong>, and zero middleman broker fees.
           </p>
 
-          {/* Integrated Search Console */}
+          {/* Integrated Search Console - Minimalist White Pill */}
           <div className="max-w-xl mx-auto pt-2">
             <form onSubmit={handleSearchSubmit}>
-              <div className="flex items-center bg-slate-900/90 backdrop-blur-md p-1.5 rounded-2xl border border-white/20 shadow-2xl focus-within:ring-2 focus-within:ring-amber-400 focus-within:border-amber-400 transition-all">
-                <div className="pl-3.5 pr-2 text-slate-400">
+              <div className="flex items-center bg-white p-1.5 rounded-full border border-[#E3DBD0] focus-within:border-[#111111] transition-all">
+                <div className="pl-4 pr-2 text-[#8C857B]">
                   <Search className="w-4 h-4" />
                 </div>
                 <input
@@ -369,24 +364,24 @@ export const Home = () => {
                   placeholder="Search tractor model, HP, or vehicle (e.g. Swaraj 855, Bolero)..."
                   value={searchKeyword}
                   onChange={(e) => setSearchKeyword(e.target.value)}
-                  className="w-full text-xs sm:text-sm bg-transparent border-none text-white placeholder:text-slate-400 focus:outline-none font-medium py-2"
+                  className="w-full text-xs sm:text-sm bg-transparent border-none text-[#111111] placeholder:text-[#8C857B] focus:outline-none font-medium py-2"
                 />
                 <button
                   type="submit"
-                  className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold px-4 sm:px-5 py-2.5 rounded-xl transition-colors shadow-sm"
+                  className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-[#111111] hover:bg-neutral-800 text-white text-[11px] font-bold uppercase tracking-wider px-5 py-2.5 rounded-full transition-colors shadow-none"
                 >
-                  <span>Search Stock</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
+                  <span>Search</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-white" />
                 </button>
               </div>
             </form>
           </div>
 
-          {/* Action CTAs */}
+          {/* Action CTAs - Matte Black & Warm Sand Pills */}
           <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
             <Link
               to="/products"
-              className="taste-btn inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-extrabold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-lg shadow-orange-600/30 transition-all"
+              className="taste-btn inline-flex items-center gap-2 bg-[#111111] hover:bg-neutral-800 text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-7 py-3.5 rounded-full transition-all shadow-none"
             >
               Explore Certified Stock
               <ArrowRight className="w-4 h-4" />
@@ -394,43 +389,43 @@ export const Home = () => {
 
             <a
               href="tel:+918124336369"
-              className="taste-btn inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm px-5 py-3 rounded-xl border border-white/20 shadow-sm backdrop-blur-sm transition-all"
+              className="taste-btn inline-flex items-center gap-2 bg-[#EAE3D7] hover:bg-[#DFD7CA] text-[#111111] font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-3.5 rounded-full border border-[#DCD4C7] transition-all"
               title="Direct Yard Call"
             >
-              <PhoneCall className="w-4 h-4 text-emerald-400" />
+              <PhoneCall className="w-4 h-4 text-[#111111]" />
               +91 81243 36369
             </a>
           </div>
 
           {/* Live Trust Counters Row */}
-          <div className="pt-6 border-t border-white/15 flex items-center justify-center gap-6 sm:gap-14 text-center">
+          <div className="pt-8 border-t border-[#E3DBD0] flex items-center justify-center gap-6 sm:gap-14 text-center">
             <div>
-              <div className="font-heading font-black text-xl sm:text-2xl text-white tracking-tight drop-shadow-sm">
+              <div className="font-heading font-black text-2xl sm:text-3xl text-[#111111] tracking-tight">
                 <AnimatedCounter end={5800} suffix="+" />
               </div>
-              <div className="text-[10px] sm:text-xs text-slate-300 font-semibold mt-0.5">
+              <div className="text-[10px] sm:text-xs text-[#8C857B] font-bold uppercase tracking-widest mt-1">
                 Vehicles Delivered
               </div>
             </div>
 
-            <div className="h-7 w-px bg-white/20"></div>
+            <div className="h-8 w-px bg-[#E3DBD0]"></div>
 
             <div>
-              <div className="font-heading font-black text-xl sm:text-2xl text-emerald-400 tracking-tight drop-shadow-sm">
+              <div className="font-heading font-black text-2xl sm:text-3xl text-[#111111] tracking-tight">
                 <AnimatedCounter end={100} suffix="%" />
               </div>
-              <div className="text-[10px] sm:text-xs text-slate-300 font-semibold mt-0.5">
+              <div className="text-[10px] sm:text-xs text-[#8C857B] font-bold uppercase tracking-widest mt-1">
                 RTO Passing Guarantee
               </div>
             </div>
 
-            <div className="h-7 w-px bg-white/20"></div>
+            <div className="h-8 w-px bg-[#E3DBD0]"></div>
 
             <div>
-              <div className="font-heading font-black text-xl sm:text-2xl text-amber-400 tracking-tight drop-shadow-sm">
+              <div className="font-heading font-black text-2xl sm:text-3xl text-[#111111] tracking-tight">
                 <AnimatedCounter end={120} suffix="-Point" />
               </div>
-              <div className="text-[10px] sm:text-xs text-slate-300 font-semibold mt-0.5">
+              <div className="text-[10px] sm:text-xs text-[#8C857B] font-bold uppercase tracking-widest mt-1">
                 Engine &amp; Gearbox Check
               </div>
             </div>
@@ -442,13 +437,13 @@ export const Home = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <div className="text-center max-w-3xl mx-auto mb-10">
-            <div className="inline-block text-xs font-extrabold tracking-wider uppercase text-emerald-800 bg-emerald-50 px-3.5 py-1 rounded-full mb-2 border border-emerald-200">
+            <div className="inline-block text-[11px] font-bold tracking-wider uppercase text-[#111111] bg-[#EAE3D7] px-4 py-1.5 rounded-full mb-2 border border-[#DCD4C7]">
               Zero Fraud • 100% Verified Consulting
             </div>
-            <h2 className="font-heading font-black text-2xl sm:text-4xl text-slate-900 tracking-tight">
+            <h2 className="font-heading font-black text-2xl sm:text-4xl text-[#111111] tracking-tight">
               Why Indian Farmers &amp; Drivers Trust Balaji
             </h2>
-            <p className="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-[#6B665F] text-xs sm:text-sm mt-2 leading-relaxed max-w-2xl mx-auto">
               Buying or selling a pre-owned tractor or vehicle shouldn't feel like a gamble. We protect your hard-earned money with technical rigour and official legal documentation.
             </p>
           </div>
@@ -458,23 +453,23 @@ export const Home = () => {
           {/* Left Column: Dynamic Tractor Image that moves with scroll down toward product cards */}
           <div className="lg:col-span-5 relative" ref={sourceWrapperRef}>
             {/* Background ghost / slot left in Section 2 when tractor flies to right card */}
-            <div className="hidden lg:flex flex-col items-center justify-center p-6 rounded-3xl border-2 border-dashed border-slate-200 bg-slate-50/70 min-h-[350px] text-center pointer-events-none">
-              <div className="w-12 h-12 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center mb-3 shadow-inner">
+            <div className="hidden lg:flex flex-col items-center justify-center p-6 rounded-3xl border-2 border-dashed border-[#E3DBD0] bg-[#FAF8F5] min-h-[350px] text-center pointer-events-none">
+              <div className="w-12 h-12 rounded-full bg-[#EAE3D7] text-[#111111] flex items-center justify-center mb-3">
                 <CheckCircle className="w-6 h-6" />
               </div>
-              <span className="text-sm font-heading font-black text-slate-800">
+              <span className="text-sm font-heading font-bold text-[#111111]">
                 Mahindra 575 DI Sarpanch
               </span>
-              <span className="text-xs text-slate-500 mt-1 max-w-[220px]">
+              <span className="text-xs text-[#6B665F] mt-1 max-w-[220px]">
                 Pre-owned vehicle certified by our mechanics and moved to live yard stock below
               </span>
-              <div className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-bold text-orange-600 bg-orange-50 px-3 py-1 rounded-full border border-orange-200">
+              <div className="mt-4 inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#111111] bg-white px-3 py-1 rounded-full border border-[#E3DBD0]">
                 <span>Moved to Right Card Below</span>
                 <ArrowRight className="w-3 h-3" />
               </div>
             </div>
 
-            {/* Flying / Moving Card: Travels diagonally down and across directly to the right product card */}
+            {/* Flying / Moving Card */}
             <div 
               ref={movingTractorRef}
               className={`will-change-transform ${
@@ -491,39 +486,39 @@ export const Home = () => {
                 transition: 'transform 0.08s ease-out, opacity 0.15s ease-out'
               }}
             >
-              <div className="taste-card bg-white p-4 rounded-3xl border border-slate-200/90 shadow-lg hover:shadow-xl transition-all relative overflow-hidden group">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 relative">
+              <div className="taste-card bg-white p-4 rounded-3xl border border-[#E3DBD0] shadow-sm hover:border-[#111111] transition-all relative overflow-hidden group">
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-[#FAF8F5] relative">
                   <img
                     src={resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg')}
                     alt="Verified Pre-Owned Tractor"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-md flex items-center gap-1.5">
-                    <ShieldCheck className="w-3.5 h-3.5" />
+                  <div className="absolute top-3 left-3 bg-[#111111] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1.5">
+                    <ShieldCheck className="w-3 h-3" />
                     <span>120-Point Inspected</span>
                   </div>
-                  <div className="absolute bottom-3 left-3 bg-slate-900/85 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1.5 rounded-xl border border-white/15 shadow-md">
+                  <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md text-[#111111] text-[11px] font-bold px-3 py-1.5 rounded-full border border-[#E3DBD0]">
                     <span>Mahindra 575 DI (45 HP)</span>
                   </div>
-                  <div className="absolute bottom-3 right-3 bg-orange-600 text-white text-[10px] font-black px-2.5 py-1 rounded-lg shadow-md flex items-center gap-1">
-                    <span>{flightProgress > 0.05 ? 'Moving to Right Card...' : 'Moving to Stock'}</span>
-                    <ArrowRight className="w-3 h-3 animate-pulse" />
+                  <div className="absolute bottom-3 right-3 bg-[#111111] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1">
+                    <span>{flightProgress > 0.05 ? 'Moving to Card...' : 'Yard Stock'}</span>
+                    <ArrowRight className="w-3 h-3" />
                   </div>
                 </div>
 
                 <div className="mt-3.5 px-1 flex items-center justify-between text-xs">
                   <div>
-                    <span className="font-heading font-extrabold text-slate-900 block text-sm">
+                    <span className="font-heading font-bold text-[#111111] block text-sm">
                       Field-Tested Workhorse
                     </span>
-                    <span className="text-slate-500 text-[11px]">
+                    <span className="text-[#6B665F] text-[11px]">
                       Zero blow-by • 1,600 kg hydraulic lift certified
                     </span>
                   </div>
                   <a
                     href="#featured-tractors"
-                    className="taste-btn shrink-0 inline-flex items-center gap-1 bg-slate-100 hover:bg-orange-600 hover:text-white text-slate-800 text-[11px] font-bold px-3 py-1.5 rounded-xl transition-colors"
+                    className="taste-btn shrink-0 inline-flex items-center gap-1 bg-[#FAF8F5] hover:bg-[#111111] hover:text-white text-[#111111] text-[11px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full border border-[#E3DBD0] transition-colors"
                   >
                     <span>View in Stock</span>
                     <ArrowRight className="w-3 h-3" />
@@ -533,75 +528,75 @@ export const Home = () => {
             </div>
           </div>
 
-          {/* Right Column: 4 Clean Pillars in a balanced 2x2 grid */}
+          {/* Right Column: 4 Clean Pillars */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <ScrollReveal delay={50}>
-              <div className="taste-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md h-full flex flex-col justify-between">
+              <div className="taste-card bg-white p-6 rounded-2xl border border-[#E3DBD0] h-full flex flex-col justify-between">
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 border border-emerald-100">
-                    <ShieldCheck className="w-6 h-6" />
+                  <div className="w-11 h-11 rounded-full bg-[#FAF8F5] text-[#111111] flex items-center justify-center mb-4 border border-[#E3DBD0]">
+                    <ShieldCheck className="w-5 h-5" />
                   </div>
-                  <h3 className="font-heading font-extrabold text-slate-900 text-base mb-2">120-Point Inspection</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                  <h3 className="font-heading font-bold text-[#111111] text-base mb-2">120-Point Inspection</h3>
+                  <p className="text-xs text-[#6B665F] leading-relaxed font-normal">
                     Every engine compression, hydraulic draft lift, PTO spline, car chassis, and meter reading is rigorously tested by our certified mechanics.
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-emerald-700 flex items-center gap-1">
-                  <Check className="w-3.5 h-3.5 text-emerald-600" />
+                <div className="mt-4 pt-3 border-t border-[#F0EBE3] text-[11px] font-bold text-[#111111] flex items-center gap-1">
+                  <Check className="w-3.5 h-3.5 text-[#111111]" />
                   Field-tested guarantee
                 </div>
               </div>
             </ScrollReveal>
 
             <ScrollReveal delay={120}>
-              <div className="taste-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md h-full flex flex-col justify-between">
+              <div className="taste-card bg-white p-6 rounded-2xl border border-[#E3DBD0] h-full flex flex-col justify-between">
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 border border-blue-100">
-                    <FileCheck className="w-6 h-6" />
+                  <div className="w-11 h-11 rounded-full bg-[#FAF8F5] text-[#111111] flex items-center justify-center mb-4 border border-[#E3DBD0]">
+                    <FileCheck className="w-5 h-5" />
                   </div>
-                  <h3 className="font-heading font-extrabold text-slate-900 text-base mb-2">Guaranteed RC &amp; NOC</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                  <h3 className="font-heading font-bold text-[#111111] text-base mb-2">Guaranteed RC &amp; NOC</h3>
+                  <p className="text-xs text-[#6B665F] leading-relaxed font-normal">
                     We check national Vahan records, clear bank hypothecation, and handle all Form 29/30 and interstate NOC transfer paperwork.
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-blue-700 flex items-center gap-1">
-                  <Check className="w-3.5 h-3.5 text-blue-600" />
+                <div className="mt-4 pt-3 border-t border-[#F0EBE3] text-[11px] font-bold text-[#111111] flex items-center gap-1">
+                  <Check className="w-3.5 h-3.5 text-[#111111]" />
                   100% legal ownership
                 </div>
               </div>
             </ScrollReveal>
 
             <ScrollReveal delay={190}>
-              <div className="taste-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md h-full flex flex-col justify-between">
+              <div className="taste-card bg-white p-6 rounded-2xl border border-[#E3DBD0] h-full flex flex-col justify-between">
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4 border border-amber-100">
-                    <Wrench className="w-6 h-6" />
+                  <div className="w-11 h-11 rounded-full bg-[#FAF8F5] text-[#111111] flex items-center justify-center mb-4 border border-[#E3DBD0]">
+                    <Wrench className="w-5 h-5" />
                   </div>
-                  <h3 className="font-heading font-extrabold text-slate-900 text-base mb-2">Genuine OEM Spares</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                  <h3 className="font-heading font-bold text-[#111111] text-base mb-2">Genuine OEM Spares</h3>
+                  <p className="text-xs text-[#6B665F] leading-relaxed font-normal">
                     Direct yard inventory of factory-sealed clutch plates, CRDI injectors, hydraulic pumps, brake discs, and filters for Swaraj, Mahindra &amp; Tata.
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-amber-700 flex items-center gap-1">
-                  <Check className="w-3.5 h-3.5 text-amber-600" />
+                <div className="mt-4 pt-3 border-t border-[#F0EBE3] text-[11px] font-bold text-[#111111] flex items-center gap-1">
+                  <Check className="w-3.5 h-3.5 text-[#111111]" />
                   Direct OEM replacement
                 </div>
               </div>
             </ScrollReveal>
 
             <ScrollReveal delay={260}>
-              <div className="taste-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md h-full flex flex-col justify-between">
+              <div className="taste-card bg-white p-6 rounded-2xl border border-[#E3DBD0] h-full flex flex-col justify-between">
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4 border border-purple-100">
-                    <BadgePercent className="w-6 h-6" />
+                  <div className="w-11 h-11 rounded-full bg-[#FAF8F5] text-[#111111] flex items-center justify-center mb-4 border border-[#E3DBD0]">
+                    <BadgePercent className="w-5 h-5" />
                   </div>
-                  <h3 className="font-heading font-extrabold text-slate-900 text-base mb-2">Instant Spot Cash</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                  <h3 className="font-heading font-bold text-[#111111] text-base mb-2">Instant Spot Cash</h3>
+                  <p className="text-xs text-[#6B665F] leading-relaxed font-normal">
                     Selling your tractor or utility vehicle? Receive immediate spot cash bank transfer on verification with zero middleman broker fees.
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-purple-700 flex items-center gap-1">
-                  <Check className="w-3.5 h-3.5 text-purple-600" />
+                <div className="mt-4 pt-3 border-t border-[#F0EBE3] text-[11px] font-bold text-[#111111] flex items-center gap-1">
+                  <Check className="w-3.5 h-3.5 text-[#111111]" />
                   Same-day settlement
                 </div>
               </div>
@@ -615,23 +610,30 @@ export const Home = () => {
         <ScrollReveal>
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-6 gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800 bg-amber-50 px-3.5 py-1 rounded-full mb-2 border border-amber-200">
+              <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#111111] bg-[#EAE3D7] px-3.5 py-1 rounded-full mb-2 border border-[#DCD4C7]">
                 🚜 Agricultural &amp; Heavy Field Tractors
               </div>
-              <h2 className="font-heading font-black text-2xl sm:text-3xl text-slate-900">
+              <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#111111]">
                 Featured Verified Pre-Owned Tractors
               </h2>
-              <p className="text-xs sm:text-sm text-slate-600 mt-1">
+              <p className="text-xs sm:text-sm text-[#6B665F] mt-1">
                 Popular Indian models from Mahindra, Swaraj, John Deere, and Sonalika tested and ready for agricultural operations.
               </p>
             </div>
+            <Link
+              to="/products?category=tractor"
+              className="taste-btn inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#111111] hover:bg-[#EAE3D7] bg-white px-5 py-2 rounded-full border border-[#E3DBD0] transition-colors"
+            >
+              View All Tractors
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </ScrollReveal>
 
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[1, 2, 3].map((n) => (
-              <div key={n} className="h-80 bg-slate-100 rounded-2xl animate-pulse"></div>
+              <div key={n} className="h-80 bg-[#FAF8F5] rounded-2xl animate-pulse"></div>
             ))}
           </div>
         ) : (
@@ -646,14 +648,14 @@ export const Home = () => {
                   ref={isTargetCard ? targetCardRef : null}
                   className={`relative transition-all duration-300 rounded-2xl ${
                     isDocked
-                      ? 'ring-4 ring-orange-500 shadow-2xl scale-[1.02] bg-orange-50/20'
+                      ? 'ring-2 ring-[#111111] scale-[1.01]'
                       : ''
                   }`}
                 >
                   {isDocked && (
-                    <div className="absolute -top-3.5 right-4 z-20 animate-bounce bg-orange-600 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5 border border-white/30">
-                      <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                      <span>Added to Stock • Right Card</span>
+                    <div className="absolute -top-3.5 right-4 z-20 bg-[#111111] text-white text-[10px] font-bold uppercase tracking-wider px-3.5 py-1 rounded-full shadow-md flex items-center gap-1.5">
+                      <Sparkles className="w-3 h-3 text-white" />
+                      <span>Added to Stock</span>
                     </div>
                   )}
                   <ScrollReveal delay={idx * 100}>
@@ -665,31 +667,31 @@ export const Home = () => {
           </div>
         )}
 
-        {/* Tractor Spare Parts Callout Banner */}
-        <div className="mt-8 p-5 rounded-2xl bg-gradient-to-r from-amber-50 via-white to-orange-50 border border-amber-200/90 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        {/* Tractor Spare Parts Callout Banner - Minimalist Supro Card */}
+        <div className="mt-8 p-6 rounded-2xl bg-white border border-[#E3DBD0] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-xl bg-orange-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-orange-600/20">
-              <Wrench className="w-6 h-6" />
+            <div className="w-11 h-11 rounded-full bg-[#FAF8F5] text-[#111111] border border-[#E3DBD0] flex items-center justify-center shrink-0">
+              <Wrench className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-heading font-extrabold text-sm sm:text-base text-slate-900">
+                <span className="font-heading font-bold text-sm sm:text-base text-[#111111]">
                   Genuine Spare Parts for Tractors Only
                 </span>
-                <span className="text-[10px] font-black uppercase tracking-wider bg-orange-100 text-orange-800 px-2.5 py-0.5 rounded-full border border-orange-200">
+                <span className="text-[9px] font-bold uppercase tracking-wider bg-[#EAE3D7] text-[#111111] px-2.5 py-0.5 rounded-full border border-[#DCD4C7]">
                   Tractor Spares Only
                 </span>
               </div>
-              <p className="text-xs text-slate-600 mt-0.5">
-                Dual clutch plates, hydraulic lift pumps, 88Ah heavy batteries &amp; filters available with 6-month yard replacement warranty.
+              <p className="text-xs text-[#6B665F] mt-0.5">
+                Dual clutch plates, hydraulic lift pumps, 88Ah heavy batteries &amp; filters with 6-month warranty.
               </p>
             </div>
           </div>
           <Link
             to="/products?category=spare_part"
-            className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-slate-900 hover:bg-orange-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm"
+            className="taste-btn shrink-0 inline-flex items-center gap-2 bg-[#111111] hover:bg-neutral-800 text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-full transition-all"
           >
-            <span>Browse Tractor Spares Only</span>
+            <span>Browse Spares</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -700,22 +702,22 @@ export const Home = () => {
         <ScrollReveal>
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-6 gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-800 bg-blue-50 px-3.5 py-1 rounded-full mb-2 border border-blue-200">
+              <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#111111] bg-[#EAE3D7] px-3.5 py-1 rounded-full mb-2 border border-[#DCD4C7]">
                 🚗 Commercial &amp; Family Utility Vehicles
               </div>
-              <h2 className="font-heading font-black text-2xl sm:text-3xl text-slate-900">
+              <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#111111]">
                 Verified Pre-Owned Cars &amp; Bolero Pickups
               </h2>
-              <p className="text-xs sm:text-sm text-slate-600 mt-1">
+              <p className="text-xs sm:text-sm text-[#6B665F] mt-1">
                 Top models like Bolero Maxi Truck, Swift, i20, and Nexon with certified single-owner records and clean titles.
               </p>
             </div>
             <Link
               to="/products?category=car"
-              className="taste-btn inline-flex items-center gap-1.5 text-xs sm:text-sm font-extrabold text-blue-600 hover:text-blue-700 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm transition-colors"
+              className="taste-btn inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#111111] hover:bg-[#EAE3D7] bg-white px-5 py-2 rounded-full border border-[#E3DBD0] transition-colors"
             >
               View All Utility Cars
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </ScrollReveal>
@@ -723,7 +725,7 @@ export const Home = () => {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[1, 2, 3].map((n) => (
-              <div key={n} className="h-80 bg-slate-100 rounded-2xl animate-pulse"></div>
+              <div key={n} className="h-80 bg-[#FAF8F5] rounded-2xl animate-pulse"></div>
             ))}
           </div>
         ) : (
@@ -736,31 +738,31 @@ export const Home = () => {
           </div>
         )}
 
-        {/* Car Spare Parts Callout Banner */}
-        <div className="mt-8 p-5 rounded-2xl bg-gradient-to-r from-blue-50 via-white to-indigo-50 border border-blue-200/90 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        {/* Car Spare Parts Callout Banner - Minimalist Supro Card */}
+        <div className="mt-8 p-6 rounded-2xl bg-white border border-[#E3DBD0] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-blue-600/20">
-              <Wrench className="w-6 h-6" />
+            <div className="w-11 h-11 rounded-full bg-[#FAF8F5] text-[#111111] border border-[#E3DBD0] flex items-center justify-center shrink-0">
+              <Wrench className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-heading font-extrabold text-sm sm:text-base text-slate-900">
+                <span className="font-heading font-bold text-sm sm:text-base text-[#111111]">
                   Genuine Spare Parts for Commercial Cars &amp; Bolero Pickups
                 </span>
-                <span className="text-[10px] font-black uppercase tracking-wider bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded-full border border-blue-200">
+                <span className="text-[9px] font-bold uppercase tracking-wider bg-[#EAE3D7] text-[#111111] px-2.5 py-0.5 rounded-full border border-[#DCD4C7]">
                   Car Spares Only
                 </span>
               </div>
-              <p className="text-xs text-slate-600 mt-0.5">
-                Bosch CRDI injectors, ceramic brake pad kits, Garrett turbochargers &amp; suspension bush kits with Balaji testing warranty.
+              <p className="text-xs text-[#6B665F] mt-0.5">
+                Bosch CRDI injectors, ceramic brake pad kits, Garrett turbochargers &amp; suspension bush kits with testing warranty.
               </p>
             </div>
           </div>
           <Link
             to="/products?category=spare_part"
-            className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-slate-900 hover:bg-blue-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm"
+            className="taste-btn shrink-0 inline-flex items-center gap-2 bg-[#111111] hover:bg-neutral-800 text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-full transition-all"
           >
-            <span>Browse Car Spares Only</span>
+            <span>Browse Spares</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -770,13 +772,13 @@ export const Home = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-extrabold text-orange-700 bg-orange-50 px-3.5 py-1 rounded-full uppercase border border-orange-200">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#111111] bg-[#EAE3D7] px-4 py-1.5 rounded-full border border-[#DCD4C7]">
               Clear 4-Step Process
             </span>
-            <h2 className="font-heading font-black text-2xl sm:text-4xl text-slate-900 mt-2">
+            <h2 className="font-heading font-black text-2xl sm:text-4xl text-[#111111] mt-2">
               How Balaji Vehicle Consultancy Works
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600 mt-2">
+            <p className="text-xs sm:text-sm text-[#6B665F] mt-2">
               Whether you are buying or selling, we protect your time and money with complete transparency.
             </p>
           </div>
@@ -806,13 +808,13 @@ export const Home = () => {
             }
           ].map((step, idx) => (
             <ScrollReveal key={step.num} delay={idx * 80}>
-              <div className="taste-card bg-white p-6 rounded-2xl border border-slate-200 text-center relative shadow-sm h-full flex flex-col justify-between">
+              <div className="taste-card bg-white p-6 rounded-2xl border border-[#E3DBD0] text-center relative h-full flex flex-col justify-between">
                 <div>
-                  <div className="w-10 h-10 rounded-full bg-orange-600 text-white font-heading font-black text-sm flex items-center justify-center mx-auto mb-4 shadow-sm shadow-orange-600/30">
+                  <div className="w-10 h-10 rounded-full bg-[#111111] text-white font-heading font-black text-sm flex items-center justify-center mx-auto mb-4">
                     {step.num}
                   </div>
-                  <h4 className="font-heading font-extrabold text-slate-900 text-base mb-1.5">{step.title}</h4>
-                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                  <h4 className="font-heading font-bold text-[#111111] text-base mb-1.5">{step.title}</h4>
+                  <p className="text-xs text-[#6B665F] leading-relaxed font-normal">
                     {step.desc}
                   </p>
                 </div>
@@ -822,19 +824,19 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* 10. REAL CUSTOMER EXPERIENCES (SCROLL REVEAL) */}
-      <section id="customer-reviews" className="bg-white py-16 border-y border-slate-200">
+      {/* 10. REAL CUSTOMER EXPERIENCES (SCROLL REVEAL) - WARM SAND SUPRO WALL */}
+      <section id="customer-reviews" className="bg-[#EFE9DF] py-16 border-y border-[#E3DBD0]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
               <div>
-                <span className="text-xs font-extrabold text-emerald-800 bg-emerald-50 px-3.5 py-1 rounded-full uppercase border border-emerald-200">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#111111] bg-[#FAF8F5] px-3.5 py-1 rounded-full border border-[#E3DBD0]">
                   Verified Customer Testimonials
                 </span>
-                <h2 className="font-heading font-black text-2xl sm:text-4xl text-slate-900 mt-2">
+                <h2 className="font-heading font-black text-2xl sm:text-4xl text-[#111111] mt-2">
                   Trusted by 5,800+ Farmers &amp; Vehicle Owners
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-xl">
+                <p className="text-xs sm:text-sm text-[#6B665F] mt-1 max-w-xl">
                   Real feedback from farmers, transport operators, and families who bought or sold vehicles with Balaji Consultancy.
                 </p>
               </div>
@@ -844,7 +846,7 @@ export const Home = () => {
                 <button
                   type="button"
                   onClick={() => setIsReviewModalOpen(true)}
-                  className="taste-btn inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-extrabold text-xs sm:text-sm px-5 py-3 rounded-xl shadow-md shadow-orange-600/20 transition-all cursor-pointer"
+                  className="taste-btn inline-flex items-center gap-2 bg-[#111111] hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-full transition-all cursor-pointer shadow-none"
                 >
                   <Plus className="w-4 h-4 stroke-[3]" />
                   <span>Write a Customer Review</span>
@@ -855,15 +857,15 @@ export const Home = () => {
 
           {/* Toast Notification when a review is added */}
           {reviewSuccessMsg && (
-            <div className="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs sm:text-sm font-semibold flex items-center justify-between gap-3 shadow-sm animate-fade-in">
+            <div className="mb-6 p-4 rounded-2xl bg-white border border-[#E3DBD0] text-[#111111] text-xs sm:text-sm font-semibold flex items-center justify-between gap-3 animate-fade-in">
               <div className="flex items-center gap-2.5">
-                <CheckCircle className="w-5 h-5 text-emerald-600 shrink-0" />
+                <CheckCircle className="w-5 h-5 text-[#111111] shrink-0" />
                 <span>{reviewSuccessMsg}</span>
               </div>
               <button 
                 type="button"
                 onClick={() => setReviewSuccessMsg('')}
-                className="text-emerald-700 hover:text-emerald-900 text-xs font-bold px-2 py-1 cursor-pointer"
+                className="text-[#6B665F] hover:text-[#111111] text-xs font-bold px-2 py-1 cursor-pointer"
               >
                 ✕
               </button>
@@ -874,17 +876,16 @@ export const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {reviews.map((rev, idx) => {
               const initials = getInitials(rev.name);
-              const colorClass = avatarColors[idx % avatarColors.length];
               const isJustAdded = rev._id === newReviewId;
 
               return (
                 <ScrollReveal key={rev._id || idx} delay={Math.min(idx * 70, 300)}>
-                  <div className={`taste-card bg-slate-50/70 p-6 rounded-2xl border transition-all flex flex-col justify-between h-full relative ${
-                    isJustAdded ? 'border-orange-500 ring-2 ring-orange-500/30 bg-orange-50/20' : 'border-slate-200 shadow-sm'
+                  <div className={`taste-card bg-white p-6 rounded-2xl border transition-all flex flex-col justify-between h-full relative ${
+                    isJustAdded ? 'border-[#111111] ring-2 ring-[#111111]/20' : 'border-[#E3DBD0]'
                   }`}>
                     {isJustAdded && (
-                      <span className="absolute -top-3 right-4 bg-orange-600 text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
-                        <Sparkles className="w-3 h-3 text-amber-300" />
+                      <span className="absolute -top-3 right-4 bg-[#111111] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full flex items-center gap-1">
+                        <Sparkles className="w-3 h-3 text-white" />
                         Just Added
                       </span>
                     )}
@@ -892,35 +893,35 @@ export const Home = () => {
                     <div>
                       {/* Star Rating & Optional Vehicle / Service Badge */}
                       <div className="flex items-center justify-between mb-3">
-                        <div className="flex text-amber-500">
+                        <div className="flex text-[#D97706]">
                           {[...Array(5)].map((_, i) => (
                             <Star 
                               key={i} 
-                              className={`w-4 h-4 ${i < (rev.rating || 5) ? 'fill-current text-amber-500' : 'text-slate-300'}`} 
+                              className={`w-3.5 h-3.5 ${i < (rev.rating || 5) ? 'fill-current text-[#D97706]' : 'text-neutral-200'}`} 
                             />
                           ))}
                         </div>
                         {rev.vehicleOrService && (
-                          <span className="text-[10px] font-bold text-slate-700 bg-white px-2 py-0.5 rounded-md border border-slate-200">
+                          <span className="text-[10px] font-semibold text-[#111111] bg-[#FAF8F5] px-2.5 py-0.5 rounded-full border border-[#E3DBD0]">
                             {rev.vehicleOrService}
                           </span>
                         )}
                       </div>
 
                       {/* Comment */}
-                      <p className="text-xs text-slate-700 leading-relaxed italic font-medium">
+                      <p className="text-xs text-[#555048] leading-relaxed italic font-normal">
                         "{rev.comment}"
                       </p>
                     </div>
 
                     {/* Customer Info */}
-                    <div className="mt-4 pt-4 border-t border-slate-200 flex items-center gap-3">
-                      <div className={`w-10 h-10 rounded-full font-bold flex items-center justify-center text-sm border shrink-0 ${colorClass}`}>
+                    <div className="mt-4 pt-4 border-t border-[#F0EBE3] flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full font-bold flex items-center justify-center text-xs bg-[#FAF8F5] text-[#111111] border border-[#E3DBD0] shrink-0">
                         {initials}
                       </div>
                       <div className="overflow-hidden">
-                        <div className="font-bold text-slate-900 text-xs truncate">{rev.name}</div>
-                        <div className="text-[11px] text-slate-500 truncate">
+                        <div className="font-bold text-[#111111] text-xs truncate">{rev.name}</div>
+                        <div className="text-[11px] text-[#8C857B] truncate">
                           {rev.role}{rev.location ? `, ${rev.location}` : ''}
                         </div>
                       </div>
@@ -936,29 +937,29 @@ export const Home = () => {
       {/* 11. FINAL CALL TO ACTION (SCROLL REVEAL) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <ScrollReveal>
-          <div className="bg-gradient-to-r from-orange-50 via-white to-amber-50 rounded-3xl p-8 sm:p-12 text-slate-900 text-center relative overflow-hidden shadow-sm border border-orange-200/80">
+          <div className="bg-white rounded-3xl p-8 sm:p-14 text-[#111111] text-center relative overflow-hidden border border-[#E3DBD0]">
             <div className="relative z-10 max-w-2xl mx-auto space-y-5">
-              <span className="text-xs font-black text-orange-900 uppercase tracking-widest bg-orange-100/80 border border-orange-200 px-3.5 py-1 rounded-full shadow-sm">
+              <span className="text-[10px] font-bold text-[#111111] uppercase tracking-widest bg-[#EAE3D7] border border-[#DCD4C7] px-4 py-1.5 rounded-full">
                 Get Started Today
               </span>
-              <h2 className="font-heading font-black text-2xl sm:text-4xl text-slate-900">
+              <h2 className="font-heading font-black text-2xl sm:text-4xl text-[#111111]">
                 Ready to Buy, Sell, or Find Genuine Spare Parts?
               </h2>
-              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+              <p className="text-[#6B665F] text-xs sm:text-sm leading-relaxed">
                 Connect with our certified vehicle consultants for immediate valuation, yard visits, or spare parts inquiry across India.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
                 <Link
                   to="/quotation"
-                  className="taste-btn bg-orange-600 hover:bg-orange-700 text-white font-extrabold text-sm px-7 py-3.5 rounded-xl shadow-md shadow-orange-600/20 transition-all"
+                  className="taste-btn bg-[#111111] hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider px-8 py-3.5 rounded-full transition-all shadow-none"
                 >
                   Request Free Quotation
                 </Link>
                 <a
                   href="tel:+918124336369"
-                  className="taste-btn bg-white hover:bg-slate-50 text-slate-800 font-extrabold text-sm px-7 py-3.5 rounded-xl border border-slate-200 shadow-sm transition-all flex items-center gap-2"
+                  className="taste-btn bg-[#FAF8F5] hover:bg-[#EAE3D7] text-[#111111] font-bold text-xs uppercase tracking-wider px-7 py-3.5 rounded-full border border-[#E3DBD0] transition-all flex items-center gap-2"
                 >
-                  <PhoneCall className="w-4 h-4 text-emerald-600" />
+                  <PhoneCall className="w-4 h-4 text-[#111111]" />
                   Call Yard (+91 81243 36369)
                 </a>
               </div>
@@ -970,30 +971,30 @@ export const Home = () => {
       {/* CUSTOMER REVIEW SUBMISSION MODAL */}
       {isReviewModalOpen && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in"
           onClick={() => setIsReviewModalOpen(false)}
         >
           <div 
-            className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-[#E3DBD0] relative max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="flex items-start justify-between pb-4 border-b border-slate-100">
+            <div className="flex items-start justify-between pb-4 border-b border-[#E3DBD0]">
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-orange-600 bg-orange-50 px-2.5 py-0.5 rounded-full border border-orange-200">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#111111] bg-[#EAE3D7] px-3 py-0.5 rounded-full border border-[#DCD4C7]">
                   Customer Feedback
                 </span>
-                <h3 className="font-heading font-black text-xl text-slate-900 mt-1.5">
+                <h3 className="font-heading font-black text-xl text-[#111111] mt-2">
                   Share Your Experience
                 </h3>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <p className="text-xs text-[#6B665F] mt-0.5">
                   Your review will be added directly to our verified customer wall.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setIsReviewModalOpen(false)}
-                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition-colors cursor-pointer"
+                className="w-8 h-8 rounded-full bg-[#FAF8F5] hover:bg-[#EAE3D7] text-[#111111] flex items-center justify-center transition-colors cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -1003,7 +1004,7 @@ export const Home = () => {
             <form onSubmit={handleReviewSubmit} className="space-y-4 pt-4">
               {/* Star Rating Selector */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1.5">
                   Your Rating
                 </label>
                 <div className="flex items-center gap-1.5">
@@ -1015,11 +1016,11 @@ export const Home = () => {
                       className="p-1 hover:scale-125 transition-transform cursor-pointer focus:outline-none"
                     >
                       <Star 
-                        className={`w-7 h-7 ${star <= reviewForm.rating ? 'text-amber-400 fill-amber-400' : 'text-slate-200'}`} 
+                        className={`w-6 h-6 ${star <= reviewForm.rating ? 'text-[#D97706] fill-[#D97706]' : 'text-neutral-200'}`} 
                       />
                     </button>
                   ))}
-                  <span className="text-xs font-bold text-slate-700 ml-2">
+                  <span className="text-xs font-bold text-[#111111] ml-2">
                     {reviewForm.rating} / 5 Stars
                   </span>
                 </div>
@@ -1027,8 +1028,8 @@ export const Home = () => {
 
               {/* Name */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Full Name <span className="text-rose-500">*</span>
+                <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">
+                  Full Name <span className="text-neutral-900">*</span>
                 </label>
                 <input
                   type="text"
@@ -1036,14 +1037,14 @@ export const Home = () => {
                   placeholder="e.g. Ramesh Kumar"
                   value={reviewForm.name}
                   onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })}
-                  className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full text-xs sm:text-sm bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
                 />
               </div>
 
               {/* Role & Location Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">
                     Your Role / Profession
                   </label>
                   <input
@@ -1051,12 +1052,12 @@ export const Home = () => {
                     placeholder="e.g. Sugarcane Farmer, Fleet Owner"
                     value={reviewForm.role}
                     onChange={(e) => setReviewForm({ ...reviewForm, role: e.target.value })}
-                    className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full text-xs sm:text-sm bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">
                     City / District &amp; State
                   </label>
                   <input
@@ -1064,14 +1065,14 @@ export const Home = () => {
                     placeholder="e.g. Salem (Tamil Nadu)"
                     value={reviewForm.location}
                     onChange={(e) => setReviewForm({ ...reviewForm, location: e.target.value })}
-                    className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full text-xs sm:text-sm bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
                   />
                 </div>
               </div>
 
               {/* Vehicle or Service */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">
                   Vehicle Bought / Sold or Service Used (Optional)
                 </label>
                 <input
@@ -1079,14 +1080,14 @@ export const Home = () => {
                   placeholder="e.g. Mahindra 575 DI, Bolero Maxi Truck, Clutch Kit"
                   value={reviewForm.vehicleOrService}
                   onChange={(e) => setReviewForm({ ...reviewForm, vehicleOrService: e.target.value })}
-                  className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full text-xs sm:text-sm bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
                 />
               </div>
 
               {/* Review Comment */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Your Review / Experience <span className="text-rose-500">*</span>
+                <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">
+                  Your Review / Experience <span className="text-neutral-900">*</span>
                 </label>
                 <textarea
                   required
@@ -1094,7 +1095,7 @@ export const Home = () => {
                   placeholder="Share details about vehicle condition, RTO transfer, valuation, or customer service..."
                   value={reviewForm.comment}
                   onChange={(e) => setReviewForm({ ...reviewForm, comment: e.target.value })}
-                  className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 resize-none"
+                  className="w-full text-xs sm:text-sm bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111] resize-none"
                 ></textarea>
               </div>
 
@@ -1103,14 +1104,14 @@ export const Home = () => {
                 <button
                   type="button"
                   onClick={() => setIsReviewModalOpen(false)}
-                  className="taste-btn px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-50 transition-colors cursor-pointer"
+                  className="taste-btn px-5 py-2.5 rounded-full border border-[#E3DBD0] text-[#111111] font-bold text-xs uppercase tracking-wider hover:bg-[#FAF8F5] transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={reviewSubmitting}
-                  className="taste-btn inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-extrabold text-xs sm:text-sm px-6 py-2.5 rounded-xl shadow-md shadow-orange-600/30 transition-all cursor-pointer disabled:opacity-50"
+                  className="taste-btn inline-flex items-center gap-2 bg-[#111111] hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider px-7 py-2.5 rounded-full transition-all cursor-pointer disabled:opacity-50"
                 >
                   {reviewSubmitting ? (
                     <span>Submitting...</span>
@@ -1129,3 +1130,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default Home;

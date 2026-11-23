@@ -44,14 +44,14 @@ export const MobileSideDrawer = ({ isOpen, onClose }) => {
       />
 
       {/* Slide-in Panel from Left */}
-      <div className="fixed inset-y-0 left-0 w-[85%] max-w-xs bg-white shadow-2xl flex flex-col justify-between z-10 transition-transform duration-300 ease-out animate-in slide-in-from-left">
+      <div className="fixed inset-y-0 left-0 w-[85%] max-w-xs bg-[#F5F1EB] shadow-2xl flex flex-col justify-between z-10 transition-transform duration-300 ease-out animate-in slide-in-from-left">
         <div>
           {/* Header */}
-          <div className="p-4 border-b border-slate-200 flex items-center justify-between">
+          <div className="p-4 border-b border-[#E3DBD0] flex items-center justify-between">
             <Logo size="small" showTagline={false} />
             <button
               onClick={onClose}
-              className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100"
+              className="p-2 rounded-full text-[#111111] hover:bg-[#EAE3D7]"
               aria-label="Close menu"
             >
               <X className="w-5 h-5" />
@@ -59,22 +59,22 @@ export const MobileSideDrawer = ({ isOpen, onClose }) => {
           </div>
 
           {/* Quick Categories Bar */}
-          <div className="p-4 border-b border-slate-100 space-y-2 bg-slate-50">
-            <div className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+          <div className="p-4 border-b border-[#E3DBD0] space-y-2 bg-[#FAF8F5]">
+            <div className="text-[10px] uppercase font-bold text-[#8C857B] tracking-wider">
               Browse Categories
             </div>
             <div className="grid grid-cols-2 gap-2">
               <Link
                 to="/products?category=tractor"
                 onClick={onClose}
-                className="flex items-center gap-2 p-2 rounded-xl bg-amber-50 text-amber-900 text-xs font-bold border border-amber-200 hover:bg-amber-100 transition-colors"
+                className="flex items-center gap-2 p-2 rounded-xl bg-white text-[#111111] text-xs font-bold border border-[#E3DBD0] hover:bg-[#EAE3D7] transition-colors"
               >
                 <span>🚜 Tractors</span>
               </Link>
               <Link
                 to="/products?category=car"
                 onClick={onClose}
-                className="flex items-center gap-2 p-2 rounded-xl bg-blue-50 text-blue-900 text-xs font-bold border border-blue-200 hover:bg-blue-100 transition-colors"
+                className="flex items-center gap-2 p-2 rounded-xl bg-white text-[#111111] text-xs font-bold border border-[#E3DBD0] hover:bg-[#EAE3D7] transition-colors"
               >
                 <span>🚗 Cars</span>
               </Link>
@@ -82,10 +82,10 @@ export const MobileSideDrawer = ({ isOpen, onClose }) => {
             <Link
               to="/products?category=spare_part"
               onClick={onClose}
-              className="flex items-center justify-between p-2 rounded-xl bg-emerald-50 text-emerald-900 text-xs font-bold border border-emerald-200 hover:bg-emerald-100 transition-colors"
+              className="flex items-center justify-between p-2 rounded-xl bg-white text-[#111111] text-xs font-bold border border-[#E3DBD0] hover:bg-[#EAE3D7] transition-colors"
             >
               <span>⚙️ Genuine Spare Parts</span>
-              <ChevronRight className="w-3.5 h-3.5" />
+              <ChevronRight className="w-3.5 h-3.5 text-[#111111]" />
             </Link>
           </div>
 
@@ -98,19 +98,19 @@ export const MobileSideDrawer = ({ isOpen, onClose }) => {
                   key={item.path}
                   to={item.path}
                   onClick={onClose}
-                  className={`flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-bold transition-all ${
+                  className={`flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
                     item.highlight
-                      ? 'bg-orange-50 text-orange-600 border border-orange-200'
+                      ? 'bg-[#111111] text-white'
                       : isCurrent(item.path)
-                      ? 'bg-slate-100 text-slate-900 font-extrabold'
-                      : 'text-slate-600 hover:bg-slate-50'
+                      ? 'bg-[#EAE3D7] text-[#111111]'
+                      : 'text-[#6B665F] hover:bg-[#EAE3D7] hover:text-[#111111]'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <IconComponent className={`w-4 h-4 ${isCurrent(item.path) ? 'text-orange-600' : 'text-slate-400'}`} />
+                    <IconComponent className={`w-4 h-4 ${item.highlight ? 'text-white' : isCurrent(item.path) ? 'text-[#111111]' : 'text-[#8C857B]'}`} />
                     <span>{item.label}</span>
                   </div>
-                  <ChevronRight className="w-3 h-3 text-slate-300" />
+                  <ChevronRight className={`w-3 h-3 ${item.highlight ? 'text-white' : 'text-[#8C857B]'}`} />
                 </Link>
               );
             })}

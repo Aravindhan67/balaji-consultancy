@@ -89,24 +89,18 @@ export const Contact = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 bg-[#F8FAFC]">
-      {/* Header Banner - Distinct Lite-Dark Slate Gradient Card */}
-      <div className="bg-gradient-to-br from-[#1E293B] via-[#0F172A] to-[#1E293B] text-white rounded-3xl p-8 sm:p-12 relative overflow-hidden shadow-xl border border-slate-700/60">
-        <div className="absolute -right-10 -bottom-10 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute -left-10 -top-10 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div className="max-w-3xl space-y-3 relative z-10">
-          <div className="inline-flex items-center gap-1.5 text-xs font-black text-amber-950 uppercase tracking-wider bg-gradient-to-r from-amber-300 to-amber-400 px-3.5 py-1.5 rounded-full shadow-md shadow-amber-400/20">
-            <Sparkles className="w-3.5 h-3.5 text-amber-950" />
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 bg-[#F5F1EB] text-[#111111]">
+      {/* Header Banner - Supro Minimalist Editorial Card */}
+      <div className="bg-white text-[#111111] rounded-3xl p-8 sm:p-12 border border-[#E3DBD0]">
+        <div className="max-w-3xl space-y-3">
+          <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#111111] uppercase tracking-wider bg-[#EAE3D7] px-3.5 py-1.5 rounded-full border border-[#DCD4C7]">
+            <Sparkles className="w-3.5 h-3.5 text-[#111111]" />
             Connect With Balaji Consultancy
           </div>
-          <h1 className="font-heading font-black text-2xl sm:text-4xl text-white tracking-tight">
-            Visit Our Yard or{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-300 to-amber-200">
-              Enquire Online
-            </span>
+          <h1 className="font-heading font-black text-3xl sm:text-5xl text-[#111111] tracking-tight">
+            Visit Our Yard or Enquire Online
           </h1>
-          <p className="text-slate-200 text-xs sm:text-sm leading-relaxed font-normal">
+          <p className="text-[#6B665F] text-xs sm:text-sm leading-relaxed font-normal">
             Have questions about a specific tractor, car, or spare part? Need assistance with RTO transfer or valuation? Our team is available 7 days a week.
           </p>
         </div>
@@ -115,26 +109,26 @@ export const Contact = () => {
       {/* Main Grid: Form on Left, Contact Details & Map on Right */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Enquiry Form */}
-        <div className="lg:col-span-7 bg-white p-6 sm:p-10 rounded-3xl border border-slate-200 shadow-sm">
+        <div className="lg:col-span-7 bg-white p-6 sm:p-10 rounded-3xl border border-[#E3DBD0]">
           <div className="mb-6">
-            <h2 className="font-heading font-bold text-slate-900 text-xl">
+            <h2 className="font-heading font-bold text-[#111111] text-xl">
               Send an Enquiry
             </h2>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-[#6B665F] mt-1">
               Submit your inquiry and our vehicle consultant will call you within 15 minutes.
             </p>
           </div>
 
           {submitted ? (
-            <div className="p-8 bg-emerald-50 rounded-2xl border border-emerald-100 text-center space-y-3">
-              <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
-              <h3 className="font-heading font-bold text-slate-900 text-lg">Enquiry Sent Successfully!</h3>
-              <p className="text-xs text-slate-600 max-w-sm mx-auto leading-relaxed">
+            <div className="p-8 bg-[#FAF8F5] rounded-2xl border border-[#E3DBD0] text-center space-y-3">
+              <CheckCircle2 className="w-12 h-12 text-[#111111] mx-auto" />
+              <h3 className="font-heading font-bold text-[#111111] text-lg">Enquiry Sent Successfully!</h3>
+              <p className="text-xs text-[#6B665F] max-w-sm mx-auto leading-relaxed">
                 Thank you for reaching out to Balaji Auto &amp; Agro Consultancy. We have assigned a dedicated consultant to assist you.
               </p>
               <button
                 onClick={() => setSubmitted(false)}
-                className="text-xs font-bold text-orange-600 underline pt-2"
+                className="text-xs font-bold text-[#111111] underline pt-2 uppercase tracking-wider"
               >
                 Send another enquiry
               </button>
@@ -143,7 +137,7 @@ export const Contact = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Your Full Name *</label>
+                  <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">Your Full Name *</label>
                   <input
                     type="text"
                     name="name"
@@ -151,12 +145,12 @@ export const Contact = () => {
                     placeholder="e.g. Anand Sharma"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full text-xs bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Mobile Number (WhatsApp) *</label>
+                  <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">Mobile Number (WhatsApp) *</label>
                   <input
                     type="tel"
                     name="phone"
@@ -164,44 +158,44 @@ export const Contact = () => {
                     placeholder="e.g. 8124336369"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full text-xs bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Email Address (Optional)</label>
+                  <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">Email Address (Optional)</label>
                   <input
                     type="email"
                     name="email"
                     placeholder="e.g. anand@gmail.com"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full text-xs bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">City / District / State</label>
+                  <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">City / District / State</label>
                   <input
                     type="text"
                     name="city"
                     placeholder="e.g. Salem, Tamil Nadu"
                     value={formData.city}
                     onChange={handleChange}
-                    className="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full text-xs bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">What Are You Interested In?</label>
+                <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">What Are You Interested In?</label>
                 <select
                   name="interest"
                   value={formData.interest}
                   onChange={handleChange}
-                  className="w-full text-xs font-semibold bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full text-xs font-semibold bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
                 >
                   <option value="buy_tractor">Buying a Second-Hand Tractor</option>
                   <option value="buy_car">Buying a Pre-Owned Car</option>
@@ -213,7 +207,7 @@ export const Contact = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Your Message or Vehicle Requirement *</label>
+                <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1">Your Message or Vehicle Requirement *</label>
                 <textarea
                   rows="4"
                   name="message"
@@ -221,7 +215,7 @@ export const Contact = () => {
                   placeholder="Tell us what model you are looking for, your budget range, or specific tractor/car specifications..."
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full text-xs bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl p-3 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111] resize-none"
                 ></textarea>
               </div>
 
@@ -235,10 +229,10 @@ export const Contact = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm py-3.5 rounded-xl shadow-md shadow-orange-600/20 transition-all flex items-center justify-center gap-2"
+                className="w-full bg-[#111111] hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider py-3.5 rounded-full transition-all flex items-center justify-center gap-2 shadow-none"
               >
                 <Send className="w-4 h-4" />
-                {submitting ? 'Submitting Enquiry...' : 'Submit Enquiry to Balaji Team'}
+                {submitting ? 'Submitting Enquiry...' : 'Submit Enquiry'}
               </button>
             </form>
           )}
@@ -246,19 +240,19 @@ export const Contact = () => {
 
         {/* Contact Info & Yard Location on Right */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
-            <h3 className="font-heading font-bold text-slate-900 text-lg pb-3 border-b border-slate-100">
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E3DBD0] space-y-6">
+            <h3 className="font-heading font-bold text-[#111111] text-base uppercase tracking-wider pb-3 border-b border-[#E3DBD0]">
               Balaji Consultation Yard
             </h3>
 
             <div className="space-y-4">
               <div className="flex items-start gap-3.5">
-                <div className="p-2.5 rounded-xl bg-orange-50 text-orange-600 border border-orange-100 flex-shrink-0">
+                <div className="p-2.5 rounded-full bg-[#FAF8F5] text-[#111111] border border-[#E3DBD0] flex-shrink-0">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-slate-900">Physical Yard &amp; Office Address</div>
-                  <p className="text-xs text-slate-600 leading-relaxed mt-1">
+                  <div className="text-xs font-bold text-[#111111]">Physical Yard &amp; Office Address</div>
+                  <p className="text-xs text-[#6B665F] leading-relaxed mt-1">
                     Balaji Auto &amp; Agro Consultancy Complex,<br />
                     National Highway Bypass (Opp. Agricultural Mandi),<br />
                     Salem - 636005, Tamil Nadu, India.
@@ -267,13 +261,13 @@ export const Contact = () => {
               </div>
 
               <div className="flex items-start gap-3.5">
-                <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex-shrink-0">
+                <div className="p-2.5 rounded-full bg-[#FAF8F5] text-[#111111] border border-[#E3DBD0] flex-shrink-0">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-slate-900">Direct Consultant Desk</div>
-                  <p className="text-xs text-slate-600 mt-1">
-                    <a href="tel:+918124336369" className="hover:text-orange-600 font-semibold">
+                  <div className="text-xs font-bold text-[#111111]">Direct Consultant Desk</div>
+                  <p className="text-xs text-[#6B665F] mt-1">
+                    <a href="tel:+918124336369" className="hover:text-[#111111] font-semibold">
                       +91 81243 36369
                     </a>
                   </p>
@@ -281,12 +275,12 @@ export const Contact = () => {
               </div>
 
               <div className="flex items-start gap-3.5">
-                <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex-shrink-0">
+                <div className="p-2.5 rounded-full bg-[#FAF8F5] text-[#111111] border border-[#E3DBD0] flex-shrink-0">
                   <Clock className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-slate-900">Inspection Yard Timings</div>
-                  <p className="text-xs text-slate-600 mt-1">
+                  <div className="text-xs font-bold text-[#111111]">Inspection Yard Timings</div>
+                  <p className="text-xs text-[#6B665F] mt-1">
                     Monday to Sunday (All 7 Days Open)<br />
                     9:00 AM to 8:00 PM IST
                   </p>
@@ -294,12 +288,12 @@ export const Contact = () => {
               </div>
 
               <div className="flex items-start gap-3.5">
-                <div className="p-2.5 rounded-xl bg-purple-50 text-purple-600 border border-purple-100 flex-shrink-0">
+                <div className="p-2.5 rounded-full bg-[#FAF8F5] text-[#111111] border border-[#E3DBD0] flex-shrink-0">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-slate-900">Email Desk</div>
-                  <p className="text-xs text-slate-600 mt-1">
+                  <div className="text-xs font-bold text-[#111111]">Email Desk</div>
+                  <p className="text-xs text-[#6B665F] mt-1">
                     enquiry@balajiconsultancy.com
                   </p>
                 </div>
@@ -307,16 +301,16 @@ export const Contact = () => {
             </div>
 
             {/* Direct WhatsApp Callout */}
-            <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-100 flex items-center justify-between">
+            <div className="p-4 bg-[#FAF8F5] rounded-2xl border border-[#E3DBD0] flex items-center justify-between">
               <div>
-                <div className="text-xs font-bold text-emerald-900">Instant WhatsApp Support</div>
-                <div className="text-[11px] text-emerald-700">Chat directly with senior vehicle evaluator</div>
+                <div className="text-xs font-bold text-[#111111]">Instant WhatsApp Support</div>
+                <div className="text-[11px] text-[#6B665F]">Chat directly with senior vehicle evaluator</div>
               </div>
               <a
                 href="https://wa.me/918124336369?text=Hello%20Balaji%20Consultancy!%20I%20would%20like%20to%20enquire%20about%20your%20services."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#25D366] hover:bg-[#20ba59] text-white p-2.5 rounded-xl shadow-sm transition-colors"
+                className="bg-[#111111] hover:bg-neutral-800 text-white p-2.5 rounded-full transition-colors"
               >
                 <MessageSquare className="w-4 h-4 fill-current" />
               </a>
@@ -326,36 +320,36 @@ export const Contact = () => {
       </div>
 
       {/* Frequently Asked Questions */}
-      <section className="bg-white p-8 sm:p-12 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+      <section className="bg-white p-8 sm:p-12 rounded-3xl border border-[#E3DBD0] space-y-6">
         <div className="text-center max-w-2xl mx-auto mb-8">
-          <span className="text-xs font-bold text-orange-700 bg-orange-50 px-3.5 py-1 rounded-full uppercase border border-orange-200">
+          <span className="text-[10px] font-bold text-[#111111] bg-[#EAE3D7] px-3.5 py-1 rounded-full uppercase tracking-wider border border-[#DCD4C7]">
             Clarifications
           </span>
-          <h2 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 mt-2">
+          <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#111111] mt-2">
             Frequently Asked Questions
           </h2>
-          <p className="text-xs text-slate-500 mt-1">Everything you need to know about purchasing or selling through Balaji</p>
+          <p className="text-xs text-[#6B665F] mt-1">Everything you need to know about purchasing or selling through Balaji</p>
         </div>
 
         <div className="max-w-3xl mx-auto space-y-3">
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="border border-slate-200 rounded-2xl overflow-hidden transition-all bg-slate-50/50"
+              className="border border-[#E3DBD0] rounded-2xl overflow-hidden transition-all bg-[#FAF8F5]"
             >
               <button
                 onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                className="w-full p-4 text-left font-bold text-xs sm:text-sm text-slate-900 flex items-center justify-between gap-4 hover:bg-slate-100/70 transition-colors"
+                className="w-full p-4 text-left font-bold text-xs sm:text-sm text-[#111111] flex items-center justify-between gap-4 hover:bg-[#EAE3D7] transition-colors"
               >
                 <span>{faq.q}</span>
                 <ChevronDown
-                  className={`w-4 h-4 text-orange-600 transition-transform duration-200 flex-shrink-0 ${
+                  className={`w-4 h-4 text-[#111111] transition-transform duration-200 flex-shrink-0 ${
                     openFaq === index ? 'rotate-180' : ''
                   }`}
                 />
               </button>
               {openFaq === index && (
-                <div className="p-4 pt-1 text-xs text-slate-600 leading-relaxed border-t border-slate-100 bg-white">
+                <div className="p-4 pt-1 text-xs text-[#6B665F] leading-relaxed border-t border-[#E3DBD0] bg-white">
                   {faq.a}
                 </div>
               )}
@@ -366,3 +360,5 @@ export const Contact = () => {
     </div>
   );
 };
+
+export default Contact;

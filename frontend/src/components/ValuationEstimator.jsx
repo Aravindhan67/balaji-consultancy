@@ -56,16 +56,16 @@ export function ValuationEstimator() {
   const { estimated, low, high } = calculateEstimate();
 
   return (
-    <div className="bg-white rounded-3xl border border-slate-200/90 shadow-xl shadow-slate-200/60 p-6 sm:p-10">
+    <div className="bg-white rounded-3xl border border-[#E3DBD0] p-6 sm:p-10">
       <div className="max-w-3xl mx-auto text-center mb-8">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-50 text-orange-700 text-xs font-bold border border-orange-200 mb-3">
-          <Calculator className="w-4 h-4 text-orange-600" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAE3D7] text-[#111111] text-[11px] font-bold uppercase tracking-wider border border-[#DCD4C7] mb-3">
+          <Calculator className="w-3.5 h-3.5 text-[#111111]" />
           <span>Transparent Pricing Algorithm</span>
         </div>
-        <h3 className="font-heading font-extrabold text-2xl sm:text-4xl text-slate-900 tracking-tight">
+        <h3 className="font-heading font-black text-2xl sm:text-4xl text-[#111111] tracking-tight">
           Instant Fair Market Valuation Calculator
         </h3>
-        <p className="text-xs sm:text-sm text-slate-600 mt-2">
+        <p className="text-xs sm:text-sm text-[#6B665F] mt-2">
           Calculate the authentic resale value of your tractor or car based on real market demand and yard transaction records.
         </p>
       </div>
@@ -75,7 +75,7 @@ export function ValuationEstimator() {
         <div className="lg:col-span-7 space-y-4">
           {/* Type Selector */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-2">Select Vehicle Type</label>
+            <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-2">Select Vehicle Type</label>
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
@@ -83,10 +83,10 @@ export function ValuationEstimator() {
                   setVehicleType('tractor');
                   setBrand('Mahindra');
                 }}
-                className={`py-3 px-4 rounded-xl text-xs font-extrabold border transition-all ${
+                className={`py-3 px-4 rounded-full text-xs font-bold uppercase tracking-wider border transition-all ${
                   vehicleType === 'tractor'
-                    ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
-                    : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                    ? 'bg-[#111111] text-white border-neutral-900 shadow-none'
+                    : 'bg-[#FAF8F5] text-[#111111] border-[#E3DBD0] hover:bg-[#EAE3D7]'
                 }`}
               >
                 🚜 Agricultural Tractor
@@ -97,10 +97,10 @@ export function ValuationEstimator() {
                   setVehicleType('car');
                   setBrand('Maruti Suzuki');
                 }}
-                className={`py-3 px-4 rounded-xl text-xs font-extrabold border transition-all ${
+                className={`py-3 px-4 rounded-full text-xs font-bold uppercase tracking-wider border transition-all ${
                   vehicleType === 'car'
-                    ? 'bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-600/20'
-                    : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                    ? 'bg-[#111111] text-white border-neutral-900 shadow-none'
+                    : 'bg-[#FAF8F5] text-[#111111] border-[#E3DBD0] hover:bg-[#EAE3D7]'
                 }`}
               >
                 🚗 Car / Bolero Utility
@@ -111,11 +111,11 @@ export function ValuationEstimator() {
           {/* Brand & Model Year */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">Manufacturer Brand</label>
+              <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1.5">Manufacturer Brand</label>
               <select
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
-                className="w-full text-xs font-semibold bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-3 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full text-xs font-semibold bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-3 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
               >
                 {vehicleType === 'tractor' ? (
                   <>
@@ -138,11 +138,11 @@ export function ValuationEstimator() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">Registration Model Year</label>
+              <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1.5">Registration Model Year</label>
               <select
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
-                className="w-full text-xs font-semibold bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-3 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full text-xs font-semibold bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3.5 py-3 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
               >
                 <option value="2024">2024 (Almost New)</option>
                 <option value="2023">2023</option>
@@ -157,7 +157,7 @@ export function ValuationEstimator() {
 
           {/* Condition Selector */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-1.5">Mechanical Condition</label>
+            <label className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1.5">Mechanical Condition</label>
             <div className="grid grid-cols-3 gap-2">
               {[
                 { id: 'excellent', label: 'Mint / Single Owner' },
@@ -168,10 +168,10 @@ export function ValuationEstimator() {
                   key={c.id}
                   type="button"
                   onClick={() => setCondition(c.id)}
-                  className={`py-2 px-2.5 text-[11px] font-bold rounded-xl border text-center transition-all ${
+                  className={`py-2 px-2.5 text-[11px] font-bold rounded-full border text-center transition-all ${
                     condition === c.id
-                      ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                      ? 'bg-[#111111] text-white border-neutral-900 shadow-none'
+                      : 'bg-[#FAF8F5] text-[#111111] border-[#E3DBD0] hover:bg-[#EAE3D7]'
                   }`}
                 >
                   {c.label}
@@ -182,34 +182,34 @@ export function ValuationEstimator() {
         </div>
 
         {/* Live Calculation Display Card */}
-        <div className="lg:col-span-5 bg-gradient-to-br from-orange-50/60 via-amber-50/40 to-white rounded-2xl p-6 sm:p-7 border border-orange-200/90 shadow-md">
-          <div className="flex items-center justify-between pb-3 border-b border-orange-200/70">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-orange-900">
+        <div className="lg:col-span-5 bg-[#FAF8F5] rounded-2xl p-6 sm:p-7 border border-[#E3DBD0]">
+          <div className="flex items-center justify-between pb-3 border-b border-[#E3DBD0]">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#111111]">
               Estimated Yard Resale Range
             </span>
-            <span className="inline-flex items-center gap-1 text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full border border-emerald-300">
-              <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+            <span className="inline-flex items-center gap-1 text-[10px] font-bold bg-[#EAE3D7] text-[#111111] px-2.5 py-0.5 rounded-full border border-[#DCD4C7]">
+              <CheckCircle2 className="w-3 h-3 text-[#111111]" />
               Live Market Rate
             </span>
           </div>
 
           <div className="my-5 text-center">
-            <div className="text-[11px] text-slate-500 font-medium">Average Expected Valuation</div>
-            <div className="font-heading font-black text-3xl sm:text-4xl text-slate-950 mt-1 tracking-tight">
+            <div className="text-[11px] text-[#6B665F] font-medium uppercase tracking-wider">Average Expected Valuation</div>
+            <div className="font-heading font-black text-3xl sm:text-4xl text-[#111111] mt-1 tracking-tight">
               {formatINR(estimated)}
             </div>
-            <div className="text-xs text-slate-600 mt-2 font-semibold">
-              Fair Band: <span className="text-orange-700">{formatINR(low, false)}</span> - <span className="text-emerald-700">{formatINR(high, false)}</span>
+            <div className="text-xs text-[#6B665F] mt-2 font-medium">
+              Fair Band: <span className="font-bold text-[#111111]">{formatINR(low, false)}</span> - <span className="font-bold text-[#111111]">{formatINR(high, false)}</span>
             </div>
           </div>
 
-          <div className="space-y-2 text-xs text-slate-600 border-t border-orange-200/70 pt-4 mb-6">
+          <div className="space-y-2 text-xs text-[#6B665F] border-t border-[#E3DBD0] pt-4 mb-6">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+              <ShieldCheck className="w-4 h-4 text-[#111111] shrink-0" />
               <span>Includes Free RTO Ownership Transfer</span>
             </div>
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-orange-600 shrink-0" />
+              <Sparkles className="w-4 h-4 text-[#111111] shrink-0" />
               <span>Immediate Spot Cash Payment on Agreement</span>
             </div>
           </div>
@@ -217,7 +217,7 @@ export function ValuationEstimator() {
           <div className="space-y-2.5">
             <Link
               to={`/quotation?type=${vehicleType}&brand=${brand}&year=${year}`}
-              className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs py-3 rounded-xl transition-all shadow-md shadow-orange-600/25 flex items-center justify-center gap-1.5"
+              className="w-full bg-[#111111] hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider py-3.5 rounded-full transition-all flex items-center justify-center gap-2 shadow-none"
             >
               Lock in Official Free Valuation
               <ArrowRight className="w-3.5 h-3.5" />
@@ -226,9 +226,9 @@ export function ValuationEstimator() {
               href="https://wa.me/918124336369?text=Hello%20Balaji%20Consultancy!%20I%20checked%20the%20online%20valuation%20for%20my%20vehicle%20and%20want%20to%20sell%20or%20get%20inspected."
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs py-2.5 rounded-xl border border-slate-200 flex items-center justify-center gap-1.5 transition-colors"
+              className="w-full bg-white hover:bg-[#EAE3D7] text-[#111111] font-bold text-xs uppercase tracking-wider py-3 rounded-full border border-[#E3DBD0] flex items-center justify-center gap-2 transition-colors"
             >
-              <PhoneCall className="w-3.5 h-3.5 text-emerald-600" />
+              <PhoneCall className="w-3.5 h-3.5 text-[#111111]" />
               Discuss Directly on WhatsApp
             </a>
           </div>

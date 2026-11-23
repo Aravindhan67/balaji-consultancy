@@ -21,7 +21,7 @@ export const Navbar = ({ onOpenSideDrawer }) => {
   };
 
   return (
-    <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/80 transition-all shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
+    <header className="sticky top-0 z-30 bg-[#F5F1EB]/95 backdrop-blur-md border-b border-[#E3DBD0] transition-all">
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 gap-4">
@@ -30,16 +30,16 @@ export const Navbar = ({ onOpenSideDrawer }) => {
             <Logo size="normal" showTagline={true} />
           </div>
 
-          {/* Desktop Nav Links - Single Line Aligned (No Vertical Wrapping) */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-2 shrink-0">
+          {/* Desktop Nav Links - Single Line Aligned (Minimalist Supro Pills) */}
+          <nav className="hidden lg:flex items-center gap-1.5 shrink-0">
             {navLinks.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`whitespace-nowrap px-3 xl:px-3.5 py-2 rounded-xl text-xs xl:text-sm transition-all duration-200 shrink-0 ${
+                className={`whitespace-nowrap px-4 py-2 rounded-full text-xs xl:text-sm transition-all duration-200 shrink-0 ${
                   isActive(item.path)
-                    ? 'bg-slate-100 text-slate-900 font-bold shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 font-semibold'
+                    ? 'bg-[#111111] text-white font-semibold shadow-none'
+                    : 'text-[#6B665F] hover:text-[#111111] hover:bg-[#EAE3D7]/70 font-medium'
                 }`}
               >
                 {item.label}
@@ -51,13 +51,13 @@ export const Navbar = ({ onOpenSideDrawer }) => {
           <div className="hidden sm:flex items-center gap-3 shrink-0">
             <a
               href="tel:+918124336369"
-              className="flex items-center gap-2 text-xs xl:text-sm font-bold text-slate-700 hover:text-orange-600 bg-slate-50 hover:bg-slate-100 px-3.5 py-2 rounded-xl border border-slate-200 transition-colors whitespace-nowrap shrink-0"
+              className="taste-btn flex items-center gap-2 text-xs xl:text-sm font-semibold text-white bg-[#111111] hover:bg-neutral-800 px-4 py-2 rounded-full border border-neutral-900 transition-all whitespace-nowrap shrink-0 shadow-none tracking-wide"
               title="Direct Yard Call"
             >
-              <div className="w-7 h-7 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                <PhoneCall className="w-3.5 h-3.5" />
+              <div className="w-5 h-5 rounded-full bg-white/15 text-white flex items-center justify-center shrink-0">
+                <PhoneCall className="w-3 h-3 text-white" />
               </div>
-              <span className="whitespace-nowrap font-bold">+91 81243 36369</span>
+              <span className="whitespace-nowrap font-semibold">+91 81243 36369</span>
             </a>
           </div>
 
@@ -65,10 +65,10 @@ export const Navbar = ({ onOpenSideDrawer }) => {
           <div className="flex lg:hidden">
             <button
               onClick={onOpenSideDrawer}
-              className="p-2.5 rounded-xl text-slate-700 hover:bg-slate-100 focus:outline-none transition-colors border border-slate-200"
+              className="p-2.5 rounded-full text-[#111111] hover:bg-[#EAE3D7] focus:outline-none transition-colors border border-[#E3DBD0]"
               aria-label="Open side navigation menu"
             >
-              <Menu className="w-5 h-5 text-slate-800" />
+              <Menu className="w-5 h-5 text-[#111111]" />
             </button>
           </div>
         </div>
