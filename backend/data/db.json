@@ -159,36 +159,6 @@
       "updatedAt": "2026-11-14T10:23:10.165Z"
     },
     {
-      "_id": "prod_6",
-      "title": "Eicher 380 Super DI (40 HP)",
-      "category": "tractor",
-      "subCategory": "second_hand_vehicle",
-      "brand": "Eicher",
-      "modelYear": 2019,
-      "price": 320000,
-      "condition": "Good",
-      "kmOrHours": "2,800 Hours",
-      "fuelType": "Diesel",
-      "rtoPassing": "RJ-14 Jaipur",
-      "ownership": "2nd Owner",
-      "hpPower": "40 HP",
-      "images": [
-        "/uploads/tractor-eicher-380.jpg"
-      ],
-      "featured": false,
-      "status": "available",
-      "description": "Budget-friendly, highly reliable Eicher 380 Super DI. Extremely low maintenance cost, air-cooled 3-cylinder engine, very popular for small to medium farmers and brick kiln transport.",
-      "specs": {
-        "Horsepower": "40 HP",
-        "Cooling": "Air Cooled",
-        "Clutch": "Single / Dual Plate",
-        "Mileage": "Best-in-class low fuel consumption"
-      },
-      "location": "Balaji Yard",
-      "createdAt": "2026-11-14T10:23:10.165Z",
-      "updatedAt": "2026-11-14T10:23:10.165Z"
-    },
-    {
       "_id": "prod_7",
       "title": "Maruti Suzuki Swift VXI BS6 (Petrol)",
       "category": "car",
@@ -563,6 +533,32 @@
       "location": "Balaji Spares Warehouse",
       "createdAt": "2026-11-14T10:23:10.165Z",
       "updatedAt": "2026-11-14T10:23:10.165Z"
+    },
+    {
+      "_id": "prod_1795428684831",
+      "title": "maa",
+      "category": "tractor",
+      "subCategory": "second_hand_vehicle",
+      "brand": "Mahindra",
+      "modelYear": 2021,
+      "price": 12345678,
+      "condition": "Excellent",
+      "kmOrHours": "123456",
+      "fuelType": "Diesel",
+      "rtoPassing": "Verified All-India NOC",
+      "ownership": "1st Owner",
+      "hpPower": "45 HP",
+      "description": "",
+      "location": "Balaji Yard, Tamil Nadu",
+      "status": "available",
+      "images": [
+        "/uploads/whatsapp-image-2026-11-20-at-10-19-14-pm-1795428667783-922413619.jpeg",
+        "/uploads/whatsapp-image-2026-11-20-at-9-13-09-pm-1795428671893-508978871.jpeg",
+        "/uploads/tra-1795428676160-421087625.png",
+        "/uploads/ppt-1795428682155-807430524.jpeg"
+      ],
+      "createdAt": "2026-11-23T10:11:24.831Z",
+      "updatedAt": "2026-11-23T10:12:56.573Z"
     }
   ],
   "enquiries": [

@@ -20,7 +20,7 @@ export const Products = () => {
   const [brand, setBrand] = useState(urlBrand);
   const [searchQuery, setSearchQuery] = useState(urlSearch);
   const [sortBy, setSortBy] = useState('newest');
-  const [priceMax, setPriceMax] = useState(1600000);
+  const [priceMax, setPriceMax] = useState(null); // null means all budgets, dynamic cap
 
   // Sync state when URL searchParams change (e.g. Back/Forward navigation or search from Home)
   useEffect(() => {
@@ -95,21 +95,55 @@ export const Products = () => {
     setBrand('all');
     setSearchQuery('');
     setSortBy('newest');
-    setPriceMax(1600000);
+    setPriceMax(null);
     setSearchParams(new URLSearchParams());
   };
 
   // Safe array operations
   const safeProducts = Array.isArray(products) ? products : [];
 
+  // Calculate dynamic maximum price from catalog (default minimum 16 Lakh)
+  const maxCatalogPrice = Math.max(
+    1600000,
+    ...safeProducts.map((p) => {
+      const val = Number(p?.price);
+      return !isNaN(val) && val > 0 ? val : 0;
+    })
+  );
+
   const filteredProducts = safeProducts
-    .filter((p) => p && (p.price === undefined || p.price <= priceMax))
+    .filter((p) => {
+      if (!p) return false;
+      if (priceMax !== null && priceMax < maxCatalogPrice) {
+        const pPrice = Number(p.price);
+        if (!isNaN(pPrice) && pPrice > priceMax) return false;
+      }
+      return true;
+    })
     .sort((a, b) => {
       if (sortBy === 'price-low') return (a.price || 0) - (b.price || 0);
       if (sortBy === 'price-high') return (b.price || 0) - (a.price || 0);
       if (sortBy === 'year-new') return (b.modelYear || 0) - (a.modelYear || 0);
       return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
     });
+
+  const availableBrands = Array.from(
+    new Set([
+      'Mahindra',
+      'Swaraj',
+      'John Deere',
+      'Sonalika',
+      'Massey Ferguson',
+      'Eicher',
+      'Maruti Suzuki',
+      'Hyundai',
+      'Tata',
+      'Toyota',
+      'Bosch India',
+      'Exide Industries',
+      ...safeProducts.map((p) => p?.brand).filter(Boolean)
+    ])
+  );
 
   const categories = [
     { id: 'all', label: 'All Inventory', count: safeProducts.length },
@@ -198,18 +232,9 @@ export const Products = () => {
               className="w-full text-xs font-semibold bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-3 py-2.5 text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"
             >
               <option value="all">All Brands</option>
-              <option value="Mahindra">Mahindra</option>
-              <option value="Swaraj">Swaraj</option>
-              <option value="John Deere">John Deere</option>
-              <option value="Sonalika">Sonalika</option>
-              <option value="Massey Ferguson">Massey Ferguson</option>
-              <option value="Eicher">Eicher</option>
-              <option value="Maruti Suzuki">Maruti Suzuki</option>
-              <option value="Hyundai">Hyundai</option>
-              <option value="Tata">Tata Motors</option>
-              <option value="Toyota">Toyota</option>
-              <option value="Bosch India">Bosch India</option>
-              <option value="Exide Industries">Exide</option>
+              {availableBrands.map((b) => (
+                <option key={b} value={b}>{b}</option>
+              ))}
             </select>
           </div>
 
@@ -217,20 +242,25 @@ export const Products = () => {
           <div>
             <div className="flex justify-between text-xs font-bold text-[#111111] mb-1.5">
               <span>Max Budget:</span>
-              <span className="font-extrabold text-[#111111]">{formatINR(priceMax)}</span>
+              <span className="font-extrabold text-[#111111]">
+                {priceMax === null || priceMax >= maxCatalogPrice ? 'All Budgets' : formatINR(priceMax)}
+              </span>
             </div>
             <input
               type="range"
               min="2000"
-              max="1600000"
-              step="10000"
-              value={priceMax}
-              onChange={(e) => setPriceMax(Number(e.target.value))}
+              max={maxCatalogPrice}
+              step={maxCatalogPrice > 5000000 ? 50000 : 10000}
+              value={priceMax === null ? maxCatalogPrice : priceMax}
+              onChange={(e) => {
+                const val = Number(e.target.value);
+                setPriceMax(val >= maxCatalogPrice ? null : val);
+              }}
               className="w-full accent-[#2E7D32] cursor-pointer"
             />
             <div className="flex justify-between text-[10px] text-[#8C857B] mt-1">
               <span>₹2,000 (Spares)</span>
-              <span>₹16 Lakh (Vehicles)</span>
+              <span>{formatINR(maxCatalogPrice)} (Max)</span>
             </div>
           </div>
 

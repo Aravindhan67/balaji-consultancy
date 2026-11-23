@@ -54,6 +54,7 @@ export const AdminDashboard = () => {
     hpPower: '',
     description: '',
     location: 'Balaji Yard, Tamil Nadu',
+    status: 'available',
     images: []
   });
 
@@ -109,6 +110,7 @@ export const AdminDashboard = () => {
       hpPower: '45 HP',
       description: '',
       location: 'Balaji Yard, Tamil Nadu',
+      status: 'available',
       images: []
     });
     setShowProductModal(true);
@@ -131,6 +133,7 @@ export const AdminDashboard = () => {
       hpPower: prod.hpPower || '',
       description: prod.description || '',
       location: prod.location || 'Balaji Yard, Tamil Nadu',
+      status: prod.status || 'available',
       images: prod.images || []
     });
     setShowProductModal(true);
@@ -251,6 +254,7 @@ export const AdminDashboard = () => {
     try {
       const payload = {
         ...productForm,
+        status: productForm.status || 'available',
         price: Number(productForm.price),
         modelYear: Number(productForm.modelYear)
       };
@@ -493,9 +497,9 @@ export const AdminDashboard = () => {
                       </td>
                       <td className="py-3 px-4">
                         <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                          prod.status === 'available' ? 'bg-blue-100 text-blue-800' : 'bg-slate-200 text-slate-700'
+                          (prod.status || 'available') === 'available' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-700'
                         }`}>
-                          {prod.status}
+                          {prod.status || 'available'}
                         </span>
                       </td>
                       <td className="py-3 px-4 text-right space-x-2">

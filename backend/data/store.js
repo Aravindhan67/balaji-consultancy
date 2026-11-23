@@ -182,11 +182,15 @@ export const DataStore = {
 
   async createProduct(data) {
     if (isMongoConnected()) {
-      const prod = new Product(data);
+      const prod = new Product({
+        status: data.status || 'available',
+        ...data
+      });
       return await prod.save();
     }
     const newProd = {
       _id: `prod_${Date.now()}`,
+      status: data.status || 'available',
       ...data,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
@@ -205,6 +209,7 @@ export const DataStore = {
     fileDb.products[index] = {
       ...fileDb.products[index],
       ...data,
+      status: data.status || fileDb.products[index].status || 'available',
       updatedAt: new Date().toISOString()
     };
     saveFallbackDb();
