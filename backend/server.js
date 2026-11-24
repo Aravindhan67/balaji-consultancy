@@ -113,12 +113,22 @@ if (fs.existsSync(frontendDist)) {
 
 // Start Server
 connectDB().then(() => {
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`=======================================================`);
     console.log(`🚜 Balaji Auto & Agro Consultancy Backend Active!`);
     console.log(`🌐 Port: ${PORT}`);
     console.log(`🔗 Allowed Client: https://balaji-consultancy.vercel.app`);
     console.log(`📸 Image Storage: /uploads/`);
     console.log(`=======================================================`);
+  });
+
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.warn(`\n⚠️  Port ${PORT} is already in use by another process.`);
+      console.warn(`👉 A backend instance is already running on http://localhost:${PORT}`);
+      console.warn(`👉 To free the port on Windows PowerShell, run:\n   Stop-Process -Id (Get-NetTCPConnection -LocalPort ${PORT}).OwningProcess -Force\n`);
+    } else {
+      console.error('Server error:', err);
+    }
   });
 });
