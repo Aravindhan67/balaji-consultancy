@@ -72,17 +72,10 @@ function AppContent() {
 }
 
 export function App() {
-  // Only display preloader on first session visit to prevent reload lockups
-  const [loading, setLoading] = useState(() => {
-    return !sessionStorage.getItem('balaji_visited');
-  });
+  // Display preloader on initial load and every page refresh
+  const [loading, setLoading] = useState(true);
 
   const handleFinishPreloader = () => {
-    try {
-      sessionStorage.setItem('balaji_visited', 'true');
-    } catch (e) {
-      // ignore storage errors in restricted contexts
-    }
     setLoading(false);
   };
 
