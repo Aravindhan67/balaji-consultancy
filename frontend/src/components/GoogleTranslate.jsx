@@ -14,6 +14,26 @@ export const INDIAN_LANGUAGES = [
   { code: 'bn', name: 'Bengali', native: 'বাংলা', flag: '🌾' }
 ];
 
+export const OTHER_LANGUAGES = [
+  { code: 'ur', name: 'Urdu', native: 'اردو' },
+  { code: 'or', name: 'Odia', native: 'ଓଡ଼ିଆ' },
+  { code: 'as', name: 'Assamese', native: 'অসমীয়া' },
+  { code: 'ne', name: 'Nepali', native: 'नेपाली' },
+  { code: 'ar', name: 'Arabic', native: 'العربية' },
+  { code: 'es', name: 'Spanish', native: 'Español' },
+  { code: 'fr', name: 'French', native: 'Français' },
+  { code: 'de', name: 'German', native: 'Deutsch' },
+  { code: 'ru', name: 'Russian', native: 'Русский' },
+  { code: 'zh-CN', name: 'Chinese', native: '中文' },
+  { code: 'ja', name: 'Japanese', native: '日本語' },
+  { code: 'pt', name: 'Portuguese', native: 'Português' },
+  { code: 'id', name: 'Indonesian', native: 'Bahasa Indonesia' },
+  { code: 'ms', name: 'Malay', native: 'Bahasa Melayu' },
+  { code: 'th', name: 'Thai', native: 'ไทย' },
+  { code: 'vi', name: 'Vietnamese', native: 'Tiếng Việt' },
+  { code: 'si', name: 'Sinhala', native: 'සිංහල' }
+];
+
 export const setSiteLanguage = (langCode) => {
   const cookieValue = `/en/${langCode}`;
   const domain = window.location.hostname;
@@ -63,25 +83,27 @@ export const GoogleTranslate = ({ variant = 'topbar', className = '' }) => {
     setSiteLanguage(code);
   };
 
-  const activeLang = INDIAN_LANGUAGES.find((l) => l.code === currentLang) || {
-    code: currentLang,
-    name: currentLang.toUpperCase(),
-    native: currentLang.toUpperCase()
-  };
+  const activeLang = 
+    INDIAN_LANGUAGES.find((l) => l.code === currentLang) || 
+    OTHER_LANGUAGES.find((l) => l.code === currentLang) || {
+      code: currentLang,
+      name: currentLang.toUpperCase(),
+      native: currentLang.toUpperCase()
+    };
 
   // Top Announcement Bar Variant
   if (variant === 'topbar') {
     return (
       <div className={`relative inline-flex items-center gap-2 ${className}`} ref={dropdownRef}>
-        {/* Direct Google Translate Element Container */}
-        <div id="google_translate_element" className="inline-block" />
+        {/* Hidden Google Translate Element to prevent raw Google logo and white box */}
+        <div id="google_translate_element" className="sr-only" aria-hidden="true" />
 
         {/* Quick Language Dropdown Pill */}
         <button
           type="button"
           onClick={() => setDropdownOpen(!dropdownOpen)}
           className="taste-btn inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/25 text-white text-[11px] font-bold px-3 py-1 rounded-full border border-white/25 transition-all cursor-pointer backdrop-blur-xs"
-          title="Translate Website (Google Translate)"
+          title="Translate Website / மொழியை மாற்றுக"
           aria-expanded={dropdownOpen}
         >
           <Globe className="w-3.5 h-3.5 text-emerald-200" />
@@ -98,16 +120,16 @@ export const GoogleTranslate = ({ variant = 'topbar', className = '' }) => {
                 <span>Language / மொழி</span>
               </div>
               <span className="text-[10px] font-bold text-[#2E7D32] bg-[#EAF3EB] px-2 py-0.5 rounded-full border border-[#C8E0CD]">
-                Google Translate
+                Multi-Language
               </span>
             </div>
 
             <p className="text-[11px] text-[#6B665F] mb-2 leading-tight">
-              Read all tractor specs, prices, and certificates in your regional language.
+              Read all vehicle specs, prices, and certificates in your regional language.
             </p>
 
             {/* Quick Regional Indian Languages */}
-            <div className="grid grid-cols-2 gap-1.5 mb-3 max-h-56 overflow-y-auto pr-1">
+            <div className="grid grid-cols-2 gap-1.5 mb-3 max-h-52 overflow-y-auto pr-1">
               {INDIAN_LANGUAGES.map((l) => (
                 <button
                   key={l.code}
@@ -128,50 +150,23 @@ export const GoogleTranslate = ({ variant = 'topbar', className = '' }) => {
               ))}
             </div>
 
-            <div className="pt-2 border-t border-[#F0EBE3] text-[10px] text-[#8C857B] text-center">
-              Powered by Google Translate • 100+ World Languages Supported
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  // Navbar CTA Variant
-  if (variant === 'navbar') {
-    return (
-      <div className={`relative inline-flex items-center ${className}`} ref={dropdownRef}>
-        <button
-          type="button"
-          onClick={() => setDropdownOpen(!dropdownOpen)}
-          className="taste-btn flex items-center gap-1.5 text-xs font-bold text-[#111111] hover:text-[#2E7D32] bg-[#FAF8F5] hover:bg-[#EAF3EB] px-3 py-2 rounded-full border border-[#E3DBD0] hover:border-[#2E7D32] transition-all cursor-pointer"
-          title="Translate Website / மொழி"
-        >
-          <Globe className="w-3.5 h-3.5 text-[#2E7D32]" />
-          <span>{activeLang.native}</span>
-          <ChevronDown className="w-3 h-3 text-[#8C857B]" />
-        </button>
-
-        {dropdownOpen && (
-          <div className="absolute right-0 top-full mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-[#E3DBD0] p-3 text-[#111111] z-50 text-left">
-            <div className="text-xs font-bold mb-2 flex items-center gap-1.5">
-              <Languages className="w-4 h-4 text-[#2E7D32]" />
-              <span>Choose Language / மொழி</span>
-            </div>
-            <div className="grid grid-cols-2 gap-1 max-h-48 overflow-y-auto">
-              {INDIAN_LANGUAGES.map((l) => (
-                <button
-                  key={l.code}
-                  type="button"
-                  onClick={() => handleLanguageChange(l.code)}
-                  className={`text-left px-2.5 py-1.5 rounded-xl text-xs transition-colors cursor-pointer ${
-                    currentLang === l.code ? 'bg-[#EAF3EB] text-[#2E7D32] font-bold' : 'hover:bg-[#FAF8F5]'
-                  }`}
-                >
-                  <span className="font-semibold block">{l.native}</span>
-                  <span className="text-[10px] text-[#8C857B]">{l.name}</span>
-                </button>
-              ))}
+            {/* More World Languages Dropdown */}
+            <div className="pt-2 border-t border-[#F0EBE3]">
+              <label className="block text-[10px] font-bold text-[#8C857B] uppercase tracking-wider mb-1 px-1">
+                More Languages:
+              </label>
+              <select
+                value={currentLang}
+                onChange={(e) => handleLanguageChange(e.target.value)}
+                className="w-full text-xs font-semibold bg-[#FAF8F5] border border-[#E3DBD0] rounded-xl px-2.5 py-1.5 text-[#111111] focus:outline-none focus:border-[#2E7D32] cursor-pointer"
+              >
+                <option value="" disabled>Select language...</option>
+                {OTHER_LANGUAGES.map((l) => (
+                  <option key={l.code} value={l.code}>
+                    {l.native} ({l.name})
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         )}
@@ -189,7 +184,7 @@ export const GoogleTranslate = ({ variant = 'topbar', className = '' }) => {
           </div>
           <div>
             <div className="font-bold text-xs text-[#111111]">Translate Website</div>
-            <div className="text-[10px] text-[#6B665F]">Google மொழி மாற்றம்</div>
+            <div className="text-[10px] text-[#6B665F]">மொழியை மாற்றுக</div>
           </div>
         </div>
         <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#EAF3EB] text-[#2E7D32] border border-[#C8E0CD]">
