@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { api } from '../services/api';
 import { formatINR } from '../utils/formatters';
 import { resolveImageUrl } from '../utils/imageUrl';
+import BlurText from '../components/BlurText';
 import { 
   ShieldCheck, 
   MapPin, 
@@ -458,7 +459,12 @@ export const ProductDetail = () => {
                   )}
                 </div>
                 <h1 className="font-heading font-extrabold text-2xl sm:text-3xl text-[#111111] tracking-tight">
-                  {title}
+                  <BlurText
+                    text={title}
+                    delay={40}
+                    stepDuration={0.3}
+                    className="justify-start"
+                  />
                 </h1>
               </div>
 

@@ -16,6 +16,7 @@ import {
   Check
 } from 'lucide-react';
 import { resolveImageUrl } from '../utils/imageUrl';
+import BlurText from '../components/BlurText';
 
 export const About = () => {
   return (
@@ -30,7 +31,12 @@ export const About = () => {
             </div>
             
             <h1 className="font-heading font-black text-3xl sm:text-5xl text-[#111111] tracking-tight leading-tight">
-              Pioneering Trust in India's Pre-Owned Vehicle &amp; Tractor Ecosystem.
+              <BlurText
+                text="Pioneering Trust in India's Pre-Owned Vehicle & Tractor Ecosystem."
+                delay={50}
+                stepDuration={0.3}
+                className="justify-start"
+              />
             </h1>
             
             <p className="text-[#6B665F] text-sm sm:text-base leading-relaxed max-w-2xl font-normal">
@@ -50,7 +56,12 @@ export const About = () => {
               Our Journey &amp; Mission
             </div>
             <h2 className="font-heading font-black text-2xl sm:text-4xl text-[#111111] tracking-tight leading-snug">
-              Transforming How India Buys &amp; Sells Second-Hand Tractors &amp; Cars
+              <BlurText
+                text="Transforming How India Buys & Sells Second-Hand Tractors & Cars"
+                delay={50}
+                stepDuration={0.3}
+                className="justify-start"
+              />
             </h2>
             <p className="text-[#6B665F] text-sm leading-relaxed">
               In traditional Indian rural and urban markets, buying a second-hand tractor or car often comes with severe risks: tampered hour meters, hidden hydraulic lift failures, concealed accidental damage, or entangled RTO court hypothecations.

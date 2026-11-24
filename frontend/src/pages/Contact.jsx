@@ -13,6 +13,7 @@ import {
   ChevronDown,
   Sparkles
 } from 'lucide-react';
+import BlurText from '../components/BlurText';
 
 export const Contact = () => {
   const [formData, setFormData] = useState({
@@ -98,7 +99,12 @@ export const Contact = () => {
             Auto &amp; Agro Consultancy Yard Desk
           </div>
           <h1 className="font-heading font-black text-3xl sm:text-5xl text-[#111111] tracking-tight">
-            Visit Our Yard or Enquire Online
+            <BlurText
+              text="Visit Our Yard or Enquire Online"
+              delay={50}
+              stepDuration={0.3}
+              className="justify-start"
+            />
           </h1>
           <p className="text-[#6B665F] text-xs sm:text-sm leading-relaxed font-normal">
             Have questions about a specific tractor, car, or spare part? Need assistance with RTO transfer or valuation? Our team is available 7 days a week.

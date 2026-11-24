@@ -13,6 +13,7 @@ import {
   X,
   Sparkles
 } from 'lucide-react';
+import BlurText from '../components/BlurText';
 
 export const Quotation = () => {
   const [formData, setFormData] = useState({
@@ -102,7 +103,12 @@ export const Quotation = () => {
               Auto &amp; Agro Consultancy • Free Vehicle Valuation
             </div>
             <h1 className="font-heading font-extrabold text-2xl sm:text-4xl text-[#111111] tracking-tight">
-              Sell Your Tractor or Car at Fair Market Value.
+              <BlurText
+                text="Sell Your Tractor or Car at Fair Market Value."
+                delay={50}
+                stepDuration={0.3}
+                className="justify-start"
+              />
             </h1>
             <p className="text-[#6B665F] text-xs sm:text-sm leading-relaxed">
               Need an authentic price valuation or looking to sell your pre-owned vehicle fast? Fill in your machine details below. Our valuation team analyzes current mandi rates, RTO depreciation, and mechanical condition to deliver an authentic spot cash offer.

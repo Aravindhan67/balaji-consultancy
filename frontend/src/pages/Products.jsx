@@ -4,6 +4,7 @@ import { api } from '../services/api';
 import { ProductCard } from '../components/ProductCard';
 import { Search, Filter, SlidersHorizontal, RotateCcw, Sparkles, ShieldCheck } from 'lucide-react';
 import { formatINR } from '../utils/formatters';
+import BlurText from '../components/BlurText';
 
 export const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -167,7 +168,12 @@ export const Products = () => {
             Balaji Certified Stock
           </div>
           <h1 className="font-heading font-black text-3xl sm:text-5xl text-[#111111] tracking-tight">
-            Certified Tractors, Cars &amp; Genuine Spares
+            <BlurText
+              text="Certified Tractors, Cars & Genuine Spares"
+              delay={50}
+              stepDuration={0.3}
+              className="justify-start"
+            />
           </h1>
           <p className="text-[#6B665F] text-xs sm:text-sm leading-relaxed font-normal">
             Browse multi-brand pre-owned vehicles with 120-point mechanical certification, transparent pricing in ₹, and authentic RTO paperwork.

@@ -29,6 +29,7 @@ import { api } from '../services/api';
 import { ProductCard } from '../components/ProductCard';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { resolveImageUrl } from '../utils/imageUrl';
+import BlurText from '../components/BlurText';
 
 const defaultReviews = [
   {
@@ -341,8 +342,14 @@ export const Home = () => {
           </div>
 
           {/* H1 Headline - Supro Bold Editorial */}
-          <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.1] drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
-            Certified Second-Hand Tractors, Utility Cars &amp; Genuine Spares.
+          <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.1] drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] flex justify-center">
+            <BlurText
+              text="Certified Second-Hand Tractors, Utility Cars & Genuine Spares."
+              delay={50}
+              stepDuration={0.3}
+              color="#FFFFFF"
+              className="justify-center text-center"
+            />
           </h1>
 
           {/* Integrated Search Console - Minimalist Warm Pill (Reduced White Glare) */}
@@ -399,8 +406,13 @@ export const Home = () => {
             <div className="inline-block text-[11px] font-bold tracking-wider uppercase text-[#111111] bg-[#EAE3D7] px-4 py-1.5 rounded-full mb-2 border border-[#DCD4C7]">
               Zero Fraud • 100% Verified Consulting
             </div>
-            <h2 className="font-heading font-black text-2xl sm:text-4xl text-[#111111] tracking-tight">
-              Why Indian Farmers &amp; Drivers Trust Balaji
+            <h2 className="font-heading font-black text-2xl sm:text-4xl text-[#111111] tracking-tight flex justify-center">
+              <BlurText
+                text="Why Indian Farmers & Drivers Trust Balaji"
+                delay={50}
+                stepDuration={0.3}
+                className="justify-center text-center"
+              />
             </h2>
             <p className="text-[#6B665F] text-xs sm:text-sm mt-2 leading-relaxed max-w-2xl mx-auto">
               Buying or selling a pre-owned tractor or vehicle shouldn't feel like a gamble. We protect your hard-earned money with technical rigour and official legal documentation.
@@ -573,7 +585,12 @@ export const Home = () => {
                 🚜 Auto &amp; Agro Consultancy • Agricultural Tractors
               </div>
               <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#111111]">
-                Featured Verified Pre-Owned Tractors
+                <BlurText
+                  text="Featured Verified Pre-Owned Tractors"
+                  delay={50}
+                  stepDuration={0.3}
+                  className="justify-start"
+                />
               </h2>
               <p className="text-xs sm:text-sm text-[#6B665F] mt-1">
                 Popular Indian models from Mahindra, Swaraj, John Deere, and Sonalika tested and ready for agricultural operations.
@@ -655,7 +672,12 @@ export const Home = () => {
                 🚗 Commercial &amp; Family Utility Vehicles
               </div>
               <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#111111]">
-                Verified Pre-Owned Cars &amp; Bolero Pickups
+                <BlurText
+                  text="Verified Pre-Owned Cars & Bolero Pickups"
+                  delay={50}
+                  stepDuration={0.3}
+                  className="justify-start"
+                />
               </h2>
               <p className="text-xs sm:text-sm text-[#6B665F] mt-1">
                 Top models like Bolero Maxi Truck, Swift, i20, and Nexon with certified single-owner records and clean titles.
@@ -783,7 +805,12 @@ export const Home = () => {
                   Verified Customer Testimonials
                 </span>
                 <h2 className="font-heading font-black text-2xl sm:text-4xl text-[#111111] mt-2">
-                  Trusted by 5,800+ Farmers &amp; Vehicle Owners
+                  <BlurText
+                    text="Trusted by 5,800+ Farmers & Vehicle Owners"
+                    delay={50}
+                    stepDuration={0.3}
+                    className="justify-start"
+                  />
                 </h2>
                 <p className="text-xs sm:text-sm text-[#6B665F] mt-1 max-w-xl">
                   Real feedback from farmers, transport operators, and families who bought or sold vehicles with Balaji Consultancy.
