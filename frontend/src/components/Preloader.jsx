@@ -1,17 +1,18 @@
 ﻿import React, { useState, useEffect } from 'react';
+import ParticleText from './ParticleText';
 
 export const Preloader = ({ onFinish }) => {
   const [fade, setFade] = useState(false);
 
   useEffect(() => {
-    // Quick, smooth 1-second display then seamless fade-out
+    // 2.4s presentation to let the particle text assemble gracefully and settle
     const timer1 = setTimeout(() => {
       setFade(true);
-    }, 850);
+    }, 2400);
 
     const timer2 = setTimeout(() => {
       if (onFinish) onFinish();
-    }, 1100);
+    }, 2800);
 
     return () => {
       clearTimeout(timer1);
@@ -19,16 +20,23 @@ export const Preloader = ({ onFinish }) => {
     };
   }, [onFinish]);
 
+  const handleSkip = () => {
+    setFade(true);
+    setTimeout(() => {
+      if (onFinish) onFinish();
+    }, 300);
+  };
+
   return (
     <div
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#F8FAFC] transition-opacity duration-300 ${
+      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#F5F1EB] transition-opacity duration-500 ${
         fade ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
     >
-      <div className="flex flex-col items-center text-center px-4 max-w-xs animate-in fade-in zoom-in-95 duration-300">
+      <div className="flex flex-col items-center text-center px-4 w-full max-w-4xl animate-in fade-in zoom-in-95 duration-300">
         {/* Original Clean Vector Brand Emblem */}
-        <div className="relative mb-5">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 via-amber-500 to-emerald-600 p-0.5 shadow-xl shadow-orange-500/15 flex items-center justify-center">
+        <div className="relative mb-2">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 via-amber-500 to-[#2E7D32] p-0.5 shadow-xl shadow-orange-500/15 flex items-center justify-center">
             <div className="w-full h-full rounded-[14px] bg-slate-900 p-2 flex items-center justify-center relative overflow-hidden">
               <svg
                 viewBox="0 0 64 64"
@@ -76,24 +84,55 @@ export const Preloader = ({ onFinish }) => {
           </div>
         </div>
 
-        {/* Brand Text */}
-        <div className="flex items-center gap-1.5 justify-center">
-          <h1 className="font-heading font-black text-2xl text-slate-900 tracking-tight">
-            BALAJI
-          </h1>
-          <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-[#EAF3EB] text-[#2E7D32] border border-[#C8E0CD]">
-            INDIA
-          </span>
+        {/* Interactive ParticleText Assembly for "Balaji Consultancy" */}
+        <div className="w-full h-44 sm:h-56 relative flex items-center justify-center my-1">
+          <ParticleText
+            text="Balaji Consultancy"
+            particleSize={2.2}
+            density={3.2}
+            color="#111111"
+            highlightColor="#2E7D32"
+            highlightMode="motion"
+            shape="circle"
+            intro="gather"
+            scatter={160}
+            gatherDuration={1300}
+            stagger={300}
+            clickBurst={true}
+            burstStrength={1.2}
+            pointerRepel={45}
+            repelRadius={110}
+            idleDrift={0.6}
+            trigger="hover"
+            fontSize="clamp(2.2rem, 5.8vw, 4.2rem)"
+            fontWeight={900}
+            fontFamily="Outfit, sans-serif"
+            glow={true}
+          />
         </div>
-        <p className="text-[11px] font-bold uppercase tracking-wider text-[#2E7D32] mt-0.5">
-          Auto &amp; Agro Consultancy
-        </p>
 
-        {/* Clean Slim Loading Bar */}
-        <div className="w-36 h-1 bg-slate-200 rounded-full overflow-hidden mt-6">
-          <div className="h-full bg-gradient-to-r from-[#2E7D32] via-emerald-500 to-[#2E7D32] rounded-full animate-pulse w-full"></div>
+        {/* Subtitle Badge */}
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF3EB] text-[#2E7D32] text-[10px] sm:text-[11px] font-bold uppercase tracking-wider border border-[#C8E0CD]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#2E7D32] animate-pulse"></span>
+          Auto &amp; Agro Consultancy • Salem-Coimbatore NH Yard
         </div>
+
+        {/* Slim Loading Bar */}
+        <div className="w-48 h-1 bg-[#E3DBD0] rounded-full overflow-hidden mt-5">
+          <div className="h-full bg-gradient-to-r from-[#2E7D32] via-emerald-400 to-[#2E7D32] rounded-full animate-pulse w-full"></div>
+        </div>
+
+        {/* Quick Skip Option */}
+        <button
+          type="button"
+          onClick={handleSkip}
+          className="mt-3 text-[11px] font-semibold text-[#8C857B] hover:text-[#111111] transition-colors cursor-pointer"
+        >
+          Skip intro &rarr;
+        </button>
       </div>
     </div>
   );
 };
+
+export default Preloader;
