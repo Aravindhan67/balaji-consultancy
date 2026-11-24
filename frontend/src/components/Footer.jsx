@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import { Logo } from './Logo';
+import { GoogleTranslate } from './GoogleTranslate';
 import { MapPin, Phone, Mail, Clock, ShieldCheck, HeartHandshake, CheckCircle2, ChevronRight } from 'lucide-react';
 
 export const Footer = () => {
@@ -174,11 +175,17 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Copyright */}
-        <div className="pt-8 border-t border-[#E3DBD0] flex flex-col sm:flex-row items-center justify-between text-xs text-[#6B665F] gap-4">
+        {/* Bottom Copyright & Language Bar */}
+        <div className="pt-8 border-t border-[#E3DBD0] flex flex-col md:flex-row items-center justify-between text-xs text-[#6B665F] gap-4">
           <div>
             © {new Date().getFullYear()} Balaji Auto &amp; Agro Consultancy. All rights reserved.
           </div>
+
+          {/* Google Translate Quick Languages */}
+          <div className="flex items-center gap-2">
+            <GoogleTranslate variant="topbar" />
+          </div>
+
           <div className="flex items-center gap-4 text-[11px]">
             <span>100% Genuine Pre-Owned Machinery</span>
             <span>•</span>

@@ -550,7 +550,7 @@
       "hpPower": "45 HP",
       "description": "",
       "location": "Balaji Yard, Tamil Nadu",
-      "status": "available",
+      "status": "sold",
       "images": [
         "/uploads/whatsapp-image-2026-11-20-at-10-19-14-pm-1795428667783-922413619.jpeg",
         "/uploads/whatsapp-image-2026-11-20-at-9-13-09-pm-1795428671893-508978871.jpeg",
@@ -558,7 +558,7 @@
         "/uploads/ppt-1795428682155-807430524.jpeg"
       ],
       "createdAt": "2026-11-23T10:11:24.831Z",
-      "updatedAt": "2026-11-23T10:12:56.573Z"
+      "updatedAt": "2026-11-23T11:29:25.628Z"
     }
   ],
   "enquiries": [
@@ -571,7 +571,28 @@
       "createdAt": "2026-11-14T10:33:57.648Z"
     }
   ],
-  "quotations": [],
+  "quotations": [
+    {
+      "_id": "quot_1795433150725",
+      "status": "pending",
+      "name": "aravindhna",
+      "phone": "8124336369",
+      "email": "",
+      "city": "erode",
+      "type": "sell_vehicle",
+      "vehicleType": "tractor",
+      "brand": "Mahindra",
+      "modelName": "5757",
+      "year": 2020,
+      "expectedPrice": "50000",
+      "condition": "Excellent",
+      "notes": "sdfghjk",
+      "photos": [
+        "/uploads/whatsapp-image-2026-11-20-at-9-13-09-pm-1795433129900-360400962.jpeg"
+      ],
+      "createdAt": "2026-11-23T11:25:50.725Z"
+    }
+  ],
   "reviews": [
     {
       "_id": "rev_1795409874246",

@@ -12,6 +12,20 @@
   </head>
   <body class="bg-[#F5F1EB] text-[#111111] antialiased selection:bg-[#111111] selection:text-white">
     <div id="root"></div>
+
+    <!-- Google Translate Script Initialization -->
+    <script type="text/javascript">
+      window.googleTranslateElementInit = function() {
+        if (window.google && window.google.translate) {
+          new window.google.translate.TranslateElement({
+            pageLanguage: 'en',
+            layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+          }, 'google_translate_element');
+        }
+      };
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

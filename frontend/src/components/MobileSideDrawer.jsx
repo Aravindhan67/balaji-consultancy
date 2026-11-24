@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Logo } from './Logo';
+import { GoogleTranslate } from './GoogleTranslate';
 import { 
   X, 
   Home, 
@@ -62,6 +63,11 @@ export const MobileSideDrawer = ({ isOpen, onClose }) => {
             >
               <X className="w-5 h-5" />
             </button>
+          </div>
+
+          {/* Google Translate Regional Language Switcher */}
+          <div className="p-3 border-b border-[#E3DBD0]">
+            <GoogleTranslate variant="drawer" />
           </div>
 
           {/* Quick Categories Bar */}

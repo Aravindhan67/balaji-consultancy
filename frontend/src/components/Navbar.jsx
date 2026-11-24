@@ -2,6 +2,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Logo } from './Logo';
 import { PhoneCall, Menu } from 'lucide-react';
+import { GoogleTranslate } from './GoogleTranslate';
 
 export const Navbar = ({ onOpenSideDrawer }) => {
   const location = useLocation();
@@ -22,14 +23,23 @@ export const Navbar = ({ onOpenSideDrawer }) => {
 
   return (
     <header className="sticky top-0 z-30 bg-[#F5F1EB]/95 backdrop-blur-md border-b border-[#E3DBD0] transition-all">
-      {/* Top Auto & Agro Consultancy Farmer Green Announcement Bar */}
-      <div className="bg-[#2E7D32] text-white py-1.5 px-4 text-center text-[11px] font-medium tracking-wide flex items-center justify-center gap-2">
-        <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse"></span>
-        <span className="font-bold uppercase tracking-wider text-[11px]">Auto &amp; Agro Consultancy</span>
-        <span className="text-emerald-200 hidden sm:inline">•</span>
-        <span className="text-emerald-100 hidden sm:inline">Certified Pre-Owned Tractors, Commercial Vehicles &amp; Genuine Spares</span>
-        <span className="text-emerald-200 hidden md:inline">•</span>
-        <span className="text-emerald-100 font-semibold hidden md:inline">Salem-Coimbatore NH Yard</span>
+      {/* Top Auto & Agro Consultancy Farmer Green Announcement Bar with Language Selector */}
+      <div className="bg-[#2E7D32] text-white py-1.5 px-4 text-[11px] font-medium tracking-wide">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div className="flex items-center justify-center gap-2 flex-wrap">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse"></span>
+            <span className="font-bold uppercase tracking-wider text-[11px]">Auto &amp; Agro Consultancy</span>
+            <span className="text-emerald-200 hidden sm:inline">•</span>
+            <span className="text-emerald-100 hidden sm:inline">Certified Pre-Owned Tractors, Commercial Vehicles &amp; Spares</span>
+            <span className="text-emerald-200 hidden md:inline">•</span>
+            <span className="text-emerald-100 font-semibold hidden md:inline">Salem-Coimbatore NH Yard</span>
+          </div>
+
+          {/* Google Translate Language Changer */}
+          <div className="flex items-center gap-2 shrink-0">
+            <GoogleTranslate variant="topbar" />
+          </div>
+        </div>
       </div>
 
       {/* Main Navigation Bar */}
