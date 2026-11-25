@@ -1,13 +1,22 @@
 .echo-text {
   position: relative;
   display: inline-block;
+  max-width: 100%;
   white-space: nowrap;
-  line-height: 0.9;
+  line-height: 0.95;
   letter-spacing: -0.04em;
   user-select: none;
   contain: layout style;
   font-kerning: normal;
   text-rendering: geometricPrecision;
+}
+
+@media (max-width: 640px) {
+  .echo-text {
+    white-space: normal;
+    text-align: center;
+    line-height: 1.05;
+  }
 }
 
 .echo-text__echo {

@@ -350,15 +350,15 @@ export const Home = () => {
         style={{ perspective: '1200px' }}
         className="relative overflow-hidden bg-[#F5F1EB] border-b border-[#E3DBD0] py-20 sm:py-28"
       >
-        {/* Rich Agro Background Layer - Reduced White Shade & Higher Clarity */}
+        {/* Rich Agro Background Layer - New Twilight Dealership Yard */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           <img
-            src={resolveImageUrl('/static-uploads/hero-tractor-bg.jpg')}
+            src={resolveImageUrl('/static-uploads/hero-tractor-bg-v2.jpg')}
             alt="Balaji Auto and Agro Vehicle Consultancy Yard"
-            className="w-full h-full object-cover object-center scale-105 opacity-80 contrast-105 saturate-110"
+            className="w-full h-full object-cover object-center scale-105 opacity-95 contrast-105 saturate-110 animate-hero-settle"
           />
-          {/* Subtle Warm Vignette - Reduced White Fog/Scrim */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#F5F1EB]/25 via-transparent to-[#F5F1EB]/75" />
+          {/* Rich Contrast Vignette for 3D Wireframes & Crisp White Typography */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-[#F5F1EB]/85" />
         </div>
 
         {/* 3D Perspective Particle Constellation Field */}
@@ -369,7 +369,7 @@ export const Home = () => {
           className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full text-center space-y-6 sm:space-y-8"
         >
           {/* Trust Badges */}
-          <div className="flex flex-wrap items-center justify-center gap-2">
+          <div className="flex flex-wrap items-center justify-center gap-2" style={{ transform: 'translateZ(20px)' }}>
             <span className="animate-hero-rise inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EAF3EB] text-[#2E7D32] text-[11px] font-bold uppercase tracking-wider border border-[#C8E0CD] shadow-sm">
               <span className="w-2 h-2 rounded-full bg-[#2E7D32] animate-pulse"></span>
               <ShinyText variant="green">Auto &amp; Agro Consultancy</ShinyText>
@@ -380,8 +380,11 @@ export const Home = () => {
             </span>
           </div>
 
-          {/* H1 Headline - Supro Bold Editorial */}
-          <h1 className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.1] drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] flex justify-center">
+          {/* H1 Headline - Supro Bold Editorial with 3D Depth */}
+          <h1
+            className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.1] drop-shadow-[0_4px_18px_rgba(0,0,0,0.85)] flex justify-center"
+            style={{ transform: 'translateZ(40px)' }}
+          >
             <BlurText
               text="Certified Second-Hand Tractors, Utility Cars & Genuine Spares."
               delay={50}
@@ -975,18 +978,18 @@ export const Home = () => {
       {/* 10. INTERACTIVE YARD EXPERIENCE (REACT BITS ECHOTEXT) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
         <ScrollReveal>
-          <div className="bg-gradient-to-b from-[#FAF8F5] to-white rounded-3xl p-8 sm:p-12 text-center border border-[#E3DBD0] relative overflow-hidden shadow-xs">
+          <div className="bg-gradient-to-b from-[#FAF8F5] to-white rounded-3xl px-4 py-8 sm:p-12 text-center border border-[#E3DBD0] relative overflow-hidden shadow-xs">
             <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest bg-[#EAF3EB] text-[#2E7D32] px-3.5 py-1.5 rounded-full border border-[#C8E0CD] mb-3">
               <Sparkles className="w-3.5 h-3.5 text-[#2E7D32]" />
               <ShinyText variant="green">Direct Yard Atmosphere</ShinyText>
             </div>
             
-            <div className="py-4 cursor-pointer overflow-hidden flex justify-center select-none" title="Click or hover to experience interactive motion echoes">
+            <div className="py-3 sm:py-4 px-1 cursor-pointer overflow-hidden flex items-center justify-center select-none w-full" title="Click or hover to experience interactive motion echoes">
               <EchoText
                 text="DIRECT YARD DEALS"
                 echoes={10}
                 lag={0.22}
-                offset={32}
+                offset={24}
                 direction="right"
                 fade={0.68}
                 blur={2.5}
@@ -997,9 +1000,10 @@ export const Home = () => {
                 trail="pointer"
                 clickBurst={true}
                 cursorRadius={300}
-                fontSize="clamp(2.2rem, 7vw, 4.8rem)"
+                fontSize="clamp(1.35rem, 6vw, 4.5rem)"
                 fontWeight={900}
                 color="#111111"
+                className="text-center"
               />
             </div>
 
