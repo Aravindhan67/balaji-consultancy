@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { Logo } from './Logo';
 import { PhoneCall, Menu } from 'lucide-react';
 import { GoogleTranslate } from './GoogleTranslate';
+import { ShinyText } from './ShinyText';
+import { ShimmerButton } from './ShimmerButton';
 
 export const Navbar = ({ onOpenSideDrawer }) => {
   const location = useLocation();
@@ -28,7 +30,9 @@ export const Navbar = ({ onOpenSideDrawer }) => {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center justify-center gap-2 flex-wrap">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse"></span>
-            <span className="font-bold uppercase tracking-wider text-[11px]">Auto &amp; Agro Consultancy</span>
+            <span className="font-bold uppercase tracking-wider text-[11px]">
+              <ShinyText variant="light">Auto &amp; Agro Consultancy</ShinyText>
+            </span>
             <span className="text-emerald-200 hidden sm:inline">•</span>
             <span className="text-emerald-100 hidden sm:inline">Certified Pre-Owned Tractors, Commercial Vehicles &amp; Spares</span>
             <span className="text-emerald-200 hidden md:inline">•</span>
@@ -69,15 +73,17 @@ export const Navbar = ({ onOpenSideDrawer }) => {
 
           {/* Right Action CTAs */}
           <div className="hidden sm:flex items-center gap-3 shrink-0">
-            <a
-              href="tel:+918124336369"
-              className="taste-btn flex items-center gap-2 text-xs xl:text-sm font-semibold text-white bg-[#2E7D32] hover:bg-[#236628] px-4 py-2 rounded-full border border-[#1E6B37] transition-all whitespace-nowrap shrink-0 shadow-none tracking-wide"
-              title="Direct Yard Call"
-            >
-              <div className="w-5 h-5 rounded-full bg-white/15 text-white flex items-center justify-center shrink-0">
-                <PhoneCall className="w-3 h-3 text-white" />
-              </div>
-              <span className="whitespace-nowrap font-semibold">+91 81243 36369</span>
+            <a href="tel:+918124336369" title="Direct Yard Call">
+              <ShimmerButton
+                variant="primary"
+                shimmerColor="rgba(255, 255, 255, 0.45)"
+                className="py-2 px-4 text-xs xl:text-sm font-semibold whitespace-nowrap shadow-none tracking-wide"
+              >
+                <div className="w-5 h-5 rounded-full bg-white/15 text-white flex items-center justify-center shrink-0">
+                  <PhoneCall className="w-3 h-3 text-white" />
+                </div>
+                <span>+91 81243 36369</span>
+              </ShimmerButton>
             </a>
           </div>
 

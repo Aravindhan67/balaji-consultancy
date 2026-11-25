@@ -14,6 +14,9 @@ import {
   Sparkles
 } from 'lucide-react';
 import BlurText from '../components/BlurText';
+import ShinyText from '../components/ShinyText';
+import SpotlightCard from '../components/SpotlightCard';
+import ShimmerButton from '../components/ShimmerButton';
 
 export const Quotation = () => {
   const [formData, setFormData] = useState({
@@ -404,14 +407,15 @@ export const Quotation = () => {
                   </div>
                 )}
 
-                <button
+                <ShimmerButton
                   type="submit"
+                  variant="primary"
                   disabled={submitting}
-                  className="w-full bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs uppercase tracking-wider py-4 rounded-full shadow-sm transition-all flex items-center justify-center gap-2"
+                  className="w-full py-4 text-xs tracking-wider"
                 >
                   <FileCheck className="w-4 h-4 text-white" />
-                  {submitting ? 'Submitting Valuation Request...' : 'Get Instant Market Price Valuation'}
-                </button>
+                  <span>{submitting ? 'Submitting Valuation Request...' : 'Get Instant Market Price Valuation'}</span>
+                </ShimmerButton>
               </form>
             )}
           </div>

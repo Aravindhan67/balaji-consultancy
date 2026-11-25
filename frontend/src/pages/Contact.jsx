@@ -14,6 +14,9 @@ import {
   Sparkles
 } from 'lucide-react';
 import BlurText from '../components/BlurText';
+import ShinyText from '../components/ShinyText';
+import SpotlightCard from '../components/SpotlightCard';
+import ShimmerButton from '../components/ShimmerButton';
 
 export const Contact = () => {
   const [formData, setFormData] = useState({
@@ -232,14 +235,15 @@ export const Contact = () => {
                 </div>
               )}
 
-              <button
+              <ShimmerButton
                 type="submit"
+                variant="primary"
                 disabled={submitting}
-                className="w-full bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs uppercase tracking-wider py-3.5 rounded-full transition-all flex items-center justify-center gap-2 shadow-none"
+                className="w-full py-3.5 text-xs tracking-wider"
               >
                 <Send className="w-4 h-4" />
-                {submitting ? 'Submitting Enquiry...' : 'Submit Enquiry'}
-              </button>
+                <span>{submitting ? 'Submitting Enquiry...' : 'Submit Enquiry'}</span>
+              </ShimmerButton>
             </form>
           )}
         </div>

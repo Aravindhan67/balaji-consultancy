@@ -30,6 +30,12 @@ import { ProductCard } from '../components/ProductCard';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { resolveImageUrl } from '../utils/imageUrl';
 import BlurText from '../components/BlurText';
+import EchoText from '../components/EchoText';
+import ShinyText from '../components/ShinyText';
+import SpotlightCard from '../components/SpotlightCard';
+import ShimmerButton from '../components/ShimmerButton';
+import BrandMarquee from '../components/BrandMarquee';
+import NumberTicker from '../components/NumberTicker';
 
 const defaultReviews = [
   {
@@ -333,11 +339,11 @@ export const Home = () => {
           <div className="flex flex-wrap items-center justify-center gap-2">
             <span className="animate-hero-rise inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EAF3EB] text-[#2E7D32] text-[11px] font-bold uppercase tracking-wider border border-[#C8E0CD] shadow-sm">
               <span className="w-2 h-2 rounded-full bg-[#2E7D32] animate-pulse"></span>
-              Auto &amp; Agro Consultancy
+              <ShinyText variant="green">Auto &amp; Agro Consultancy</ShinyText>
             </span>
             <span className="animate-hero-rise hero-delay-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAF8F5] text-[#111111] text-[11px] font-semibold border border-[#E3DBD0]">
               <span className="w-2 h-2 rounded-full bg-[#2E7D32]"></span>
-              Salem-Coimbatore NH Yard • Open 9 AM - 7 PM
+              <ShinyText variant="dark">Salem-Coimbatore NH Yard • Open 9 AM - 7 PM</ShinyText>
             </span>
           </div>
 
@@ -366,37 +372,40 @@ export const Home = () => {
                   onChange={(e) => setSearchKeyword(e.target.value)}
                   className="w-full text-xs sm:text-sm bg-transparent border-none text-[#111111] placeholder:text-[#8C857B] focus:outline-none font-medium py-2"
                 />
-                <button
+                <ShimmerButton
                   type="submit"
-                  className="taste-btn shrink-0 inline-flex items-center gap-1.5 bg-[#2E7D32] hover:bg-[#236628] text-white text-[11px] font-bold uppercase tracking-wider px-5 py-2.5 rounded-full transition-colors shadow-none"
+                  variant="primary"
+                  className="py-2.5 px-5 shrink-0"
                 >
                   <span>Search</span>
                   <ArrowRight className="w-3.5 h-3.5 text-white" />
-                </button>
+                </ShimmerButton>
               </div>
             </form>
           </div>
 
           {/* Action CTAs - Farmer Green & Outline Pills */}
           <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
-            <Link
-              to="/products"
-              className="taste-btn inline-flex items-center gap-2 bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-7 py-3.5 rounded-full transition-all shadow-none"
-            >
-              Explore Certified Stock
-              <ArrowRight className="w-4 h-4" />
+            <Link to="/products">
+              <ShimmerButton variant="primary" className="py-3.5 px-7 text-xs sm:text-sm">
+                <span>Explore Certified Stock</span>
+                <ArrowRight className="w-4 h-4" />
+              </ShimmerButton>
             </Link>
 
-            <a
-              href="tel:+918124336369"
-              className="taste-btn inline-flex items-center gap-2 bg-[#FAF8F5] hover:bg-[#2E7D32] hover:text-white text-[#111111] font-bold text-xs sm:text-sm uppercase tracking-wider px-6 py-3.5 rounded-full border border-[#E3DBD0] hover:border-[#2E7D32] transition-all"
-              title="Direct Yard Call"
-            >
-              <PhoneCall className="w-4 h-4" />
-              +91 81243 36369
+            <a href="tel:+918124336369" title="Direct Yard Call">
+              <ShimmerButton variant="light" className="py-3.5 px-6 text-xs sm:text-sm">
+                <PhoneCall className="w-4 h-4" />
+                <span>+91 81243 36369</span>
+              </ShimmerButton>
             </a>
           </div>
         </div>
+      </section>
+
+      {/* Brand Partner Marquee from 21st.dev / React Bits */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
+        <BrandMarquee speed={32} />
       </section>
 
       {/* 2. WHY BALAJI VEHICLE CONSULTANCY - 4 CLEAN PILLARS + DYNAMIC SCROLL TRACTOR */}
@@ -502,12 +511,17 @@ export const Home = () => {
           {/* Right Column: 4 Clean Pillars */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <ScrollReveal delay={50}>
-              <div className="taste-card bg-white p-6 rounded-2xl border border-[#E3DBD0] h-full flex flex-col justify-between">
+              <SpotlightCard
+                spotlightColor="rgba(46, 125, 50, 0.08)"
+                className="taste-card bg-white p-6 rounded-2xl border border-[#E3DBD0] h-full flex flex-col justify-between hover:border-[#111111]"
+              >
                 <div>
                   <div className="w-11 h-11 rounded-full bg-[#FAF8F5] text-[#111111] flex items-center justify-center mb-4 border border-[#E3DBD0]">
                     <ShieldCheck className="w-5 h-5" />
                   </div>
-                  <h3 className="font-heading font-bold text-[#111111] text-base mb-2">120-Point Inspection</h3>
+                  <h3 className="font-heading font-bold text-[#111111] text-base mb-2">
+                    <NumberTicker value={120} suffix="-Point" /> Inspection
+                  </h3>
                   <p className="text-xs text-[#6B665F] leading-relaxed font-normal">
                     Every engine compression, hydraulic draft lift, PTO spline, car chassis, and meter reading is rigorously tested by our certified mechanics.
                   </p>
@@ -516,11 +530,14 @@ export const Home = () => {
                   <Check className="w-3.5 h-3.5 text-[#111111]" />
                   Field-tested guarantee
                 </div>
-              </div>
+              </SpotlightCard>
             </ScrollReveal>
 
             <ScrollReveal delay={120}>
-              <div className="taste-card bg-white p-6 rounded-2xl border border-[#E3DBD0] h-full flex flex-col justify-between">
+              <SpotlightCard
+                spotlightColor="rgba(46, 125, 50, 0.08)"
+                className="taste-card bg-white p-6 rounded-2xl border border-[#E3DBD0] h-full flex flex-col justify-between hover:border-[#111111]"
+              >
                 <div>
                   <div className="w-11 h-11 rounded-full bg-[#FAF8F5] text-[#111111] flex items-center justify-center mb-4 border border-[#E3DBD0]">
                     <FileCheck className="w-5 h-5" />
@@ -532,13 +549,16 @@ export const Home = () => {
                 </div>
                 <div className="mt-4 pt-3 border-t border-[#F0EBE3] text-[11px] font-bold text-[#111111] flex items-center gap-1">
                   <Check className="w-3.5 h-3.5 text-[#111111]" />
-                  100% legal ownership
+                  <NumberTicker value={100} suffix="%" /> legal ownership
                 </div>
-              </div>
+              </SpotlightCard>
             </ScrollReveal>
 
             <ScrollReveal delay={190}>
-              <div className="taste-card bg-white p-6 rounded-2xl border border-[#E3DBD0] h-full flex flex-col justify-between">
+              <SpotlightCard
+                spotlightColor="rgba(46, 125, 50, 0.08)"
+                className="taste-card bg-white p-6 rounded-2xl border border-[#E3DBD0] h-full flex flex-col justify-between hover:border-[#111111]"
+              >
                 <div>
                   <div className="w-11 h-11 rounded-full bg-[#FAF8F5] text-[#111111] flex items-center justify-center mb-4 border border-[#E3DBD0]">
                     <Wrench className="w-5 h-5" />
@@ -552,11 +572,14 @@ export const Home = () => {
                   <Check className="w-3.5 h-3.5 text-[#111111]" />
                   Direct OEM replacement
                 </div>
-              </div>
+              </SpotlightCard>
             </ScrollReveal>
 
             <ScrollReveal delay={260}>
-              <div className="taste-card bg-white p-6 rounded-2xl border border-[#E3DBD0] h-full flex flex-col justify-between">
+              <SpotlightCard
+                spotlightColor="rgba(46, 125, 50, 0.08)"
+                className="taste-card bg-white p-6 rounded-2xl border border-[#E3DBD0] h-full flex flex-col justify-between hover:border-[#111111]"
+              >
                 <div>
                   <div className="w-11 h-11 rounded-full bg-[#FAF8F5] text-[#111111] flex items-center justify-center mb-4 border border-[#E3DBD0]">
                     <BadgePercent className="w-5 h-5" />
@@ -570,7 +593,7 @@ export const Home = () => {
                   <Check className="w-3.5 h-3.5 text-[#111111]" />
                   Same-day settlement
                 </div>
-              </div>
+              </SpotlightCard>
             </ScrollReveal>
           </div>
         </div>
@@ -633,8 +656,11 @@ export const Home = () => {
           </div>
         )}
 
-        {/* Tractor Spare Parts Callout Banner - Minimalist Supro Card */}
-        <div className="mt-8 p-6 rounded-2xl bg-white border border-[#E3DBD0] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        {/* Tractor Spare Parts Callout Banner - SpotlightCard & ShimmerButton */}
+        <SpotlightCard
+          spotlightColor="rgba(46, 125, 50, 0.08)"
+          className="mt-8 p-6 rounded-2xl bg-white border border-[#E3DBD0] flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-[#111111]"
+        >
           <div className="flex items-center gap-3.5">
             <div className="w-11 h-11 rounded-full bg-[#FAF8F5] text-[#111111] border border-[#E3DBD0] flex items-center justify-center shrink-0">
               <Wrench className="w-5 h-5" />
@@ -653,14 +679,13 @@ export const Home = () => {
               </p>
             </div>
           </div>
-          <Link
-            to="/products?category=spare_part"
-            className="taste-btn shrink-0 inline-flex items-center gap-2 bg-[#2E7D32] hover:bg-[#236628] text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-full transition-all shadow-none"
-          >
-            <span>Browse Spares</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+          <Link to="/products?category=spare_part" className="shrink-0">
+            <ShimmerButton variant="primary" className="py-2.5 px-6">
+              <span>Browse Spares</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </ShimmerButton>
           </Link>
-        </div>
+        </SpotlightCard>
       </section>
 
       {/* 5. FEATURED CARS & UTILITY VEHICLES (SCROLL REVEAL) */}
@@ -819,14 +844,15 @@ export const Home = () => {
 
               {/* Action Button: Write a Review */}
               <div className="shrink-0 flex items-center gap-3">
-                <button
+                <ShimmerButton
                   type="button"
+                  variant="primary"
                   onClick={() => setIsReviewModalOpen(true)}
-                  className="taste-btn inline-flex items-center gap-2 bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-full transition-all cursor-pointer shadow-none"
+                  className="py-3 px-6"
                 >
                   <Plus className="w-4 h-4 stroke-[3]" />
                   <span>Write a Customer Review</span>
-                </button>
+                </ShimmerButton>
               </div>
             </div>
           </ScrollReveal>
@@ -856,9 +882,12 @@ export const Home = () => {
 
               return (
                 <ScrollReveal key={rev._id || idx} delay={Math.min(idx * 70, 300)}>
-                  <div className={`taste-card bg-white p-6 rounded-2xl border transition-all flex flex-col justify-between h-full relative ${
-                    isJustAdded ? 'border-[#111111] ring-2 ring-[#111111]/20' : 'border-[#E3DBD0]'
-                  }`}>
+                  <SpotlightCard
+                    spotlightColor="rgba(46, 125, 50, 0.07)"
+                    className={`taste-card bg-white p-6 rounded-2xl border transition-all flex flex-col justify-between h-full relative hover:border-[#111111] ${
+                      isJustAdded ? 'border-[#111111] ring-2 ring-[#111111]/20' : 'border-[#E3DBD0]'
+                    }`}
+                  >
                     {isJustAdded && (
                       <span className="absolute -top-3 right-4 bg-[#111111] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full flex items-center gap-1">
                         <Sparkles className="w-3 h-3 text-white" />
@@ -902,12 +931,50 @@ export const Home = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </SpotlightCard>
                 </ScrollReveal>
               );
             })}
           </div>
         </div>
+      </section>
+
+      {/* 10. INTERACTIVE YARD EXPERIENCE (REACT BITS ECHOTEXT) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
+        <ScrollReveal>
+          <div className="bg-gradient-to-b from-[#FAF8F5] to-white rounded-3xl p-8 sm:p-12 text-center border border-[#E3DBD0] relative overflow-hidden shadow-xs">
+            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest bg-[#EAF3EB] text-[#2E7D32] px-3.5 py-1.5 rounded-full border border-[#C8E0CD] mb-3">
+              <Sparkles className="w-3.5 h-3.5 text-[#2E7D32]" />
+              <ShinyText variant="green">Direct Yard Atmosphere</ShinyText>
+            </div>
+            
+            <div className="py-4 cursor-pointer overflow-hidden flex justify-center select-none" title="Click or hover to experience interactive motion echoes">
+              <EchoText
+                text="DIRECT YARD DEALS"
+                echoes={10}
+                lag={0.22}
+                offset={32}
+                direction="right"
+                fade={0.68}
+                blur={2.5}
+                tint="#2E7D32"
+                echoStyle="outline"
+                echoScale={1.05}
+                mode="both"
+                trail="pointer"
+                clickBurst={true}
+                cursorRadius={300}
+                fontSize="clamp(2.2rem, 7vw, 4.8rem)"
+                fontWeight={900}
+                color="#111111"
+              />
+            </div>
+
+            <p className="text-xs sm:text-sm text-[#6B665F] max-w-xl mx-auto mt-2 leading-relaxed">
+              Hover your cursor or click on the text above to release motion waves. Every tractor &amp; vehicle in our yard is 100% verified with zero middleman commissions.
+            </p>
+          </div>
+        </ScrollReveal>
       </section>
 
       {/* 11. FINAL CALL TO ACTION (SCROLL REVEAL) */}
@@ -925,18 +992,17 @@ export const Home = () => {
                 Connect with our certified vehicle consultants for immediate valuation, yard visits, or spare parts inquiry across India.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-                <Link
-                  to="/quotation"
-                  className="taste-btn bg-[#2E7D32] hover:bg-[#236628] text-white font-bold text-xs uppercase tracking-wider px-8 py-3.5 rounded-full transition-all shadow-none"
-                >
-                  Request Free Quotation
+                <Link to="/quotation">
+                  <ShimmerButton variant="primary" className="py-3.5 px-8">
+                    <span>Request Free Quotation</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </ShimmerButton>
                 </Link>
-                <a
-                  href="tel:+918124336369"
-                  className="taste-btn bg-[#FAF8F5] hover:bg-[#2E7D32] hover:text-white text-[#111111] font-bold text-xs uppercase tracking-wider px-7 py-3.5 rounded-full border border-[#E3DBD0] hover:border-[#2E7D32] transition-all flex items-center gap-2"
-                >
-                  <PhoneCall className="w-4 h-4" />
-                  Call Yard (+91 81243 36369)
+                <a href="tel:+918124336369">
+                  <ShimmerButton variant="light" className="py-3.5 px-7">
+                    <PhoneCall className="w-4 h-4" />
+                    <span>Call Yard (+91 81243 36369)</span>
+                  </ShimmerButton>
                 </a>
               </div>
             </div>

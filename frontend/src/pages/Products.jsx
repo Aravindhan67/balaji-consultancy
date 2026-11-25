@@ -5,6 +5,8 @@ import { ProductCard } from '../components/ProductCard';
 import { Search, Filter, SlidersHorizontal, RotateCcw, Sparkles, ShieldCheck } from 'lucide-react';
 import { formatINR } from '../utils/formatters';
 import BlurText from '../components/BlurText';
+import ShinyText from '../components/ShinyText';
+import SpotlightCard from '../components/SpotlightCard';
 
 export const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -165,7 +167,7 @@ export const Products = () => {
         <div className="max-w-2xl space-y-3">
           <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#111111] uppercase tracking-wider bg-[#EAE3D7] px-3.5 py-1.5 rounded-full border border-[#DCD4C7]">
             <Sparkles className="w-3.5 h-3.5 text-[#111111]" />
-            Balaji Certified Stock
+            <ShinyText variant="dark">Balaji Certified Stock</ShinyText>
           </div>
           <h1 className="font-heading font-black text-3xl sm:text-5xl text-[#111111] tracking-tight">
             <BlurText
@@ -184,7 +186,10 @@ export const Products = () => {
       {/* Main Filter & Content Area */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
         {/* Left Sidebar Filters */}
-        <div className="bg-white p-6 rounded-2xl border border-[#E3DBD0] space-y-6 lg:sticky lg:top-28">
+        <SpotlightCard
+          spotlightColor="rgba(46, 125, 50, 0.05)"
+          className="bg-white p-6 rounded-2xl border border-[#E3DBD0] space-y-6 lg:sticky lg:top-28 shadow-xs"
+        >
           <div className="flex items-center justify-between pb-4 border-b border-[#E3DBD0]">
             <h3 className="font-heading font-bold text-[#111111] text-sm uppercase tracking-wider flex items-center gap-2">
               <Filter className="w-4 h-4 text-[#111111]" />
@@ -284,7 +289,7 @@ export const Products = () => {
               Every tractor &amp; car in stock is physically inspected with original engine compression, gearbox &amp; clean RTO papers.
             </p>
           </div>
-        </div>
+        </SpotlightCard>
 
         {/* Right Main Product Listing */}
         <div className="lg:col-span-3 space-y-6">

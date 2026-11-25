@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { ShieldCheck, Fuel, Calendar, Gauge, ArrowRight, MessageSquare, MapPin } from 'lucide-react';
 import { formatINR } from '../utils/formatters';
 import { resolveImageUrl } from '../utils/imageUrl';
+import { SpotlightCard } from './SpotlightCard';
+import { ShinyText } from './ShinyText';
 
 export const ProductCard = ({ product }) => {
   if (!product) return null;
@@ -62,7 +64,11 @@ export const ProductCard = ({ product }) => {
   );
 
   return (
-    <div className="taste-card group bg-white rounded-2xl overflow-hidden border border-[#E3DBD0] flex flex-col justify-between transition-all duration-200 hover:border-[#111111]">
+    <SpotlightCard
+      spotlightColor="rgba(46, 125, 50, 0.09)"
+      spotlightSize={320}
+      className="taste-card group bg-white rounded-2xl overflow-hidden border border-[#E3DBD0] flex flex-col justify-between transition-all duration-200 hover:border-[#111111] hover:shadow-md"
+    >
       {/* Top Image */}
       <div className="taste-zoom relative aspect-[16/10] bg-[#FAF8F5]">
         <img
@@ -101,7 +107,7 @@ export const ProductCard = ({ product }) => {
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#2E7D32] bg-[#EAF3EB] px-2.5 py-0.5 rounded-full border border-[#C8E0CD]">
                 <ShieldCheck className="w-3 h-3 text-[#2E7D32]" />
-                Auto &amp; Agro Verified
+                <ShinyText variant="green">Auto &amp; Agro Verified</ShinyText>
               </span>
               {modelYear && (
                 <span className="flex items-center gap-1 text-[#6B665F] text-xs">
@@ -180,6 +186,6 @@ export const ProductCard = ({ product }) => {
           </div>
         </div>
       </div>
-    </div>
+    </SpotlightCard>
   );
 };

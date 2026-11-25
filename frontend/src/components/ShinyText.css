@@ -1,0 +1,75 @@
+.shiny-text {
+  color: #b5b5b5a4;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 35%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 65%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  display: inline-block;
+  animation: shine 4s linear infinite;
+}
+
+.shiny-text-dark {
+  background: linear-gradient(
+    120deg,
+    #111111 35%,
+    #2E7D32 50%,
+    #111111 65%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  animation: shine 4s linear infinite;
+}
+
+.shiny-text-green {
+  background: linear-gradient(
+    120deg,
+    #2E7D32 30%,
+    #81C784 50%,
+    #2E7D32 70%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  animation: shine 3.5s linear infinite;
+}
+
+.shiny-text-light {
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.7) 30%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, 0.7) 70%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  animation: shine 3.5s linear infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 100%;
+  }
+  100% {
+    background-position: -100%;
+  }
+}
+
+.shiny-text.disabled,
+.shiny-text-dark.disabled,
+.shiny-text-green.disabled,
+.shiny-text-light.disabled {
+  animation: none;
+}
