@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'motion/react';
 import { AuthProvider } from './context/AuthContext';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Preloader } from './components/Preloader';
@@ -7,6 +8,7 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { WhatsAppPill } from './components/WhatsAppPill';
 import { ScrollToTop } from './components/ScrollToTop';
+import { ScrollProgress } from './components/ScrollProgress';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { MobileSideDrawer } from './components/MobileSideDrawer';
 
@@ -27,7 +29,10 @@ function AppContent() {
   const isAdminRoute = location.pathname.startsWith('/admin');
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-slate-800 font-sans selection:bg-orange-600 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#F5F1EB] text-[#111111] font-sans selection:bg-[#2E7D32] selection:text-white">
+      {/* Top Scroll Progress Indicator */}
+      {!isAdminRoute && <ScrollProgress />}
+
       {/* Public Top Navbar - Hidden on Admin Portal */}
       {!isAdminRoute && (
         <Navbar onOpenSideDrawer={() => setSideDrawerOpen(true)} />
@@ -41,19 +46,29 @@ function AppContent() {
         />
       )}
 
-      {/* Main Content Area */}
+      {/* Main Content Area with Smooth Animated Page Transitions */}
       <main className={`flex-1 ${!isAdminRoute ? 'pb-16 lg:pb-0' : 'pb-6'}`}>
         <ErrorBoundary>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/products/:id" element={<ProductDetail />} />
-            <Route path="/quotation" element={<Quotation />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-          </Routes>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={location.pathname}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Routes location={location}>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/products/:id" element={<ProductDetail />} />
+                <Route path="/quotation" element={<Quotation />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+              </Routes>
+            </motion.div>
+          </AnimatePresence>
         </ErrorBoundary>
       </main>
 

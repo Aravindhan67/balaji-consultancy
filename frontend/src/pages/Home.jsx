@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { 
   ShieldCheck, 
   Search, 
@@ -36,6 +37,7 @@ import SpotlightCard from '../components/SpotlightCard';
 import ShimmerButton from '../components/ShimmerButton';
 import BrandMarquee from '../components/BrandMarquee';
 import NumberTicker from '../components/NumberTicker';
+import Hero3DCanvas from '../components/Hero3DCanvas';
 
 const defaultReviews = [
   {
@@ -120,6 +122,26 @@ export const Home = () => {
   const targetCardRef = useRef(null);
 
   const navigate = useNavigate();
+
+  // 3D Hero Parallax Motion Values
+  const heroMouseX = useMotionValue(0);
+  const heroMouseY = useMotionValue(0);
+  const smoothHeroX = useSpring(heroMouseX, { stiffness: 120, damping: 20 });
+  const smoothHeroY = useSpring(heroMouseY, { stiffness: 120, damping: 20 });
+  const heroRotateY = useTransform(smoothHeroX, [-0.5, 0.5], [-4, 4]);
+  const heroRotateX = useTransform(smoothHeroY, [-0.5, 0.5], [3, -3]);
+
+  const handleHeroMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    heroMouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+    heroMouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const handleHeroMouseLeave = () => {
+    heroMouseX.set(0);
+    heroMouseY.set(0);
+  };
 
   useEffect(() => {
     let animationFrameId;
@@ -321,8 +343,13 @@ export const Home = () => {
 
   return (
     <div className="space-y-16 sm:space-y-24 bg-[#F5F1EB] text-[#111111]">
-      {/* 1. HERO SECTION - SUPRO MINIMALIST EDITORIAL */}
-      <section className="relative overflow-hidden bg-[#F5F1EB] border-b border-[#E3DBD0] py-20 sm:py-28">
+      {/* 1. HERO SECTION - 3D PARALLAX & INTERACTIVE PARTICLE DEPTH */}
+      <section
+        onMouseMove={handleHeroMouseMove}
+        onMouseLeave={handleHeroMouseLeave}
+        style={{ perspective: '1200px' }}
+        className="relative overflow-hidden bg-[#F5F1EB] border-b border-[#E3DBD0] py-20 sm:py-28"
+      >
         {/* Rich Agro Background Layer - Reduced White Shade & Higher Clarity */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           <img
@@ -334,7 +361,13 @@ export const Home = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-[#F5F1EB]/25 via-transparent to-[#F5F1EB]/75" />
         </div>
 
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full text-center space-y-6 sm:space-y-8">
+        {/* 3D Perspective Particle Constellation Field */}
+        <Hero3DCanvas />
+
+        <motion.div
+          style={{ rotateX: heroRotateX, rotateY: heroRotateY, transformStyle: 'preserve-3d' }}
+          className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full text-center space-y-6 sm:space-y-8"
+        >
           {/* Trust Badges */}
           <div className="flex flex-wrap items-center justify-center gap-2">
             <span className="animate-hero-rise inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EAF3EB] text-[#2E7D32] text-[11px] font-bold uppercase tracking-wider border border-[#C8E0CD] shadow-sm">
@@ -400,7 +433,7 @@ export const Home = () => {
               </ShimmerButton>
             </a>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Brand Partner Marquee from 21st.dev / React Bits */}

@@ -28,8 +28,8 @@ export function useInView(options = {}) {
         setIsInView(false);
       }
     }, {
-      threshold: options.threshold || 0.15,
-      rootMargin: options.rootMargin || '0px 0px -40px 0px'
+      threshold: options.threshold || 0.12,
+      rootMargin: options.rootMargin || '0px 0px -30px 0px'
     });
 
     observer.observe(el);
@@ -43,26 +43,32 @@ export function useInView(options = {}) {
 }
 
 /**
- * ScrollReveal Wrapper Component for humanable, subtle entrance animations
+ * ScrollReveal Wrapper Component with 3D perspective depth entrance animations
  */
-export function ScrollReveal({ 
-  children, 
-  className = '', 
-  delay = 0, 
+export function ScrollReveal({
+  children,
+  className = '',
+  delay = 0,
   direction = 'up',
-  once = true 
+  once = true
 }) {
-  const [ref, isInView] = useInView({ threshold: 0.12, once });
+  const [ref, isInView] = useInView({ threshold: 0.1, once });
 
   const getTransformStyle = () => {
-    if (isInView) return 'translate3d(0, 0, 0)';
+    if (isInView) return 'perspective(1000px) rotateX(0deg) rotateY(0deg) translate3d(0, 0, 0) scale3d(1, 1, 1)';
     switch (direction) {
-      case 'up': return 'translate3d(0, 28px, 0)';
-      case 'down': return 'translate3d(0, -28px, 0)';
-      case 'left': return 'translate3d(28px, 0, 0)';
-      case 'right': return 'translate3d(-28px, 0, 0)';
-      case 'scale': return 'scale3d(0.96, 0.96, 1)';
-      default: return 'translate3d(0, 24px, 0)';
+      case 'up':
+        return 'perspective(1000px) rotateX(6deg) translate3d(0, 32px, -16px) scale3d(0.98, 0.98, 1)';
+      case 'down':
+        return 'perspective(1000px) rotateX(-6deg) translate3d(0, -32px, -16px) scale3d(0.98, 0.98, 1)';
+      case 'left':
+        return 'perspective(1000px) rotateY(-6deg) translate3d(32px, 0, -16px) scale3d(0.98, 0.98, 1)';
+      case 'right':
+        return 'perspective(1000px) rotateY(6deg) translate3d(-32px, 0, -16px) scale3d(0.98, 0.98, 1)';
+      case 'scale':
+        return 'perspective(1000px) scale3d(0.92, 0.92, 1) translate3d(0, 12px, -24px)';
+      default:
+        return 'perspective(1000px) rotateX(5deg) translate3d(0, 28px, 0)';
     }
   };
 
@@ -81,3 +87,5 @@ export function ScrollReveal({
     </div>
   );
 }
+
+export default ScrollReveal;

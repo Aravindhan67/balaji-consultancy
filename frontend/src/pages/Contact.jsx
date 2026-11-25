@@ -1,4 +1,5 @@
 ﻿import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { api } from '../services/api';
 import { 
   MapPin, 
@@ -250,7 +251,7 @@ export const Contact = () => {
 
         {/* Contact Info & Yard Location on Right */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E3DBD0] space-y-6">
+          <SpotlightCard className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E3DBD0] space-y-6 hover:border-[#2E7D32]/60 hover:shadow-xl">
             <h3 className="font-heading font-bold text-[#111111] text-base uppercase tracking-wider pb-3 border-b border-[#E3DBD0]">
               Balaji Consultation Yard
             </h3>
@@ -325,7 +326,7 @@ export const Contact = () => {
                 <MessageSquare className="w-4 h-4 fill-current" />
               </a>
             </div>
-          </div>
+          </SpotlightCard>
         </div>
       </div>
 
@@ -358,11 +359,21 @@ export const Contact = () => {
                   }`}
                 />
               </button>
-              {openFaq === index && (
-                <div className="p-4 pt-1 text-xs text-[#6B665F] leading-relaxed border-t border-[#E3DBD0] bg-white">
-                  {faq.a}
-                </div>
-              )}
+              <AnimatePresence initial={false}>
+                {openFaq === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                    className="overflow-hidden"
+                  >
+                    <div className="p-4 pt-2 text-xs text-[#6B665F] leading-relaxed border-t border-[#E3DBD0] bg-white">
+                      {faq.a}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           ))}
         </div>

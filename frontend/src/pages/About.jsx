@@ -17,6 +17,8 @@ import {
 } from 'lucide-react';
 import { resolveImageUrl } from '../utils/imageUrl';
 import BlurText from '../components/BlurText';
+import SpotlightCard from '../components/SpotlightCard';
+import NumberTicker from '../components/NumberTicker';
 
 export const About = () => {
   return (
@@ -132,7 +134,7 @@ export const About = () => {
         <div className="mt-12 pt-10 border-t border-[#E3DBD0]">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* 1. 10+ Years Industry Experience */}
-            <div className="taste-card bg-white rounded-2xl overflow-hidden border border-[#E3DBD0] flex flex-col justify-between group">
+            <SpotlightCard className="taste-card bg-white rounded-2xl overflow-hidden border border-[#E3DBD0] flex flex-col justify-between group hover:border-[#2E7D32]/60 hover:shadow-xl">
               <div>
                 <div className="taste-zoom relative aspect-[16/10] bg-[#FAF8F5] overflow-hidden">
                   <img
@@ -151,7 +153,7 @@ export const About = () => {
 
                 <div className="p-5">
                   <div className="font-heading font-black text-3xl text-[#111111] mb-1">
-                    10+ Years
+                    <NumberTicker value={10} suffix="+ Years" />
                   </div>
                   <div className="text-xs font-bold text-[#111111] uppercase tracking-wider">
                     Industry Experience
@@ -166,10 +168,10 @@ export const About = () => {
                 <Check className="w-3.5 h-3.5 text-[#111111]" />
                 <span>Over a decade of excellence</span>
               </div>
-            </div>
+            </SpotlightCard>
 
             {/* 2. 5,800+ Satisfied Customers */}
-            <div className="taste-card bg-white rounded-2xl overflow-hidden border border-[#E3DBD0] flex flex-col justify-between group">
+            <SpotlightCard className="taste-card bg-white rounded-2xl overflow-hidden border border-[#E3DBD0] flex flex-col justify-between group hover:border-[#2E7D32]/60 hover:shadow-xl">
               <div>
                 <div className="taste-zoom relative aspect-[16/10] bg-[#FAF8F5] overflow-hidden">
                   <img
@@ -188,7 +190,7 @@ export const About = () => {
 
                 <div className="p-5">
                   <div className="font-heading font-black text-3xl text-[#111111] mb-1">
-                    5,800+
+                    <NumberTicker value={5800} suffix="+" />
                   </div>
                   <div className="text-xs font-bold text-[#111111] uppercase tracking-wider">
                     Satisfied Customers
@@ -203,10 +205,10 @@ export const About = () => {
                 <Check className="w-3.5 h-3.5 text-[#111111]" />
                 <span>Zero middleman broker fees</span>
               </div>
-            </div>
+            </SpotlightCard>
 
             {/* 3. 100% Legal Title Guarantee */}
-            <div className="taste-card bg-white rounded-2xl overflow-hidden border border-[#E3DBD0] flex flex-col justify-between group">
+            <SpotlightCard className="taste-card bg-white rounded-2xl overflow-hidden border border-[#E3DBD0] flex flex-col justify-between group hover:border-[#2E7D32]/60 hover:shadow-xl">
               <div>
                 <div className="taste-zoom relative aspect-[16/10] bg-[#FAF8F5] overflow-hidden">
                   <img
@@ -225,7 +227,7 @@ export const About = () => {
 
                 <div className="p-5">
                   <div className="font-heading font-black text-3xl text-[#111111] mb-1">
-                    100%
+                    <NumberTicker value={100} suffix="%" />
                   </div>
                   <div className="text-xs font-bold text-[#111111] uppercase tracking-wider">
                     Legal Title Guarantee
@@ -240,10 +242,10 @@ export const About = () => {
                 <Check className="w-3.5 h-3.5 text-[#111111]" />
                 <span>Form 29/30 &amp; NOC guaranteed</span>
               </div>
-            </div>
+            </SpotlightCard>
 
             {/* 4. 120-Point Engineering Check */}
-            <div className="taste-card bg-white rounded-2xl overflow-hidden border border-[#E3DBD0] flex flex-col justify-between group">
+            <SpotlightCard className="taste-card bg-white rounded-2xl overflow-hidden border border-[#E3DBD0] flex flex-col justify-between group hover:border-[#2E7D32]/60 hover:shadow-xl">
               <div>
                 <div className="taste-zoom relative aspect-[16/10] bg-[#FAF8F5] overflow-hidden">
                   <img
@@ -262,7 +264,7 @@ export const About = () => {
 
                 <div className="p-5">
                   <div className="font-heading font-black text-3xl text-[#111111] mb-1">
-                    120-Pt
+                    <NumberTicker value={120} suffix="-Pt" />
                   </div>
                   <div className="text-xs font-bold text-[#111111] uppercase tracking-wider">
                     Engineering Check
@@ -277,7 +279,7 @@ export const About = () => {
                 <Check className="w-3.5 h-3.5 text-[#111111]" />
                 <span>6-Month yard warranty</span>
               </div>
-            </div>
+            </SpotlightCard>
           </div>
         </div>
       </section>

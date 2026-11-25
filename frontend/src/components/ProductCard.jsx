@@ -65,16 +65,19 @@ export const ProductCard = ({ product }) => {
 
   return (
     <SpotlightCard
-      spotlightColor="rgba(46, 125, 50, 0.09)"
-      spotlightSize={320}
-      className="taste-card group bg-white rounded-2xl overflow-hidden border border-[#E3DBD0] flex flex-col justify-between transition-all duration-200 hover:border-[#111111] hover:shadow-md"
+      spotlightColor="rgba(46, 125, 50, 0.1)"
+      borderGlowColor="rgba(46, 125, 50, 0.45)"
+      spotlightSize={340}
+      tilt={true}
+      maxTilt={3.5}
+      className="taste-card group bg-white rounded-2xl overflow-hidden border border-[#E3DBD0] flex flex-col justify-between transition-all duration-300 hover:border-[#2E7D32]/60 hover:shadow-xl"
     >
-      {/* Top Image */}
-      <div className="taste-zoom relative aspect-[16/10] bg-[#FAF8F5]">
+      {/* Top Image with Smooth Zoom & Glass Sheen Sweep */}
+      <div className="relative aspect-[16/10] bg-[#FAF8F5] overflow-hidden">
         <img
           src={imageUrl}
           alt={title}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
           loading="lazy"
           onError={(e) => {
             const fallback = resolveImageUrl(getDefaultFallbackImage());
@@ -82,6 +85,10 @@ export const ProductCard = ({ product }) => {
               e.target.src = fallback;
             }
           }}
+        />
+        {/* Diagonal Glass Sheen Sweep on Hover */}
+        <div
+          className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/25 to-transparent -skew-x-12 z-10"
         />
         {product.status && product.status !== 'available' && (
           <div className="absolute top-2.5 right-2.5 z-10">
@@ -178,10 +185,10 @@ export const ProductCard = ({ product }) => {
             
             <Link
               to={`/products/${_id}`}
-              className="taste-btn inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider bg-[#2E7D32] hover:bg-[#236628] text-white px-4 py-2 rounded-full shadow-none"
+              className="taste-btn group/btn inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider bg-[#2E7D32] hover:bg-[#236628] text-white px-4 py-2 rounded-full shadow-none transition-all"
             >
-              Details
-              <ArrowRight className="w-3 h-3" />
+              <span>Details</span>
+              <ArrowRight className="w-3 h-3 transition-transform duration-200 group-hover/btn:translate-x-1" />
             </Link>
           </div>
         </div>

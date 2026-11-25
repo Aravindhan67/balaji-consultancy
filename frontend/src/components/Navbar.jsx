@@ -1,5 +1,6 @@
 ﻿import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { motion } from 'motion/react';
 import { Logo } from './Logo';
 import { PhoneCall, Menu } from 'lucide-react';
 import { GoogleTranslate } from './GoogleTranslate';
@@ -54,21 +55,31 @@ export const Navbar = ({ onOpenSideDrawer }) => {
             <Logo size="normal" showTagline={true} />
           </div>
 
-          {/* Desktop Nav Links - Single Line Aligned (Minimalist Supro Pills) */}
+          {/* Desktop Nav Links - Gliding Spring Pill */}
           <nav className="hidden lg:flex items-center gap-1.5 shrink-0">
-            {navLinks.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`whitespace-nowrap px-4 py-2 rounded-full text-xs xl:text-sm transition-all duration-200 shrink-0 ${
-                  isActive(item.path)
-                    ? 'bg-[#2E7D32] text-white font-semibold shadow-none'
-                    : 'text-[#6B665F] hover:text-[#2E7D32] hover:bg-[#EAF3EB] font-medium'
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navLinks.map((item) => {
+              const active = isActive(item.path);
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`relative whitespace-nowrap px-4 py-2 rounded-full text-xs xl:text-sm transition-colors duration-200 shrink-0 ${
+                    active
+                      ? 'text-white font-semibold'
+                      : 'text-[#6B665F] hover:text-[#2E7D32] hover:bg-[#EAF3EB]/70 font-medium'
+                  }`}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="navbarActivePill"
+                      transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                      className="absolute inset-0 bg-[#2E7D32] rounded-full -z-10 shadow-xs"
+                    />
+                  )}
+                  <span className="relative z-10">{item.label}</span>
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Right Action CTAs */}

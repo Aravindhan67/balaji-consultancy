@@ -422,7 +422,7 @@ export const Quotation = () => {
 
           {/* Right Info Sidebar */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="bg-white p-6 rounded-2xl border border-[#E3DBD0] shadow-sm space-y-4">
+            <SpotlightCard className="bg-white p-6 rounded-2xl border border-[#E3DBD0] shadow-sm space-y-4 hover:border-[#2E7D32]/60 hover:shadow-xl">
               <h3 className="font-heading font-bold text-[#111111] text-base">
                 Why Sell or Value With Balaji?
               </h3>
@@ -475,7 +475,7 @@ export const Quotation = () => {
                   Call Valuation Desk: +91 81243 36369
                 </a>
               </div>
-            </div>
+            </SpotlightCard>
           </div>
         </div>
       </div>
