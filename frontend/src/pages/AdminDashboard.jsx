@@ -435,54 +435,54 @@ export const AdminDashboard = () => {
           </SpotlightCard>
         </div>
 
-        {/* Pill Tab Navigation (User Panel Style, Horizontal Scroll on Mobile) */}
-        <div className="flex items-center gap-2 bg-white p-2 rounded-2xl border border-[#E3DBD0] shadow-xs overflow-x-auto no-scrollbar sm:flex-wrap">
+        {/* Pill Tab Navigation (2x2 Grid on Mobile, Wrapped Pills on Tablet/Desktop) */}
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:items-center gap-2 bg-white p-2 rounded-2xl border border-[#E3DBD0] shadow-xs">
           <button
             onClick={() => setActiveTab('inventory')}
-            className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0 ${
+            className={`w-full sm:w-auto justify-center px-2.5 sm:px-4 py-2.5 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-bold transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer ${
               activeTab === 'inventory'
                 ? 'bg-[#2E7D32] text-white shadow-xs'
                 : 'text-[#6B665F] hover:text-[#111111] hover:bg-[#FAF8F5]'
             }`}
           >
-            <Package className="w-4 h-4" />
-            Vehicle Inventory ({products.length})
+            <Package className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+            <span className="truncate">Inventory ({products.length})</span>
           </button>
 
           <button
             onClick={() => setActiveTab('analytics')}
-            className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0 ${
+            className={`w-full sm:w-auto justify-center px-2.5 sm:px-4 py-2.5 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-bold transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer ${
               activeTab === 'analytics'
                 ? 'bg-[#2E7D32] text-white shadow-xs'
                 : 'text-[#6B665F] hover:text-[#111111] hover:bg-[#FAF8F5]'
             }`}
           >
-            <BarChart3 className="w-4 h-4" />
-            Analytics &amp; Graphs
+            <BarChart3 className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+            <span className="truncate">Analytics &amp; Graphs</span>
           </button>
 
           <button
             onClick={() => setActiveTab('enquiries')}
-            className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0 ${
+            className={`w-full sm:w-auto justify-center px-2.5 sm:px-4 py-2.5 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-bold transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer ${
               activeTab === 'enquiries'
                 ? 'bg-[#2E7D32] text-white shadow-xs'
                 : 'text-[#6B665F] hover:text-[#111111] hover:bg-[#FAF8F5]'
             }`}
           >
-            <MessageSquare className="w-4 h-4" />
-            Customer Enquiries ({enquiries.length})
+            <MessageSquare className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+            <span className="truncate">Enquiries ({enquiries.length})</span>
           </button>
 
           <button
             onClick={() => setActiveTab('quotations')}
-            className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0 ${
+            className={`w-full sm:w-auto justify-center px-2.5 sm:px-4 py-2.5 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-bold transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer ${
               activeTab === 'quotations'
                 ? 'bg-[#2E7D32] text-white shadow-xs'
                 : 'text-[#6B665F] hover:text-[#111111] hover:bg-[#FAF8F5]'
             }`}
           >
-            <FileCheck className="w-4 h-4" />
-            Valuation Requests ({quotations.length})
+            <FileCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+            <span className="truncate">Valuations ({quotations.length})</span>
           </button>
         </div>
 
