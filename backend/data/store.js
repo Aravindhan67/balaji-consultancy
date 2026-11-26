@@ -176,6 +176,8 @@ export const seedMongoIfEmpty = async () => {
   }
 };
 
+const escapeRegex = (str) => String(str).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
 // --- DATA ACCESS LAYER ---
 export const DataStore = {
   // PRODUCTS
@@ -183,17 +185,18 @@ export const DataStore = {
     if (isMongoConnected()) {
       const query = {};
       if (filter.category && filter.category !== 'all') {
-        query.category = filter.category;
+        query.category = String(filter.category);
       }
       if (filter.brand && filter.brand !== 'all') {
-        query.brand = new RegExp(filter.brand, 'i');
+        query.brand = new RegExp(`^${escapeRegex(filter.brand)}$`, 'i');
       }
       if (filter.search) {
+        const safeSearch = new RegExp(escapeRegex(filter.search), 'i');
         query.$or = [
-          { title: new RegExp(filter.search, 'i') },
-          { brand: new RegExp(filter.search, 'i') },
-          { description: new RegExp(filter.search, 'i') },
-          { rtoPassing: new RegExp(filter.search, 'i') }
+          { title: safeSearch },
+          { brand: safeSearch },
+          { description: safeSearch },
+          { rtoPassing: safeSearch }
         ];
       }
       if (filter.minPrice) query.price = { ...(query.price || {}), $gte: Number(filter.minPrice) };

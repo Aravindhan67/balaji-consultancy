@@ -1,5 +1,6 @@
 import express from 'express';
 import { DataStore } from '../data/store.js';
+import { publicPostLimiter } from '../middleware/rateLimit.js';
 
 const router = express.Router();
 
@@ -17,8 +18,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST new customer review (Public)
-router.post('/', async (req, res) => {
+// POST new customer review (Public, rate-limited)
+router.post('/', publicPostLimiter, async (req, res) => {
   try {
     const { name, comment, rating, role, location, vehicleOrService, productId } = req.body;
     if (!name || !name.trim()) {

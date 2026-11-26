@@ -25,20 +25,21 @@ const storage = multer.diskStorage({
   }
 });
 
-// File filter for images
+// File filter for raster images only (excludes SVG to prevent stored XSS)
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = /jpeg|jpg|png|webp|svg|gif/;
-  const mimeType = allowedTypes.test(file.mimetype);
-  const extName = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+  const allowedExt = /\.(jpeg|jpg|png|webp|gif)$/i;
+  const allowedMimes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
+  const mimeOk = allowedMimes.includes((file.mimetype || '').toLowerCase());
+  const extOk = allowedExt.test(path.extname(file.originalname || '').toLowerCase());
 
-  if (mimeType && extName) {
+  if (mimeOk && extOk) {
     return cb(null, true);
   }
-  cb(new Error('Only image files (JPEG, JPG, PNG, WEBP, SVG) are allowed!'));
+  cb(new Error('Only raster image files (JPEG, JPG, PNG, WEBP, GIF) are allowed!'));
 };
 
 export const upload = multer({
   storage,
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+  limits: { fileSize: 10 * 1024 * 1024, files: 20 }, // 10MB per file, max 20 files per request
   fileFilter
 });

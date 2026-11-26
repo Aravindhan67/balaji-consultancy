@@ -2,11 +2,13 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import { DataStore } from '../data/store.js';
 import { verifyAdmin } from '../middleware/auth.js';
+import { getJwtSecret } from '../config/authConfig.js';
+import { loginLimiter } from '../middleware/rateLimit.js';
 
 const router = express.Router();
 
-// Admin Login
-router.post('/login', async (req, res) => {
+// Admin Login (Rate-limited)
+router.post('/login', loginLimiter, async (req, res) => {
   try {
     const { email, password } = req.body;
     const adminEmail = process.env.ADMIN_EMAIL || 'admin@balajiconsultancy.com';
@@ -17,13 +19,12 @@ router.post('/login', async (req, res) => {
     }
 
     if (email.toLowerCase().trim() !== adminEmail.toLowerCase().trim() || password !== adminPassword) {
-      return res.status(401).json({ success: false, message: 'Invalid credentials. Default is admin@balajiconsultancy.com / admin123' });
+      return res.status(401).json({ success: false, message: 'Invalid email or password.' });
     }
 
-    const secret = process.env.JWT_SECRET || 'balaji_consultancy_super_secure_jwt_secret_key_2026';
     const token = jwt.sign(
       { email: adminEmail, role: 'admin' },
-      secret,
+      getJwtSecret(),
       { expiresIn: '7d' }
     );
 

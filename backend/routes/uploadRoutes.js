@@ -1,10 +1,12 @@
 import express from 'express';
 import { upload } from '../middleware/upload.js';
+import { verifyAdmin } from '../middleware/auth.js';
+import { uploadLimiter } from '../middleware/rateLimit.js';
 
 const router = express.Router();
 
-// Single image upload
-router.post('/single', upload.single('image'), (req, res) => {
+// Single image upload (Admin only)
+router.post('/single', verifyAdmin, uploadLimiter, upload.single('image'), (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ success: false, message: 'No image file uploaded' });
@@ -25,8 +27,8 @@ router.post('/single', upload.single('image'), (req, res) => {
   }
 });
 
-// Multiple image upload (unlimited files)
-router.post('/multiple', upload.array('images'), (req, res) => {
+// Multiple image upload (Rate-limited; used by Admin & Quotation photo upload)
+router.post('/multiple', uploadLimiter, upload.array('images', 15), (req, res) => {
   try {
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ success: false, message: 'No image files uploaded' });

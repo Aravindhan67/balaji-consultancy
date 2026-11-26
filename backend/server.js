@@ -20,8 +20,18 @@ dotenv.config({ path: path.join(__dirname, '.env') });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+app.disable('x-powered-by');
 
-// Permissive & Production-Ready CORS configuration
+// Security response headers
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  next();
+});
+
+// Strict Production-Ready CORS configuration
 const allowedOrigins = [
   'https://balaji-consultancy.vercel.app',
   'http://localhost:5173',
@@ -30,35 +40,41 @@ const allowedOrigins = [
   process.env.CLIENT_URL
 ].filter(Boolean);
 
-app.use(cors({
+const corsOptions = {
   origin: (origin, callback) => {
-    // Allow non-browser requests (e.g. mobile, curl, Postman, server-to-server)
+    // Allow non-browser requests (e.g. curl, mobile apps, server-to-server)
     if (!origin) return callback(null, true);
 
-    // Allow Vercel production and preview deployment URLs (*.vercel.app)
-    if (origin.endsWith('.vercel.app') || allowedOrigins.includes(origin)) {
+    // Allow configured origins, Vercel preview/production deployments, and local dev ports
+    if (
+      allowedOrigins.includes(origin) ||
+      /^https:\/\/[a-z0-9-]+\.vercel\.app$/i.test(origin) ||
+      /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin)
+    ) {
       return callback(null, true);
     }
 
-    // Default allow to ensure zero client-side blocks
-    return callback(null, true);
+    return callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
-}));
+};
+
+app.use(cors(corsOptions));
 
 // Explicit Preflight Handler
-app.options('*', cors());
+app.options('*', cors(corsOptions));
 
-// Body parsers
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Body parsers with explicit payload limits
+app.use(express.json({ limit: '2mb' }));
+app.use(express.urlencoded({ extended: true, limit: '2mb' }));
 
-// Serve uploaded images statically with Cross-Origin headers
+// Serve uploaded images statically with security & Cross-Origin headers
 const uploadsPath = path.join(__dirname, 'uploads');
 app.use('/uploads', express.static(uploadsPath, {
   setHeaders: (res) => {
+    res.set('X-Content-Type-Options', 'nosniff');
     res.set('Access-Control-Allow-Origin', '*');
     res.set('Cross-Origin-Resource-Policy', 'cross-origin');
     res.set('Cache-Control', 'public, max-age=86400');

@@ -1,11 +1,12 @@
 import express from 'express';
 import { DataStore } from '../data/store.js';
 import { verifyAdmin } from '../middleware/auth.js';
+import { publicPostLimiter } from '../middleware/rateLimit.js';
 
 const router = express.Router();
 
-// POST new quotation request (Public)
-router.post('/', async (req, res) => {
+// POST new quotation request (Public, rate-limited)
+router.post('/', publicPostLimiter, async (req, res) => {
   try {
     const { name, phone, type, vehicleType } = req.body;
     if (!name || !phone || !type || !vehicleType) {

@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { getJwtSecret } from '../config/authConfig.js';
 
 export const verifyAdmin = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -8,8 +9,7 @@ export const verifyAdmin = (req, res, next) => {
 
   const token = authHeader.split(' ')[1];
   try {
-    const secret = process.env.JWT_SECRET || 'balaji_consultancy_super_secure_jwt_secret_key_2026';
-    const decoded = jwt.verify(token, secret);
+    const decoded = jwt.verify(token, getJwtSecret());
     req.admin = decoded;
     next();
   } catch (err) {
