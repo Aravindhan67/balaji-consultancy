@@ -112,7 +112,7 @@ export const GoogleTranslate = ({ variant = 'topbar', className = '' }) => {
         </button>
 
         {dropdownOpen && (
-          <div className="absolute right-0 top-full mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-[#E3DBD0] p-3.5 text-[#111111] z-50 text-left animate-in fade-in zoom-in-95 duration-150">
+          <div className="fixed left-1/2 -translate-x-1/2 top-16 w-[calc(100vw-24px)] max-w-xs sm:absolute sm:left-auto sm:translate-x-0 sm:right-0 sm:top-full sm:mt-2 sm:w-72 bg-white rounded-2xl shadow-2xl border border-[#E3DBD0] p-3.5 text-[#111111] z-50 text-left animate-in fade-in zoom-in-95 duration-150">
             {/* Header */}
             <div className="flex items-center justify-between pb-2.5 mb-2 border-b border-[#F0EBE3]">
               <div className="flex items-center gap-1.5 text-xs font-bold text-[#111111]">
