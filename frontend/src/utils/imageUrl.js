@@ -28,6 +28,7 @@ const STATIC_SEEDS = new Set([
   'hero-studio-tractor.jpg',
   'hero-studio-bmw-car.jpg',
   'hero-studio-bmw-front.jpg',
+  'hero-studio-bmw-front.png',
   'part-brake-pads.jpg',
   'part-brake-pads.svg',
   'part-clutch-plate.jpg',
