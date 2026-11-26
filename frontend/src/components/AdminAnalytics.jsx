@@ -145,10 +145,10 @@ export const AdminAnalytics = ({ products = [], enquiries = [], quotations = [] 
         {/* Category Distribution Donut Chart */}
         <SpotlightCard
           spotlightColor="rgba(46, 125, 50, 0.06)"
-          className="lg:col-span-6 bg-white p-6 rounded-3xl border border-[#E3DBD0] shadow-xs flex flex-col justify-between"
+          className="lg:col-span-6 bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-[#E3DBD0] shadow-xs flex flex-col justify-between"
         >
           <div>
-            <div className="flex items-center justify-between mb-5 pb-3 border-b border-[#F0EBE3]">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-5 pb-3 border-b border-[#F0EBE3]">
               <div className="flex items-center gap-2">
                 <div className="w-9 h-9 rounded-full bg-[#EAF3EB] text-[#2E7D32] flex items-center justify-center border border-[#C8E0CD]">
                   <PieChart className="w-4 h-4" />
@@ -298,10 +298,10 @@ export const AdminAnalytics = ({ products = [], enquiries = [], quotations = [] 
         {/* Stock Status Distribution */}
         <SpotlightCard
           spotlightColor="rgba(46, 125, 50, 0.06)"
-          className="lg:col-span-6 bg-white p-6 rounded-3xl border border-[#E3DBD0] shadow-xs flex flex-col justify-between"
+          className="lg:col-span-6 bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-[#E3DBD0] shadow-xs flex flex-col justify-between"
         >
           <div>
-            <div className="flex items-center justify-between mb-5 pb-3 border-b border-[#F0EBE3]">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-5 pb-3 border-b border-[#F0EBE3]">
               <div className="flex items-center gap-2">
                 <div className="w-9 h-9 rounded-full bg-[#EAF3EB] text-[#2E7D32] flex items-center justify-center border border-[#C8E0CD]">
                   <Activity className="w-4 h-4" />
@@ -425,7 +425,7 @@ export const AdminAnalytics = ({ products = [], enquiries = [], quotations = [] 
         {/* Top Brands Column Chart */}
         <SpotlightCard
           spotlightColor="rgba(46, 125, 50, 0.06)"
-          className="lg:col-span-7 bg-white p-6 rounded-3xl border border-[#E3DBD0] shadow-xs flex flex-col justify-between"
+          className="lg:col-span-7 bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-[#E3DBD0] shadow-xs flex flex-col justify-between"
         >
           <div>
             <div className="flex items-center justify-between mb-5 pb-3 border-b border-[#F0EBE3]">
@@ -440,7 +440,8 @@ export const AdminAnalytics = ({ products = [], enquiries = [], quotations = [] 
               </div>
             </div>
 
-            <div className="grid grid-cols-7 gap-2 sm:gap-3 items-end h-52 pt-4 pb-2 px-1">
+            <div className="overflow-x-auto pb-1">
+              <div className="min-w-[420px] sm:min-w-0 grid grid-cols-7 gap-2 sm:gap-3 items-end h-52 pt-4 pb-2 px-1">
               {topBrands.map((b, idx) => {
                 const heightPct = Math.max(12, Math.round((b.count / maxBrandCount) * 100));
                 const isSelected = activeBrand === b.brand;
@@ -481,6 +482,7 @@ export const AdminAnalytics = ({ products = [], enquiries = [], quotations = [] 
                   </button>
                 );
               })}
+              </div>
             </div>
           </div>
 
@@ -528,7 +530,7 @@ export const AdminAnalytics = ({ products = [], enquiries = [], quotations = [] 
         {/* Customer Enquiries & Quotations Funnel */}
         <SpotlightCard
           spotlightColor="rgba(46, 125, 50, 0.06)"
-          className="lg:col-span-5 bg-white p-6 rounded-3xl border border-[#E3DBD0] shadow-xs flex flex-col justify-between"
+          className="lg:col-span-5 bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-[#E3DBD0] shadow-xs flex flex-col justify-between"
         >
           <div>
             <div className="flex items-center justify-between mb-5 pb-3 border-b border-[#F0EBE3]">

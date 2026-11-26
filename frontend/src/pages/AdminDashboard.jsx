@@ -345,33 +345,33 @@ export const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-[#F5F1EB] text-[#111111]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 space-y-5 sm:space-y-8">
         {/* Top Admin Header - User Panel Editorial Theme */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-[#E3DBD0] shadow-xs">
-          <div className="space-y-2">
-            <div className="flex flex-wrap items-center gap-2.5">
+        <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-[#E3DBD0] shadow-xs">
+          <div className="space-y-2 w-full md:w-auto">
+            <div className="flex flex-wrap items-center gap-2">
               <Logo size="small" showTagline={false} asLink={false} />
-              <span className="text-[10px] font-bold text-[#2E7D32] uppercase tracking-widest bg-[#EAF3EB] px-3 py-1 rounded-full border border-[#C8E0CD]">
+              <span className="text-[10px] font-bold text-[#2E7D32] uppercase tracking-widest bg-[#EAF3EB] px-2.5 sm:px-3 py-1 rounded-full border border-[#C8E0CD]">
                 Management Portal
               </span>
-              <span className="text-[11px] font-medium text-[#6B665F] bg-[#FAF8F5] px-2.5 py-0.5 rounded-full border border-[#E3DBD0]">
+              <span className="text-[10px] sm:text-[11px] font-medium text-[#6B665F] bg-[#FAF8F5] px-2.5 py-0.5 rounded-full border border-[#E3DBD0]">
                 Storage: {stats?.dbMode || 'Active'}
               </span>
             </div>
-            <h1 className="font-heading font-black text-2xl sm:text-3xl text-[#111111] tracking-tight">
+            <h1 className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-[#111111] tracking-tight">
               Balaji Auto &amp; Agro Administration
             </h1>
-            <p className="text-xs text-[#6B665F]">
+            <p className="text-xs text-[#6B665F] break-all sm:break-normal">
               Logged in as <strong className="text-[#111111]">{admin?.email}</strong> ({admin?.role})
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2 w-full md:w-auto justify-start md:justify-end">
             <a
               href="/"
               target="_blank"
               rel="noopener noreferrer"
-              className="taste-btn flex items-center gap-1.5 bg-[#FAF8F5] hover:bg-[#EAE3D7] text-[#111111] font-bold text-xs px-4 py-2.5 rounded-full border border-[#E3DBD0] transition-colors"
+              className="taste-btn flex items-center gap-1.5 bg-[#FAF8F5] hover:bg-[#EAE3D7] text-[#111111] font-bold text-xs px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full border border-[#E3DBD0] transition-colors"
               title="Open customer website in new tab"
             >
               <ExternalLink className="w-3.5 h-3.5 text-[#2E7D32]" />
@@ -379,14 +379,14 @@ export const AdminDashboard = () => {
             </a>
             <button
               onClick={loadAllData}
-              className="p-2.5 rounded-full bg-[#FAF8F5] hover:bg-[#EAE3D7] text-[#111111] transition-colors border border-[#E3DBD0] cursor-pointer"
+              className="p-2 sm:p-2.5 rounded-full bg-[#FAF8F5] hover:bg-[#EAE3D7] text-[#111111] transition-colors border border-[#E3DBD0] cursor-pointer"
               title="Refresh Data"
             >
               <RefreshCw className="w-4 h-4" />
             </button>
             <button
               onClick={logout}
-              className="flex items-center gap-2 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs px-4 py-2.5 rounded-full transition-all shadow-xs cursor-pointer"
+              className="flex items-center gap-1.5 sm:gap-2 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full transition-all shadow-xs cursor-pointer"
             >
               <LogOut className="w-3.5 h-3.5" />
               Sign Out
@@ -395,51 +395,51 @@ export const AdminDashboard = () => {
         </div>
 
         {/* Analytics Metric Cards - User Panel SpotlightCards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-          <SpotlightCard className="bg-white p-5 rounded-2xl border border-[#E3DBD0] shadow-xs hover:border-[#2E7D32]/60">
-            <div className="text-[11px] font-bold text-[#6B665F] uppercase tracking-wider">Total Inventory</div>
-            <div className="font-heading font-black text-2xl sm:text-3xl text-[#111111] mt-1">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+          <SpotlightCard className="bg-white p-4 sm:p-5 rounded-2xl border border-[#E3DBD0] shadow-xs hover:border-[#2E7D32]/60">
+            <div className="text-[10px] sm:text-[11px] font-bold text-[#6B665F] uppercase tracking-wider">Total Inventory</div>
+            <div className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-[#111111] mt-1">
               <NumberTicker value={products.filter(p => p && p.category !== 'spare_part').length} />
             </div>
-            <div className="text-[11px] text-[#2E7D32] font-bold mt-1">
+            <div className="text-[10px] sm:text-[11px] text-[#2E7D32] font-bold mt-1 leading-snug">
               {products.filter(p => p.category === 'tractor').length} Tractors • {products.filter(p => p.category === 'car').length} Cars • {products.filter(p => p.category === 'truck').length} Trucks
             </div>
           </SpotlightCard>
 
-          <SpotlightCard className="bg-white p-5 rounded-2xl border border-[#E3DBD0] shadow-xs hover:border-[#2E7D32]/60">
-            <div className="text-[11px] font-bold text-[#6B665F] uppercase tracking-wider">Total Yard Valuation</div>
-            <div className="font-heading font-black text-2xl sm:text-3xl text-[#2E7D32] mt-1">
+          <SpotlightCard className="bg-white p-4 sm:p-5 rounded-2xl border border-[#E3DBD0] shadow-xs hover:border-[#2E7D32]/60">
+            <div className="text-[10px] sm:text-[11px] font-bold text-[#6B665F] uppercase tracking-wider">Total Yard Valuation</div>
+            <div className="font-heading font-black text-lg sm:text-2xl lg:text-3xl text-[#2E7D32] mt-1 break-words">
               {formatINR(products.filter(p => p && p.category !== 'spare_part').reduce((s, p) => s + (Number(p.price) || 0), 0))}
             </div>
-            <div className="text-[11px] text-[#6B665F] mt-1">Live active assets</div>
+            <div className="text-[10px] sm:text-[11px] text-[#6B665F] mt-1">Live active assets</div>
           </SpotlightCard>
 
-          <SpotlightCard className="bg-white p-5 rounded-2xl border border-[#E3DBD0] shadow-xs hover:border-[#2E7D32]/60">
-            <div className="text-[11px] font-bold text-[#6B665F] uppercase tracking-wider">Customer Enquiries</div>
-            <div className="font-heading font-black text-2xl sm:text-3xl text-[#111111] mt-1">
+          <SpotlightCard className="bg-white p-4 sm:p-5 rounded-2xl border border-[#E3DBD0] shadow-xs hover:border-[#2E7D32]/60">
+            <div className="text-[10px] sm:text-[11px] font-bold text-[#6B665F] uppercase tracking-wider">Customer Enquiries</div>
+            <div className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-[#111111] mt-1">
               <NumberTicker value={enquiries.length} />
             </div>
-            <div className="text-[11px] text-[#2E7D32] font-bold mt-1">
+            <div className="text-[10px] sm:text-[11px] text-[#2E7D32] font-bold mt-1">
               {enquiries.filter(e => e.status === 'new').length} New Pending Action
             </div>
           </SpotlightCard>
 
-          <SpotlightCard className="bg-white p-5 rounded-2xl border border-[#E3DBD0] shadow-xs hover:border-[#2E7D32]/60">
-            <div className="text-[11px] font-bold text-[#6B665F] uppercase tracking-wider">Vehicle Quotations</div>
-            <div className="font-heading font-black text-2xl sm:text-3xl text-[#D97706] mt-1">
+          <SpotlightCard className="bg-white p-4 sm:p-5 rounded-2xl border border-[#E3DBD0] shadow-xs hover:border-[#2E7D32]/60">
+            <div className="text-[10px] sm:text-[11px] font-bold text-[#6B665F] uppercase tracking-wider">Vehicle Quotations</div>
+            <div className="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-[#D97706] mt-1">
               <NumberTicker value={quotations.length} />
             </div>
-            <div className="text-[11px] text-[#B45309] font-bold mt-1">
+            <div className="text-[10px] sm:text-[11px] text-[#B45309] font-bold mt-1">
               {quotations.filter(q => q.status === 'pending').length} Awaiting Valuation
             </div>
           </SpotlightCard>
         </div>
 
-        {/* Pill Tab Navigation (User Panel Style) */}
-        <div className="flex flex-wrap items-center gap-2 bg-white p-2 rounded-2xl border border-[#E3DBD0] shadow-xs">
+        {/* Pill Tab Navigation (User Panel Style, Horizontal Scroll on Mobile) */}
+        <div className="flex items-center gap-2 bg-white p-2 rounded-2xl border border-[#E3DBD0] shadow-xs overflow-x-auto no-scrollbar sm:flex-wrap">
           <button
             onClick={() => setActiveTab('inventory')}
-            className={`px-4 py-2.5 rounded-full text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+            className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0 ${
               activeTab === 'inventory'
                 ? 'bg-[#2E7D32] text-white shadow-xs'
                 : 'text-[#6B665F] hover:text-[#111111] hover:bg-[#FAF8F5]'
@@ -451,7 +451,7 @@ export const AdminDashboard = () => {
 
           <button
             onClick={() => setActiveTab('analytics')}
-            className={`px-4 py-2.5 rounded-full text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+            className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0 ${
               activeTab === 'analytics'
                 ? 'bg-[#2E7D32] text-white shadow-xs'
                 : 'text-[#6B665F] hover:text-[#111111] hover:bg-[#FAF8F5]'
@@ -463,7 +463,7 @@ export const AdminDashboard = () => {
 
           <button
             onClick={() => setActiveTab('enquiries')}
-            className={`px-4 py-2.5 rounded-full text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+            className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0 ${
               activeTab === 'enquiries'
                 ? 'bg-[#2E7D32] text-white shadow-xs'
                 : 'text-[#6B665F] hover:text-[#111111] hover:bg-[#FAF8F5]'
@@ -475,7 +475,7 @@ export const AdminDashboard = () => {
 
           <button
             onClick={() => setActiveTab('quotations')}
-            className={`px-4 py-2.5 rounded-full text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+            className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0 ${
               activeTab === 'quotations'
                 ? 'bg-[#2E7D32] text-white shadow-xs'
                 : 'text-[#6B665F] hover:text-[#111111] hover:bg-[#FAF8F5]'
@@ -494,19 +494,93 @@ export const AdminDashboard = () => {
       {/* TAB 1: INVENTORY MANAGEMENT */}
       {activeTab === 'inventory' && (
         <div className="space-y-4">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <h2 className="font-heading font-bold text-[#111111] text-lg">Manage Stock</h2>
             <ShimmerButton
               onClick={handleAddNew}
               variant="primary"
-              className="px-5 py-2.5 shadow-xs"
+              className="w-full sm:w-auto px-5 py-2.5 shadow-xs justify-center"
             >
               <Plus className="w-4 h-4" />
               <span>Add Vehicle</span>
             </ShimmerButton>
           </div>
 
-          <div className="bg-white rounded-3xl border border-[#E3DBD0] shadow-xs overflow-hidden">
+          {/* Mobile Card List (No horizontal scroll on phones) */}
+          <div className="md:hidden space-y-3">
+            {products.map((prod) => (
+              <div key={prod._id} className="bg-white rounded-2xl border border-[#E3DBD0] p-4 shadow-xs space-y-3">
+                <div className="flex items-start gap-3">
+                  <div className="w-16 h-14 rounded-xl bg-slate-100 overflow-hidden border border-[#E3DBD0] shrink-0">
+                    <img
+                      src={resolveImageUrl(prod.images?.[0]) || '/uploads/tractor-mahindra-575.jpg'}
+                      alt={prod.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-1.5 mb-1">
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold capitalize ${
+                        prod.category === 'tractor' ? 'bg-amber-100 text-amber-800' :
+                        prod.category === 'car' ? 'bg-blue-100 text-blue-800' :
+                        prod.category === 'truck' ? 'bg-indigo-100 text-indigo-800' :
+                        prod.category === 'agro_equipment' ? 'bg-emerald-100 text-emerald-800' :
+                        'bg-teal-100 text-teal-800'
+                      }`}>
+                        {prod.category === 'agro_equipment' ? 'Agro Equipment' : prod.category}
+                      </span>
+                      <span className="text-[11px] font-bold text-[#2E7D32]">{formatINR(prod.price)}</span>
+                    </div>
+                    <div className="font-bold text-slate-900 text-sm leading-snug">{prod.title}</div>
+                    <div className="text-[11px] text-[#6B665F] mt-0.5">
+                      {prod.brand} • {prod.modelYear} • {prod.kmOrHours || 'N/A'}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[#F0EBE3]">
+                  <select
+                    value={prod.status || 'available'}
+                    onChange={(e) => handleProductStatus(prod._id, e.target.value)}
+                    className={`text-[11px] font-bold uppercase tracking-wider rounded-lg px-2.5 py-1.5 border transition-all cursor-pointer outline-none ${
+                      (prod.status || 'available') === 'available'
+                        ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                        : prod.status === 'sold'
+                        ? 'bg-rose-50 text-rose-800 border-rose-300'
+                        : prod.status === 'reserved'
+                        ? 'bg-amber-50 text-amber-800 border-amber-300'
+                        : 'bg-blue-50 text-blue-800 border-blue-300'
+                    }`}
+                  >
+                    <option value="available">🟢 Available</option>
+                    <option value="reserved">🟡 Reserved</option>
+                    <option value="sold">🔴 Sold Out</option>
+                    <option value="under_inspection">🔵 Inspection</option>
+                  </select>
+
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => handleEdit(prod)}
+                      className="px-3 py-1.5 text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-lg flex items-center gap-1 cursor-pointer"
+                    >
+                      <Edit className="w-3.5 h-3.5" />
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDeleteProduct(prod._id)}
+                      className="p-1.5 text-red-600 bg-red-50 hover:bg-red-100 rounded-lg cursor-pointer"
+                      title="Delete from stock"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop & Tablet Table */}
+          <div className="hidden md:block bg-white rounded-3xl border border-[#E3DBD0] shadow-xs overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead className="bg-slate-50 text-slate-600 font-bold border-b border-slate-200 uppercase">
@@ -605,16 +679,16 @@ export const AdminDashboard = () => {
       {/* TAB 2: CUSTOMER ENQUIRIES */}
       {activeTab === 'enquiries' && (
         <div className="space-y-4">
-          <h2 className="font-heading font-bold text-slate-900 text-lg">Customer Leads &amp; Messages</h2>
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <h2 className="font-heading font-bold text-[#111111] text-lg">Customer Leads &amp; Messages</h2>
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E3DBD0] shadow-xs overflow-hidden">
             {enquiries.length === 0 ? (
               <div className="p-8 text-center text-xs text-slate-500">No enquiries received yet.</div>
             ) : (
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-[#F0EBE3]">
                 {enquiries.map((enq) => (
-                  <div key={enq._id} className="p-5 flex flex-col md:flex-row justify-between gap-4">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
+                  <div key={enq._id} className="p-4 sm:p-5 flex flex-col md:flex-row justify-between gap-4">
+                    <div className="space-y-1.5 min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
                         <span className="font-bold text-slate-900 text-sm">{enq.name}</span>
                         <span className="text-xs text-slate-400">• {formatDate(enq.createdAt)}</span>
                         <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
@@ -625,30 +699,30 @@ export const AdminDashboard = () => {
                           {enq.status.toUpperCase()}
                         </span>
                       </div>
-                      <div className="text-xs text-slate-600 flex items-center gap-3">
+                      <div className="text-xs text-slate-600 flex flex-wrap items-center gap-x-3 gap-y-1">
                         <span className="font-semibold text-blue-800">Ph: {enq.phone}</span>
                         {enq.city && <span>City: {enq.city}</span>}
                         {enq.productTitle && <span className="text-amber-800 font-bold">Regarding: {enq.productTitle}</span>}
                       </div>
-                      <p className="text-xs text-slate-700 bg-slate-50 p-2.5 rounded-xl border border-slate-100 mt-2">
+                      <p className="text-xs text-slate-700 bg-[#FAF8F5] p-2.5 rounded-xl border border-[#E3DBD0] mt-2 break-words">
                         "{enq.message}"
                       </p>
                     </div>
 
-                    <div className="flex flex-row md:flex-col items-end justify-between gap-2">
+                    <div className="flex flex-wrap md:flex-col items-center md:items-end justify-between gap-2 pt-2 md:pt-0 border-t md:border-t-0 border-[#F0EBE3]">
                       <div className="flex gap-2">
                         <a
                           href={`https://wa.me/91${enq.phone.replace(/[^0-9]/g, '')}?text=Hello%20${enq.name},%20this%20is%20Balaji%20Auto%20&%20Agro%20Consultancy%20regarding%20your%20enquiry.`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="bg-[#25D366] text-white p-2 rounded-xl text-xs font-bold flex items-center gap-1"
+                          className="bg-[#25D366] text-white px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1"
                         >
                           <MessageSquare className="w-3.5 h-3.5" />
                           WhatsApp
                         </a>
                         <a
                           href={`tel:${enq.phone}`}
-                          className="bg-slate-900 text-white p-2 rounded-xl text-xs font-bold flex items-center gap-1"
+                          className="bg-slate-900 text-white px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1"
                         >
                           <PhoneCall className="w-3.5 h-3.5" />
                           Call
@@ -658,7 +732,7 @@ export const AdminDashboard = () => {
                       <select
                         value={enq.status}
                         onChange={(e) => handleEnquiryStatus(enq._id, e.target.value)}
-                        className="text-[11px] font-semibold bg-slate-100 border border-slate-200 rounded-lg px-2 py-1"
+                        className="text-[11px] font-semibold bg-[#FAF8F5] border border-[#E3DBD0] rounded-lg px-2.5 py-1.5"
                       >
                         <option value="new">Mark New</option>
                         <option value="contacted">Mark Contacted</option>
@@ -676,16 +750,16 @@ export const AdminDashboard = () => {
       {/* TAB 3: QUOTATION REQUESTS */}
       {activeTab === 'quotations' && (
         <div className="space-y-4">
-          <h2 className="font-heading font-bold text-slate-900 text-lg">Vehicle Valuation &amp; Sell Quotes</h2>
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <h2 className="font-heading font-bold text-[#111111] text-lg">Vehicle Valuation &amp; Sell Quotes</h2>
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E3DBD0] shadow-xs overflow-hidden">
             {quotations.length === 0 ? (
               <div className="p-8 text-center text-xs text-slate-500">No quotation requests yet.</div>
             ) : (
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-[#F0EBE3]">
                 {quotations.map((q) => (
-                  <div key={q._id} className="p-5 flex flex-col md:flex-row justify-between gap-4">
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2">
+                  <div key={q._id} className="p-4 sm:p-5 flex flex-col md:flex-row justify-between gap-4">
+                    <div className="space-y-2 min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
                         <span className="font-bold text-slate-900 text-sm">{q.name}</span>
                         <span className="text-xs text-slate-400">• {formatDate(q.createdAt)}</span>
                         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 uppercase">
@@ -705,21 +779,21 @@ export const AdminDashboard = () => {
                         Contact: {q.phone} • City: {q.city} • Condition: {q.condition}
                       </div>
                       {q.notes && (
-                        <p className="text-xs text-slate-600 italic bg-slate-50 p-2 rounded-lg">
+                        <p className="text-xs text-slate-600 italic bg-[#FAF8F5] border border-[#E3DBD0] p-2.5 rounded-xl break-words">
                           "{q.notes}"
                         </p>
                       )}
 
                       {/* Display Photos Uploaded to Backend */}
                       {q.photos && q.photos.length > 0 && (
-                        <div className="flex gap-2 pt-2">
+                        <div className="flex flex-wrap gap-2 pt-2">
                           {q.photos.map((photoUrl, idx) => (
                             <a
                               key={idx}
                               href={photoUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="w-14 h-14 rounded-lg overflow-hidden border border-slate-200 block"
+                              className="w-14 h-14 rounded-lg overflow-hidden border border-[#E3DBD0] block"
                             >
                               <img src={photoUrl} alt="machine" className="w-full h-full object-cover" />
                             </a>
@@ -728,12 +802,12 @@ export const AdminDashboard = () => {
                       )}
                     </div>
 
-                    <div className="flex flex-row md:flex-col items-end justify-between gap-2">
+                    <div className="flex flex-wrap md:flex-col items-center md:items-end justify-between gap-2 pt-2 md:pt-0 border-t md:border-t-0 border-[#F0EBE3]">
                       <a
                         href={`https://wa.me/91${q.phone.replace(/[^0-9]/g, '')}?text=Hello%20${q.name},%20we%20reviewed%20your%20${q.brand}%20${q.modelName}%20quotation%20request.`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-[#25D366] text-white p-2 rounded-xl text-xs font-bold flex items-center gap-1"
+                        className="bg-[#25D366] text-white px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1"
                       >
                         <MessageSquare className="w-3.5 h-3.5" />
                         Reply WhatsApp
@@ -742,7 +816,7 @@ export const AdminDashboard = () => {
                       <select
                         value={q.status}
                         onChange={(e) => handleQuotationStatus(q._id, e.target.value)}
-                        className="text-[11px] font-semibold bg-slate-100 border border-slate-200 rounded-lg px-2 py-1"
+                        className="text-[11px] font-semibold bg-[#FAF8F5] border border-[#E3DBD0] rounded-lg px-2.5 py-1.5"
                       >
                         <option value="pending">Pending</option>
                         <option value="evaluated">Evaluated</option>
@@ -760,8 +834,8 @@ export const AdminDashboard = () => {
 
       {/* MODAL: ADD / EDIT PRODUCT */}
       {showProductModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl space-y-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl sm:rounded-3xl max-w-2xl w-full max-h-[92vh] overflow-y-auto p-4 sm:p-8 shadow-2xl space-y-5 sm:space-y-6">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <h3 className="font-heading font-bold text-slate-900 text-lg">
                 {editingProduct ? 'Edit Vehicle / Part' : 'Add New Inventory Item'}
@@ -829,7 +903,7 @@ export const AdminDashboard = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">Price (₹) *</label>
                   <input
@@ -864,7 +938,7 @@ export const AdminDashboard = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">Hours / KMs Run</label>
                   <input
@@ -1015,29 +1089,31 @@ export const AdminDashboard = () => {
                 {(productForm.customFields || []).length > 0 && (
                   <div className="space-y-2 pt-1">
                     {productForm.customFields.map((field, idx) => (
-                      <div key={idx} className="grid grid-cols-12 gap-2 items-center">
+                      <div key={idx} className="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center bg-white sm:bg-transparent p-2 sm:p-0 rounded-xl border sm:border-0 border-slate-200">
                         <input
                           type="text"
                           placeholder="Label (e.g. Tyre Condition)"
                           value={field.label}
                           onChange={(e) => handleCustomFieldChange(idx, 'label', e.target.value)}
-                          className="col-span-5 text-xs bg-white border border-slate-200 rounded-xl px-3 py-2 font-semibold text-slate-800 focus:outline-none focus:border-[#2E7D32]"
+                          className="sm:col-span-5 text-xs bg-white border border-slate-200 rounded-xl px-3 py-2 font-semibold text-slate-800 focus:outline-none focus:border-[#2E7D32]"
                         />
-                        <input
-                          type="text"
-                          placeholder="Value (e.g. 85% MRF Lug)"
-                          value={field.value}
-                          onChange={(e) => handleCustomFieldChange(idx, 'value', e.target.value)}
-                          className="col-span-6 text-xs bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-700 focus:outline-none focus:border-[#2E7D32]"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveCustomField(idx)}
-                          className="col-span-1 h-8 w-8 mx-auto rounded-lg bg-red-50 hover:bg-red-100 text-red-600 flex items-center justify-center transition-colors cursor-pointer"
-                          title="Remove field"
-                        >
-                          <X className="w-3.5 h-3.5" />
-                        </button>
+                        <div className="sm:col-span-7 flex items-center gap-2">
+                          <input
+                            type="text"
+                            placeholder="Value (e.g. 85% MRF Lug)"
+                            value={field.value}
+                            onChange={(e) => handleCustomFieldChange(idx, 'value', e.target.value)}
+                            className="flex-1 text-xs bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-700 focus:outline-none focus:border-[#2E7D32]"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveCustomField(idx)}
+                            className="h-8 w-8 shrink-0 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 flex items-center justify-center transition-colors cursor-pointer"
+                            title="Remove field"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -1054,18 +1130,18 @@ export const AdminDashboard = () => {
                 ></textarea>
               </div>
 
-              <div className="pt-2 flex justify-end gap-3">
+              <div className="pt-2 flex flex-col-reverse sm:flex-row justify-end gap-2.5 sm:gap-3">
                 <button
                   type="button"
                   onClick={() => setShowProductModal(false)}
-                  className="px-5 py-2.5 rounded-full border border-[#E3DBD0] text-xs font-bold text-[#111111] hover:bg-[#FAF8F5] transition-colors cursor-pointer"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-full border border-[#E3DBD0] text-xs font-bold text-[#111111] hover:bg-[#FAF8F5] transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <ShimmerButton
                   type="submit"
                   variant="primary"
-                  className="px-6 py-2.5 shadow-sm"
+                  className="w-full sm:w-auto px-6 py-2.5 shadow-sm justify-center"
                 >
                   <span>{editingProduct ? 'Update Vehicle' : 'Add to Stock'}</span>
                 </ShimmerButton>
