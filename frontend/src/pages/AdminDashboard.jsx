@@ -65,6 +65,8 @@ export const AdminDashboard = () => {
   });
 
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [imageUrlInput, setImageUrlInput] = useState('');
+  const [isDraggingImages, setIsDraggingImages] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
@@ -234,6 +236,27 @@ export const AdminDashboard = () => {
       ...prev,
       images: prev.images.filter((_, i) => i !== index)
     }));
+  };
+
+  const handleAddImageUrl = () => {
+    const trimmed = imageUrlInput.trim();
+    if (!trimmed) return;
+    setProductForm(prev => ({
+      ...prev,
+      images: [...prev.images, trimmed]
+    }));
+    setImageUrlInput('');
+  };
+
+  const handleDropImages = async (e) => {
+    e.preventDefault();
+    setIsDraggingImages(false);
+    const droppedFiles = Array.from(e.dataTransfer?.files || []).filter(f =>
+      /\.(jpe?g|png|webp|gif)$/i.test(f.name) || f.type.startsWith('image/')
+    );
+    if (droppedFiles.length > 0) {
+      await handleImageUpload({ target: { files: droppedFiles } });
+    }
   };
 
   const handleAddCustomField = () => {
@@ -963,18 +986,27 @@ export const AdminDashboard = () => {
               </div>
 
               {/* Product Photos Upload (Unlimited Photos, Min 1) */}
-              <div className="space-y-2.5 p-4 bg-slate-50/80 rounded-2xl border border-slate-200">
-                <div className="flex items-center justify-between">
-                  <div>
+              <div
+                onDragOver={(e) => { e.preventDefault(); setIsDraggingImages(true); }}
+                onDragLeave={() => setIsDraggingImages(false)}
+                onDrop={handleDropImages}
+                className={`space-y-2.5 p-3.5 sm:p-4 rounded-2xl border transition-colors ${
+                  isDraggingImages
+                    ? 'bg-[#EAF3EB]/60 border-[#2E7D32] border-dashed'
+                    : 'bg-slate-50/80 border-slate-200'
+                }`}
+              >
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div className="min-w-0 flex-1">
                     <label className="block text-xs font-bold text-slate-800">
                       Product Photos <span className="text-red-500">*</span>
-                      <span className="text-[11px] font-normal text-slate-500 ml-1.5">(Min 1, Unlimited Photos)</span>
+                      <span className="text-[11px] font-normal text-slate-500 ml-1.5">(Min 1, Unlimited)</span>
                     </label>
                     <p className="text-[11px] text-slate-500 mt-0.5">
-                      Upload as many photos as you need. All photos display in the product details gallery.
+                      Choose files, drag &amp; drop photos here, or paste an image URL below.
                     </p>
                   </div>
-                  <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider ${
+                  <span className={`shrink-0 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider ${
                     productForm.images.length >= 1
                       ? 'bg-[#2E7D32]/10 text-[#2E7D32] border border-[#2E7D32]/30'
                       : 'bg-amber-100 text-amber-800 border border-amber-300'
@@ -983,14 +1015,15 @@ export const AdminDashboard = () => {
                   </span>
                 </div>
 
-                {/* Hidden File Input (Supports Unlimited Multiple) */}
+                {/* Native Accessible File Input (Explicit extensions prevent Windows/OneDrive Chrome picker hang) */}
                 <input
+                  id="admin-product-photo-input"
                   ref={fileInputRef}
                   type="file"
                   multiple
-                  accept="image/*"
+                  accept=".jpg,.jpeg,.png,.webp,.gif"
                   onChange={handleImageUpload}
-                  className="hidden"
+                  className="sr-only"
                 />
 
                 {/* Unlimited Photo Grid */}
@@ -1024,49 +1057,74 @@ export const AdminDashboard = () => {
                   })}
 
                   {/* Always-available Add More Photos Tile */}
-                  <button
-                    type="button"
-                    onClick={() => fileInputRef.current?.click()}
-                    disabled={uploadingImage}
-                    className="relative aspect-video rounded-xl border-2 border-dashed border-slate-300 hover:border-[#2E7D32] hover:bg-white text-slate-400 hover:text-[#2E7D32] flex flex-col items-center justify-center gap-1 transition-all p-2 cursor-pointer disabled:opacity-50"
+                  <label
+                    htmlFor="admin-product-photo-input"
+                    className={`relative aspect-video rounded-xl border-2 border-dashed border-slate-300 hover:border-[#2E7D32] hover:bg-white text-slate-400 hover:text-[#2E7D32] flex flex-col items-center justify-center gap-1 transition-all p-2 cursor-pointer ${
+                      uploadingImage ? 'opacity-50 pointer-events-none' : ''
+                    }`}
                   >
                     <Camera className="w-5 h-5" />
-                    <span className="text-[10px] font-bold">
+                    <span className="text-[10px] font-bold text-center">
                       {productForm.images.length === 0 ? '+ Cover Photo' : '+ Add More'}
                     </span>
-                  </button>
+                  </label>
                 </div>
 
-                {/* Upload Actions & Status */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pt-1 border-t border-slate-200">
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                      disabled={uploadingImage}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold bg-[#2E7D32] hover:bg-[#236628] disabled:bg-slate-300 text-white px-3.5 py-1.5 rounded-lg transition-colors cursor-pointer"
-                    >
-                      <Upload className="w-3.5 h-3.5" />
-                      {uploadingImage ? 'Uploading Photos...' : 'Add Photos (Unlimited)'}
-                    </button>
-                    {uploadingImage && (
-                      <span className="text-xs text-[#2E7D32] font-semibold animate-pulse">
-                        Uploading to storage...
+                {/* Upload Actions & Quick URL Fallback */}
+                <div className="space-y-2 pt-2 border-t border-slate-200">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <label
+                        htmlFor="admin-product-photo-input"
+                        className={`inline-flex items-center gap-1.5 text-xs font-bold bg-[#2E7D32] hover:bg-[#236628] text-white px-3.5 py-1.5 rounded-lg transition-colors cursor-pointer ${
+                          uploadingImage ? 'bg-slate-300 pointer-events-none' : ''
+                        }`}
+                      >
+                        <Upload className="w-3.5 h-3.5" />
+                        {uploadingImage ? 'Uploading Photos...' : 'Add Photos (Unlimited)'}
+                      </label>
+                      {uploadingImage && (
+                        <span className="text-xs text-[#2E7D32] font-semibold animate-pulse">
+                          Uploading to storage...
+                        </span>
+                      )}
+                    </div>
+
+                    {productForm.images.length === 0 && (
+                      <span className="text-[11px] text-amber-700 font-medium">
+                        ⚠️ Minimum 1 photo required
                       </span>
                     )}
                   </div>
 
-                  {productForm.images.length === 0 && (
-                    <span className="text-[11px] text-amber-700 font-medium">
-                      ⚠️ Minimum 1 photo required
-                    </span>
-                  )}
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="url"
+                      placeholder="Or paste image URL (https://...)"
+                      value={imageUrlInput}
+                      onChange={(e) => setImageUrlInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          handleAddImageUrl();
+                        }
+                      }}
+                      className="flex-1 min-w-0 text-xs bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-slate-700 focus:outline-none focus:border-[#2E7D32]"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleAddImageUrl}
+                      className="shrink-0 text-xs font-bold bg-white hover:bg-[#EAF3EB] text-[#2E7D32] border border-[#2E7D32]/30 px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
+                    >
+                      Add URL
+                    </button>
+                  </div>
                 </div>
               </div>
 
               {/* Custom Specifications / Label & Value Fields */}
-              <div className="space-y-2.5 p-4 bg-slate-50/80 rounded-2xl border border-slate-200">
-                <div className="flex items-center justify-between gap-2">
+              <div className="space-y-2.5 p-3.5 sm:p-4 bg-slate-50/80 rounded-2xl border border-slate-200">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div>
                     <label className="block text-xs font-bold text-slate-800">
                       Custom Labels &amp; Details
@@ -1079,7 +1137,7 @@ export const AdminDashboard = () => {
                   <button
                     type="button"
                     onClick={handleAddCustomField}
-                    className="shrink-0 inline-flex items-center gap-1 text-xs font-bold bg-[#111111] hover:bg-[#2E7D32] text-white px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
+                    className="self-start sm:self-auto shrink-0 inline-flex items-center gap-1 text-xs font-bold bg-[#111111] hover:bg-[#2E7D32] text-white px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     Add Field
