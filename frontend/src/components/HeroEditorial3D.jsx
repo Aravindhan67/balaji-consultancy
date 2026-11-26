@@ -145,24 +145,32 @@ export const HeroEditorial3D = () => {
       }}
       style={{
         perspective: '1400px',
-        background: 'linear-gradient(135deg, #5C1510 0%, #9E291D 38%, #BD3323 64%, #4D100B 100%)'
+        background: 'linear-gradient(135deg, #0D2914 0%, #1B4D25 38%, #256431 64%, #091E0E 100%)'
       }}
-      className="relative overflow-hidden text-[#FAF8F5] min-h-[540px] sm:min-h-[620px] lg:min-h-[690px] flex flex-col justify-between border-b border-[#3D0D09]"
+      className="relative overflow-hidden text-[#FAF8F5] min-h-[540px] sm:min-h-[620px] lg:min-h-[690px] flex flex-col justify-between border-b border-[#163D1F]"
     >
-      {/* Dramatic Architectural Sunbeam & Shadow Overlay */}
+      {/* Subtle Photographic Dealership Yard Silhouette blended into Theme Backdrop */}
+      <img
+        src={resolveImageUrl('/static-uploads/hero-tractor-bg-v2.jpg')}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover object-center scale-105 opacity-25 mix-blend-luminosity blur-[1px] pointer-events-none z-0"
+      />
+
+      {/* Dramatic Architectural Sunbeam & Warm Golden-Emerald Vignette */}
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none z-0"
         style={{
           background:
-            'radial-gradient(circle at 52% 45%, rgba(255, 160, 120, 0.24) 0%, rgba(158, 41, 29, 0.05) 48%, rgba(20, 4, 3, 0.62) 100%)'
+            'radial-gradient(circle at 52% 45%, rgba(134, 239, 172, 0.22) 0%, rgba(251, 191, 36, 0.08) 42%, rgba(8, 22, 11, 0.72) 100%)'
         }}
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 pointer-events-none z-0 opacity-35"
+        className="absolute inset-0 pointer-events-none z-0 opacity-40"
         style={{
-          background: 'linear-gradient(112deg, rgba(0,0,0,0.45) 0%, transparent 42%, rgba(255,140,105,0.22) 60%, rgba(0,0,0,0.55) 100%)'
+          background: 'linear-gradient(112deg, rgba(0,0,0,0.5) 0%, transparent 42%, rgba(251,191,36,0.18) 60%, rgba(0,0,0,0.6) 100%)'
         }}
       />
 
@@ -292,8 +300,8 @@ export const HeroEditorial3D = () => {
           </div>
         </div>
 
-        {/* Bottom-Right Interactive 01/04 Dark Glass Card */}
-        <div className="w-full sm:w-[300px] bg-black/55 backdrop-blur-md border border-white/15 p-4 sm:p-5 shadow-2xl">
+        {/* Bottom-Right Interactive 01/04 Dark Glass Card (offset from floating WhatsApp pill) */}
+        <div className="w-full sm:w-[300px] sm:mb-10 lg:mb-12 bg-black/55 backdrop-blur-md border border-white/15 p-4 sm:p-5 shadow-2xl">
           <div className="flex items-center justify-between gap-3 mb-3">
             <div className="flex items-center gap-3 flex-1">
               <div className="flex items-center gap-1.5 text-white/85">
