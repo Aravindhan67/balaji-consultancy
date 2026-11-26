@@ -202,6 +202,8 @@ export const Quotation = () => {
                       >
                         <option value="tractor">🚜 Tractor</option>
                         <option value="car">🚗 Car / Utility</option>
+                        <option value="truck">🚚 Truck / Commercial</option>
+                        <option value="agro_equipment">🌾 Tractor Agro Equipment</option>
                       </select>
                     </div>
 

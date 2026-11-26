@@ -43,7 +43,13 @@ export const ProductCard = ({ product }) => {
       if (lowerTitle.includes('innova')) return '/static-uploads/car-toyota-innova.jpg';
       return '/static-uploads/car-mahindra-bolero.jpg';
     }
-    return '/static-uploads/part-clutch-plate.jpg';
+    if (category === 'truck') {
+      return '/static-uploads/car-mahindra-bolero.jpg';
+    }
+    if (category === 'agro_equipment') {
+      return '/static-uploads/tractor-mahindra-575.jpg';
+    }
+    return '/static-uploads/tractor-mahindra-575.jpg';
   };
 
   const rawImage = images && images.length > 0 ? images[0] : getDefaultFallbackImage();
@@ -51,12 +57,15 @@ export const ProductCard = ({ product }) => {
 
   const categoryLabel = 
     category === 'tractor' ? 'Tractor' : 
-    category === 'car' ? 'Car' : 'Spare Part';
+    category === 'car' ? 'Car' :
+    category === 'truck' ? 'Truck' :
+    category === 'agro_equipment' ? 'Agro Equipment' : 'Vehicle';
 
   // Humanable distinct category badges
   const categoryColor =
     category === 'tractor' ? 'bg-amber-50 text-amber-800 border-amber-200' :
     category === 'car' ? 'bg-blue-50 text-blue-800 border-blue-200' :
+    category === 'truck' ? 'bg-indigo-50 text-indigo-800 border-indigo-200' :
     'bg-emerald-50 text-emerald-800 border-emerald-200';
 
   const waMessage = encodeURIComponent(

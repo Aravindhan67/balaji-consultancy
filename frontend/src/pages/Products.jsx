@@ -156,7 +156,9 @@ export const Products = () => {
   const categories = [
     { id: 'all', label: 'All Inventory', count: nonSpareProducts.length },
     { id: 'tractor', label: '🚜 Tractors', count: nonSpareProducts.filter((p) => p.category === 'tractor').length },
-    { id: 'car', label: '🚗 Cars', count: nonSpareProducts.filter((p) => p.category === 'car').length }
+    { id: 'car', label: '🚗 Cars', count: nonSpareProducts.filter((p) => p.category === 'car').length },
+    { id: 'truck', label: '🚚 Trucks', count: nonSpareProducts.filter((p) => p.category === 'truck').length },
+    { id: 'agro_equipment', label: '🌾 Tractor Agro Equipments', count: nonSpareProducts.filter((p) => p.category === 'agro_equipment').length }
   ];
 
   return (

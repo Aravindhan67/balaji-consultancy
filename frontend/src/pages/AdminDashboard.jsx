@@ -495,9 +495,11 @@ export const AdminDashboard = () => {
                         <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                           prod.category === 'tractor' ? 'bg-amber-100 text-amber-800' :
                           prod.category === 'car' ? 'bg-blue-100 text-blue-800' :
+                          prod.category === 'truck' ? 'bg-indigo-100 text-indigo-800' :
+                          prod.category === 'agro_equipment' ? 'bg-emerald-100 text-emerald-800' :
                           'bg-teal-100 text-teal-800'
                         }`}>
-                          {prod.category}
+                          {prod.category === 'agro_equipment' ? 'Agro Equipment' : prod.category}
                         </span>
                       </td>
                       <td className="py-3 px-4 font-bold text-blue-800">
@@ -749,6 +751,8 @@ export const AdminDashboard = () => {
                   >
                     <option value="tractor">🚜 Tractor</option>
                     <option value="car">🚗 Car</option>
+                    <option value="truck">🚚 Truck</option>
+                    <option value="agro_equipment">🌾 Tractor Agro Equipment</option>
                   </select>
                 </div>
 

@@ -13,7 +13,7 @@ const quotationSchema = new mongoose.Schema({
   vehicleType: { 
     type: String, 
     required: true,
-    enum: ['tractor', 'car', 'spare_part', 'both']
+    enum: ['tractor', 'car', 'truck', 'agro_equipment', 'spare_part', 'both']
   },
   brand: { type: String, default: '' },
   modelName: { type: String, default: '' },

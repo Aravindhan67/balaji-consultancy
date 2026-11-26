@@ -236,7 +236,7 @@ export const HeroEditorial3D = ({ searchKeyword, setSearchKeyword, handleSearchS
           </motion.div>
 
           {/* RIGHT COLUMN: Transparent 3D Studio Vehicle Stage */}
-          <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-end">
+          <div className="lg:col-span-6 relative flex items-center justify-end">
             <motion.div
               onPointerDown={handlePointerDown}
               style={{
@@ -248,7 +248,7 @@ export const HeroEditorial3D = ({ searchKeyword, setSearchKeyword, handleSearchS
               initial={{ opacity: 0, scale: 0.94, x: 40 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-              className={`relative w-full max-w-[540px] lg:translate-x-6 ${
+              className={`relative w-full max-w-[250px] sm:max-w-[380px] lg:max-w-[540px] ml-auto translate-x-4 sm:translate-x-6 ${
                 spinMode ? 'cursor-grab active:cursor-grabbing' : ''
               }`}
             >

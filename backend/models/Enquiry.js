@@ -8,7 +8,7 @@ const enquirySchema = new mongoose.Schema({
   interest: { 
     type: String, 
     default: 'general',
-    enum: ['buy_tractor', 'buy_car', 'buy_spare_part', 'consultancy', 'general']
+    enum: ['buy_tractor', 'buy_car', 'buy_truck', 'buy_agro_equipment', 'buy_spare_part', 'consultancy', 'general']
   },
   productId: { type: String, default: '' },
   productTitle: { type: String, default: '' },

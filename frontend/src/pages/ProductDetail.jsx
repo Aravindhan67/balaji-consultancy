@@ -206,7 +206,7 @@ export const ProductDetail = () => {
         city: enquiryCity,
         productId: product?._id,
         productTitle: product?.title,
-        interest: product?.category === 'tractor' ? 'buy_tractor' : product?.category === 'car' ? 'buy_car' : 'buy_spare_part',
+        interest: product?.category === 'tractor' ? 'buy_tractor' : product?.category === 'car' ? 'buy_car' : product?.category === 'truck' ? 'buy_truck' : product?.category === 'agro_equipment' ? 'buy_agro_equipment' : 'general',
         message: enquiryMessage
       });
       if (res.success) {
@@ -274,7 +274,7 @@ export const ProductDetail = () => {
           <Link to="/" className="hover:text-[#111111]">Home</Link>
           <span>/</span>
           <Link to={`/products?category=${category}`} className="hover:text-[#111111] capitalize">
-            {category === 'spare_part' ? 'Spare Parts' : `${category}s`}
+            {category === 'agro_equipment' ? 'Tractor Agro Equipments' : category === 'truck' ? 'Trucks' : `${category}s`}
           </Link>
           <span>/</span>
           <span className="text-[#111111] font-bold truncate max-w-xs">{title}</span>

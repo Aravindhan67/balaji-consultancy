@@ -90,6 +90,20 @@ export const MobileSideDrawer = ({ isOpen, onClose }) => {
               >
                 <span>🚗 Cars</span>
               </Link>
+              <Link
+                to="/products?category=truck"
+                onClick={onClose}
+                className="flex items-center gap-2 p-2 rounded-xl bg-white text-[#111111] text-xs font-bold border border-[#E3DBD0] hover:bg-[#EAE3D7] transition-colors"
+              >
+                <span>🚚 Trucks</span>
+              </Link>
+              <Link
+                to="/products?category=agro_equipment"
+                onClick={onClose}
+                className="flex items-center gap-2 p-2 rounded-xl bg-white text-[#111111] text-xs font-bold border border-[#E3DBD0] hover:bg-[#EAE3D7] transition-colors"
+              >
+                <span>🌾 Agro Equip.</span>
+              </Link>
             </div>
           </div>
 

@@ -5,7 +5,7 @@ const productSchema = new mongoose.Schema({
   category: { 
     type: String, 
     required: true, 
-    enum: ['tractor', 'car', 'spare_part'] 
+    enum: ['tractor', 'car', 'truck', 'agro_equipment', 'spare_part'] 
   },
   subCategory: { type: String, default: 'second_hand_vehicle' },
   brand: { type: String, required: true },

@@ -90,6 +90,18 @@ export const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/products?category=truck" className="hover:text-[#111111] flex items-center gap-1 transition-colors text-[#6B665F]">
+                  <ChevronRight className="w-3 h-3 text-[#111111]" />
+                  Commercial Trucks
+                </Link>
+              </li>
+              <li>
+                <Link to="/products?category=agro_equipment" className="hover:text-[#111111] flex items-center gap-1 transition-colors text-[#6B665F]">
+                  <ChevronRight className="w-3 h-3 text-[#111111]" />
+                  Tractor Agro Equipments
+                </Link>
+              </li>
+              <li>
                 <Link to="/quotation" className="hover:text-[#111111] flex items-center gap-1 transition-colors text-[#6B665F]">
                   <ChevronRight className="w-3 h-3 text-[#111111]" />
                   Sell Your Vehicle / Free Quote
