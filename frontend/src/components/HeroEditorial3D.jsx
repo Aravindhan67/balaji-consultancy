@@ -72,7 +72,7 @@ export const HeroEditorial3D = () => {
       onMouseLeave={handleStageMouseLeave}
       onPointerUp={handlePointerUp}
       style={{ perspective: '1400px' }}
-      className="relative overflow-hidden bg-[#D9D4CC] border-b border-[#C9C2B6] min-h-[580px] lg:min-h-[650px] flex items-center"
+      className="relative overflow-hidden bg-[#D9D4CC] border-b border-[#C9C2B6] min-h-[420px] sm:min-h-[520px] lg:min-h-[640px] flex items-start lg:items-center"
     >
       {/* Sweeping Diagonal Perspective Stripes (Bottom-Left tapering smoothly to Horizon) */}
       <motion.div
@@ -116,18 +116,18 @@ export const HeroEditorial3D = () => {
       </motion.div>
 
       {/* Main Split Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20 py-14 sm:py-16 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-2 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20 pt-8 pb-6 sm:py-14 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-2 items-center">
           {/* LEFT COLUMN: Stacked Brutalist-Editorial Typography */}
           <motion.div
             style={{ x: textShiftX }}
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-6 space-y-5 text-left"
+            className="lg:col-span-6 space-y-4 text-left"
           >
             {/* Stacked Editorial Display Headline with Soft Blue Highlight Behind Top Lines */}
-            <h1 className="font-heading font-black uppercase text-4xl sm:text-5xl lg:text-[3.6rem] xl:text-[4.15rem] text-[#111111] leading-[0.94] tracking-tighter select-none">
+            <h1 className="font-heading font-black uppercase text-[2.1rem] sm:text-5xl lg:text-[3.6rem] xl:text-[4.15rem] text-[#111111] leading-[0.94] tracking-tighter select-none">
               <span className="inline-block bg-[#93C5FD]/55 px-2.5 py-0.5 mb-1">
                 BALAJI BELIEVES
               </span>
@@ -155,7 +155,7 @@ export const HeroEditorial3D = () => {
               initial={{ opacity: 0, scale: 0.94, x: 40 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-              className={`relative w-full max-w-[250px] sm:max-w-[380px] lg:max-w-[540px] ml-auto translate-x-4 sm:translate-x-6 ${
+              className={`relative w-full max-w-[235px] sm:max-w-[360px] lg:max-w-[540px] ml-auto translate-x-3 sm:translate-x-5 -mt-1 lg:mt-0 ${
                 spinMode ? 'cursor-grab active:cursor-grabbing' : ''
               }`}
             >
