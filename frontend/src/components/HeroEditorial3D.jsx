@@ -1,42 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'motion/react';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { resolveImageUrl } from '../utils/imageUrl';
-
-const EDITORIAL_SLIDES = [
-  {
-    num: '01/04',
-    title: '120-Point Inspection',
-    desc: 'Every tractor, car, and truck is mechanically tested for engine compression and zero meter tampering.'
-  },
-  {
-    num: '02/04',
-    title: 'Guaranteed RTO & NOC',
-    desc: 'Verified VAHAN records, bank hypothecation clearance, and Form 29/30 interstate transfer.'
-  },
-  {
-    num: '03/04',
-    title: 'Multi-Brand Yard',
-    desc: 'Certified pre-owned tractors, utility cars, commercial trucks, and heavy agro equipments.'
-  },
-  {
-    num: '04/04',
-    title: 'Direct Yard Deals',
-    desc: 'Zero middleman brokerage fees. Transparent pricing and instant spot cash settlements.'
-  }
-];
 
 /**
  * HeroEditorial3D
- * Full-bleed Editorial Poster Hero inspired by Aldena Studio:
+ * Full-bleed Editorial Poster Hero:
  * - Full-bleed dealership yard photograph integrated with warm emerald-sunlit theme grading & film grain
  * - Top micro category links & giant full-width Playfair Display serif masthead
  * - Bottom-left editorial serif subhead & 3 stacked micro-lines
- * - Bottom-right interactive 01/04 dark glass carousel card
  */
 export const HeroEditorial3D = () => {
-  const [slideIdx, setSlideIdx] = useState(0);
   const isInteracting = useRef(false);
   const hasGyro = useRef(false);
 
@@ -49,14 +23,6 @@ export const HeroEditorial3D = () => {
   const bgTranslateX = useTransform(smoothX, [-0.5, 0.5], [-16, 16]);
   const bgTranslateY = useTransform(smoothY, [-0.5, 0.5], [-10, 10]);
   const titleShiftX = useTransform(smoothX, [-0.5, 0.5], [10, -10]);
-
-  // Auto-advance editorial slide card every 5s
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setSlideIdx((prev) => (prev + 1) % EDITORIAL_SLIDES.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
 
   // Mobile Gyroscope, Shake & Ambient 3D Float
   useEffect(() => {
@@ -114,9 +80,6 @@ export const HeroEditorial3D = () => {
     mouseY.set(Math.max(-0.5, Math.min(0.5, (clientY - rect.top) / rect.height - 0.5)));
   };
 
-  const currentSlide = EDITORIAL_SLIDES[slideIdx];
-  const progressPercent = ((slideIdx + 1) / EDITORIAL_SLIDES.length) * 100;
-
   return (
     <section
       onMouseMove={(e) => {
@@ -147,10 +110,21 @@ export const HeroEditorial3D = () => {
         style={{ x: bgTranslateX, y: bgTranslateY }}
         className="absolute -inset-6 z-0 pointer-events-none"
       >
+        {/* Mobile Dedicated Hero Image */}
+        <img
+          src={resolveImageUrl('/static-uploads/tractor-swaraj-855.jpg')}
+          alt="Balaji Auto and Agro Consultancy Yard"
+          className="block sm:hidden w-full h-full object-cover object-center scale-105 brightness-90 contrast-110 saturate-110"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = '/static-uploads/tractor-mahindra-575.jpg';
+          }}
+        />
+        {/* Desktop Full-Bleed Hero Image */}
         <img
           src={resolveImageUrl('/static-uploads/hero-tractor-bg-v2.jpg')}
           alt="Balaji Auto and Agro Consultancy Yard"
-          className="w-full h-full object-cover object-center scale-105 brightness-90 contrast-110 saturate-110"
+          className="hidden sm:block w-full h-full object-cover object-center scale-105 brightness-90 contrast-110 saturate-110"
           onError={(e) => {
             e.target.onerror = null;
             e.target.src = '/static-uploads/hero-tractor-bg.jpg';
@@ -212,8 +186,8 @@ export const HeroEditorial3D = () => {
       {/* Center Breathing Space to Showcase Full-Bleed Yard Photograph */}
       <div className="flex-1 min-h-[140px] sm:min-h-[200px]" />
 
-      {/* Bottom Editorial Row: Left Subhead & Micro-Copy | Right 01/04 Glass Card */}
-      <div className="relative z-20 max-w-7xl mx-auto w-full px-5 sm:px-10 pb-7 sm:pb-10 pt-4 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6">
+      {/* Bottom Editorial Row: Left Subhead & Micro-Copy */}
+      <div className="relative z-20 max-w-7xl mx-auto w-full px-5 sm:px-10 pb-14 sm:pb-10 pt-4 flex items-end justify-start">
         {/* Bottom-Left Editorial Lockup */}
         <div className="space-y-2.5 text-left">
           <h2
@@ -227,59 +201,6 @@ export const HeroEditorial3D = () => {
             <div>120-POINT INSPECTED.</div>
             <div>VERIFIED IN EVERY DETAIL.</div>
           </div>
-        </div>
-
-        {/* Bottom-Right Interactive 01/04 Dark Glass Card (offset from floating WhatsApp pill) */}
-        <div className="w-full sm:w-[300px] sm:mb-10 lg:mb-12 bg-black/60 backdrop-blur-md border border-white/15 p-4 sm:p-5 shadow-2xl">
-          <div className="flex items-center justify-between gap-3 mb-3">
-            <div className="flex items-center gap-3 flex-1">
-              <div className="flex items-center gap-1.5 text-white/85">
-                <button
-                  type="button"
-                  onClick={() => setSlideIdx((prev) => (prev - 1 + EDITORIAL_SLIDES.length) % EDITORIAL_SLIDES.length)}
-                  className="p-1 hover:text-white transition-colors cursor-pointer"
-                  aria-label="Previous highlight"
-                >
-                  <ArrowLeft className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSlideIdx((prev) => (prev + 1) % EDITORIAL_SLIDES.length)}
-                  className="p-1 hover:text-white transition-colors cursor-pointer"
-                  aria-label="Next highlight"
-                >
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-              <div className="h-[2px] flex-1 bg-white/20 overflow-hidden">
-                <div
-                  className="h-full bg-white transition-all duration-500"
-                  style={{ width: `${progressPercent}%` }}
-                />
-              </div>
-            </div>
-            <span className="text-[10px] font-bold tracking-widest text-white/85 tabular-nums">
-              {currentSlide.num}
-            </span>
-          </div>
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentSlide.num}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.25 }}
-              className="space-y-1"
-            >
-              <h3 className="text-sm font-bold text-white tracking-tight">
-                {currentSlide.title}
-              </h3>
-              <p className="text-[11px] text-white/80 leading-relaxed">
-                {currentSlide.desc}
-              </p>
-            </motion.div>
-          </AnimatePresence>
         </div>
       </div>
     </section>
