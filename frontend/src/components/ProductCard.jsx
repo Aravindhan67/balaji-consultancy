@@ -44,10 +44,10 @@ export const ProductCard = ({ product }) => {
       return '/static-uploads/car-mahindra-bolero.jpg';
     }
     if (category === 'truck') {
-      return '/static-uploads/car-mahindra-bolero.jpg';
+      return '/static-uploads/truck-tata-407.jpg';
     }
     if (category === 'agro_equipment') {
-      return '/static-uploads/tractor-mahindra-575.jpg';
+      return '/static-uploads/equip-rotavator.jpg';
     }
     return '/static-uploads/tractor-mahindra-575.jpg';
   };

@@ -559,6 +559,126 @@
       ],
       "createdAt": "2026-11-23T10:11:24.831Z",
       "updatedAt": "2026-11-23T11:29:25.628Z"
+    },
+    {
+      "_id": "prod_truck_1",
+      "title": "Tata 407 Gold SFC Commercial Truck (16-Ft Deck)",
+      "category": "truck",
+      "subCategory": "second_hand_vehicle",
+      "brand": "Tata",
+      "modelYear": 2021,
+      "price": 685000,
+      "condition": "Excellent",
+      "kmOrHours": "42,500 km",
+      "fuelType": "Diesel",
+      "rtoPassing": "TN-30 Salem (All-India Permit & NOC Ready)",
+      "ownership": "1st Owner",
+      "hpPower": "100 HP",
+      "images": [
+        "/uploads/truck-tata-407.jpg"
+      ],
+      "featured": true,
+      "status": "available",
+      "description": "Well-maintained single-owner Tata 407 Gold SFC with heavy-duty cargo deck. Original 4SPCR BS6 diesel engine, clean chassis, valid fitness certificate, and verified RTO documentation.",
+      "specs": {
+        "Engine": "4SPCR 2956cc Turbo Diesel",
+        "Payload": "2,250 kg",
+        "Tyre Condition": "All 6 Radial Tyres 85%",
+        "Insurance & FC": "Valid Comprehensive & FC"
+      },
+      "location": "Balaji Yard, Salem-Coimbatore NH",
+      "createdAt": "2026-11-26T05:20:00.000Z",
+      "updatedAt": "2026-11-26T05:20:00.000Z"
+    },
+    {
+      "_id": "prod_truck_2",
+      "title": "Ashok Leyland Dost+ Strong Commercial Pickup",
+      "category": "truck",
+      "subCategory": "second_hand_vehicle",
+      "brand": "Ashok Leyland",
+      "modelYear": 2022,
+      "price": 545000,
+      "condition": "Like New",
+      "kmOrHours": "29,800 km",
+      "fuelType": "Diesel",
+      "rtoPassing": "TN-33 Erode (Clean RC & NOC)",
+      "ownership": "1st Owner",
+      "hpPower": "80 HP",
+      "images": [
+        "/uploads/truck-dost-pro.jpg"
+      ],
+      "featured": true,
+      "status": "available",
+      "description": "High-mileage Ashok Leyland Dost+ Strong light commercial pickup truck in showroom condition. Ideal for agricultural produce transport, dairy, and mandi logistics.",
+      "specs": {
+        "Engine": "1.5L i-Gen6 Diesel",
+        "Payload": "1,500 kg",
+        "Suspension": "Parabolic Leaf Spring",
+        "Cabin": "Clean Dual-Tone Factory Cabin"
+      },
+      "location": "Balaji Yard, Salem-Coimbatore NH",
+      "createdAt": "2026-11-26T05:21:00.000Z",
+      "updatedAt": "2026-11-26T05:21:00.000Z"
+    },
+    {
+      "_id": "prod_equip_1",
+      "title": "Shaktiman 6-Feet Heavy Duty Tractor Rotavator (42 Blades)",
+      "category": "agro_equipment",
+      "subCategory": "agro_implement",
+      "brand": "Shaktiman",
+      "modelYear": 2023,
+      "price": 88000,
+      "condition": "Like New",
+      "kmOrHours": "Minimal Field Use",
+      "fuelType": "PTO Driven (45-55 HP)",
+      "rtoPassing": "Yard Verified Implement",
+      "ownership": "1st Owner",
+      "hpPower": "45-55 HP",
+      "images": [
+        "/uploads/equip-rotavator.jpg"
+      ],
+      "featured": true,
+      "status": "available",
+      "description": "Genuine Shaktiman 6-feet multi-speed rotavator with boron-steel L-blades, heavy-duty bevel gearbox, and universal PTO shaft. Suitable for 45 HP to 55 HP tractors.",
+      "specs": {
+        "Working Width": "6 Feet (180 cm)",
+        "Blades": "42 Boron Steel L-Type Blades",
+        "Gearbox": "Multi-Speed Heavy Duty",
+        "PTO Compatibility": "540 / 1000 RPM"
+      },
+      "location": "Balaji Yard, Salem-Coimbatore NH",
+      "createdAt": "2026-11-26T05:22:00.000Z",
+      "updatedAt": "2026-11-26T05:22:00.000Z"
+    },
+    {
+      "_id": "prod_equip_2",
+      "title": "5-Ton Hydraulic Tipping Tractor Trailer & 9-Tyne Cultivator",
+      "category": "agro_equipment",
+      "subCategory": "agro_implement",
+      "brand": "Mahindra",
+      "modelYear": 2023,
+      "price": 145000,
+      "condition": "Excellent",
+      "kmOrHours": "Yard Inspected",
+      "fuelType": "Hydraulic + 3-Point Hitch",
+      "rtoPassing": "Agri Implement Bill Included",
+      "ownership": "1st Owner",
+      "hpPower": "40+ HP",
+      "images": [
+        "/uploads/equip-trailer-cultivator.jpg"
+      ],
+      "featured": true,
+      "status": "available",
+      "description": "Heavy-gauge steel 5-ton hydraulic tipping trolley paired with a spring-loaded 9-tyne agricultural cultivator. Zero chassis rust, leak-free hydraulic jack, and heavy tractor tyres.",
+      "specs": {
+        "Trailer Capacity": "5 Ton Hydraulic Tipping",
+        "Cultivator": "9-Tyne Spring Loaded Heavy Frame",
+        "Hydraulic Cylinder": "High-Pressure Single Acting",
+        "Tyres": "9.00-16 Heavy Duty"
+      },
+      "location": "Balaji Yard, Salem-Coimbatore NH",
+      "createdAt": "2026-11-26T05:23:00.000Z",
+      "updatedAt": "2026-11-26T05:23:00.000Z"
     }
   ],
   "enquiries": [

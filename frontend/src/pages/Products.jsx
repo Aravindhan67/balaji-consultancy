@@ -146,6 +146,8 @@ export const Products = () => {
       'Maruti Suzuki',
       'Hyundai',
       'Tata',
+      'Ashok Leyland',
+      'Shaktiman',
       'Toyota',
       ...availableProducts.filter((p) => p && p.category !== 'spare_part').map((p) => p?.brand).filter(Boolean)
     ])
@@ -297,7 +299,7 @@ export const Products = () => {
           {/* Top Sort & Count Control Bar */}
           <div className="bg-white p-4 rounded-2xl border border-[#E3DBD0] flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-xs text-[#6B665F]">
-              Showing <strong className="text-[#111111] font-bold">{filteredProducts.length}</strong> verified vehicles &amp; parts
+              Showing <strong className="text-[#111111] font-bold">{filteredProducts.length}</strong> verified vehicles &amp; equipments
             </div>
 
             <div className="flex items-center gap-2 self-end sm:self-auto">

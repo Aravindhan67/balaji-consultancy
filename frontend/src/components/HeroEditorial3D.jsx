@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
-import { ArrowRight, Search, PhoneCall, RotateCw, ShieldCheck, Car } from 'lucide-react';
+import { ArrowRight, Search, PhoneCall, RotateCw, Car } from 'lucide-react';
 import { resolveImageUrl } from '../utils/imageUrl';
 import Magnet from './Magnet';
 import ShimmerButton from './ShimmerButton';
@@ -222,17 +222,6 @@ export const HeroEditorial3D = ({ searchKeyword, setSearchKeyword, handleSearchS
                 </ShimmerButton>
               </div>
             </form>
-
-            {/* Bottom-Left Brand Crest & Micro-Caption */}
-            <div className="pt-4 sm:pt-6 inline-flex items-center gap-3 bg-white/75 backdrop-blur-xs px-3.5 py-2 rounded-full border border-[#C2BBB0]">
-              <div className="w-8 h-8 rounded-full bg-[#111111] text-white flex items-center justify-center shrink-0">
-                <ShieldCheck className="w-4 h-4 text-[#4ADE80]" />
-              </div>
-              <div className="text-[10px] leading-tight font-bold uppercase tracking-wider text-[#111111] pr-1">
-                <div>BALAJI AUTO &amp; AGRO CONSULTANCY.</div>
-                <div className="text-[#555048]">CERTIFIED TRACTORS &amp; CARS SINCE 2014.</div>
-              </div>
-            </div>
           </motion.div>
 
           {/* RIGHT COLUMN: Transparent 3D Studio Vehicle Stage */}
