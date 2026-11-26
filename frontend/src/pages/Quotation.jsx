@@ -159,13 +159,12 @@ export const Quotation = () => {
                   <h3 className="font-heading font-bold text-[#111111] text-base mb-1">
                     Step 1: What is Your Requirement?
                   </h3>
-                  <p className="text-xs text-[#6B665F] mb-4">Choose whether you want to sell, buy, or get parts</p>
+                  <p className="text-xs text-[#6B665F] mb-4">Choose whether you want to sell, buy, or request an RTO valuation</p>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                     {[
                       { id: 'sell_vehicle', label: 'Sell My Vehicle' },
                       { id: 'buy_quotation', label: 'Buy Price Quote' },
-                      { id: 'spare_parts_bulk', label: 'Spare Parts' },
                       { id: 'consultancy_valuation', label: 'RTO / Valuation' }
                     ].map((item) => (
                       <button
@@ -203,7 +202,6 @@ export const Quotation = () => {
                       >
                         <option value="tractor">🚜 Tractor</option>
                         <option value="car">🚗 Car / Utility</option>
-                        <option value="spare_part">⚙️ Spare Part Order</option>
                       </select>
                     </div>
 

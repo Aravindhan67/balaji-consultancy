@@ -12,7 +12,7 @@ export const Navbar = ({ onOpenSideDrawer }) => {
 
   const navLinks = [
     { label: 'Home', path: '/' },
-    { label: 'Inventory & Spares', path: '/products' },
+    { label: 'Vehicle Stock', path: '/products' },
     { label: 'About Us', path: '/about' },
     { label: 'Get Quotation / Sell', path: '/quotation' },
     { label: 'Contact & Enquiry', path: '/contact' }
@@ -35,7 +35,7 @@ export const Navbar = ({ onOpenSideDrawer }) => {
               <ShinyText variant="light">Auto &amp; Agro Consultancy</ShinyText>
             </span>
             <span className="text-emerald-200 hidden sm:inline">•</span>
-            <span className="text-emerald-100 hidden sm:inline">Certified Pre-Owned Tractors, Commercial Vehicles &amp; Spares</span>
+            <span className="text-emerald-100 hidden sm:inline">Certified Pre-Owned Tractors &amp; Commercial Vehicles</span>
             <span className="text-emerald-200 hidden md:inline">•</span>
             <span className="text-emerald-100 font-semibold hidden md:inline">Salem-Coimbatore NH Yard</span>
           </div>

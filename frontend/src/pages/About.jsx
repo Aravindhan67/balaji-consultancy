@@ -71,9 +71,6 @@ export const About = () => {
             <p className="text-[#6B665F] text-sm leading-relaxed">
               At <strong className="text-[#111111] font-bold">Balaji Auto &amp; Agro Consultancy</strong>, we built an institutional, transparent bridge. Every tractor and car entering our yard undergoes an exhaustive <strong>120-Point Mechanical &amp; Electrical Inspection</strong>. We inspect the compression ratio, hydraulic pump pressure, PTO output, gearbox synchronization, tyre wear, and legal RTO verification.
             </p>
-            <p className="text-[#6B665F] text-sm leading-relaxed">
-              Furthermore, to support vehicle longevity, we established our dedicated <strong className="text-[#111111] font-bold">Genuine Spare Parts Division</strong>, supplying OEM clutch assemblies, fuel injectors, pumps, and brakes directly to our buyers at factory-direct pricing.
-            </p>
 
             <div className="pt-2 flex flex-wrap gap-4">
               <div className="inline-flex items-center gap-2 text-xs font-semibold text-[#111111] bg-white px-3.5 py-1.5 rounded-full border border-[#E3DBD0]">
@@ -83,10 +80,6 @@ export const About = () => {
               <div className="inline-flex items-center gap-2 text-xs font-semibold text-[#111111] bg-white px-3.5 py-1.5 rounded-full border border-[#E3DBD0]">
                 <CheckCircle2 className="w-4 h-4 text-[#111111] shrink-0" />
                 <span>All-India RTO NOC Support</span>
-              </div>
-              <div className="inline-flex items-center gap-2 text-xs font-semibold text-[#111111] bg-white px-3.5 py-1.5 rounded-full border border-[#E3DBD0]">
-                <CheckCircle2 className="w-4 h-4 text-[#111111] shrink-0" />
-                <span>Guaranteed Genuine Spare Parts</span>
               </div>
             </div>
           </div>
@@ -321,9 +314,9 @@ export const About = () => {
               <div className="w-11 h-11 rounded-full bg-[#FAF8F5] text-[#111111] flex items-center justify-center mb-4 border border-[#E3DBD0]">
                 <Wrench className="w-5 h-5" />
               </div>
-              <h3 className="font-heading font-bold text-[#111111] text-base mb-2">3. Genuine Spare Parts</h3>
+              <h3 className="font-heading font-bold text-[#111111] text-base mb-2">3. Field-Tested Trials</h3>
               <p className="text-xs text-[#6B665F] leading-relaxed">
-                Our in-house parts inventory provides genuine assemblies at fair prices, protecting your investment for years down the line.
+                Every machine is open to independent inspection with your own mechanic and full load test-drives at our yard.
               </p>
             </div>
 

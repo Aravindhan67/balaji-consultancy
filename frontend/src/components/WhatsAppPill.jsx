@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { MessageSquare, PhoneCall, X } from 'lucide-react';
 
-export const WhatsAppPill = ({ phoneNumber = '918124336369', defaultMessage = 'Hello Balaji Consultancy, I want to enquire about certified second-hand tractors, cars and spare parts.' }) => {
+export const WhatsAppPill = ({ phoneNumber = '918124336369', defaultMessage = 'Hello Balaji Consultancy, I want to enquire about certified second-hand tractors and cars.' }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   const encodedMsg = encodeURIComponent(defaultMessage);

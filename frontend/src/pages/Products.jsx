@@ -121,7 +121,7 @@ export const Products = () => {
 
   const filteredProducts = availableProducts
     .filter((p) => {
-      if (!p) return false;
+      if (!p || p.category === 'spare_part') return false;
       if (priceMax !== null && priceMax < maxCatalogPrice) {
         const pPrice = Number(p.price);
         if (!isNaN(pPrice) && pPrice > priceMax) return false;
@@ -147,17 +147,16 @@ export const Products = () => {
       'Hyundai',
       'Tata',
       'Toyota',
-      'Bosch India',
-      'Exide Industries',
-      ...availableProducts.map((p) => p?.brand).filter(Boolean)
+      ...availableProducts.filter((p) => p && p.category !== 'spare_part').map((p) => p?.brand).filter(Boolean)
     ])
   );
 
+  const nonSpareProducts = availableProducts.filter((p) => p && p.category !== 'spare_part');
+
   const categories = [
-    { id: 'all', label: 'All Inventory', count: availableProducts.length },
-    { id: 'tractor', label: '🚜 Tractors', count: availableProducts.filter((p) => p && p.category === 'tractor').length },
-    { id: 'car', label: '🚗 Cars', count: availableProducts.filter((p) => p && p.category === 'car').length },
-    { id: 'spare_part', label: '⚙️ Spare Parts', count: availableProducts.filter((p) => p && p.category === 'spare_part').length }
+    { id: 'all', label: 'All Inventory', count: nonSpareProducts.length },
+    { id: 'tractor', label: '🚜 Tractors', count: nonSpareProducts.filter((p) => p.category === 'tractor').length },
+    { id: 'car', label: '🚗 Cars', count: nonSpareProducts.filter((p) => p.category === 'car').length }
   ];
 
   return (
@@ -171,7 +170,7 @@ export const Products = () => {
           </div>
           <h1 className="font-heading font-black text-3xl sm:text-5xl text-[#111111] tracking-tight">
             <BlurText
-              text="Certified Tractors, Cars & Genuine Spares"
+              text="Certified Tractors & Utility Cars"
               delay={50}
               stepDuration={0.3}
               className="justify-start"
@@ -275,7 +274,7 @@ export const Products = () => {
               className="w-full accent-[#2E7D32] cursor-pointer"
             />
             <div className="flex justify-between text-[10px] text-[#8C857B] mt-1">
-              <span>₹2,000 (Spares)</span>
+              <span>₹50,000 (Min)</span>
               <span>{formatINR(maxCatalogPrice)} (Max)</span>
             </div>
           </div>

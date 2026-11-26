@@ -38,6 +38,9 @@ import ShimmerButton from '../components/ShimmerButton';
 import BrandMarquee from '../components/BrandMarquee';
 import NumberTicker from '../components/NumberTicker';
 import Hero3DCanvas from '../components/Hero3DCanvas';
+import BorderBeam from '../components/BorderBeam';
+import Magnet from '../components/Magnet';
+import GradientText from '../components/GradientText';
 
 const defaultReviews = [
   {
@@ -67,9 +70,9 @@ const defaultReviews = [
     name: 'Manpreet Singh Kahlon',
     role: 'Agricultural Contractor',
     location: 'Ludhiana (Punjab)',
-    vehicleOrService: 'Genuine OEM Spares',
+    vehicleOrService: 'John Deere 5050 D',
     rating: 5,
-    comment: 'Finding genuine Bosch diesel injectors and tractor clutch plates at reasonable rates was difficult in our local market. Balaji\'s spare parts division sent OEM parts with warranty. Saved me over ₹15,000!',
+    comment: 'Bought a certified John Deere 5050 D for our contract farming work. Engine compression and hydraulic lift were tested right in front of us, and the interstate RTO NOC arrived on time without any hassle!',
     verified: true,
     createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 20).toISOString()
   }
@@ -356,6 +359,10 @@ export const Home = () => {
             src={resolveImageUrl('/static-uploads/hero-tractor-bg-v2.jpg')}
             alt="Balaji Auto and Agro Vehicle Consultancy Yard"
             className="w-full h-full object-cover object-center scale-105 opacity-95 contrast-105 saturate-110 animate-hero-settle"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = '/static-uploads/hero-tractor-bg.jpg';
+            }}
           />
           {/* Rich Contrast Vignette for 3D Wireframes & Crisp White Typography */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-[#F5F1EB]/85" />
@@ -386,7 +393,7 @@ export const Home = () => {
             style={{ transform: 'translateZ(40px)' }}
           >
             <BlurText
-              text="Certified Second-Hand Tractors, Utility Cars & Genuine Spares."
+              text="Certified Second-Hand Tractors & Utility Cars."
               delay={50}
               stepDuration={0.3}
               color="#FFFFFF"
@@ -394,11 +401,12 @@ export const Home = () => {
             />
           </h1>
 
-          {/* Integrated Search Console - Minimalist Warm Pill (Reduced White Glare) */}
+          {/* Integrated Search Console - Minimalist Warm Pill with 21st.dev BorderBeam */}
           <div className="max-w-xl mx-auto pt-2">
             <form onSubmit={handleSearchSubmit}>
-              <div className="flex items-center bg-[#FAF8F5]/95 backdrop-blur-md p-1.5 rounded-full border border-[#DCD4C7] focus-within:border-[#111111] transition-all shadow-sm">
-                <div className="pl-4 pr-2 text-[#8C857B]">
+              <div className="relative overflow-hidden flex items-center bg-[#FAF8F5]/95 backdrop-blur-md p-1.5 rounded-full border border-[#DCD4C7] focus-within:border-[#111111] transition-all shadow-sm">
+                <BorderBeam size={140} duration={7} borderWidth={2} colorFrom="#2E7D32" colorTo="#86EFAC" />
+                <div className="pl-4 pr-2 text-[#8C857B] relative z-10">
                   <Search className="w-4 h-4" />
                 </div>
                 <input
@@ -406,12 +414,12 @@ export const Home = () => {
                   placeholder="Search tractor model, HP, or vehicle (e.g. Swaraj 855, Bolero)..."
                   value={searchKeyword}
                   onChange={(e) => setSearchKeyword(e.target.value)}
-                  className="w-full text-xs sm:text-sm bg-transparent border-none text-[#111111] placeholder:text-[#8C857B] focus:outline-none font-medium py-2"
+                  className="relative z-10 w-full text-xs sm:text-sm bg-transparent border-none text-[#111111] placeholder:text-[#8C857B] focus:outline-none font-medium py-2"
                 />
                 <ShimmerButton
                   type="submit"
                   variant="primary"
-                  className="py-2.5 px-5 shrink-0"
+                  className="py-2.5 px-5 shrink-0 relative z-10"
                 >
                   <span>Search</span>
                   <ArrowRight className="w-3.5 h-3.5 text-white" />
@@ -420,21 +428,25 @@ export const Home = () => {
             </form>
           </div>
 
-          {/* Action CTAs - Farmer Green & Outline Pills */}
+          {/* Action CTAs - Magnetic Pull + Shimmer */}
           <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
-            <Link to="/products">
-              <ShimmerButton variant="primary" className="py-3.5 px-7 text-xs sm:text-sm">
-                <span>Explore Certified Stock</span>
-                <ArrowRight className="w-4 h-4" />
-              </ShimmerButton>
-            </Link>
+            <Magnet padding={40} magnetStrength={4}>
+              <Link to="/products">
+                <ShimmerButton variant="primary" className="py-3.5 px-7 text-xs sm:text-sm">
+                  <span>Explore Certified Stock</span>
+                  <ArrowRight className="w-4 h-4" />
+                </ShimmerButton>
+              </Link>
+            </Magnet>
 
-            <a href="tel:+918124336369" title="Direct Yard Call">
-              <ShimmerButton variant="light" className="py-3.5 px-6 text-xs sm:text-sm">
-                <PhoneCall className="w-4 h-4" />
-                <span>+91 81243 36369</span>
-              </ShimmerButton>
-            </a>
+            <Magnet padding={40} magnetStrength={4}>
+              <a href="tel:+918124336369" title="Direct Yard Call">
+                <ShimmerButton variant="light" className="py-3.5 px-6 text-xs sm:text-sm">
+                  <PhoneCall className="w-4 h-4" />
+                  <span>+91 81243 36369</span>
+                </ShimmerButton>
+              </a>
+            </Magnet>
           </div>
         </motion.div>
       </section>
@@ -448,8 +460,10 @@ export const Home = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <div className="text-center max-w-3xl mx-auto mb-10">
-            <div className="inline-block text-[11px] font-bold tracking-wider uppercase text-[#111111] bg-[#EAE3D7] px-4 py-1.5 rounded-full mb-2 border border-[#DCD4C7]">
-              Zero Fraud • 100% Verified Consulting
+            <div className="inline-block text-[11px] font-bold tracking-wider uppercase bg-[#EAE3D7] px-4 py-1.5 rounded-full mb-2 border border-[#DCD4C7]">
+              <GradientText colors={['#2E7D32', '#111111', '#D97706', '#2E7D32']} animationSpeed={6}>
+                Zero Fraud • 100% Verified Consulting
+              </GradientText>
             </div>
             <h2 className="font-heading font-black text-2xl sm:text-4xl text-[#111111] tracking-tight flex justify-center">
               <BlurText
@@ -597,16 +611,16 @@ export const Home = () => {
               >
                 <div>
                   <div className="w-11 h-11 rounded-full bg-[#FAF8F5] text-[#111111] flex items-center justify-center mb-4 border border-[#E3DBD0]">
-                    <Wrench className="w-5 h-5" />
+                    <ShieldCheck className="w-5 h-5" />
                   </div>
-                  <h3 className="font-heading font-bold text-[#111111] text-base mb-2">Genuine OEM Spares</h3>
+                  <h3 className="font-heading font-bold text-[#111111] text-base mb-2">Field-Tested Trials</h3>
                   <p className="text-xs text-[#6B665F] leading-relaxed font-normal">
-                    Direct yard inventory of factory-sealed clutch plates, CRDI injectors, hydraulic pumps, brake discs, and filters for Swaraj, Mahindra &amp; Tata.
+                    Bring your own mechanic to test-drive any tractor or commercial vehicle at our Salem-Coimbatore NH yard under real load before buying.
                   </p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-[#F0EBE3] text-[11px] font-bold text-[#111111] flex items-center gap-1">
                   <Check className="w-3.5 h-3.5 text-[#111111]" />
-                  Direct OEM replacement
+                  Full transparency guarantee
                 </div>
               </SpotlightCard>
             </ScrollReveal>
@@ -691,37 +705,6 @@ export const Home = () => {
             })}
           </div>
         )}
-
-        {/* Tractor Spare Parts Callout Banner - SpotlightCard & ShimmerButton */}
-        <SpotlightCard
-          spotlightColor="rgba(46, 125, 50, 0.08)"
-          className="mt-8 p-6 rounded-2xl bg-white border border-[#E3DBD0] flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-[#111111]"
-        >
-          <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-full bg-[#FAF8F5] text-[#111111] border border-[#E3DBD0] flex items-center justify-center shrink-0">
-              <Wrench className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-heading font-bold text-sm sm:text-base text-[#111111]">
-                  Genuine Spare Parts for Tractors Only
-                </span>
-                <span className="text-[9px] font-bold uppercase tracking-wider bg-[#EAE3D7] text-[#111111] px-2.5 py-0.5 rounded-full border border-[#DCD4C7]">
-                  Tractor Spares Only
-                </span>
-              </div>
-              <p className="text-xs text-[#6B665F] mt-0.5">
-                Dual clutch plates, hydraulic lift pumps, 88Ah heavy batteries &amp; filters with 6-month warranty.
-              </p>
-            </div>
-          </div>
-          <Link to="/products?category=spare_part" className="shrink-0">
-            <ShimmerButton variant="primary" className="py-2.5 px-6">
-              <span>Browse Spares</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </ShimmerButton>
-          </Link>
-        </SpotlightCard>
       </section>
 
       {/* 5. FEATURED CARS & UTILITY VEHICLES (SCROLL REVEAL) */}
@@ -769,35 +752,6 @@ export const Home = () => {
             ))}
           </div>
         )}
-
-        {/* Car Spare Parts Callout Banner - Minimalist Supro Card */}
-        <div className="mt-8 p-6 rounded-2xl bg-white border border-[#E3DBD0] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-full bg-[#FAF8F5] text-[#111111] border border-[#E3DBD0] flex items-center justify-center shrink-0">
-              <Wrench className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-heading font-bold text-sm sm:text-base text-[#111111]">
-                  Genuine Spare Parts for Commercial Cars &amp; Bolero Pickups
-                </span>
-                <span className="text-[9px] font-bold uppercase tracking-wider bg-[#EAE3D7] text-[#111111] px-2.5 py-0.5 rounded-full border border-[#DCD4C7]">
-                  Car Spares Only
-                </span>
-              </div>
-              <p className="text-xs text-[#6B665F] mt-0.5">
-                Bosch CRDI injectors, ceramic brake pad kits, Garrett turbochargers &amp; suspension bush kits with testing warranty.
-              </p>
-            </div>
-          </div>
-          <Link
-            to="/products?category=spare_part"
-            className="taste-btn shrink-0 inline-flex items-center gap-2 bg-[#2E7D32] hover:bg-[#236628] text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-full transition-all shadow-none"
-          >
-            <span>Browse Spares</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
       </section>
 
       {/* 8. 4-STEP VEHICLE CONSULTING PROCESS (SCROLL REVEAL) */}
@@ -836,7 +790,7 @@ export const Home = () => {
             {
               num: '4',
               title: 'Secure Delivery & Support',
-              desc: 'Take delivery with full peace of mind and access our genuine spare parts inventory anytime.'
+              desc: 'Take delivery with full peace of mind, verified RC papers, and dedicated post-sale yard support.'
             }
           ].map((step, idx) => (
             <ScrollReveal key={step.num} delay={idx * 80}>
@@ -1014,33 +968,40 @@ export const Home = () => {
         </ScrollReveal>
       </section>
 
-      {/* 11. FINAL CALL TO ACTION (SCROLL REVEAL) */}
+      {/* 11. FINAL CALL TO ACTION (SCROLL REVEAL + BORDERBEAM + MAGNET) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <ScrollReveal>
           <div className="bg-white rounded-3xl p-8 sm:p-14 text-[#111111] text-center relative overflow-hidden border border-[#E3DBD0]">
+            <BorderBeam size={260} duration={10} borderWidth={2} colorFrom="#2E7D32" colorTo="#D97706" />
             <div className="relative z-10 max-w-2xl mx-auto space-y-5">
-              <span className="text-[10px] font-bold text-[#111111] uppercase tracking-widest bg-[#EAE3D7] border border-[#DCD4C7] px-4 py-1.5 rounded-full">
-                Get Started Today
+              <span className="text-[10px] font-bold uppercase tracking-widest bg-[#EAE3D7] border border-[#DCD4C7] px-4 py-1.5 rounded-full inline-block">
+                <GradientText colors={['#2E7D32', '#111111', '#D97706', '#2E7D32']} animationSpeed={5}>
+                  Get Started Today
+                </GradientText>
               </span>
               <h2 className="font-heading font-black text-2xl sm:text-4xl text-[#111111]">
-                Ready to Buy, Sell, or Find Genuine Spare Parts?
+                Ready to Buy or Sell a Certified Vehicle?
               </h2>
               <p className="text-[#6B665F] text-xs sm:text-sm leading-relaxed">
-                Connect with our certified vehicle consultants for immediate valuation, yard visits, or spare parts inquiry across India.
+                Connect with our certified vehicle consultants for immediate valuation or yard visits across India.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-                <Link to="/quotation">
-                  <ShimmerButton variant="primary" className="py-3.5 px-8">
-                    <span>Request Free Quotation</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </ShimmerButton>
-                </Link>
-                <a href="tel:+918124336369">
-                  <ShimmerButton variant="light" className="py-3.5 px-7">
-                    <PhoneCall className="w-4 h-4" />
-                    <span>Call Yard (+91 81243 36369)</span>
-                  </ShimmerButton>
-                </a>
+                <Magnet padding={40} magnetStrength={4}>
+                  <Link to="/quotation">
+                    <ShimmerButton variant="primary" className="py-3.5 px-8">
+                      <span>Request Free Quotation</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </ShimmerButton>
+                  </Link>
+                </Magnet>
+                <Magnet padding={40} magnetStrength={4}>
+                  <a href="tel:+918124336369">
+                    <ShimmerButton variant="light" className="py-3.5 px-7">
+                      <PhoneCall className="w-4 h-4" />
+                      <span>Call Yard (+91 81243 36369)</span>
+                    </ShimmerButton>
+                  </a>
+                </Magnet>
               </div>
             </div>
           </div>

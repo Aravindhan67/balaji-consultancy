@@ -90,7 +90,7 @@ export const Logo = ({ size = 'normal', showTagline = true, lightMode = false, a
               lightMode ? 'text-slate-400' : 'text-slate-500'
             } font-medium hidden 2xl:block leading-tight whitespace-nowrap`}
           >
-            Certified Tractors • Cars • Genuine Spares
+            Certified Tractors • Utility Cars • RTO Verified
           </span>
         )}
       </div>

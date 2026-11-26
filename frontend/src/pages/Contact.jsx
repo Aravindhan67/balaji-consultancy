@@ -84,10 +84,6 @@ export const Contact = () => {
       a: 'We operate with 100% transparent direct yard settlements. For buyers, we provide transparent fixed pricing with verified RTO transfer and genuine documentation. For sellers, once your tractor or car clears our 120-point mechanical check, you receive immediate spot cash bank transfer on the very same day with zero broker deductions.'
     },
     {
-      q: 'Are the spare parts genuine and under warranty?',
-      a: 'All our spare parts—including tractor dual clutch kits, Bosch CRDI fuel injectors, hydraulic lift valves, and ceramic brake pads—are sourced directly from authorized OEM manufacturers and come with standard 6 to 12 months warranty coverage.'
-    },
-    {
       q: 'Can I bring my own mechanic to inspect the vehicle before paying?',
       a: 'Yes, 100%! We welcome you and your personal trusted mechanic to visit our yard, perform a thorough inspection, and take a long test drive. Complete transparency is our promise.'
     }
@@ -111,7 +107,7 @@ export const Contact = () => {
             />
           </h1>
           <p className="text-[#6B665F] text-xs sm:text-sm leading-relaxed font-normal">
-            Have questions about a specific tractor, car, or spare part? Need assistance with RTO transfer or valuation? Our team is available 7 days a week.
+            Have questions about a specific tractor or utility car? Need assistance with RTO transfer or valuation? Our team is available 7 days a week.
           </p>
         </div>
       </div>
@@ -210,7 +206,6 @@ export const Contact = () => {
                   <option value="buy_tractor">Buying a Second-Hand Tractor</option>
                   <option value="buy_car">Buying a Pre-Owned Car</option>
                   <option value="sell_vehicle">Selling My Tractor / Car</option>
-                  <option value="spare_parts">Spare Parts Inquiry</option>
                   <option value="rto_consultancy">RTO RC Transfer / NOC</option>
                   <option value="general">General Consultancy Inquiry</option>
                 </select>

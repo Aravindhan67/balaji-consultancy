@@ -95,18 +95,18 @@ export function InspectionStation() {
     },
     {
       id: 'transmission',
-      label: '4. Gearbox, Brakes & Spares',
+      label: '4. Gearbox, Brakes & Clutch',
       icon: Wrench,
-      headline: 'Constant-Mesh Gearbox, Wet Brakes & OEM Spares',
-      badge: 'Genuine Parts Guarantee',
+      headline: 'Constant-Mesh Gearbox, Wet Brakes & Clutch',
+      badge: 'Field-Tested Guarantee',
       tests: [
         { name: 'Forward / Reverse Synchronizer Shift', benchmark: 'Zero grinding or slippage', status: 'Passed', score: 'Crisp' },
         { name: 'Oil Immersed Multi-Disc Brakes (OIB)', benchmark: 'Equal dual-pedal lock', status: 'Tested', score: 'Tested' },
         { name: 'Differential Lock & Axle Seal Check', benchmark: 'Zero side-play or hum', status: 'Verified', score: 'Factory Spec' },
         { name: 'Tyre Tread Depth & Radial Casing', benchmark: 'Min 75% agricultural lug depth', status: 'Inspected', score: '85% Avg' },
-        { name: 'Genuine OEM Replacement Parts Used', benchmark: 'Exide/Bosch/TVS Girling only', status: 'Certified', score: 'OEM Grade' }
+        { name: 'Dual Clutch & PTO Engagement', benchmark: 'Smooth zero-chatter pickup', status: 'Certified', score: 'OEM Spec' }
       ],
-      description: 'Every gear ratio is stress-tested uphill and reverse under trailer conditions. Any worn brake disc, clutch bearing, or battery is replaced with brand-new genuine OEM spares from our yard inventory.'
+      description: 'Every gear ratio is stress-tested uphill and reverse under trailer conditions. Brake discs, clutch bearings, and tyres are thoroughly verified to meet strict agricultural field standards.'
     }
   ];
 

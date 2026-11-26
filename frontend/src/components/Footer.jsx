@@ -63,7 +63,7 @@ export const Footer = () => {
               Auto &amp; Agro Consultancy
             </div>
             <p className="text-xs text-[#6B665F] leading-relaxed max-w-sm">
-              Balaji Auto &amp; Agro Consultancy is India's trusted pre-owned vehicle consultancy. We assist farmers, transport operators, and families with transparent buying, selling, fair valuation, and genuine spare parts.
+              Balaji Auto &amp; Agro Consultancy is India's trusted pre-owned vehicle consultancy. We assist farmers, transport operators, and families with transparent buying, selling, and fair valuation.
             </p>
             <div className="pt-2 text-xs text-[#111111] font-semibold flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#111111]"></span>
@@ -87,18 +87,6 @@ export const Footer = () => {
                 <Link to="/products?category=car" className="hover:text-[#111111] flex items-center gap-1 transition-colors text-[#6B665F]">
                   <ChevronRight className="w-3 h-3 text-[#111111]" />
                   Pre-Owned Cars
-                </Link>
-              </li>
-              <li>
-                <Link to="/products?category=spare_part" className="hover:text-[#111111] flex items-center gap-1 transition-colors text-[#6B665F]">
-                  <ChevronRight className="w-3 h-3 text-[#111111]" />
-                  Tractor Spare Parts
-                </Link>
-              </li>
-              <li>
-                <Link to="/products?category=spare_part" className="hover:text-[#111111] flex items-center gap-1 transition-colors text-[#6B665F]">
-                  <ChevronRight className="w-3 h-3 text-[#111111]" />
-                  Car Engine &amp; Brake Spares
                 </Link>
               </li>
               <li>

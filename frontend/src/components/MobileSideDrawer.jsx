@@ -30,7 +30,7 @@ export const MobileSideDrawer = ({ isOpen, onClose }) => {
 
   const menuItems = [
     { label: 'Home', path: '/', icon: Home },
-    { label: 'Inventory & Spares', path: '/products', icon: Layers },
+    { label: 'Vehicle Stock', path: '/products', icon: Layers },
     { label: 'Get Valuation / Sell', path: '/quotation', icon: FileText, highlight: true },
     { label: 'About Us', path: '/about', icon: Info },
     { label: 'Contact & Enquiry', path: '/contact', icon: Phone },
@@ -91,14 +91,6 @@ export const MobileSideDrawer = ({ isOpen, onClose }) => {
                 <span>🚗 Cars</span>
               </Link>
             </div>
-            <Link
-              to="/products?category=spare_part"
-              onClick={onClose}
-              className="flex items-center justify-between p-2 rounded-xl bg-white text-[#111111] text-xs font-bold border border-[#E3DBD0] hover:bg-[#EAE3D7] transition-colors"
-            >
-              <span>⚙️ Genuine Spare Parts</span>
-              <ChevronRight className="w-3.5 h-3.5 text-[#111111]" />
-            </Link>
           </div>
 
           {/* Navigation Links */}

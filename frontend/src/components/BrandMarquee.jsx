@@ -10,8 +10,8 @@ const DEFAULT_BRANDS = [
   { name: 'Mahindra Bolero Maxi Truck', category: 'Utility Cars', icon: '🚗' },
   { name: 'Maruti Suzuki Commercial', category: 'Utility Cars', icon: '🚙' },
   { name: 'Tata Ace & Xenon', category: 'Pickup Trucks', icon: '🚚' },
-  { name: 'Bosch CRDI Injectors', category: 'Genuine OEM', icon: '🔧' },
-  { name: 'Exide Heavy Batteries', category: 'Direct Yard Stock', icon: '⚡' }
+  { name: 'New Holland Tractors', category: 'Tractors', icon: '🚜' },
+  { name: 'Force Motors Traveller', category: 'Commercial', icon: '🚐' }
 ];
 
 /**

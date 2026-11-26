@@ -47,7 +47,7 @@ export const MobileBottomNav = ({ onOpenSideDrawer }) => {
           <Link
             to="/products"
             className="w-12 h-12 rounded-full flex items-center justify-center border-2 border-[#F5F1EB] bg-[#2E7D32] hover:bg-[#236628] text-white transform active:scale-95 transition-all shadow-md shadow-[#2E7D32]/20"
-            title="Browse Certified Vehicle & Spares Stock"
+            title="Browse Certified Vehicle Stock"
           >
             <Layers className="w-5 h-5 text-white stroke-[2.5]" />
           </Link>

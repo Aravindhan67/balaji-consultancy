@@ -374,7 +374,7 @@ export const AdminDashboard = () => {
             {stats?.totalProducts || products.length}
           </div>
           <div className="text-[11px] text-[#c85a17] font-bold mt-1">
-            {stats?.tractorsCount || 0} Tractors • {stats?.carsCount || 0} Cars • {stats?.sparesCount || 0} Spares
+            {stats?.tractorsCount || 0} Tractors • {stats?.carsCount || 0} Cars
           </div>
         </div>
 
@@ -418,7 +418,7 @@ export const AdminDashboard = () => {
           }`}
         >
           <Package className="w-4 h-4" />
-          Vehicle &amp; Spares Inventory ({products.length})
+          Vehicle Inventory ({products.length})
         </button>
 
         <button
@@ -456,7 +456,7 @@ export const AdminDashboard = () => {
               className="inline-flex items-center gap-2 bg-[#c85a17] hover:bg-[#b04a0b] text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-md transition-all"
             >
               <Plus className="w-4 h-4" />
-              Add Vehicle / Spare Part
+              Add Vehicle
             </button>
           </div>
 
@@ -749,7 +749,6 @@ export const AdminDashboard = () => {
                   >
                     <option value="tractor">🚜 Tractor</option>
                     <option value="car">🚗 Car</option>
-                    <option value="spare_part">⚙️ Spare Part</option>
                   </select>
                 </div>
 
