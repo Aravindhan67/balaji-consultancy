@@ -67,7 +67,7 @@ export const HeroEditorial3D = ({ searchKeyword, setSearchKeyword, handleSearchS
 
   const currentVehicleSrc = spinMode
     ? resolveImageUrl(`/static-uploads/tractor-360-${TURNTABLE_FRAMES[frameIdx]}.jpg`)
-    : resolveImageUrl('/static-uploads/hero-studio-bmw-car.jpg');
+    : resolveImageUrl('/static-uploads/hero-studio-bmw-front.jpg');
 
   return (
     <section
@@ -236,32 +236,27 @@ export const HeroEditorial3D = ({ searchKeyword, setSearchKeyword, handleSearchS
           </motion.div>
 
           {/* RIGHT COLUMN: Seamless 3D Studio Vehicle Stage */}
-          <div className="lg:col-span-6 relative flex items-center justify-center">
+          <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-end">
             <motion.div
               onPointerDown={handlePointerDown}
               style={{
                 rotateX: vehicleRotateX,
                 rotateY: vehicleRotateY,
-                x: vehicleTranslateX,
-                transformStyle: 'preserve-3d'
+                x: vehicleTranslateX
               }}
-              initial={{ opacity: 0, scale: 0.92, x: 40 }}
+              initial={{ opacity: 0, scale: 0.94, x: 40 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-              className={`relative w-full max-w-[650px] lg:scale-110 ${spinMode ? 'cursor-grab active:cursor-grabbing' : ''}`}
+              className={`relative w-full max-w-[620px] lg:translate-x-8 lg:scale-110 mix-blend-multiply ${
+                spinMode ? 'cursor-grab active:cursor-grabbing' : ''
+              }`}
             >
-              {/* Soft Studio Ground Contact Shadow */}
-              <div
-                aria-hidden="true"
-                className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[82%] h-10 bg-black/30 blur-xl rounded-full pointer-events-none"
-              />
-
-              {/* Seamless Vehicle Image (mix-blend-multiply dissolves pure white studio backdrop cleanly) */}
+              {/* Seamless Vehicle Image (mix-blend-multiply on motion.div dissolves pure white cleanly) */}
               <img
                 src={currentVehicleSrc}
-                alt={spinMode ? 'Balaji Certified 360 Tractor' : 'Balaji Certified Crimson Classic Car'}
+                alt={spinMode ? 'Balaji Certified 360 Tractor' : 'Balaji Certified Crimson Classic Car Front View'}
                 draggable={false}
-                className={`w-full h-auto object-contain select-none mix-blend-multiply transition-opacity duration-200 ${
+                className={`w-full h-auto object-contain select-none [mask-image:radial-gradient(ellipse_90%_90%_at_50%_50%,black_75%,transparent_100%)] ${
                   spinMode ? 'rounded-2xl' : ''
                 }`}
                 onError={(e) => {
