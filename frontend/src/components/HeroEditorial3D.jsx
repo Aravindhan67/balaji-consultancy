@@ -1,9 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
-import { ArrowRight, Search, PhoneCall, RotateCw, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Search, PhoneCall, RotateCw, ShieldCheck, Car } from 'lucide-react';
 import { resolveImageUrl } from '../utils/imageUrl';
-import { Logo } from './Logo';
 import Magnet from './Magnet';
 import ShimmerButton from './ShimmerButton';
 
@@ -11,11 +10,11 @@ const TURNTABLE_FRAMES = [0, 45, 90, 135, 180, 225, 270, 315];
 
 /**
  * HeroEditorial3D
- * Inspired by clean 3D automotive editorial split-hero design:
+ * Clean 3D automotive editorial split-hero design:
  * - Warm studio backdrop (#E2DDD5)
- * - Diagonal sweeping perspective stripes from bottom-left
- * - Stacked bold editorial typography with soft highlight block
- * - Interactive 3D studio vehicle stage with mouse tilt & 360° turntable toggle
+ * - Sweeping diagonal perspective stripes tapering smoothly into the horizon
+ * - Stacked bold editorial typography with soft sky-blue highlight block
+ * - Seamless crimson BMW-style studio car on the right (with 360° tractor toggle)
  */
 export const HeroEditorial3D = ({ searchKeyword, setSearchKeyword, handleSearchSubmit }) => {
   const [spinMode, setSpinMode] = useState(false);
@@ -66,9 +65,9 @@ export const HeroEditorial3D = ({ searchKeyword, setSearchKeyword, handleSearchS
     isDragging.current = false;
   };
 
-  const currentTractorSrc = spinMode
+  const currentVehicleSrc = spinMode
     ? resolveImageUrl(`/static-uploads/tractor-360-${TURNTABLE_FRAMES[frameIdx]}.jpg`)
-    : resolveImageUrl('/static-uploads/hero-studio-tractor.jpg');
+    : resolveImageUrl('/static-uploads/hero-studio-bmw-car.jpg');
 
   return (
     <section
@@ -76,9 +75,9 @@ export const HeroEditorial3D = ({ searchKeyword, setSearchKeyword, handleSearchS
       onMouseLeave={handleStageMouseLeave}
       onPointerUp={handlePointerUp}
       style={{ perspective: '1400px' }}
-      className="relative overflow-hidden bg-[#E2DDD5] border-b border-[#D2CCC2] min-h-[580px] lg:min-h-[640px] flex items-center"
+      className="relative overflow-hidden bg-[#D9D4CC] border-b border-[#C9C2B6] min-h-[580px] lg:min-h-[650px] flex items-center"
     >
-      {/* Sweeping Diagonal Perspective Stripes (Bottom-Left to Center Horizon) */}
+      {/* Sweeping Diagonal Perspective Stripes (Bottom-Left tapering smoothly to Horizon) */}
       <motion.div
         style={{ x: stripesShiftX }}
         initial={{ opacity: 0, x: -120 }}
@@ -92,24 +91,30 @@ export const HeroEditorial3D = ({ searchKeyword, setSearchKeyword, handleSearchS
           className="w-full h-full"
           aria-hidden="true"
         >
-          {/* Stripe 1: Sky / Sage Mist */}
-          <polygon
-            points="-80,720 140,720 620,380 575,380"
-            fill="#60A5FA"
-            opacity="0.88"
-          />
-          {/* Stripe 2: Balaji Farmer Green */}
-          <polygon
-            points="140,720 340,720 665,380 620,380"
-            fill="#2E7D32"
-            opacity="0.92"
-          />
-          {/* Stripe 3: Crimson Tractor Red */}
-          <polygon
-            points="340,720 560,720 715,380 665,380"
-            fill="#DC2626"
-            opacity="0.92"
-          />
+          <defs>
+            <linearGradient id="stripeFadeSky" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#60A5FA" stopOpacity="0.95" />
+              <stop offset="80%" stopColor="#60A5FA" stopOpacity="0.7" />
+              <stop offset="100%" stopColor="#60A5FA" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient id="stripeFadeGreen" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#2563EB" stopOpacity="0.95" />
+              <stop offset="80%" stopColor="#2E7D32" stopOpacity="0.75" />
+              <stop offset="100%" stopColor="#2E7D32" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient id="stripeFadeRed" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#DC2626" stopOpacity="0.95" />
+              <stop offset="80%" stopColor="#DC2626" stopOpacity="0.75" />
+              <stop offset="100%" stopColor="#DC2626" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+
+          {/* Stripe 1: Light Sky Blue */}
+          <polygon points="-120,720 130,720 690,415 665,415" fill="url(#stripeFadeSky)" />
+          {/* Stripe 2: Motorsport Royal Blue / Balaji Green */}
+          <polygon points="130,720 340,720 715,415 690,415" fill="url(#stripeFadeGreen)" />
+          {/* Stripe 3: Crimson Red */}
+          <polygon points="340,720 560,720 740,415 715,415" fill="url(#stripeFadeRed)" />
         </svg>
       </motion.div>
 
@@ -119,23 +124,32 @@ export const HeroEditorial3D = ({ searchKeyword, setSearchKeyword, handleSearchS
           type="button"
           onClick={() => setSpinMode((prev) => !prev)}
           className="flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider hover:bg-white/10 transition-colors cursor-pointer"
-          title="Toggle 360° Interactive Spin View"
+          title="Switch between 3D Car Showcase and 360° Tractor View"
         >
-          <RotateCw className={`w-3.5 h-3.5 ${spinMode ? 'text-[#4ADE80] animate-spin' : 'text-white'}`} />
-          <span>{spinMode ? '360° Active' : '3D View'}</span>
+          {spinMode ? (
+            <>
+              <Car className="w-3.5 h-3.5 text-[#60A5FA]" />
+              <span>3D Car View</span>
+            </>
+          ) : (
+            <>
+              <RotateCw className="w-3.5 h-3.5 text-[#4ADE80]" />
+              <span>360° Tractor</span>
+            </>
+          )}
         </button>
         <div className="h-4 w-px bg-white/20" />
         <div className="flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-black tracking-wider">
           <span className="w-2 h-2 rounded-full bg-[#4ADE80]" />
           <span>BALAJI</span>
           <span className="text-[#DC2626] font-black">/</span>
-          <span className="text-[#60A5FA] font-black">AGRO</span>
+          <span className="text-[#60A5FA] font-black">M</span>
         </div>
       </div>
 
       {/* Main Split Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20 py-14 sm:py-16 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-2 items-center">
           {/* LEFT COLUMN: Stacked Brutalist-Editorial Typography + Pill CTA + Search */}
           <motion.div
             style={{ x: textShiftX }}
@@ -145,18 +159,18 @@ export const HeroEditorial3D = ({ searchKeyword, setSearchKeyword, handleSearchS
             className="lg:col-span-6 space-y-5 text-left"
           >
             {/* Top Status Tag */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 backdrop-blur-xs border border-[#CFC8BC] text-[10px] font-bold uppercase tracking-widest text-[#111111]">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/85 backdrop-blur-xs border border-[#C2BBB0] text-[10px] font-bold uppercase tracking-widest text-[#111111]">
               <span className="w-2 h-2 rounded-full bg-[#2E7D32] animate-pulse" />
               <span>Salem-Coimbatore NH Yard • Open 9 AM – 7 PM</span>
             </div>
 
-            {/* Stacked Editorial Display Headline with Soft Highlight Behind Top Lines */}
-            <h1 className="font-heading font-black uppercase text-4xl sm:text-5xl lg:text-[3.6rem] xl:text-[4.1rem] text-[#111111] leading-[0.94] tracking-tighter select-none">
-              <span className="inline-block bg-[#93C5FD]/45 px-2.5 py-0.5 mb-1 rounded-xs">
+            {/* Stacked Editorial Display Headline with Soft Blue Highlight Behind Top Lines */}
+            <h1 className="font-heading font-black uppercase text-4xl sm:text-5xl lg:text-[3.6rem] xl:text-[4.15rem] text-[#111111] leading-[0.94] tracking-tighter select-none">
+              <span className="inline-block bg-[#93C5FD]/55 px-2.5 py-0.5 mb-1">
                 BALAJI BELIEVES
               </span>
               <br />
-              <span className="inline-block bg-[#93C5FD]/45 px-2.5 py-0.5 mb-1 rounded-xs">
+              <span className="inline-block bg-[#93C5FD]/55 px-2.5 py-0.5 mb-1">
                 TRUST BEGINS AT
               </span>
               <br />
@@ -182,7 +196,7 @@ export const HeroEditorial3D = ({ searchKeyword, setSearchKeyword, handleSearchS
               <Magnet padding={35} magnetStrength={4}>
                 <a
                   href="tel:+918124336369"
-                  className="inline-flex items-center gap-2 bg-white/90 hover:bg-white text-[#111111] font-bold text-xs sm:text-sm px-4 py-2.5 rounded-full border border-[#CFC8BC] hover:border-[#111111] transition-all shadow-xs"
+                  className="inline-flex items-center gap-2 bg-white/95 hover:bg-white text-[#111111] font-bold text-xs sm:text-sm px-4 py-2.5 rounded-full border border-[#C2BBB0] hover:border-[#111111] transition-all shadow-xs"
                 >
                   <PhoneCall className="w-3.5 h-3.5 text-[#2E7D32]" />
                   <span>+91 81243 36369</span>
@@ -192,7 +206,7 @@ export const HeroEditorial3D = ({ searchKeyword, setSearchKeyword, handleSearchS
 
             {/* Compact Integrated Search Bar */}
             <form onSubmit={handleSearchSubmit} className="max-w-md pt-1">
-              <div className="flex items-center bg-white/95 backdrop-blur-md p-1 rounded-full border border-[#CFC8BC] focus-within:border-[#111111] shadow-sm transition-all">
+              <div className="flex items-center bg-white/95 backdrop-blur-md p-1 rounded-full border border-[#C2BBB0] focus-within:border-[#111111] shadow-sm transition-all">
                 <div className="pl-3.5 pr-2 text-[#6B665F]">
                   <Search className="w-4 h-4" />
                 </div>
@@ -209,19 +223,19 @@ export const HeroEditorial3D = ({ searchKeyword, setSearchKeyword, handleSearchS
               </div>
             </form>
 
-            {/* Bottom-Left Brand Crest & Micro-Caption (Matches Reference Bottom-Left Lockup) */}
-            <div className="pt-4 sm:pt-6 flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-white border border-[#CFC8BC] flex items-center justify-center shadow-xs shrink-0">
-                <ShieldCheck className="w-5 h-5 text-[#2E7D32]" />
+            {/* Bottom-Left Brand Crest & Micro-Caption */}
+            <div className="pt-4 sm:pt-6 inline-flex items-center gap-3 bg-white/75 backdrop-blur-xs px-3.5 py-2 rounded-full border border-[#C2BBB0]">
+              <div className="w-8 h-8 rounded-full bg-[#111111] text-white flex items-center justify-center shrink-0">
+                <ShieldCheck className="w-4 h-4 text-[#4ADE80]" />
               </div>
-              <div className="text-[10px] leading-tight font-bold uppercase tracking-wider text-[#111111]">
+              <div className="text-[10px] leading-tight font-bold uppercase tracking-wider text-[#111111] pr-1">
                 <div>BALAJI AUTO &amp; AGRO CONSULTANCY.</div>
                 <div className="text-[#555048]">CERTIFIED TRACTORS &amp; CARS SINCE 2014.</div>
               </div>
             </div>
           </motion.div>
 
-          {/* RIGHT COLUMN: 3D Interactive Vehicle Stage */}
+          {/* RIGHT COLUMN: Seamless 3D Studio Vehicle Stage */}
           <div className="lg:col-span-6 relative flex items-center justify-center">
             <motion.div
               onPointerDown={handlePointerDown}
@@ -234,27 +248,27 @@ export const HeroEditorial3D = ({ searchKeyword, setSearchKeyword, handleSearchS
               initial={{ opacity: 0, scale: 0.92, x: 40 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-              className={`relative w-full max-w-[600px] ${spinMode ? 'cursor-grab active:cursor-grabbing' : ''}`}
+              className={`relative w-full max-w-[650px] lg:scale-110 ${spinMode ? 'cursor-grab active:cursor-grabbing' : ''}`}
             >
               {/* Soft Studio Ground Contact Shadow */}
               <div
                 aria-hidden="true"
-                className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-[82%] h-10 bg-black/25 blur-xl rounded-full pointer-events-none"
+                className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[82%] h-10 bg-black/30 blur-xl rounded-full pointer-events-none"
               />
 
-              {/* Studio 3D Vehicle Image */}
-              <div className="relative rounded-2xl overflow-hidden">
-                <img
-                  src={currentTractorSrc}
-                  alt="Balaji Certified 3D Tractor Showcase"
-                  draggable={false}
-                  className="w-full h-auto object-contain select-none mix-blend-multiply drop-shadow-2xl transition-opacity duration-200"
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = '/static-uploads/tractor-mahindra-575.jpg';
-                  }}
-                />
-              </div>
+              {/* Seamless Vehicle Image (mix-blend-multiply dissolves pure white studio backdrop cleanly) */}
+              <img
+                src={currentVehicleSrc}
+                alt={spinMode ? 'Balaji Certified 360 Tractor' : 'Balaji Certified Crimson Classic Car'}
+                draggable={false}
+                className={`w-full h-auto object-contain select-none mix-blend-multiply transition-opacity duration-200 ${
+                  spinMode ? 'rounded-2xl' : ''
+                }`}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = '/static-uploads/car-mahindra-bolero.jpg';
+                }}
+              />
 
               {/* Interactive 360° Hint Pill when active */}
               {spinMode && (
