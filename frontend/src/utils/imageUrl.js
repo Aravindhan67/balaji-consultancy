@@ -24,6 +24,8 @@ const STATIC_SEEDS = new Set([
   'car.mp4',
   'favicon.svg',
   'hero-tractor-bg.jpg',
+  'hero-tractor-bg-v2.jpg',
+  'hero-studio-tractor.jpg',
   'part-brake-pads.jpg',
   'part-brake-pads.svg',
   'part-clutch-plate.jpg',

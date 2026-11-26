@@ -41,6 +41,7 @@ import Hero3DCanvas from '../components/Hero3DCanvas';
 import BorderBeam from '../components/BorderBeam';
 import Magnet from '../components/Magnet';
 import GradientText from '../components/GradientText';
+import HeroEditorial3D from '../components/HeroEditorial3D';
 
 const defaultReviews = [
   {
@@ -346,110 +347,12 @@ export const Home = () => {
 
   return (
     <div className="space-y-16 sm:space-y-24 bg-[#F5F1EB] text-[#111111]">
-      {/* 1. HERO SECTION - 3D PARALLAX & INTERACTIVE PARTICLE DEPTH */}
-      <section
-        onMouseMove={handleHeroMouseMove}
-        onMouseLeave={handleHeroMouseLeave}
-        style={{ perspective: '1200px' }}
-        className="relative overflow-hidden bg-[#F5F1EB] border-b border-[#E3DBD0] py-20 sm:py-28"
-      >
-        {/* Rich Agro Background Layer - New Twilight Dealership Yard */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-          <img
-            src={resolveImageUrl('/static-uploads/hero-tractor-bg-v2.jpg')}
-            alt="Balaji Auto and Agro Vehicle Consultancy Yard"
-            className="w-full h-full object-cover object-center scale-105 opacity-95 contrast-105 saturate-110 animate-hero-settle"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = '/static-uploads/hero-tractor-bg.jpg';
-            }}
-          />
-          {/* Rich Contrast Vignette for 3D Wireframes & Crisp White Typography */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-[#F5F1EB]/85" />
-        </div>
-
-        {/* 3D Perspective Particle Constellation Field */}
-        <Hero3DCanvas />
-
-        <motion.div
-          style={{ rotateX: heroRotateX, rotateY: heroRotateY, transformStyle: 'preserve-3d' }}
-          className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full text-center space-y-6 sm:space-y-8"
-        >
-          {/* Trust Badges */}
-          <div className="flex flex-wrap items-center justify-center gap-2" style={{ transform: 'translateZ(20px)' }}>
-            <span className="animate-hero-rise inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EAF3EB] text-[#2E7D32] text-[11px] font-bold uppercase tracking-wider border border-[#C8E0CD] shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-[#2E7D32] animate-pulse"></span>
-              <ShinyText variant="green">Auto &amp; Agro Consultancy</ShinyText>
-            </span>
-            <span className="animate-hero-rise hero-delay-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAF8F5] text-[#111111] text-[11px] font-semibold border border-[#E3DBD0]">
-              <span className="w-2 h-2 rounded-full bg-[#2E7D32]"></span>
-              <ShinyText variant="dark">Salem-Coimbatore NH Yard • Open 9 AM - 7 PM</ShinyText>
-            </span>
-          </div>
-
-          {/* H1 Headline - Supro Bold Editorial with 3D Depth */}
-          <h1
-            className="animate-hero-rise hero-delay-1 font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.1] drop-shadow-[0_4px_18px_rgba(0,0,0,0.85)] flex justify-center"
-            style={{ transform: 'translateZ(40px)' }}
-          >
-            <BlurText
-              text="Certified Second-Hand Tractors & Utility Cars."
-              delay={50}
-              stepDuration={0.3}
-              color="#FFFFFF"
-              className="justify-center text-center"
-            />
-          </h1>
-
-          {/* Integrated Search Console - Minimalist Warm Pill with 21st.dev BorderBeam */}
-          <div className="max-w-xl mx-auto pt-2">
-            <form onSubmit={handleSearchSubmit}>
-              <div className="relative overflow-hidden flex items-center bg-[#FAF8F5]/95 backdrop-blur-md p-1.5 rounded-full border border-[#DCD4C7] focus-within:border-[#111111] transition-all shadow-sm">
-                <BorderBeam size={140} duration={7} borderWidth={2} colorFrom="#2E7D32" colorTo="#86EFAC" />
-                <div className="pl-4 pr-2 text-[#8C857B] relative z-10">
-                  <Search className="w-4 h-4" />
-                </div>
-                <input
-                  type="text"
-                  placeholder="Search tractor model, HP, or vehicle (e.g. Swaraj 855, Bolero)..."
-                  value={searchKeyword}
-                  onChange={(e) => setSearchKeyword(e.target.value)}
-                  className="relative z-10 w-full text-xs sm:text-sm bg-transparent border-none text-[#111111] placeholder:text-[#8C857B] focus:outline-none font-medium py-2"
-                />
-                <ShimmerButton
-                  type="submit"
-                  variant="primary"
-                  className="py-2.5 px-5 shrink-0 relative z-10"
-                >
-                  <span>Search</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-white" />
-                </ShimmerButton>
-              </div>
-            </form>
-          </div>
-
-          {/* Action CTAs - Magnetic Pull + Shimmer */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
-            <Magnet padding={40} magnetStrength={4}>
-              <Link to="/products">
-                <ShimmerButton variant="primary" className="py-3.5 px-7 text-xs sm:text-sm">
-                  <span>Explore Certified Stock</span>
-                  <ArrowRight className="w-4 h-4" />
-                </ShimmerButton>
-              </Link>
-            </Magnet>
-
-            <Magnet padding={40} magnetStrength={4}>
-              <a href="tel:+918124336369" title="Direct Yard Call">
-                <ShimmerButton variant="light" className="py-3.5 px-6 text-xs sm:text-sm">
-                  <PhoneCall className="w-4 h-4" />
-                  <span>+91 81243 36369</span>
-                </ShimmerButton>
-              </a>
-            </Magnet>
-          </div>
-        </motion.div>
-      </section>
+      {/* 1. HERO SECTION - 3D EDITORIAL SPLIT STUDIO */}
+      <HeroEditorial3D
+        searchKeyword={searchKeyword}
+        setSearchKeyword={setSearchKeyword}
+        handleSearchSubmit={handleSearchSubmit}
+      />
 
       {/* Brand Partner Marquee from 21st.dev / React Bits */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">

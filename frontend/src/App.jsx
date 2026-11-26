@@ -9,6 +9,7 @@ import { Footer } from './components/Footer';
 import { WhatsAppPill } from './components/WhatsAppPill';
 import { ScrollToTop } from './components/ScrollToTop';
 import { ScrollProgress } from './components/ScrollProgress';
+import { ClickSpark } from './components/ClickSpark';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { MobileSideDrawer } from './components/MobileSideDrawer';
 
@@ -98,10 +99,12 @@ export function App() {
     <ErrorBoundary>
       <AuthProvider>
         {loading && <Preloader onFinish={handleFinishPreloader} />}
-        <Router>
-          <ScrollToTop />
-          <AppContent />
-        </Router>
+        <ClickSpark sparkColor="#2E7D32" sparkSize={11} sparkRadius={22} sparkCount={8} duration={420}>
+          <Router>
+            <ScrollToTop />
+            <AppContent />
+          </Router>
+        </ClickSpark>
       </AuthProvider>
     </ErrorBoundary>
   );

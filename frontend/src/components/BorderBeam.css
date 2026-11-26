@@ -1,0 +1,33 @@
+@keyframes border-beam-spin {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+.border-beam-wrapper {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: calc(var(--beam-border-width, 1.5) * 1px) solid transparent;
+  mask-clip: padding-box, border-box;
+  -webkit-mask-clip: padding-box, border-box;
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(transparent, transparent), linear-gradient(#000, #000);
+  -webkit-mask-image: linear-gradient(transparent, transparent), linear-gradient(#000, #000);
+}
+
+.border-beam-dot {
+  position: absolute;
+  aspect-ratio: 1 / 1;
+  width: calc(var(--beam-size, 180) * 1px);
+  offset-anchor: 90% 50%;
+  offset-path: rect(0 auto auto 0 round calc(var(--beam-size, 180) * 1px));
+  background: linear-gradient(to left, var(--beam-from, #2E7D32), var(--beam-to, #81C784), transparent);
+  animation: border-beam-spin calc(var(--beam-duration, 8) * 1s) infinite linear;
+  animation-delay: calc(var(--beam-delay, 0) * -1s);
+}

@@ -2,10 +2,10 @@ import React, { useEffect, useRef } from 'react';
 
 /**
  * Hero3DCanvas
- * Unique 3D interactive animation for the Hero Stage:
- * 1. Scrolling 3D perspective agro-tech horizon terrain grid
- * 2. Floating 3D rotating wireframe octahedrons & concentric orbital rings
- * 3. Depth-projected glowing 3D particles reacting to pointer/touch parallax
+ * 21st.dev & React Bits inspired Background Animation:
+ * 1. Volumetric Diagonal Light Beams swaying gently across the twilight yard
+ * 2. Shooting Meteor Light Streaks across the upper sky
+ * 3. Interactive 3D Isometric / Hexagonal Matrix that illuminates near the cursor with click ripples
  */
 export const Hero3DCanvas = () => {
   const canvasRef = useRef(null);
@@ -25,106 +25,30 @@ export const Hero3DCanvas = () => {
     let height = 0;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
-    const fov = 460;
+    const mouse = { x: -9999, y: -9999, targetX: -9999, targetY: -9999, active: false };
+    const ripples = [];
 
-    // 3D Octahedron vertices & edges
-    const octVertices = [
-      { x: 0, y: -1, z: 0 },
-      { x: 1, y: 0, z: 0 },
-      { x: 0, y: 0, z: 1 },
-      { x: -1, y: 0, z: 0 },
-      { x: 0, y: 0, z: -1 },
-      { x: 0, y: 1, z: 0 }
-    ];
-    const octEdges = [
-      [0, 1], [0, 2], [0, 3], [0, 4],
-      [5, 1], [5, 2], [5, 3], [5, 4],
-      [1, 2], [2, 3], [3, 4], [4, 1]
+    // 1. Volumetric Diagonal Light Beams
+    const beams = [
+      { xRatio: 0.18, width: 150, angle: 0.34, speed: 0.4, phase: 0, color: [74, 222, 128], alpha: 0.11 },
+      { xRatio: 0.45, width: 220, angle: 0.38, speed: 0.3, phase: 1.8, color: [251, 191, 36], alpha: 0.08 },
+      { xRatio: 0.72, width: 180, angle: 0.32, speed: 0.45, phase: 3.5, color: [134, 239, 172], alpha: 0.1 },
+      { xRatio: 0.88, width: 130, angle: 0.36, speed: 0.35, phase: 5.1, color: [255, 255, 255], alpha: 0.07 }
     ];
 
-    // 3D Cube vertices & edges
-    const cubeVertices = [
-      { x: -1, y: -1, z: -1 }, { x: 1, y: -1, z: -1 },
-      { x: 1, y: 1, z: -1 }, { x: -1, y: 1, z: -1 },
-      { x: -1, y: -1, z: 1 }, { x: 1, y: -1, z: 1 },
-      { x: 1, y: 1, z: 1 }, { x: -1, y: 1, z: 1 }
-    ];
-    const cubeEdges = [
-      [0, 1], [1, 2], [2, 3], [3, 0],
-      [4, 5], [5, 6], [6, 7], [7, 4],
-      [0, 4], [1, 5], [2, 6], [3, 7]
-    ];
+    // 2. Shooting Meteor Streaks
+    const createMeteor = (randomStart = false) => ({
+      x: Math.random() * (width || 1200) * 1.2,
+      y: randomStart ? Math.random() * (height || 600) * 0.6 : -40,
+      length: 70 + Math.random() * 90,
+      speed: 4.5 + Math.random() * 4,
+      angle: Math.PI * 0.72, // sweeping down-left
+      alpha: 0.45 + Math.random() * 0.4,
+      isGold: Math.random() > 0.55,
+      wait: randomStart ? 0 : Math.floor(Math.random() * 140)
+    });
 
-    // Floating 3D polyhedrons positioned cleanly on flanks so center text stays legible
-    const shapes = [
-      {
-        type: 'oct',
-        x: -360, y: -90, z: 220,
-        size: 56,
-        rx: 0.4, ry: 0.2, rz: 0.1,
-        vrx: 0.008, vry: 0.012, vrz: 0.005,
-        color: 'rgba(129, 199, 132, 0.55)'
-      },
-      {
-        type: 'cube',
-        x: 370, y: -70, z: 240,
-        size: 46,
-        rx: 0.2, ry: 0.6, rz: 0.3,
-        vrx: -0.007, vry: 0.01, vrz: 0.006,
-        color: 'rgba(255, 255, 255, 0.42)'
-      },
-      {
-        type: 'oct',
-        x: 290, y: 110, z: 300,
-        size: 38,
-        rx: 0.8, ry: 0.1, rz: 0.4,
-        vrx: 0.01, vry: -0.009, vrz: 0.007,
-        color: 'rgba(74, 222, 128, 0.45)'
-      },
-      {
-        type: 'cube',
-        x: -290, y: 120, z: 290,
-        size: 36,
-        rx: 0.5, ry: 0.3, rz: 0.2,
-        vrx: 0.009, vry: 0.008, vrz: -0.006,
-        color: 'rgba(255, 255, 255, 0.35)'
-      }
-    ];
-
-    // Depth particles
-    const particles = Array.from({ length: 55 }, () => ({
-      x: (Math.random() - 0.5) * 1500,
-      y: (Math.random() - 0.5) * 800,
-      z: Math.random() * 850,
-      size: 1.4 + Math.random() * 2,
-      speedZ: 0.65 + Math.random() * 0.8,
-      alpha: 0.35 + Math.random() * 0.5,
-      isGreen: Math.random() > 0.55
-    }));
-
-    const rotate3D = (v, rx, ry, rz) => {
-      // X rotation
-      let y = v.y * Math.cos(rx) - v.z * Math.sin(rx);
-      let z = v.y * Math.sin(rx) + v.z * Math.cos(rx);
-      let x = v.x;
-      // Y rotation
-      const x2 = x * Math.cos(ry) + z * Math.sin(ry);
-      const z2 = -x * Math.sin(ry) + z * Math.cos(ry);
-      // Z rotation
-      const x3 = x2 * Math.cos(rz) - y * Math.sin(rz);
-      const y3 = x2 * Math.sin(rz) + y * Math.cos(rz);
-      return { x: x3, y: y3, z: z2 };
-    };
-
-    const project = (p, cx, cy) => {
-      const scale = fov / Math.max(40, fov + p.z);
-      return {
-        px: cx + p.x * scale,
-        py: cy + p.y * scale,
-        scale
-      };
-    };
+    const meteors = Array.from({ length: 7 }, () => createMeteor(true));
 
     const resize = () => {
       const parent = canvas.parentElement;
@@ -139,152 +63,177 @@ export const Hero3DCanvas = () => {
     const handlePointerMove = (e) => {
       const rect = canvas.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
-      mouse.targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 160;
-      mouse.targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 100;
+      mouse.targetX = e.clientX - rect.left;
+      mouse.targetY = e.clientY - rect.top;
+      mouse.active = true;
     };
 
     const handlePointerLeave = () => {
-      mouse.targetX = 0;
-      mouse.targetY = 0;
+      mouse.active = false;
+    };
+
+    const handleClick = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      ripples.push({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+        radius: 10,
+        maxRadius: 340,
+        alpha: 0.65
+      });
     };
 
     resize();
     window.addEventListener('resize', resize);
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
     window.addEventListener('pointerleave', handlePointerLeave);
+    window.addEventListener('click', handleClick);
 
-    let gridOffset = 0;
     let time = 0;
+
+    const drawHexagon = (cx, cy, r) => {
+      ctx.beginPath();
+      for (let i = 0; i < 6; i += 1) {
+        const a = (Math.PI / 3) * i + Math.PI / 6;
+        const hx = cx + r * Math.cos(a);
+        const hy = cy + r * Math.sin(a) * 0.82; // slight 3D isometric squash
+        if (i === 0) ctx.moveTo(hx, hy);
+        else ctx.lineTo(hx, hy);
+      }
+      ctx.closePath();
+    };
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
       time += 0.016;
 
-      mouse.x += (mouse.targetX - mouse.x) * 0.06;
-      mouse.y += (mouse.targetY - mouse.y) * 0.06;
+      if (mouse.active) {
+        if (mouse.x < -1000) {
+          mouse.x = mouse.targetX;
+          mouse.y = mouse.targetY;
+        } else {
+          mouse.x += (mouse.targetX - mouse.x) * 0.12;
+          mouse.y += (mouse.targetY - mouse.y) * 0.12;
+        }
+      }
 
-      const cx = width / 2;
-      const cy = height / 2;
+      // 1. VOLUMETRIC DIAGONAL LIGHT BEAMS
+      beams.forEach((beam) => {
+        const sway = Math.sin(time * beam.speed + beam.phase) * 55;
+        const startX = width * beam.xRatio + sway;
+        const dx = Math.sin(beam.angle) * height * 1.3;
+        const dy = Math.cos(beam.angle) * height * 1.3;
 
-      // 1. 3D PERSPECTIVE HORIZON TERRAIN GRID (scrolling forward)
-      gridOffset = (gridOffset + 1.4) % 80;
-      const horizonY = height * 0.56 - mouse.y * 0.15;
-      const floorY = 230;
-      const gridCols = 14;
-      const gridSpacingX = Math.max(90, width / 10);
+        const grad = ctx.createLinearGradient(startX, -40, startX + dx * 0.5, dy);
+        grad.addColorStop(0, `rgba(${beam.color[0]}, ${beam.color[1]}, ${beam.color[2]}, ${beam.alpha})`);
+        grad.addColorStop(0.55, `rgba(${beam.color[0]}, ${beam.color[1]}, ${beam.color[2]}, ${(beam.alpha * 0.45).toFixed(3)})`);
+        grad.addColorStop(1, `rgba(${beam.color[0]}, ${beam.color[1]}, ${beam.color[2]}, 0)`);
 
-      ctx.save();
-      ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(startX - beam.width * 0.35, -40);
+        ctx.lineTo(startX + beam.width * 0.35, -40);
+        ctx.lineTo(startX + dx + beam.width * 1.2, dy);
+        ctx.lineTo(startX + dx - beam.width * 0.6, dy);
+        ctx.closePath();
+        ctx.fillStyle = grad;
+        ctx.fill();
+      });
 
-      // Longitudinal 3D lines converging toward horizon
-      for (let i = -gridCols; i <= gridCols; i += 1) {
-        const worldX = i * gridSpacingX - mouse.x * 0.6;
-        const near = project({ x: worldX, y: floorY, z: 20 }, cx, horizonY);
-        const far = project({ x: worldX, y: floorY, z: 950 }, cx, horizonY);
+      // 2. INTERACTIVE 3D ISOMETRIC HEXAGONAL MATRIX
+      const hexR = width < 640 ? 28 : 34;
+      const horizStep = hexR * Math.sqrt(3);
+      const vertStep = hexR * 1.5 * 0.82;
+      const rows = Math.ceil(height / vertStep) + 1;
+      const cols = Math.ceil(width / horizStep) + 1;
 
-        const grad = ctx.createLinearGradient(near.px, near.py, far.px, far.py);
-        grad.addColorStop(0, 'rgba(74, 222, 128, 0.28)');
-        grad.addColorStop(0.6, 'rgba(255, 255, 255, 0.10)');
+      for (let row = 0; row < rows; row += 1) {
+        for (let col = 0; col < cols; col += 1) {
+          const offsetX = row % 2 === 0 ? 0 : horizStep / 2;
+          const hx = col * horizStep + offsetX;
+          const hy = row * vertStep;
+
+          // Subtle wave glow + cursor proximity + click ripples
+          let energy = 0.045 + 0.03 * Math.sin(time * 1.4 + col * 0.35 + row * 0.45);
+
+          if (mouse.active) {
+            const dist = Math.hypot(hx - mouse.x, hy - mouse.y);
+            if (dist < 180) {
+              energy += (1 - dist / 180) * 0.32;
+            }
+          }
+
+          for (let r = 0; r < ripples.length; r += 1) {
+            const rp = ripples[r];
+            const dist = Math.hypot(hx - rp.x, hy - rp.y);
+            const band = Math.abs(dist - rp.radius);
+            if (band < 48) {
+              energy += (1 - band / 48) * rp.alpha * 0.45;
+            }
+          }
+
+          if (energy > 0.055) {
+            drawHexagon(hx, hy, hexR * 0.92);
+            ctx.strokeStyle = `rgba(134, 239, 172, ${Math.min(0.45, energy).toFixed(3)})`;
+            ctx.lineWidth = energy > 0.16 ? 1.25 : 0.75;
+            ctx.stroke();
+
+            if (energy > 0.18) {
+              ctx.fillStyle = `rgba(46, 125, 50, ${((energy - 0.15) * 0.3).toFixed(3)})`;
+              ctx.fill();
+            }
+          }
+        }
+      }
+
+      // Update click ripples
+      for (let i = ripples.length - 1; i >= 0; i -= 1) {
+        const rp = ripples[i];
+        rp.radius += 6.5;
+        rp.alpha *= 0.96;
+        if (rp.radius > rp.maxRadius || rp.alpha < 0.02) {
+          ripples.splice(i, 1);
+        }
+      }
+
+      // 3. SHOOTING METEOR STREAKS
+      meteors.forEach((m, idx) => {
+        if (m.wait > 0) {
+          m.wait -= 1;
+          return;
+        }
+
+        const vx = Math.cos(m.angle) * m.speed;
+        const vy = Math.sin(m.angle) * m.speed;
+        m.x += vx;
+        m.y += vy;
+
+        const tailX = m.x - Math.cos(m.angle) * m.length;
+        const tailY = m.y - Math.sin(m.angle) * m.length;
+
+        const grad = ctx.createLinearGradient(m.x, m.y, tailX, tailY);
+        const headColor = m.isGold ? `rgba(253, 230, 138, ${m.alpha})` : `rgba(134, 239, 172, ${m.alpha})`;
+        grad.addColorStop(0, headColor);
         grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
         ctx.beginPath();
-        ctx.moveTo(near.px, near.py);
-        ctx.lineTo(far.px, far.py);
+        ctx.moveTo(m.x, m.y);
+        ctx.lineTo(tailX, tailY);
         ctx.strokeStyle = grad;
-        ctx.stroke();
-      }
-
-      // Transverse 3D depth rings scrolling toward viewer
-      for (let z = 40; z < 920; z += 80) {
-        const activeZ = z - gridOffset;
-        if (activeZ <= 15) continue;
-        const left = project({ x: -gridCols * gridSpacingX - mouse.x * 0.6, y: floorY, z: activeZ }, cx, horizonY);
-        const right = project({ x: gridCols * gridSpacingX - mouse.x * 0.6, y: floorY, z: activeZ }, cx, horizonY);
-        const alpha = Math.max(0, (1 - activeZ / 920) * 0.24);
-
-        ctx.beginPath();
-        ctx.moveTo(left.px, left.py);
-        ctx.lineTo(right.px, right.py);
-        ctx.strokeStyle = `rgba(129, 199, 132, ${alpha.toFixed(3)})`;
-        ctx.stroke();
-      }
-      ctx.restore();
-
-      // 2. FLOATING 3D WIREFRAME POLYHEDRONS (Octahedrons & Cubes)
-      const isMobile = width < 640;
-      const spreadScale = isMobile ? 0.48 : Math.min(1.1, width / 1100);
-
-      shapes.forEach((shape, idx) => {
-        shape.rx += shape.vrx;
-        shape.ry += shape.vry;
-        shape.rz += shape.vrz;
-
-        const floatY = Math.sin(time * 1.4 + idx * 1.6) * 14;
-        const baseX = shape.x * spreadScale - mouse.x * (0.45 + idx * 0.1);
-        const baseY = shape.y + floatY - mouse.y * (0.35 + idx * 0.08);
-        const baseZ = shape.z;
-
-        const verts = shape.type === 'oct' ? octVertices : cubeVertices;
-        const edges = shape.type === 'oct' ? octEdges : cubeEdges;
-        const size = shape.size * (isMobile ? 0.72 : 1);
-
-        const projectedVerts = verts.map((v) => {
-          const r = rotate3D(v, shape.rx + mouse.y * 0.002, shape.ry + mouse.x * 0.002, shape.rz);
-          return project(
-            {
-              x: baseX + r.x * size,
-              y: baseY + r.y * size,
-              z: baseZ + r.z * size
-            },
-            cx,
-            cy
-          );
-        });
-
-        ctx.beginPath();
-        edges.forEach(([a, b]) => {
-          ctx.moveTo(projectedVerts[a].px, projectedVerts[a].py);
-          ctx.lineTo(projectedVerts[b].px, projectedVerts[b].py);
-        });
-        ctx.strokeStyle = shape.color;
-        ctx.lineWidth = 1.25;
+        ctx.lineWidth = 1.6;
+        ctx.lineCap = 'round';
         ctx.stroke();
 
-        // Glowing vertex nodes
-        projectedVerts.forEach((pt) => {
-          ctx.beginPath();
-          ctx.arc(pt.px, pt.py, 2.1 * pt.scale, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
-          ctx.fill();
-        });
-      });
-
-      // 3. DEPTH PARTICLES FLYING TOWARD CAMERA
-      for (let i = 0; i < particles.length; i += 1) {
-        const p = particles[i];
-        p.z -= p.speedZ;
-        if (p.z <= 10) {
-          p.z = 850;
-          p.x = (Math.random() - 0.5) * 1500;
-          p.y = (Math.random() - 0.5) * 800;
-        }
-
-        const scale = fov / (fov + p.z);
-        const px = cx + (p.x - mouse.x * (1 - p.z / 850)) * scale;
-        const py = cy + (p.y - mouse.y * (1 - p.z / 850)) * scale;
-
-        if (px < -30 || px > width + 30 || py < -30 || py > height + 30) continue;
-
-        const depthFade = Math.max(0, 1 - p.z / 850);
-        const r = Math.max(0.9, p.size * scale * 1.3);
-
+        // Bright meteor head
         ctx.beginPath();
-        ctx.arc(px, py, r, 0, Math.PI * 2);
-        ctx.fillStyle = p.isGreen
-          ? `rgba(74, 222, 128, ${(p.alpha * depthFade * 0.9).toFixed(3)})`
-          : `rgba(255, 255, 255, ${(p.alpha * depthFade * 0.75).toFixed(3)})`;
+        ctx.arc(m.x, m.y, 1.8, 0, Math.PI * 2);
+        ctx.fillStyle = '#FFFFFF';
         ctx.fill();
-      }
+
+        if (m.y > height + 60 || m.x < -100) {
+          meteors[idx] = createMeteor(false);
+        }
+      });
 
       animationFrameId = requestAnimationFrame(render);
     };
@@ -296,6 +245,7 @@ export const Hero3DCanvas = () => {
       window.removeEventListener('resize', resize);
       window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('pointerleave', handlePointerLeave);
+      window.removeEventListener('click', handleClick);
     };
   }, []);
 
