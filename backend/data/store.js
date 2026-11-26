@@ -11,6 +11,66 @@ import { initialProducts } from '../seed/initialData.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const dbFilePath = path.join(__dirname, 'db.json');
+const uploadsDir = path.join(__dirname, '..', 'uploads');
+
+const PROTECTED_UPLOAD_PREFIXES = ['balaji-logo', 'favicon', 'hero-', 'about-', 'tractor-360-'];
+
+/**
+ * Extract local /uploads/<filename> basename if the URL points to backend/uploads.
+ */
+const extractUploadFilename = (imgUrl) => {
+  if (!imgUrl || typeof imgUrl !== 'string') return null;
+  if (imgUrl.startsWith('data:')) return null;
+  const cleanUrl = imgUrl.split('?')[0].split('#')[0];
+  const match = cleanUrl.match(/\/uploads\/([^/]+)$/i);
+  if (!match) return null;
+  const filename = path.basename(match[1]);
+  if (!filename || PROTECTED_UPLOAD_PREFIXES.some((prefix) => filename.startsWith(prefix))) {
+    return null;
+  }
+  return filename;
+};
+
+/**
+ * Permanently delete local upload files that are no longer referenced by any product in the database.
+ */
+const cleanupOrphanedProductImages = async (candidateImages = []) => {
+  if (!Array.isArray(candidateImages) || candidateImages.length === 0) return;
+
+  const filenames = [...new Set(candidateImages.map(extractUploadFilename).filter(Boolean))];
+  if (filenames.length === 0) return;
+
+  try {
+    let remainingProducts = [];
+    if (isMongoConnected()) {
+      remainingProducts = await Product.find({}, 'images').lean();
+    } else {
+      remainingProducts = fileDb.products || [];
+    }
+
+    const stillReferenced = new Set();
+    remainingProducts.forEach((p) => {
+      if (Array.isArray(p?.images)) {
+        p.images.forEach((img) => {
+          const fname = extractUploadFilename(img);
+          if (fname) stillReferenced.add(fname);
+        });
+      }
+    });
+
+    const resolvedUploadsDir = path.resolve(uploadsDir);
+    filenames.forEach((fname) => {
+      if (stillReferenced.has(fname)) return;
+      const filePath = path.resolve(resolvedUploadsDir, fname);
+      if (!filePath.startsWith(resolvedUploadsDir + path.sep)) return;
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    });
+  } catch (err) {
+    console.error('Error cleaning up deleted product photos:', err.message);
+  }
+};
 
 export const initialReviews = [
   {
@@ -208,10 +268,17 @@ export const DataStore = {
 
   async updateProduct(id, data) {
     if (isMongoConnected()) {
-      return await Product.findByIdAndUpdate(id, data, { new: true });
+      const existing = await Product.findById(id).lean();
+      const updated = await Product.findByIdAndUpdate(id, data, { new: true });
+      if (existing && Array.isArray(data.images)) {
+        const removedImages = (existing.images || []).filter((img) => !data.images.includes(img));
+        await cleanupOrphanedProductImages(removedImages);
+      }
+      return updated;
     }
     const index = fileDb.products.findIndex(p => p._id === id || String(p.id) === String(id));
     if (index === -1) return null;
+    const previousImages = fileDb.products[index].images || [];
     fileDb.products[index] = {
       ...fileDb.products[index],
       ...data,
@@ -219,18 +286,29 @@ export const DataStore = {
       updatedAt: new Date().toISOString()
     };
     saveFallbackDb();
+    if (Array.isArray(data.images)) {
+      const removedImages = previousImages.filter((img) => !data.images.includes(img));
+      await cleanupOrphanedProductImages(removedImages);
+    }
     return fileDb.products[index];
   },
 
   async deleteProduct(id) {
     if (isMongoConnected()) {
-      return await Product.findByIdAndDelete(id);
+      const removed = await Product.findByIdAndDelete(id);
+      if (removed) {
+        await cleanupOrphanedProductImages(removed.images || []);
+      }
+      return removed;
     }
     const index = fileDb.products.findIndex(p => p._id === id || String(p.id) === String(id));
     if (index === -1) return null;
-    const removed = fileDb.products.splice(index, 1);
+    const [removed] = fileDb.products.splice(index, 1);
     saveFallbackDb();
-    return removed[0];
+    if (removed) {
+      await cleanupOrphanedProductImages(removed.images || []);
+    }
+    return removed;
   },
 
   // ENQUIRIES

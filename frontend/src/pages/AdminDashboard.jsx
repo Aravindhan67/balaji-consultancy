@@ -153,12 +153,14 @@ export const AdminDashboard = () => {
   };
 
   const handleDeleteProduct = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this vehicle/part from inventory?')) return;
+    if (!window.confirm('Are you sure you want to permanently delete this vehicle and its photos from the database?')) return;
     try {
       const res = await api.deleteProduct(id);
       if (res.success) {
         setProducts(prev => prev.filter(p => p._id !== id));
         loadAllData();
+      } else {
+        alert(res.message || 'Failed to delete product');
       }
     } catch (err) {
       alert('Failed to delete product');
