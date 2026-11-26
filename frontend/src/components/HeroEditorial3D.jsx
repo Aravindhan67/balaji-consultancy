@@ -1,14 +1,16 @@
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
+import { ArrowRight, ShieldCheck } from 'lucide-react';
 import { resolveImageUrl } from '../utils/imageUrl';
+import ShimmerButton from './ShimmerButton';
 
 /**
  * HeroEditorial3D
- * Full-bleed Editorial Poster Hero:
- * - Full-bleed dealership yard photograph integrated with warm emerald-sunlit theme grading & film grain
- * - Top micro category links & giant full-width Playfair Display serif masthead
- * - Bottom-left editorial serif subhead & 3 stacked micro-lines
+ * Premium Single-Product Studio Hero matched to Balaji's Warm Linen & Farmer Green theme:
+ * - Clean studio backdrop (#FAF8F5 -> #EAE3D7) with soft Farmer Green (#2E7D32) radial spotlight
+ * - Single isolated transparent vehicle centerpiece with 3D mouse/touch/gyroscope parallax
+ * - Crisp editorial typography & clean Explore Stock CTA
  */
 export const HeroEditorial3D = () => {
   const isInteracting = useRef(false);
@@ -17,12 +19,13 @@ export const HeroEditorial3D = () => {
   // 3D Stage Mouse / Touch / Gyroscope Parallax
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const smoothX = useSpring(mouseX, { stiffness: 100, damping: 22 });
-  const smoothY = useSpring(mouseY, { stiffness: 100, damping: 22 });
+  const smoothX = useSpring(mouseX, { stiffness: 110, damping: 22 });
+  const smoothY = useSpring(mouseY, { stiffness: 110, damping: 22 });
 
-  const bgTranslateX = useTransform(smoothX, [-0.5, 0.5], [-16, 16]);
-  const bgTranslateY = useTransform(smoothY, [-0.5, 0.5], [-10, 10]);
-  const titleShiftX = useTransform(smoothX, [-0.5, 0.5], [10, -10]);
+  const vehicleRotateY = useTransform(smoothX, [-0.5, 0.5], [-8, 8]);
+  const vehicleRotateX = useTransform(smoothY, [-0.5, 0.5], [5, -5]);
+  const vehicleTranslateX = useTransform(smoothX, [-0.5, 0.5], [-12, 12]);
+  const titleShiftX = useTransform(smoothX, [-0.5, 0.5], [6, -6]);
 
   // Mobile Gyroscope, Shake & Ambient 3D Float
   useEffect(() => {
@@ -57,8 +60,8 @@ export const HeroEditorial3D = () => {
     const tick = (now) => {
       if (isTouchOrMobile && !isInteracting.current && !hasGyro.current) {
         const t = (now - startTime) / 1000;
-        mouseX.set(Math.sin(t * 1.1) * 0.25);
-        mouseY.set(Math.cos(t * 0.85) * 0.16);
+        mouseX.set(Math.sin(t * 1.15) * 0.28);
+        mouseY.set(Math.cos(t * 0.85) * 0.18);
       }
       rafId = requestAnimationFrame(tick);
     };
@@ -103,105 +106,100 @@ export const HeroEditorial3D = () => {
       onTouchEnd={() => {
         isInteracting.current = false;
       }}
-      className="relative overflow-hidden bg-[#0D2412] text-[#FAF8F5] min-h-[540px] sm:min-h-[620px] lg:min-h-[690px] flex flex-col justify-between border-b border-[#163D1F]"
+      style={{ perspective: '1400px' }}
+      className="relative overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-[#F2EDE4] to-[#E9E2D6] text-[#111111] border-b border-[#DCD4C7] min-h-[520px] sm:min-h-[600px] lg:min-h-[660px] flex flex-col justify-between"
     >
-      {/* Full-Bleed Dealership Yard Background with 3D Parallax */}
-      <motion.div
-        style={{ x: bgTranslateX, y: bgTranslateY }}
-        className="absolute -inset-6 z-0 pointer-events-none"
-      >
-        {/* Mobile Dedicated Hero Image */}
-        <img
-          src={resolveImageUrl('/static-uploads/tractor-swaraj-855.jpg')}
-          alt="Balaji Auto and Agro Consultancy Yard"
-          className="block sm:hidden w-full h-full object-cover object-center scale-105 brightness-90 contrast-110 saturate-110"
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = '/static-uploads/tractor-mahindra-575.jpg';
-          }}
-        />
-        {/* Desktop Full-Bleed Hero Image */}
-        <img
-          src={resolveImageUrl('/static-uploads/hero-tractor-bg-v2.jpg')}
-          alt="Balaji Auto and Agro Consultancy Yard"
-          className="hidden sm:block w-full h-full object-cover object-center scale-105 brightness-90 contrast-110 saturate-110"
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = '/static-uploads/hero-tractor-bg.jpg';
-          }}
-        />
-      </motion.div>
-
-      {/* Theme-Matched Emerald & Warm Sunset Editorial Grading */}
+      {/* Subtle Theme-Matched Farmer Green & Warm Gold Studio Aura */}
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none z-0"
         style={{
           background:
-            'linear-gradient(180deg, rgba(11, 34, 16, 0.72) 0%, rgba(18, 52, 25, 0.25) 45%, rgba(10, 26, 13, 0.85) 100%)'
+            'radial-gradient(circle at 50% 56%, rgba(46, 125, 50, 0.14) 0%, rgba(46, 125, 50, 0.04) 42%, transparent 72%)'
         }}
       />
+
+      {/* Subtle Studio Horizon Ring */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 pointer-events-none z-0 opacity-45"
-        style={{
-          background:
-            'radial-gradient(circle at 55% 45%, rgba(251, 191, 36, 0.16) 0%, rgba(46, 125, 50, 0.18) 45%, rgba(0, 0, 0, 0.55) 100%)'
-        }}
+        className="absolute left-1/2 top-[62%] -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[540px] lg:w-[680px] h-[110px] sm:h-[160px] rounded-full border border-[#2E7D32]/15 bg-white/30 blur-[1px] pointer-events-none z-0"
       />
 
-      {/* Subtle Editorial Film Grain Texture */}
-      <svg className="absolute inset-0 w-full h-full opacity-[0.14] mix-blend-overlay pointer-events-none z-0" aria-hidden="true">
-        <filter id="aldenaFilmGrain">
-          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
-        </filter>
-        <rect width="100%" height="100%" filter="url(#aldenaFilmGrain)" />
-      </svg>
-
-      {/* Top Editorial Category Bar + Giant Serif Masthead */}
-      <div className="relative z-20 max-w-7xl mx-auto w-full px-4 sm:px-8 pt-6 sm:pt-8 text-center">
-        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-7 text-[9px] sm:text-[10px] font-semibold tracking-[0.22em] uppercase text-white/85 mb-3 sm:mb-4">
-          <Link to="/products?category=tractor" className="hover:text-white transition-colors">Tractors</Link>
-          <Link to="/products?category=car" className="hover:text-white transition-colors">Cars</Link>
-          <Link to="/products?category=truck" className="hover:text-white transition-colors">Trucks</Link>
-          <Link to="/products?category=agro_equipment" className="hover:text-white transition-colors">Agro Equipments</Link>
-          <Link to="/quotation" className="hover:text-white transition-colors">Valuation</Link>
+      {/* Top Editorial Header */}
+      <div className="relative z-20 max-w-7xl mx-auto w-full px-4 sm:px-8 pt-6 sm:pt-9 text-center space-y-2.5">
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#EAF3EB] text-[#2E7D32] border border-[#C8E0CD] text-[10px] font-bold uppercase tracking-[0.18em] shadow-2xs">
+          <ShieldCheck className="w-3.5 h-3.5 text-[#2E7D32]" />
+          <span>120-Point Certified Studio</span>
         </div>
 
-        {/* Giant Full-Width Editorial Serif Display Title */}
         <motion.h1
           style={{
             x: titleShiftX,
             fontFamily: "'Playfair Display', Georgia, serif"
           }}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="text-[3rem] sm:text-[5.2rem] md:text-[6.5rem] lg:text-[8rem] xl:text-[9rem] font-semibold leading-[0.9] tracking-[-0.03em] text-[#FAF8F5] select-none drop-shadow-[0_6px_28px_rgba(0,0,0,0.55)]"
+          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          className="text-[2.7rem] sm:text-[4.8rem] md:text-[6rem] lg:text-[7.2rem] font-semibold leading-[0.94] tracking-[-0.03em] text-[#111111] select-none"
         >
-          Balaji Yard
+          Balaji <span className="text-[#2E7D32] italic font-medium">Yard</span>
         </motion.h1>
+
+        <p className="text-xs sm:text-sm text-[#6B665F] max-w-md mx-auto font-medium">
+          Pre-Owned Tractors, Utility Cars, Trucks &amp; Agro Equipments.
+        </p>
       </div>
 
-      {/* Center Breathing Space to Showcase Full-Bleed Yard Photograph */}
-      <div className="flex-1 min-h-[140px] sm:min-h-[200px]" />
+      {/* Centerpiece: ONLY ONE Clean Studio Product with 3D Parallax */}
+      <div className="relative z-10 flex items-center justify-center px-4 py-2 sm:py-4">
+        <motion.div
+          style={{
+            rotateX: vehicleRotateX,
+            rotateY: vehicleRotateY,
+            x: vehicleTranslateX,
+            transformStyle: 'preserve-3d'
+          }}
+          initial={{ opacity: 0, scale: 0.92, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          className="relative w-full max-w-[270px] sm:max-w-[380px] lg:max-w-[440px]"
+        >
+          {/* Realistic Soft Floor Contact Shadow */}
+          <div
+            aria-hidden="true"
+            className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[84%] h-8 bg-[#111111]/30 blur-xl rounded-full pointer-events-none"
+          />
 
-      {/* Bottom Editorial Row: Left Subhead & Micro-Copy */}
-      <div className="relative z-20 max-w-7xl mx-auto w-full px-5 sm:px-10 pb-14 sm:pb-10 pt-4 flex items-end justify-start">
-        {/* Bottom-Left Editorial Lockup */}
-        <div className="space-y-2.5 text-left">
-          <h2
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-            className="text-2xl sm:text-3xl lg:text-4xl font-normal text-[#FAF8F5] tracking-tight drop-shadow-md"
-          >
+          <img
+            src={resolveImageUrl('/static-uploads/hero-studio-bmw-front.png')}
+            alt="Balaji Certified Vehicle"
+            draggable={false}
+            className="relative z-10 w-full h-auto object-contain select-none drop-shadow-[0_18px_28px_rgba(0,0,0,0.22)]"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = '/static-uploads/car-mahindra-bolero.jpg';
+            }}
+          />
+        </motion.div>
+      </div>
+
+      {/* Bottom Premium Action Bar (spaced cleanly above mobile bottom nav) */}
+      <div className="relative z-20 max-w-7xl mx-auto w-full px-5 sm:px-10 pb-14 sm:pb-9 pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="text-center sm:text-left">
+          <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#2E7D32]">
             Auto &amp; Agro Consultancy
-          </h2>
-          <div className="text-[9px] sm:text-[10px] font-semibold tracking-[0.18em] uppercase text-white/90 leading-relaxed drop-shadow-sm">
-            <div>BUILT TO ENDURE.</div>
-            <div>120-POINT INSPECTED.</div>
-            <div>VERIFIED IN EVERY DETAIL.</div>
+          </div>
+          <div className="text-xs text-[#6B665F] font-medium mt-0.5">
+            Direct Yard Price • Verified RTO &amp; NOC Transfer
           </div>
         </div>
+
+        <Link to="/products">
+          <ShimmerButton variant="primary" className="py-3 px-7 text-xs shadow-md">
+            <span>Explore Certified Stock</span>
+            <ArrowRight className="w-4 h-4" />
+          </ShimmerButton>
+        </Link>
       </div>
     </section>
   );
