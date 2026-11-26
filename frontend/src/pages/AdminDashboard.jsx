@@ -22,8 +22,14 @@ import {
   Search,
   ExternalLink,
   Camera,
-  Image as ImageIcon
+  Image as ImageIcon,
+  BarChart3
 } from 'lucide-react';
+import { Logo } from '../components/Logo';
+import SpotlightCard from '../components/SpotlightCard';
+import ShimmerButton from '../components/ShimmerButton';
+import NumberTicker from '../components/NumberTicker';
+import AdminAnalytics from '../components/AdminAnalytics';
 
 export const AdminDashboard = () => {
   const { admin, logout, isAuthenticated, loading: authLoading } = useAuth();
@@ -338,149 +344,169 @@ export const AdminDashboard = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-      {/* Top Admin Header */}
-      <div className="bg-[#1a1f26] text-white rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xl border border-[#2e3744]">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-black text-amber-950 uppercase tracking-widest bg-gradient-to-r from-amber-400 to-amber-300 px-3 py-1 rounded-full shadow-sm">
-              Management Portal
-            </span>
-            <span className="text-xs text-stone-300">
-              Storage: {stats?.dbMode || 'Active'}
-            </span>
+    <div className="min-h-screen bg-[#F5F1EB] text-[#111111]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        {/* Top Admin Header - User Panel Editorial Theme */}
+        <div className="bg-white rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-[#E3DBD0] shadow-xs">
+          <div className="space-y-2">
+            <div className="flex flex-wrap items-center gap-2.5">
+              <Logo size="small" showTagline={false} asLink={false} />
+              <span className="text-[10px] font-bold text-[#2E7D32] uppercase tracking-widest bg-[#EAF3EB] px-3 py-1 rounded-full border border-[#C8E0CD]">
+                Management Portal
+              </span>
+              <span className="text-[11px] font-medium text-[#6B665F] bg-[#FAF8F5] px-2.5 py-0.5 rounded-full border border-[#E3DBD0]">
+                Storage: {stats?.dbMode || 'Active'}
+              </span>
+            </div>
+            <h1 className="font-heading font-black text-2xl sm:text-3xl text-[#111111] tracking-tight">
+              Balaji Auto &amp; Agro Administration
+            </h1>
+            <p className="text-xs text-[#6B665F]">
+              Logged in as <strong className="text-[#111111]">{admin?.email}</strong> ({admin?.role})
+            </p>
           </div>
-          <h1 className="font-heading font-extrabold text-2xl sm:text-3xl mt-2">
-            Balaji Auto &amp; Agro Administration
-          </h1>
-          <p className="text-xs text-stone-400 mt-0.5">
-            Logged in as {admin?.email} ({admin?.role})
-          </p>
+
+          <div className="flex flex-wrap items-center gap-2.5">
+            <a
+              href="/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="taste-btn flex items-center gap-1.5 bg-[#FAF8F5] hover:bg-[#EAE3D7] text-[#111111] font-bold text-xs px-4 py-2.5 rounded-full border border-[#E3DBD0] transition-colors"
+              title="Open customer website in new tab"
+            >
+              <ExternalLink className="w-3.5 h-3.5 text-[#2E7D32]" />
+              <span>View Public Site</span>
+            </a>
+            <button
+              onClick={loadAllData}
+              className="p-2.5 rounded-full bg-[#FAF8F5] hover:bg-[#EAE3D7] text-[#111111] transition-colors border border-[#E3DBD0] cursor-pointer"
+              title="Refresh Data"
+            >
+              <RefreshCw className="w-4 h-4" />
+            </button>
+            <button
+              onClick={logout}
+              className="flex items-center gap-2 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs px-4 py-2.5 rounded-full transition-all shadow-xs cursor-pointer"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              Sign Out
+            </button>
+          </div>
         </div>
 
-        <div className="flex items-center gap-2.5">
-          <a
-            href="/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white font-bold text-xs px-3.5 py-2.5 rounded-xl border border-white/15 transition-colors"
-            title="Open customer website in new tab"
-          >
-            <ExternalLink className="w-3.5 h-3.5" />
-            <span>View Public Site</span>
-          </a>
+        {/* Analytics Metric Cards - User Panel SpotlightCards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+          <SpotlightCard className="bg-white p-5 rounded-2xl border border-[#E3DBD0] shadow-xs hover:border-[#2E7D32]/60">
+            <div className="text-[11px] font-bold text-[#6B665F] uppercase tracking-wider">Total Inventory</div>
+            <div className="font-heading font-black text-2xl sm:text-3xl text-[#111111] mt-1">
+              <NumberTicker value={products.filter(p => p && p.category !== 'spare_part').length} />
+            </div>
+            <div className="text-[11px] text-[#2E7D32] font-bold mt-1">
+              {products.filter(p => p.category === 'tractor').length} Tractors • {products.filter(p => p.category === 'car').length} Cars • {products.filter(p => p.category === 'truck').length} Trucks
+            </div>
+          </SpotlightCard>
+
+          <SpotlightCard className="bg-white p-5 rounded-2xl border border-[#E3DBD0] shadow-xs hover:border-[#2E7D32]/60">
+            <div className="text-[11px] font-bold text-[#6B665F] uppercase tracking-wider">Total Yard Valuation</div>
+            <div className="font-heading font-black text-2xl sm:text-3xl text-[#2E7D32] mt-1">
+              {formatINR(products.filter(p => p && p.category !== 'spare_part').reduce((s, p) => s + (Number(p.price) || 0), 0))}
+            </div>
+            <div className="text-[11px] text-[#6B665F] mt-1">Live active assets</div>
+          </SpotlightCard>
+
+          <SpotlightCard className="bg-white p-5 rounded-2xl border border-[#E3DBD0] shadow-xs hover:border-[#2E7D32]/60">
+            <div className="text-[11px] font-bold text-[#6B665F] uppercase tracking-wider">Customer Enquiries</div>
+            <div className="font-heading font-black text-2xl sm:text-3xl text-[#111111] mt-1">
+              <NumberTicker value={enquiries.length} />
+            </div>
+            <div className="text-[11px] text-[#2E7D32] font-bold mt-1">
+              {enquiries.filter(e => e.status === 'new').length} New Pending Action
+            </div>
+          </SpotlightCard>
+
+          <SpotlightCard className="bg-white p-5 rounded-2xl border border-[#E3DBD0] shadow-xs hover:border-[#2E7D32]/60">
+            <div className="text-[11px] font-bold text-[#6B665F] uppercase tracking-wider">Vehicle Quotations</div>
+            <div className="font-heading font-black text-2xl sm:text-3xl text-[#D97706] mt-1">
+              <NumberTicker value={quotations.length} />
+            </div>
+            <div className="text-[11px] text-[#B45309] font-bold mt-1">
+              {quotations.filter(q => q.status === 'pending').length} Awaiting Valuation
+            </div>
+          </SpotlightCard>
+        </div>
+
+        {/* Pill Tab Navigation (User Panel Style) */}
+        <div className="flex flex-wrap items-center gap-2 bg-white p-2 rounded-2xl border border-[#E3DBD0] shadow-xs">
           <button
-            onClick={loadAllData}
-            className="p-2.5 rounded-xl bg-[#28313e] hover:bg-[#374456] text-stone-200 transition-colors border border-white/10"
-            title="Refresh Data"
+            onClick={() => setActiveTab('inventory')}
+            className={`px-4 py-2.5 rounded-full text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+              activeTab === 'inventory'
+                ? 'bg-[#2E7D32] text-white shadow-xs'
+                : 'text-[#6B665F] hover:text-[#111111] hover:bg-[#FAF8F5]'
+            }`}
           >
-            <RefreshCw className="w-4 h-4" />
+            <Package className="w-4 h-4" />
+            Vehicle Inventory ({products.length})
           </button>
+
           <button
-            onClick={logout}
-            className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow-md"
+            onClick={() => setActiveTab('analytics')}
+            className={`px-4 py-2.5 rounded-full text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+              activeTab === 'analytics'
+                ? 'bg-[#2E7D32] text-white shadow-xs'
+                : 'text-[#6B665F] hover:text-[#111111] hover:bg-[#FAF8F5]'
+            }`}
           >
-            <LogOut className="w-4 h-4" />
-            Sign Out
+            <BarChart3 className="w-4 h-4" />
+            Analytics &amp; Graphs
+          </button>
+
+          <button
+            onClick={() => setActiveTab('enquiries')}
+            className={`px-4 py-2.5 rounded-full text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+              activeTab === 'enquiries'
+                ? 'bg-[#2E7D32] text-white shadow-xs'
+                : 'text-[#6B665F] hover:text-[#111111] hover:bg-[#FAF8F5]'
+            }`}
+          >
+            <MessageSquare className="w-4 h-4" />
+            Customer Enquiries ({enquiries.length})
+          </button>
+
+          <button
+            onClick={() => setActiveTab('quotations')}
+            className={`px-4 py-2.5 rounded-full text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+              activeTab === 'quotations'
+                ? 'bg-[#2E7D32] text-white shadow-xs'
+                : 'text-[#6B665F] hover:text-[#111111] hover:bg-[#FAF8F5]'
+            }`}
+          >
+            <FileCheck className="w-4 h-4" />
+            Valuation Requests ({quotations.length})
           </button>
         </div>
-      </div>
 
-      {/* Analytics Metric Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-        <div className="bg-white p-5 rounded-2xl border border-[#e7ded2] shadow-sm">
-          <div className="text-xs font-semibold text-[#8c827a] uppercase">Total Inventory</div>
-          <div className="font-heading font-black text-2xl text-[#1a1f26] mt-1">
-            {stats?.totalProducts || products.length}
-          </div>
-          <div className="text-[11px] text-[#c85a17] font-bold mt-1">
-            {stats?.tractorsCount || 0} Tractors • {stats?.carsCount || 0} Cars
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-2xl border border-[#e7ded2] shadow-sm">
-          <div className="text-xs font-semibold text-[#8c827a] uppercase">Total Yard Valuation</div>
-          <div className="font-heading font-black text-2xl text-[#c85a17] mt-1">
-            {formatINR(stats?.totalInventoryValue || 0)}
-          </div>
-          <div className="text-[11px] text-[#6b7280] mt-1">Live active assets</div>
-        </div>
-
-        <div className="bg-white p-5 rounded-2xl border border-[#e7ded2] shadow-sm">
-          <div className="text-xs font-semibold text-[#8c827a] uppercase">Customer Enquiries</div>
-          <div className="font-heading font-black text-2xl text-[#1e5144] mt-1">
-            {enquiries.length}
-          </div>
-          <div className="text-[11px] text-[#1e5144] font-semibold mt-1">
-            {enquiries.filter(e => e.status === 'new').length} New Pending Action
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-2xl border border-[#e7ded2] shadow-sm">
-          <div className="text-xs font-semibold text-[#8c827a] uppercase">Vehicle Quotations</div>
-          <div className="font-heading font-black text-2xl text-[#d97706] mt-1">
-            {quotations.length}
-          </div>
-          <div className="text-[11px] text-[#b45309] font-semibold mt-1">
-            {quotations.filter(q => q.status === 'pending').length} Awaiting Valuation
-          </div>
-        </div>
-      </div>
-
-      {/* Tab Navigation */}
-      <div className="flex border-b border-[#e7ded2] gap-2">
-        <button
-          onClick={() => setActiveTab('inventory')}
-          className={`pb-3 px-4 text-xs font-bold transition-all flex items-center gap-2 border-b-2 ${
-            activeTab === 'inventory'
-              ? 'border-[#c85a17] text-[#c85a17] font-black'
-              : 'border-transparent text-[#6b7280] hover:text-[#1a1f26]'
-          }`}
-        >
-          <Package className="w-4 h-4" />
-          Vehicle Inventory ({products.length})
-        </button>
-
-        <button
-          onClick={() => setActiveTab('enquiries')}
-          className={`pb-3 px-4 text-xs font-bold transition-all flex items-center gap-2 border-b-2 ${
-            activeTab === 'enquiries'
-              ? 'border-[#c85a17] text-[#c85a17] font-black'
-              : 'border-transparent text-[#6b7280] hover:text-[#1a1f26]'
-          }`}
-        >
-          <MessageSquare className="w-4 h-4" />
-          Customer Enquiries ({enquiries.length})
-        </button>
-
-        <button
-          onClick={() => setActiveTab('quotations')}
-          className={`pb-3 px-4 text-xs font-bold transition-all flex items-center gap-2 border-b-2 ${
-            activeTab === 'quotations'
-              ? 'border-[#c85a17] text-[#c85a17] font-black'
-              : 'border-transparent text-[#6b7280] hover:text-[#1a1f26]'
-          }`}
-        >
-          <FileCheck className="w-4 h-4" />
-          Valuation Requests ({quotations.length})
-        </button>
-      </div>
+        {/* TAB 0: ANALYTICS & GRAPHS */}
+        {activeTab === 'analytics' && (
+          <AdminAnalytics products={products} enquiries={enquiries} quotations={quotations} />
+        )}
 
       {/* TAB 1: INVENTORY MANAGEMENT */}
       {activeTab === 'inventory' && (
         <div className="space-y-4">
           <div className="flex justify-between items-center">
-            <h2 className="font-heading font-bold text-slate-900 text-lg">Manage Stock</h2>
-            <button
+            <h2 className="font-heading font-bold text-[#111111] text-lg">Manage Stock</h2>
+            <ShimmerButton
               onClick={handleAddNew}
-              className="inline-flex items-center gap-2 bg-[#c85a17] hover:bg-[#b04a0b] text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-md transition-all"
+              variant="primary"
+              className="px-5 py-2.5 shadow-xs"
             >
               <Plus className="w-4 h-4" />
-              Add Vehicle
-            </button>
+              <span>Add Vehicle</span>
+            </ShimmerButton>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div className="bg-white rounded-3xl border border-[#E3DBD0] shadow-xs overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead className="bg-slate-50 text-slate-600 font-bold border-b border-slate-200 uppercase">
@@ -1032,21 +1058,23 @@ export const AdminDashboard = () => {
                 <button
                   type="button"
                   onClick={() => setShowProductModal(false)}
-                  className="px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100"
+                  className="px-5 py-2.5 rounded-full border border-[#E3DBD0] text-xs font-bold text-[#111111] hover:bg-[#FAF8F5] transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
-                <button
+                <ShimmerButton
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-[#c85a17] text-white text-xs font-bold hover:bg-[#b04a0b] shadow-md transition-all"
+                  variant="primary"
+                  className="px-6 py-2.5 shadow-sm"
                 >
-                  {editingProduct ? 'Update Vehicle' : 'Add to Stock'}
-                </button>
+                  <span>{editingProduct ? 'Update Vehicle' : 'Add to Stock'}</span>
+                </ShimmerButton>
               </div>
             </form>
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };
