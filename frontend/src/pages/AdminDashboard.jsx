@@ -111,13 +111,17 @@ export const AdminDashboard = () => {
       description: '',
       location: 'Balaji Yard, Tamil Nadu',
       status: 'available',
-      images: []
+      images: [],
+      customFields: []
     });
     setShowProductModal(true);
   };
 
   const handleEdit = (prod) => {
     setEditingProduct(prod);
+    const existingSpecs = prod.specs && typeof prod.specs === 'object'
+      ? Object.entries(prod.specs).map(([label, value]) => ({ label, value: String(value ?? '') }))
+      : [];
     setProductForm({
       title: prod.title || '',
       category: prod.category || 'tractor',
@@ -134,7 +138,8 @@ export const AdminDashboard = () => {
       description: prod.description || '',
       location: prod.location || 'Balaji Yard, Tamil Nadu',
       status: prod.status || 'available',
-      images: prod.images || []
+      images: prod.images || [],
+      customFields: existingSpecs
     });
     setShowProductModal(true);
   };
@@ -155,23 +160,8 @@ export const AdminDashboard = () => {
   const fileInputRef = useRef(null);
 
   const handleImageUpload = async (e) => {
-    const files = Array.from(e.target.files || []);
-    if (files.length === 0) return;
-
-    const currentImages = productForm.images || [];
-    const remainingSlots = 4 - currentImages.length;
-
-    if (remainingSlots <= 0) {
-      alert('You have already added 4 photos (maximum 4 photos allowed per product). Please remove an existing photo to upload a new one.');
-      if (e.target) e.target.value = '';
-      return;
-    }
-
-    if (files.length > remainingSlots) {
-      alert(`Only ${remainingSlots} more photo(s) can be added (maximum 4 photos per product). Uploading the first ${remainingSlots} selected.`);
-    }
-
-    const filesToUpload = files.slice(0, remainingSlots);
+    const filesToUpload = Array.from(e.target.files || []);
+    if (filesToUpload.length === 0) return;
 
     const readAsBase64 = (file) => new Promise((resolve) => {
       const reader = new FileReader();
@@ -240,20 +230,50 @@ export const AdminDashboard = () => {
     }));
   };
 
+  const handleAddCustomField = () => {
+    setProductForm(prev => ({
+      ...prev,
+      customFields: [...(prev.customFields || []), { label: '', value: '' }]
+    }));
+  };
+
+  const handleCustomFieldChange = (index, key, val) => {
+    setProductForm(prev => ({
+      ...prev,
+      customFields: (prev.customFields || []).map((item, i) =>
+        i === index ? { ...item, [key]: val } : item
+      )
+    }));
+  };
+
+  const handleRemoveCustomField = (index) => {
+    setProductForm(prev => ({
+      ...prev,
+      customFields: (prev.customFields || []).filter((_, i) => i !== index)
+    }));
+  };
+
   const handleSaveProduct = async (e) => {
     e.preventDefault();
     if (!productForm.images || productForm.images.length === 0) {
-      alert('Please upload at least 1 photo for this product (minimum 1, maximum 4 photos required).');
-      return;
-    }
-    if (productForm.images.length > 4) {
-      alert('Maximum 4 photos allowed per product. Please remove extra photos.');
+      alert('Please upload at least 1 photo for this product.');
       return;
     }
 
     try {
+      const specsObj = {};
+      (productForm.customFields || []).forEach(({ label, value }) => {
+        const cleanLabel = (label || '').trim();
+        const cleanValue = (value || '').trim();
+        if (cleanLabel && cleanValue) {
+          specsObj[cleanLabel] = cleanValue;
+        }
+      });
+
+      const { customFields, ...restForm } = productForm;
       const payload = {
-        ...productForm,
+        ...restForm,
+        specs: specsObj,
         status: productForm.status || 'available',
         price: Number(productForm.price),
         modelYear: Number(productForm.modelYear)
@@ -842,28 +862,28 @@ export const AdminDashboard = () => {
                 </div>
               </div>
 
-              {/* Product Photos Upload (Min 1, Max 4 Photos) */}
+              {/* Product Photos Upload (Unlimited Photos, Min 1) */}
               <div className="space-y-2.5 p-4 bg-slate-50/80 rounded-2xl border border-slate-200">
                 <div className="flex items-center justify-between">
                   <div>
                     <label className="block text-xs font-bold text-slate-800">
                       Product Photos <span className="text-red-500">*</span>
-                      <span className="text-[11px] font-normal text-slate-500 ml-1.5">(Min 1, Max 4 Photos)</span>
+                      <span className="text-[11px] font-normal text-slate-500 ml-1.5">(Min 1, Unlimited Photos)</span>
                     </label>
                     <p className="text-[11px] text-slate-500 mt-0.5">
-                      Upload 1 to 4 photos. These will be displayed in the product details page with interactive scroll.
+                      Upload as many photos as you need. All photos display in the product details gallery.
                     </p>
                   </div>
                   <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider ${
-                    productForm.images.length >= 1 && productForm.images.length <= 4
+                    productForm.images.length >= 1
                       ? 'bg-[#2E7D32]/10 text-[#2E7D32] border border-[#2E7D32]/30'
                       : 'bg-amber-100 text-amber-800 border border-amber-300'
                   }`}>
-                    {productForm.images.length} / 4 Selected
+                    {productForm.images.length} Selected
                   </span>
                 </div>
 
-                {/* Hidden File Input (Supports Multiple) */}
+                {/* Hidden File Input (Supports Unlimited Multiple) */}
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -873,56 +893,48 @@ export const AdminDashboard = () => {
                   className="hidden"
                 />
 
-                {/* 4 Interactive Photo Slots */}
+                {/* Unlimited Photo Grid */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
-                  {[0, 1, 2, 3].map((slotIdx) => {
-                    const hasImage = slotIdx < productForm.images.length;
-                    const rawUrl = hasImage ? productForm.images[slotIdx] : null;
-                    const imgUrl = rawUrl ? resolveImageUrl(rawUrl) : null;
-
-                    if (hasImage) {
-                      return (
-                        <div key={slotIdx} className="relative aspect-video rounded-xl overflow-hidden border-2 border-slate-300 bg-white shadow-xs group">
-                          <img 
-                            src={imgUrl} 
-                            alt={`Photo ${slotIdx + 1}`} 
-                            className="w-full h-full object-cover" 
-                            onError={(e) => {
-                              e.target.onerror = null;
-                              e.target.src = '/static-uploads/tractor-mahindra-575.jpg';
-                            }}
-                          />
-                          <span className="absolute top-1.5 left-1.5 bg-black/75 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm">
-                            {slotIdx === 0 ? '★ Cover' : `#${slotIdx + 1}`}
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => handleRemoveImage(slotIdx)}
-                            className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center transition-colors shadow-sm cursor-pointer"
-                            title="Remove photo"
-                          >
-                            <X className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      );
-                    }
-
-                    // Empty slot
+                  {productForm.images.map((rawUrl, slotIdx) => {
+                    const imgUrl = resolveImageUrl(rawUrl);
                     return (
-                      <button
-                        key={slotIdx}
-                        type="button"
-                        onClick={() => fileInputRef.current?.click()}
-                        disabled={uploadingImage}
-                        className="relative aspect-video rounded-xl border-2 border-dashed border-slate-300 hover:border-[#2E7D32] hover:bg-white text-slate-400 hover:text-[#2E7D32] flex flex-col items-center justify-center gap-1 transition-all p-2 cursor-pointer disabled:opacity-50"
-                      >
-                        <Camera className="w-5 h-5" />
-                        <span className="text-[10px] font-bold">
-                          {slotIdx === 0 ? '+ Cover Photo' : `+ Photo #${slotIdx + 1}`}
+                      <div key={slotIdx} className="relative aspect-video rounded-xl overflow-hidden border-2 border-slate-300 bg-white shadow-xs group">
+                        <img
+                          src={imgUrl}
+                          alt={`Photo ${slotIdx + 1}`}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = '/static-uploads/tractor-mahindra-575.jpg';
+                          }}
+                        />
+                        <span className="absolute top-1.5 left-1.5 bg-black/75 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm">
+                          {slotIdx === 0 ? '★ Cover' : `#${slotIdx + 1}`}
                         </span>
-                      </button>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveImage(slotIdx)}
+                          className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center transition-colors shadow-sm cursor-pointer"
+                          title="Remove photo"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     );
                   })}
+
+                  {/* Always-available Add More Photos Tile */}
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploadingImage}
+                    className="relative aspect-video rounded-xl border-2 border-dashed border-slate-300 hover:border-[#2E7D32] hover:bg-white text-slate-400 hover:text-[#2E7D32] flex flex-col items-center justify-center gap-1 transition-all p-2 cursor-pointer disabled:opacity-50"
+                  >
+                    <Camera className="w-5 h-5" />
+                    <span className="text-[10px] font-bold">
+                      {productForm.images.length === 0 ? '+ Cover Photo' : '+ Add More'}
+                    </span>
+                  </button>
                 </div>
 
                 {/* Upload Actions & Status */}
@@ -931,11 +943,11 @@ export const AdminDashboard = () => {
                     <button
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
-                      disabled={uploadingImage || productForm.images.length >= 4}
+                      disabled={uploadingImage}
                       className="inline-flex items-center gap-1.5 text-xs font-bold bg-[#2E7D32] hover:bg-[#236628] disabled:bg-slate-300 text-white px-3.5 py-1.5 rounded-lg transition-colors cursor-pointer"
                     >
                       <Upload className="w-3.5 h-3.5" />
-                      {uploadingImage ? 'Uploading Photos...' : 'Choose Photos (1 to 4)'}
+                      {uploadingImage ? 'Uploading Photos...' : 'Add Photos (Unlimited)'}
                     </button>
                     {uploadingImage && (
                       <span className="text-xs text-[#2E7D32] font-semibold animate-pulse">
@@ -950,6 +962,60 @@ export const AdminDashboard = () => {
                     </span>
                   )}
                 </div>
+              </div>
+
+              {/* Custom Specifications / Label & Value Fields */}
+              <div className="space-y-2.5 p-4 bg-slate-50/80 rounded-2xl border border-slate-200">
+                <div className="flex items-center justify-between gap-2">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-800">
+                      Custom Labels &amp; Details
+                      <span className="text-[11px] font-normal text-slate-500 ml-1.5">(Shown on User Product Page)</span>
+                    </label>
+                    <p className="text-[11px] text-slate-500 mt-0.5">
+                      Add custom label and value pairs (e.g. Tyre Condition: 85%, Insurance: Valid, Battery: New Exide).
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleAddCustomField}
+                    className="shrink-0 inline-flex items-center gap-1 text-xs font-bold bg-[#111111] hover:bg-[#2E7D32] text-white px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    Add Field
+                  </button>
+                </div>
+
+                {(productForm.customFields || []).length > 0 && (
+                  <div className="space-y-2 pt-1">
+                    {productForm.customFields.map((field, idx) => (
+                      <div key={idx} className="grid grid-cols-12 gap-2 items-center">
+                        <input
+                          type="text"
+                          placeholder="Label (e.g. Tyre Condition)"
+                          value={field.label}
+                          onChange={(e) => handleCustomFieldChange(idx, 'label', e.target.value)}
+                          className="col-span-5 text-xs bg-white border border-slate-200 rounded-xl px-3 py-2 font-semibold text-slate-800 focus:outline-none focus:border-[#2E7D32]"
+                        />
+                        <input
+                          type="text"
+                          placeholder="Value (e.g. 85% MRF Lug)"
+                          value={field.value}
+                          onChange={(e) => handleCustomFieldChange(idx, 'value', e.target.value)}
+                          className="col-span-6 text-xs bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-700 focus:outline-none focus:border-[#2E7D32]"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveCustomField(idx)}
+                          className="col-span-1 h-8 w-8 mx-auto rounded-lg bg-red-50 hover:bg-red-100 text-red-600 flex items-center justify-center transition-colors cursor-pointer"
+                          title="Remove field"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div>

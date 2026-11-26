@@ -257,6 +257,7 @@ export const ProductDetail = () => {
     hpPower,
     images = [],
     description,
+    specs = {},
     inspectionReport = {}
   } = product;
 
@@ -434,6 +435,28 @@ export const ProductDetail = () => {
                 </div>
               </div>
             </div>
+
+            {/* Custom Specifications & Details (Added by Admin) */}
+            {specs && Object.keys(specs).length > 0 && (
+              <div className="bg-white p-6 rounded-2xl border border-[#E3DBD0] space-y-4 shadow-sm">
+                <div className="flex items-center justify-between pb-3 border-b border-[#E3DBD0]">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-5 h-5 text-[#2E7D32]" />
+                    <h3 className="font-heading font-extrabold text-[#111111] text-sm uppercase tracking-wider">
+                      Additional Specifications &amp; Details
+                    </h3>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  {Object.entries(specs).map(([label, value]) => (
+                    <div key={label} className="bg-[#FAF8F5] p-3 rounded-xl border border-[#E3DBD0] flex items-center justify-between gap-3">
+                      <span className="text-[11px] text-[#6B665F] font-medium">{label}</span>
+                      <span className="font-bold text-[#111111] text-right">{value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Right Column: Key Info, Price & Instant Lead Booking (5 Cols) */}

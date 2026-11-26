@@ -25,8 +25,8 @@ router.post('/single', upload.single('image'), (req, res) => {
   }
 });
 
-// Multiple image upload (up to 6 files)
-router.post('/multiple', upload.array('images', 6), (req, res) => {
+// Multiple image upload (unlimited files)
+router.post('/multiple', upload.array('images'), (req, res) => {
   try {
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ success: false, message: 'No image files uploaded' });
