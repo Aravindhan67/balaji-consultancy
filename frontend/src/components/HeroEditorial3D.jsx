@@ -32,7 +32,7 @@ const EDITORIAL_SLIDES = [
  * Editorial Poster Hero inspired by Aldena Studio:
  * - Rich sunlit burnt-crimson / terracotta backdrop with architectural shadow & film grain
  * - Top micro category links & giant full-width Playfair Display serif masthead
- * - Lower-center 3D parallax crimson vehicle showcase
+ * - 3D Trio Showcase featuring Tractor (left), Car (center), and Truck (right)
  * - Bottom-left editorial serif subhead & 3 stacked micro-lines
  * - Bottom-right interactive 01/04 dark glass carousel card
  */
@@ -50,6 +50,7 @@ export const HeroEditorial3D = () => {
   const vehicleRotateY = useTransform(smoothX, [-0.5, 0.5], [-7, 7]);
   const vehicleRotateX = useTransform(smoothY, [-0.5, 0.5], [4, -4]);
   const vehicleTranslateX = useTransform(smoothX, [-0.5, 0.5], [-12, 12]);
+  const flankTranslateX = useTransform(smoothX, [-0.5, 0.5], [10, -10]);
   const titleShiftX = useTransform(smoothX, [-0.5, 0.5], [8, -8]);
 
   // Auto-advance editorial slide card every 5s
@@ -146,7 +147,7 @@ export const HeroEditorial3D = () => {
         perspective: '1400px',
         background: 'linear-gradient(135deg, #5C1510 0%, #9E291D 38%, #BD3323 64%, #4D100B 100%)'
       }}
-      className="relative overflow-hidden text-[#FAF8F5] min-h-[540px] sm:min-h-[620px] lg:min-h-[680px] flex flex-col justify-between border-b border-[#3D0D09]"
+      className="relative overflow-hidden text-[#FAF8F5] min-h-[540px] sm:min-h-[620px] lg:min-h-[690px] flex flex-col justify-between border-b border-[#3D0D09]"
     >
       {/* Dramatic Architectural Sunbeam & Shadow Overlay */}
       <div
@@ -175,7 +176,6 @@ export const HeroEditorial3D = () => {
 
       {/* Top Editorial Category Bar + Giant Serif Masthead */}
       <div className="relative z-20 max-w-7xl mx-auto w-full px-4 sm:px-8 pt-6 sm:pt-8 text-center">
-        {/* Top Micro Category Links (Matches Reference Top Menu Row) */}
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-7 text-[9px] sm:text-[10px] font-semibold tracking-[0.22em] uppercase text-white/80 mb-3 sm:mb-4">
           <Link to="/products?category=tractor" className="hover:text-white transition-colors">Tractors</Link>
           <Link to="/products?category=car" className="hover:text-white transition-colors">Cars</Link>
@@ -199,39 +199,84 @@ export const HeroEditorial3D = () => {
         </motion.h1>
       </div>
 
-      {/* Center Foreground Vehicle (Overlapping Lower Center with 3D Parallax) */}
-      <div className="relative z-10 flex items-center justify-center px-4 -mt-4 sm:-mt-10 lg:-mt-14 pointer-events-none">
-        <motion.div
-          style={{
-            rotateX: vehicleRotateX,
-            rotateY: vehicleRotateY,
-            x: vehicleTranslateX,
-            transformStyle: 'preserve-3d'
-          }}
-          initial={{ opacity: 0, scale: 0.92, y: 24 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full max-w-[275px] sm:max-w-[390px] lg:max-w-[460px]"
-        >
-          <div
-            aria-hidden="true"
-            className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-[85%] h-10 bg-black/65 blur-xl rounded-full"
-          />
-          <img
-            src={resolveImageUrl('/static-uploads/hero-studio-bmw-front.png')}
-            alt="Balaji Certified Crimson Vehicle"
-            draggable={false}
-            className="relative z-10 w-full h-auto object-contain select-none drop-shadow-[0_24px_38px_rgba(0,0,0,0.65)]"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = '/static-uploads/car-mahindra-bolero.jpg';
+      {/* Center Foreground: 3D Trio Showcase (Tractor + Car + Truck) */}
+      <div className="relative z-10 max-w-6xl mx-auto w-full flex items-center justify-center px-3 sm:px-6 -mt-2 sm:-mt-8 lg:-mt-12">
+        <div className="relative w-full flex items-center justify-center gap-2 sm:gap-4">
+          {/* LEFT FLANK: Certified Tractor */}
+          <motion.div
+            style={{ x: flankTranslateX, rotateY: 8 }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+            className="w-[30%] sm:w-[29%] lg:w-[27%] relative rounded-xl sm:rounded-2xl overflow-hidden border border-white/20 shadow-[0_20px_40px_rgba(0,0,0,0.5)] bg-black/30 -rotate-2 translate-y-2 sm:translate-y-4"
+          >
+            <Link to="/products?category=tractor" className="block group relative aspect-[4/3]">
+              <img
+                src={resolveImageUrl('/static-uploads/tractor-mahindra-575.jpg')}
+                alt="Certified Tractors"
+                className="w-full h-full object-cover brightness-95 contrast-105 group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-red-900/20" />
+              <span className="absolute bottom-2 left-2.5 text-[8px] sm:text-[10px] font-bold tracking-[0.2em] uppercase text-white/95">
+                Tractors
+              </span>
+            </Link>
+          </motion.div>
+
+          {/* CENTER FOREGROUND: Transparent Crimson Car */}
+          <motion.div
+            style={{
+              rotateX: vehicleRotateX,
+              rotateY: vehicleRotateY,
+              x: vehicleTranslateX,
+              transformStyle: 'preserve-3d'
             }}
-          />
-        </motion.div>
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="relative z-20 w-[44%] sm:w-[40%] lg:w-[36%] max-w-[400px] pointer-events-none"
+          >
+            <div
+              aria-hidden="true"
+              className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[84%] h-8 bg-black/65 blur-xl rounded-full"
+            />
+            <img
+              src={resolveImageUrl('/static-uploads/hero-studio-bmw-front.png')}
+              alt="Balaji Certified Cars"
+              draggable={false}
+              className="relative z-10 w-full h-auto object-contain select-none drop-shadow-[0_22px_35px_rgba(0,0,0,0.65)]"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = '/static-uploads/car-mahindra-bolero.jpg';
+              }}
+            />
+          </motion.div>
+
+          {/* RIGHT FLANK: Commercial Truck */}
+          <motion.div
+            style={{ x: flankTranslateX, rotateY: -8 }}
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+            className="w-[30%] sm:w-[29%] lg:w-[27%] relative rounded-xl sm:rounded-2xl overflow-hidden border border-white/20 shadow-[0_20px_40px_rgba(0,0,0,0.5)] bg-black/30 rotate-2 translate-y-2 sm:translate-y-4"
+          >
+            <Link to="/products?category=truck" className="block group relative aspect-[4/3]">
+              <img
+                src={resolveImageUrl('/static-uploads/truck-tata-407.jpg')}
+                alt="Commercial Trucks"
+                className="w-full h-full object-cover brightness-95 contrast-105 group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-red-900/20" />
+              <span className="absolute bottom-2 right-2.5 text-[8px] sm:text-[10px] font-bold tracking-[0.2em] uppercase text-white/95">
+                Trucks
+              </span>
+            </Link>
+          </motion.div>
+        </div>
       </div>
 
       {/* Bottom Editorial Row: Left Subhead & Micro-Copy | Right 01/04 Glass Card */}
-      <div className="relative z-20 max-w-7xl mx-auto w-full px-5 sm:px-10 pb-7 sm:pb-10 pt-2 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6">
+      <div className="relative z-20 max-w-7xl mx-auto w-full px-5 sm:px-10 pb-7 sm:pb-10 pt-4 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6">
         {/* Bottom-Left Editorial Lockup */}
         <div className="space-y-2.5 text-left">
           <h2
@@ -249,7 +294,6 @@ export const HeroEditorial3D = () => {
 
         {/* Bottom-Right Interactive 01/04 Dark Glass Card */}
         <div className="w-full sm:w-[300px] bg-black/55 backdrop-blur-md border border-white/15 p-4 sm:p-5 shadow-2xl">
-          {/* Top Progress Bar + Arrows + Counter */}
           <div className="flex items-center justify-between gap-3 mb-3">
             <div className="flex items-center gap-3 flex-1">
               <div className="flex items-center gap-1.5 text-white/85">
@@ -282,7 +326,6 @@ export const HeroEditorial3D = () => {
             </span>
           </div>
 
-          {/* Slide Content */}
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide.num}
