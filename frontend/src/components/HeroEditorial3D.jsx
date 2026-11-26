@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { RotateCw } from 'lucide-react';
 import { resolveImageUrl } from '../utils/imageUrl';
@@ -18,8 +18,10 @@ export const HeroEditorial3D = () => {
   const [frameIdx, setFrameIdx] = useState(0);
   const isDragging = useRef(false);
   const lastX = useRef(0);
+  const isInteracting = useRef(false);
+  const hasGyro = useRef(false);
 
-  // 3D Stage Mouse Parallax
+  // 3D Stage Mouse / Touch / Gyroscope Parallax
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const smoothX = useSpring(mouseX, { stiffness: 120, damping: 20 });
@@ -31,11 +33,69 @@ export const HeroEditorial3D = () => {
   const stripesShiftX = useTransform(smoothX, [-0.5, 0.5], [10, -10]);
   const textShiftX = useTransform(smoothX, [-0.5, 0.5], [-6, 6]);
 
-  const handleStageMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return undefined;
+
+    // 1. Mobile Gyroscope Tilt (deviceorientation)
+    const handleOrientation = (e) => {
+      if (e.gamma === null || e.beta === null || isInteracting.current) return;
+      hasGyro.current = true;
+      const nx = Math.max(-0.5, Math.min(0.5, e.gamma / 45));
+      const ny = Math.max(-0.5, Math.min(0.5, (e.beta - 40) / 45));
+      mouseX.set(nx);
+      mouseY.set(ny);
+    };
+
+    // 2. Mobile Shake / Acceleration Impulse (devicemotion)
+    const handleMotion = (e) => {
+      const acc = e.acceleration || e.accelerationIncludingGravity;
+      if (!acc || isInteracting.current) return;
+      const ax = acc.x || 0;
+      const ay = acc.y || 0;
+      if (Math.abs(ax) > 1.5 || Math.abs(ay) > 1.5) {
+        mouseX.set(Math.max(-0.5, Math.min(0.5, ax / 12)));
+        mouseY.set(Math.max(-0.5, Math.min(0.5, ay / 12)));
+      }
+    };
+
+    window.addEventListener('deviceorientation', handleOrientation, true);
+    window.addEventListener('devicemotion', handleMotion, true);
+
+    // 3. Ambient 3D Float on Mobile/Touch viewports when no gyro/touch is active
+    let rafId;
+    let startTime = performance.now();
+    const isTouchOrMobile = window.matchMedia?.('(hover: none)').matches || window.innerWidth < 1024;
+
+    const tick = (now) => {
+      if (isTouchOrMobile && !isInteracting.current && !hasGyro.current) {
+        const t = (now - startTime) / 1000;
+        mouseX.set(Math.sin(t * 1.3) * 0.32);
+        mouseY.set(Math.cos(t * 0.95) * 0.22);
+      }
+      rafId = requestAnimationFrame(tick);
+    };
+
+    if (isTouchOrMobile) {
+      rafId = requestAnimationFrame(tick);
+    }
+
+    return () => {
+      window.removeEventListener('deviceorientation', handleOrientation, true);
+      window.removeEventListener('devicemotion', handleMotion, true);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [mouseX, mouseY]);
+
+  const updatePointerCoords = (clientX, clientY, rect) => {
     if (!rect.width || !rect.height) return;
-    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
-    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+    mouseX.set(Math.max(-0.5, Math.min(0.5, (clientX - rect.left) / rect.width - 0.5)));
+    mouseY.set(Math.max(-0.5, Math.min(0.5, (clientY - rect.top) / rect.height - 0.5)));
+  };
+
+  const handleStageMouseMove = (e) => {
+    isInteracting.current = true;
+    updatePointerCoords(e.clientX, e.clientY, e.currentTarget.getBoundingClientRect());
 
     if (spinMode && isDragging.current) {
       const dx = e.clientX - lastX.current;
@@ -47,9 +107,29 @@ export const HeroEditorial3D = () => {
   };
 
   const handleStageMouseLeave = () => {
+    isInteracting.current = false;
     mouseX.set(0);
     mouseY.set(0);
     isDragging.current = false;
+  };
+
+  const handleStageTouchStart = (e) => {
+    isInteracting.current = true;
+    const touch = e.touches?.[0];
+    if (touch) {
+      updatePointerCoords(touch.clientX, touch.clientY, e.currentTarget.getBoundingClientRect());
+    }
+  };
+
+  const handleStageTouchMove = (e) => {
+    const touch = e.touches?.[0];
+    if (touch) {
+      updatePointerCoords(touch.clientX, touch.clientY, e.currentTarget.getBoundingClientRect());
+    }
+  };
+
+  const handleStageTouchEnd = () => {
+    isInteracting.current = false;
   };
 
   const handlePointerDown = (e) => {
@@ -70,6 +150,9 @@ export const HeroEditorial3D = () => {
     <section
       onMouseMove={handleStageMouseMove}
       onMouseLeave={handleStageMouseLeave}
+      onTouchStart={handleStageTouchStart}
+      onTouchMove={handleStageTouchMove}
+      onTouchEnd={handleStageTouchEnd}
       onPointerUp={handlePointerUp}
       style={{ perspective: '1400px' }}
       className="relative overflow-hidden bg-[#D9D4CC] border-b border-[#C9C2B6] min-h-[420px] sm:min-h-[520px] lg:min-h-[640px] flex items-start lg:items-center"
