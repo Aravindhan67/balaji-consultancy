@@ -15,7 +15,7 @@
       "ownership": "1st Owner",
       "hpPower": "45 HP",
       "images": [
-        "/uploads/tractor-mahindra-575.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758291/Sribalajiautoconsulting/uploads/tractor-mahindra-575.jpg"
       ],
       "featured": true,
       "status": "available",
@@ -47,7 +47,7 @@
       "ownership": "1st Owner",
       "hpPower": "52 HP",
       "images": [
-        "/uploads/tractor-swaraj-855.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758316/Sribalajiautoconsulting/uploads/tractor-swaraj-855.jpg"
       ],
       "featured": true,
       "status": "available",
@@ -79,7 +79,7 @@
       "ownership": "1st Owner",
       "hpPower": "50 HP",
       "images": [
-        "/uploads/tractor-john-deere-5050.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758282/Sribalajiautoconsulting/uploads/tractor-john-deere-5050.jpg"
       ],
       "featured": true,
       "status": "available",
@@ -111,7 +111,7 @@
       "ownership": "1st Owner",
       "hpPower": "50 HP",
       "images": [
-        "/uploads/tractor-sonalika-745.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758308/Sribalajiautoconsulting/uploads/tractor-sonalika-745.jpg"
       ],
       "featured": false,
       "status": "available",
@@ -142,7 +142,7 @@
       "ownership": "1st Owner",
       "hpPower": "42 HP",
       "images": [
-        "/uploads/tractor-massey-241.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758299/Sribalajiautoconsulting/uploads/tractor-massey-241.jpg"
       ],
       "featured": false,
       "status": "available",
@@ -173,7 +173,7 @@
       "ownership": "1st Owner",
       "hpPower": "89 BHP",
       "images": [
-        "/uploads/car-maruti-swift.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758186/Sribalajiautoconsulting/uploads/car-maruti-swift.jpg"
       ],
       "featured": true,
       "status": "available",
@@ -205,7 +205,7 @@
       "ownership": "1st Owner",
       "hpPower": "70 BHP",
       "images": [
-        "/uploads/car-mahindra-bolero.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758177/Sribalajiautoconsulting/uploads/car-mahindra-bolero.jpg"
       ],
       "featured": true,
       "status": "available",
@@ -237,7 +237,7 @@
       "ownership": "1st Owner",
       "hpPower": "82 BHP",
       "images": [
-        "/uploads/car-hyundai-i20.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758176/Sribalajiautoconsulting/uploads/car-hyundai-i20.jpg"
       ],
       "featured": true,
       "status": "available",
@@ -268,7 +268,7 @@
       "ownership": "1st Owner",
       "hpPower": "108 BHP",
       "images": [
-        "/uploads/car-tata-nexon.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758202/Sribalajiautoconsulting/uploads/car-tata-nexon.jpg"
       ],
       "featured": false,
       "status": "available",
@@ -299,7 +299,7 @@
       "ownership": "2nd Owner",
       "hpPower": "148 BHP",
       "images": [
-        "/uploads/car-toyota-innova.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758210/Sribalajiautoconsulting/uploads/car-toyota-innova.jpg"
       ],
       "featured": true,
       "status": "available",
@@ -330,7 +330,7 @@
       "ownership": "1st Owner",
       "hpPower": "67 BHP (CNG Mode)",
       "images": [
-        "/uploads/car-maruti-wagonr.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758193/Sribalajiautoconsulting/uploads/car-maruti-wagonr.jpg"
       ],
       "featured": false,
       "status": "available",
@@ -362,7 +362,7 @@
       "partNumber": "MHD-CL-8890-HD",
       "fitment": "Mahindra 575 DI, 475 DI, Swaraj 744 FE, 855 FE",
       "images": [
-        "/uploads/part-clutch-plate.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758243/Sribalajiautoconsulting/uploads/part-clutch-plate.jpg"
       ],
       "featured": true,
       "status": "available",
@@ -394,7 +394,7 @@
       "partNumber": "0445110-CRDI-BOSCH",
       "fitment": "Maruti Swift / Dzire Diesel 1.3 DDiS, Mahindra Bolero / Scorpio mHawk",
       "images": [
-        "/uploads/part-fuel-injector.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758245/Sribalajiautoconsulting/uploads/part-fuel-injector.jpg"
       ],
       "featured": true,
       "status": "available",
@@ -426,7 +426,7 @@
       "partNumber": "HYD-TRACT-5050",
       "fitment": "John Deere 5050D/5310, Sonalika 745, Massey Ferguson 1035/241",
       "images": [
-        "/uploads/part-hydraulic-pump.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758246/Sribalajiautoconsulting/uploads/part-hydraulic-pump.jpg"
       ],
       "featured": true,
       "status": "available",
@@ -458,7 +458,7 @@
       "partNumber": "BRK-CER-9912",
       "fitment": "Maruti Swift, Baleno, Dzire, Hyundai i20, Grand i10",
       "images": [
-        "/uploads/part-brake-pads.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758237/Sribalajiautoconsulting/uploads/part-brake-pads.jpg"
       ],
       "featured": false,
       "status": "available",
@@ -489,7 +489,7 @@
       "partNumber": "GAR-GT1549-MHD",
       "fitment": "Mahindra Bolero Power+, Bolero Neo, Scorpio 2.2 / 2.6 mHawk",
       "images": [
-        "/uploads/part-turbocharger.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758255/Sribalajiautoconsulting/uploads/part-turbocharger.jpg"
       ],
       "featured": false,
       "status": "available",
@@ -520,7 +520,7 @@
       "partNumber": "ML-88-TRACT",
       "fitment": "All Indian Tractors (Mahindra, Swaraj, John Deere, Sonalika, Eicher, Massey)",
       "images": [
-        "/uploads/part-tractor-battery.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758247/Sribalajiautoconsulting/uploads/part-tractor-battery.jpg"
       ],
       "featured": false,
       "status": "available",
@@ -552,10 +552,10 @@
       "location": "Balaji Yard, Tamil Nadu",
       "status": "sold",
       "images": [
-        "/uploads/whatsapp-image-2026-11-20-at-10-19-14-pm-1795428667783-922413619.jpeg",
-        "/uploads/whatsapp-image-2026-11-20-at-9-13-09-pm-1795428671893-508978871.jpeg",
-        "/uploads/tra-1795428676160-421087625.png",
-        "/uploads/ppt-1795428682155-807430524.jpeg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758327/Sribalajiautoconsulting/uploads/whatsapp-image-2026-11-20-at-10-19-14-pm-1795428667783-922413619.jpg",
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758327/Sribalajiautoconsulting/uploads/whatsapp-image-2026-11-20-at-9-13-09-pm-1795428671893-508978871.jpg",
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758258/Sribalajiautoconsulting/uploads/tra-1795428676160-421087625.png",
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758256/Sribalajiautoconsulting/uploads/ppt-1795428682155-807430524.jpg"
       ],
       "createdAt": "2026-11-23T10:11:24.831Z",
       "updatedAt": "2026-11-23T11:29:25.628Z"
@@ -575,7 +575,7 @@
       "ownership": "1st Owner",
       "hpPower": "100 HP",
       "images": [
-        "/uploads/truck-tata-407.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758326/Sribalajiautoconsulting/uploads/truck-tata-407.jpg"
       ],
       "featured": true,
       "status": "available",
@@ -605,7 +605,7 @@
       "ownership": "1st Owner",
       "hpPower": "80 HP",
       "images": [
-        "/uploads/truck-dost-pro.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758325/Sribalajiautoconsulting/uploads/truck-dost-pro.jpg"
       ],
       "featured": true,
       "status": "available",
@@ -635,7 +635,7 @@
       "ownership": "1st Owner",
       "hpPower": "45-55 HP",
       "images": [
-        "/uploads/equip-rotavator.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758221/Sribalajiautoconsulting/uploads/equip-rotavator.jpg"
       ],
       "featured": true,
       "status": "available",
@@ -665,7 +665,7 @@
       "ownership": "1st Owner",
       "hpPower": "40+ HP",
       "images": [
-        "/uploads/equip-trailer-cultivator.jpg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758222/Sribalajiautoconsulting/uploads/equip-trailer-cultivator.jpg"
       ],
       "featured": true,
       "status": "available",
@@ -708,7 +708,7 @@
       "condition": "Excellent",
       "notes": "sdfghjk",
       "photos": [
-        "/uploads/whatsapp-image-2026-11-20-at-9-13-09-pm-1795433129900-360400962.jpeg"
+        "https://res.cloudinary.com/sembr85a/image/upload/v1795758328/Sribalajiautoconsulting/uploads/whatsapp-image-2026-11-20-at-9-13-09-pm-1795433129900-360400962.jpg"
       ],
       "createdAt": "2026-11-23T11:25:50.725Z"
     }
