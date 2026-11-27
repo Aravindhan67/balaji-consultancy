@@ -97,7 +97,11 @@ app.get('/', (req, res) => {
   });
 });
 
-// API Routes
+// API Routes (disable HTTP caching so product/image updates appear immediately)
+app.use('/api', (req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  next();
+});
 app.use('/api/products', productRoutes);
 app.use('/api/enquiries', enquiryRoutes);
 app.use('/api/quotations', quotationRoutes);

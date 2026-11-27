@@ -52,7 +52,7 @@ export const api = {
         }
       });
       const url = `${API_BASE}/products${query.toString() ? `?${query.toString()}` : ''}`;
-      const res = await fetch(url);
+      const res = await fetch(url, { cache: 'no-store' });
       const json = await safeJson(res, { success: false, data: [] });
       if (json && !Array.isArray(json.data)) {
         json.data = [];
@@ -66,7 +66,7 @@ export const api = {
 
   async getProductById(id) {
     try {
-      const res = await fetch(`${API_BASE}/products/${id}`);
+      const res = await fetch(`${API_BASE}/products/${id}`, { cache: 'no-store' });
       return await safeJson(res, { success: false, data: null });
     } catch (err) {
       console.error('getProductById failed:', err);
