@@ -5,6 +5,7 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { connectDB } from './config/db.js';
+import { isCloudinaryConfigured } from './config/cloudinary.js';
 
 import productRoutes from './routes/productRoutes.js';
 import enquiryRoutes from './routes/enquiryRoutes.js';
@@ -110,6 +111,7 @@ app.get('/api/health', (req, res) => {
     status: 'OK',
     service: 'Balaji Auto & Agro Consultancy API',
     timestamp: new Date().toISOString(),
+    mediaStorage: isCloudinaryConfigured() ? 'Cloudinary' : 'Local Disk',
     uploadsDirectory: uploadsPath,
     environment: process.env.NODE_ENV || 'production'
   });

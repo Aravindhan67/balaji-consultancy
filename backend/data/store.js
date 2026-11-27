@@ -7,6 +7,7 @@ import { Enquiry } from '../models/Enquiry.js';
 import { Quotation } from '../models/Quotation.js';
 import { Review } from '../models/Review.js';
 import { initialProducts } from '../seed/initialData.js';
+import { deleteFromCloudinaryByUrl } from '../config/cloudinary.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -32,13 +33,13 @@ const extractUploadFilename = (imgUrl) => {
 };
 
 /**
- * Permanently delete local upload files that are no longer referenced by any product in the database.
+ * Permanently delete local upload files and Cloudinary assets that are no longer referenced by any product in the database.
  */
 const cleanupOrphanedProductImages = async (candidateImages = []) => {
   if (!Array.isArray(candidateImages) || candidateImages.length === 0) return;
 
-  const filenames = [...new Set(candidateImages.map(extractUploadFilename).filter(Boolean))];
-  if (filenames.length === 0) return;
+  const uniqueCandidates = [...new Set(candidateImages.filter((u) => typeof u === 'string' && u.trim()))];
+  if (uniqueCandidates.length === 0) return;
 
   try {
     let remainingProducts = [];
@@ -48,25 +49,35 @@ const cleanupOrphanedProductImages = async (candidateImages = []) => {
       remainingProducts = fileDb.products || [];
     }
 
-    const stillReferenced = new Set();
+    const stillReferencedUrls = new Set();
+    const stillReferencedFilenames = new Set();
     remainingProducts.forEach((p) => {
       if (Array.isArray(p?.images)) {
         p.images.forEach((img) => {
+          if (typeof img === 'string') stillReferencedUrls.add(img);
           const fname = extractUploadFilename(img);
-          if (fname) stillReferenced.add(fname);
+          if (fname) stillReferencedFilenames.add(fname);
         });
       }
     });
 
     const resolvedUploadsDir = path.resolve(uploadsDir);
-    filenames.forEach((fname) => {
-      if (stillReferenced.has(fname)) return;
+    for (const imgUrl of uniqueCandidates) {
+      if (imgUrl.includes('res.cloudinary.com')) {
+        if (!stillReferencedUrls.has(imgUrl)) {
+          await deleteFromCloudinaryByUrl(imgUrl);
+        }
+        continue;
+      }
+
+      const fname = extractUploadFilename(imgUrl);
+      if (!fname || stillReferencedFilenames.has(fname)) continue;
       const filePath = path.resolve(resolvedUploadsDir, fname);
-      if (!filePath.startsWith(resolvedUploadsDir + path.sep)) return;
+      if (!filePath.startsWith(resolvedUploadsDir + path.sep)) continue;
       if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
       }
-    });
+    }
   } catch (err) {
     console.error('Error cleaning up deleted product photos:', err.message);
   }
